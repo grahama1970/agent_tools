@@ -1,0 +1,5203 @@
+[
+  {
+    "table_index": 0,
+    "title": "Table 1",
+    "headers": [
+      "Rank",
+      "Ram",
+      "Industry",
+      "Revenue",
+      "Profit",
+      "Employees",
+      "Headquarters[note 1]",
+      "State-owned",
+      "Ref.",
+      "USD millions",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50"
+    ],
+    "data": [
+      {},
+      {
+        "Rank": {
+          "value": "Walmart",
+          "links": [
+            {
+              "text": "Walmart",
+              "href": "https://en.wikipedia.org/wiki/Walmart",
+              "title": "Walmart"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Retail",
+          "links": [
+            {
+              "text": "Retail",
+              "href": "https://en.wikipedia.org/wiki/Retail",
+              "title": "Retail"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$648,125",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$15,511",
+          "links": null
+        },
+        "Profit": {
+          "value": "2,100,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[1]",
+          "links": [
+            {
+              "text": "[1]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-W-1",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Amazon",
+          "links": [
+            {
+              "text": "Amazon",
+              "href": "https://en.wikipedia.org/wiki/Amazon_(company)",
+              "title": "Amazon (company)"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Retail information technology",
+          "links": [
+            {
+              "text": "Retail",
+              "href": "https://en.wikipedia.org/wiki/Retail",
+              "title": "Retail"
+            },
+            {
+              "text": "information technology",
+              "href": "https://en.wikipedia.org/wiki/Information_technology",
+              "title": "Information technology"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$574,785",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$30,425",
+          "links": null
+        },
+        "Profit": {
+          "value": "1,525,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[4]",
+          "links": [
+            {
+              "text": "[4]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-5",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "State Grid Corporation of China",
+          "links": [
+            {
+              "text": "State Grid Corporation of China",
+              "href": "https://en.wikipedia.org/wiki/State_Grid_Corporation_of_China",
+              "title": "State Grid Corporation of China"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Electricity",
+          "links": [
+            {
+              "text": "Electricity",
+              "href": "https://en.wikipedia.org/wiki/Electric_utility",
+              "title": "Electric utility"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$545,948",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$9,204",
+          "links": null
+        },
+        "Profit": {
+          "value": "1,361,423",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[5]",
+          "links": [
+            {
+              "text": "[5]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-6",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Saudi Aramco",
+          "links": [
+            {
+              "text": "Saudi Aramco",
+              "href": "https://en.wikipedia.org/wiki/Saudi_Aramco",
+              "title": "Saudi Aramco"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$488,980",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$129,699",
+          "links": null
+        },
+        "Profit": {
+          "value": "73,311",
+          "links": null
+        },
+        "Employees": {
+          "value": "Saudi Arabia",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Saudi_Arabia",
+              "title": "Saudi Arabia"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[6]",
+          "links": [
+            {
+              "text": "[6]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-7",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China Petrochemical Corporation",
+          "links": [
+            {
+              "text": "China Petrochemical Corporation",
+              "href": "https://en.wikipedia.org/wiki/China_Petrochemical_Corporation",
+              "title": "China Petrochemical Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$429,700",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$9,393",
+          "links": null
+        },
+        "Profit": {
+          "value": "513,434",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[7]",
+          "links": [
+            {
+              "text": "[7]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-8",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China National Petroleum Corporation",
+          "links": [
+            {
+              "text": "China National Petroleum Corporation",
+              "href": "https://en.wikipedia.org/wiki/China_National_Petroleum_Corporation",
+              "title": "China National Petroleum Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$476,000",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$25,250",
+          "links": null
+        },
+        "Profit": {
+          "value": "1,026,301",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[8]",
+          "links": [
+            {
+              "text": "[8]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-9",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Vitol",
+          "links": [
+            {
+              "text": "Vitol",
+              "href": "https://en.wikipedia.org/wiki/Vitol",
+              "title": "Vitol"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Commodities",
+          "links": [
+            {
+              "text": "Commodities",
+              "href": "https://en.wikipedia.org/wiki/Commodity_market",
+              "title": "Commodity market"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$400,000",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$13,000",
+          "links": null
+        },
+        "Profit": {
+          "value": "1,560",
+          "links": null
+        },
+        "Employees": {
+          "value": "Switzerland",
+          "links": [
+            {
+              "text": "Switzerland",
+              "href": "https://en.wikipedia.org/wiki/Switzerland",
+              "title": "Switzerland"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[9][10]",
+          "links": [
+            {
+              "text": "[9]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-10",
+              "title": null
+            },
+            {
+              "text": "[10]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-11",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Apple",
+          "links": [
+            {
+              "text": "Apple",
+              "href": "https://en.wikipedia.org/wiki/Apple_Inc.",
+              "title": "Apple Inc."
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Information technology",
+          "links": [
+            {
+              "text": "Information technology",
+              "href": "https://en.wikipedia.org/wiki/Information_technology",
+              "title": "Information technology"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$383,285",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$96,995",
+          "links": null
+        },
+        "Profit": {
+          "value": "161,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[11]",
+          "links": [
+            {
+              "text": "[11]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-12",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "UnitedHealth Group",
+          "links": [
+            {
+              "text": "UnitedHealth Group",
+              "href": "https://en.wikipedia.org/wiki/UnitedHealth_Group",
+              "title": "UnitedHealth Group"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Healthcare",
+              "title": "Healthcare"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$371,622",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$22,381",
+          "links": null
+        },
+        "Profit": {
+          "value": "440,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[12]",
+          "links": [
+            {
+              "text": "[12]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-13",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Berkshire Hathaway",
+          "links": [
+            {
+              "text": "Berkshire Hathaway",
+              "href": "https://en.wikipedia.org/wiki/Berkshire_Hathaway",
+              "title": "Berkshire Hathaway"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$364,482",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$96,223",
+          "links": null
+        },
+        "Profit": {
+          "value": "396,500",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[13]",
+          "links": [
+            {
+              "text": "[13]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-14",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "CVS Health",
+          "links": [
+            {
+              "text": "CVS Health",
+              "href": "https://en.wikipedia.org/wiki/CVS_Health",
+              "title": "CVS Health"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Healthcare",
+              "title": "Healthcare"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$357,776",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$8,344",
+          "links": null
+        },
+        "Profit": {
+          "value": "259,500",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[14]",
+          "links": [
+            {
+              "text": "[14]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-15",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Volkswagen Group",
+          "links": [
+            {
+              "text": "Volkswagen Group",
+              "href": "https://en.wikipedia.org/wiki/Volkswagen_Group",
+              "title": "Volkswagen Group"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive",
+              "title": "Automotive"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$348,408",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$17,945",
+          "links": null
+        },
+        "Profit": {
+          "value": "684,025",
+          "links": null
+        },
+        "Employees": {
+          "value": "Germany",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Germany",
+              "title": "Germany"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[15]",
+          "links": [
+            {
+              "text": "[15]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-16",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "ExxonMobil",
+          "links": [
+            {
+              "text": "ExxonMobil",
+              "href": "https://en.wikipedia.org/wiki/ExxonMobil",
+              "title": "ExxonMobil"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$344,582",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$36,010",
+          "links": null
+        },
+        "Profit": {
+          "value": "61,500",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[16]",
+          "links": [
+            {
+              "text": "[16]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-:0-17",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Shell",
+          "links": [
+            {
+              "text": "Shell",
+              "href": "https://en.wikipedia.org/wiki/Shell_plc",
+              "title": "Shell plc"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$323,183",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$19,359",
+          "links": null
+        },
+        "Profit": {
+          "value": "103,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United Kingdom",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_Kingdom",
+              "title": "United Kingdom"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[17]",
+          "links": [
+            {
+              "text": "[17]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-18",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China State Construction Engineering",
+          "links": [
+            {
+              "text": "China State Construction Engineering",
+              "href": "https://en.wikipedia.org/wiki/China_State_Construction_Engineering",
+              "title": "China State Construction Engineering"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Construction",
+          "links": [
+            {
+              "text": "Construction",
+              "href": "https://en.wikipedia.org/wiki/Construction",
+              "title": "Construction"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$320,431",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$4,272",
+          "links": null
+        },
+        "Profit": {
+          "value": "382,894",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[18]",
+          "links": [
+            {
+              "text": "[18]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-19",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Toyota",
+          "links": [
+            {
+              "text": "Toyota",
+              "href": "https://en.wikipedia.org/wiki/Toyota",
+              "title": "Toyota"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive",
+              "title": "Automotive"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$312,018",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$34,214",
+          "links": null
+        },
+        "Profit": {
+          "value": "380,793",
+          "links": null
+        },
+        "Employees": {
+          "value": "Japan",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Japan",
+              "title": "Japan"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[19]",
+          "links": [
+            {
+              "text": "[19]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-20",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "McKesson",
+          "links": [
+            {
+              "text": "McKesson",
+              "href": "https://en.wikipedia.org/wiki/McKesson_Corporation",
+              "title": "McKesson Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Healthcare",
+              "title": "Healthcare"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$308,951",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$3,002",
+          "links": null
+        },
+        "Profit": {
+          "value": "48,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[20]",
+          "links": [
+            {
+              "text": "[20]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-21",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Alphabet",
+          "links": [
+            {
+              "text": "Alphabet",
+              "href": "https://en.wikipedia.org/wiki/Alphabet_Inc.",
+              "title": "Alphabet Inc."
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Information technology",
+          "links": [
+            {
+              "text": "Information technology",
+              "href": "https://en.wikipedia.org/wiki/Information_technology",
+              "title": "Information technology"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$307,394",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$73,795",
+          "links": null
+        },
+        "Profit": {
+          "value": "182,502",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[21]",
+          "links": [
+            {
+              "text": "[21]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-22",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Cencora",
+          "links": [
+            {
+              "text": "Cencora",
+              "href": "https://en.wikipedia.org/wiki/Cencora",
+              "title": "Cencora"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Healthcare",
+              "title": "Healthcare"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$262,173",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$1,745",
+          "links": null
+        },
+        "Profit": {
+          "value": "44,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[22]",
+          "links": [
+            {
+              "text": "[22]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-23",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Microsoft",
+          "links": [
+            {
+              "text": "Microsoft",
+              "href": "https://en.wikipedia.org/wiki/Microsoft",
+              "title": "Microsoft"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Information technology",
+          "links": [
+            {
+              "text": "Information technology",
+              "href": "https://en.wikipedia.org/wiki/Information_technology",
+              "title": "Information technology"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$245,122",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$88,136",
+          "links": null
+        },
+        "Profit": {
+          "value": "228,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[23]",
+          "links": [
+            {
+              "text": "[23]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-24",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Trafigura",
+          "links": [
+            {
+              "text": "Trafigura",
+              "href": "https://en.wikipedia.org/wiki/Trafigura",
+              "title": "Trafigura"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Commodities",
+          "links": [
+            {
+              "text": "Commodities",
+              "href": "https://en.wikipedia.org/wiki/Commodity_market",
+              "title": "Commodity market"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$244,280",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$7,393",
+          "links": null
+        },
+        "Profit": {
+          "value": "12,479",
+          "links": null
+        },
+        "Employees": {
+          "value": "Singapore",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Singapore",
+              "title": "Singapore"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[24]",
+          "links": [
+            {
+              "text": "[24]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-25",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Costco",
+          "links": [
+            {
+              "text": "Costco",
+              "href": "https://en.wikipedia.org/wiki/Costco",
+              "title": "Costco"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Retail",
+          "links": [
+            {
+              "text": "Retail",
+              "href": "https://en.wikipedia.org/wiki/Retail",
+              "title": "Retail"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$242,290",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$6,292",
+          "links": null
+        },
+        "Profit": {
+          "value": "316,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[25]",
+          "links": [
+            {
+              "text": "[25]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-26",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "JPMorgan Chase",
+          "links": [
+            {
+              "text": "JPMorgan Chase",
+              "href": "https://en.wikipedia.org/wiki/JPMorgan_Chase",
+              "title": "JPMorgan Chase"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$239,425",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$49,552",
+          "links": null
+        },
+        "Profit": {
+          "value": "309,926",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[26]",
+          "links": [
+            {
+              "text": "[26]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-27",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Industrial and Commercial Bank of China",
+          "links": [
+            {
+              "text": "Industrial and Commercial Bank of China",
+              "href": "https://en.wikipedia.org/wiki/Industrial_and_Commercial_Bank_of_China",
+              "title": "Industrial and Commercial Bank of China"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$222,484",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$51,417",
+          "links": null
+        },
+        "Profit": {
+          "value": "419,252",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[27]",
+          "links": [
+            {
+              "text": "[27]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-28",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "TotalEnergies",
+          "links": [
+            {
+              "text": "TotalEnergies",
+              "href": "https://en.wikipedia.org/wiki/TotalEnergies",
+              "title": "TotalEnergies"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$218,945",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$21,384",
+          "links": null
+        },
+        "Profit": {
+          "value": "102,579",
+          "links": null
+        },
+        "Employees": {
+          "value": "France",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/France",
+              "title": "France"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[28]",
+          "links": [
+            {
+              "text": "[28]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-29",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Glencore",
+          "links": [
+            {
+              "text": "Glencore",
+              "href": "https://en.wikipedia.org/wiki/Glencore",
+              "title": "Glencore"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Commodities",
+          "links": [
+            {
+              "text": "Commodities",
+              "href": "https://en.wikipedia.org/wiki/Commodity_market",
+              "title": "Commodity market"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$217,829",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$4,280",
+          "links": null
+        },
+        "Profit": {
+          "value": "83,426",
+          "links": null
+        },
+        "Employees": {
+          "value": "Switzerland",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Switzerland",
+              "title": "Switzerland"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[29]",
+          "links": [
+            {
+              "text": "[29]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-30",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "BP",
+          "links": [
+            {
+              "text": "BP",
+              "href": "https://en.wikipedia.org/wiki/BP",
+              "title": "BP"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Fossil_fuel",
+              "title": "Fossil fuel"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$213,032",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$15,239",
+          "links": null
+        },
+        "Profit": {
+          "value": "79,400",
+          "links": null
+        },
+        "Employees": {
+          "value": "United Kingdom",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_Kingdom",
+              "title": "United Kingdom"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[30]",
+          "links": [
+            {
+              "text": "[30]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-31",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Cardinal Health",
+          "links": [
+            {
+              "text": "Cardinal Health",
+              "href": "https://en.wikipedia.org/wiki/Cardinal_Health",
+              "title": "Cardinal Health"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Health_care",
+              "title": "Health care"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$205,012",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$261",
+          "links": null
+        },
+        "Profit": {
+          "value": "47,520",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[31]",
+          "links": [
+            {
+              "text": "[31]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-32",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Stellantis",
+          "links": [
+            {
+              "text": "Stellantis",
+              "href": "https://en.wikipedia.org/wiki/Stellantis",
+              "title": "Stellantis"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive",
+              "title": "Automotive"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$204,908",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$20,103",
+          "links": null
+        },
+        "Profit": {
+          "value": "258,275",
+          "links": null
+        },
+        "Employees": {
+          "value": "Netherlands",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Netherlands",
+              "title": "Netherlands"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[32]",
+          "links": [
+            {
+              "text": "[32]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-33",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Chevron",
+          "links": [
+            {
+              "text": "Chevron",
+              "href": "https://en.wikipedia.org/wiki/Chevron_Corporation",
+              "title": "Chevron Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Oil and gas",
+          "links": [
+            {
+              "text": "Oil and gas",
+              "href": "https://en.wikipedia.org/wiki/Oil_and_gas",
+              "title": "Oil and gas"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$200,949",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$21,369",
+          "links": null
+        },
+        "Profit": {
+          "value": "45,600",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[33]",
+          "links": [
+            {
+              "text": "[33]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-34",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China Construction Bank",
+          "links": [
+            {
+              "text": "China Construction Bank",
+              "href": "https://en.wikipedia.org/wiki/China_Construction_Bank",
+              "title": "China Construction Bank"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$199,826",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$46,990",
+          "links": null
+        },
+        "Profit": {
+          "value": "376,871",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[34]",
+          "links": [
+            {
+              "text": "[34]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-35",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Samsung Electronics",
+          "links": [
+            {
+              "text": "Samsung Electronics",
+              "href": "https://en.wikipedia.org/wiki/Samsung_Electronics",
+              "title": "Samsung Electronics"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Electronics",
+          "links": [
+            {
+              "text": "Electronics",
+              "href": "https://en.wikipedia.org/wiki/Electronics",
+              "title": "Electronics"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$198,257",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$11,082",
+          "links": null
+        },
+        "Profit": {
+          "value": "267,860",
+          "links": null
+        },
+        "Employees": {
+          "value": "South Korea",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/South_Korea",
+              "title": "South Korea"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[35]",
+          "links": [
+            {
+              "text": "[35]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-36",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Foxconn",
+          "links": [
+            {
+              "text": "Foxconn",
+              "href": "https://en.wikipedia.org/wiki/Foxconn",
+              "title": "Foxconn"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Electronics",
+          "links": [
+            {
+              "text": "Electronics",
+              "href": "https://en.wikipedia.org/wiki/Electronics",
+              "title": "Electronics"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$197,876",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$4,563",
+          "links": null
+        },
+        "Profit": {
+          "value": "621,393",
+          "links": null
+        },
+        "Employees": {
+          "value": "Taiwan",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Taiwan",
+              "title": "Taiwan"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[36]",
+          "links": [
+            {
+              "text": "[36]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-37",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Cigna",
+          "links": [
+            {
+              "text": "Cigna",
+              "href": "https://en.wikipedia.org/wiki/Cigna",
+              "title": "Cigna"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Healthcare",
+              "title": "Healthcare"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$195,265",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$5,164",
+          "links": null
+        },
+        "Profit": {
+          "value": "71,413",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[37]",
+          "links": [
+            {
+              "text": "[37]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-38",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Agricultural Bank of China",
+          "links": [
+            {
+              "text": "Agricultural Bank of China",
+              "href": "https://en.wikipedia.org/wiki/Agricultural_Bank_of_China",
+              "title": "Agricultural Bank of China"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$192,398",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$38,049",
+          "links": null
+        },
+        "Profit": {
+          "value": "451,003",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[38]",
+          "links": [
+            {
+              "text": "[38]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-39",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Schwarz Gruppe",
+          "links": [
+            {
+              "text": "Schwarz Gruppe",
+              "href": "https://en.wikipedia.org/wiki/Schwarz_Gruppe",
+              "title": "Schwarz Gruppe"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Retail",
+          "links": [
+            {
+              "text": "Retail",
+              "href": "https://en.wikipedia.org/wiki/Retail",
+              "title": "Retail"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$180,576",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$16,988",
+          "links": null
+        },
+        "Profit": {
+          "value": "575,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "Germany",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Germany",
+              "title": "Germany"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[39]",
+          "links": [
+            {
+              "text": "[39]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-40",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China Railway Engineering Corporation",
+          "links": [
+            {
+              "text": "China Railway Engineering Corporation",
+              "href": "https://en.wikipedia.org/wiki/China_Railway_Engineering_Corporation",
+              "title": "China Railway Engineering Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Construction",
+          "links": [
+            {
+              "text": "Construction",
+              "href": "https://en.wikipedia.org/wiki/Construction",
+              "title": "Construction"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$178,563",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$2,152",
+          "links": null
+        },
+        "Profit": {
+          "value": "314,149",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[40]",
+          "links": [
+            {
+              "text": "[40]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-41",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Cargill",
+          "links": [
+            {
+              "text": "Cargill",
+              "href": "https://en.wikipedia.org/wiki/Cargill",
+              "title": "Cargill"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Conglomerate",
+          "links": [
+            {
+              "text": "Conglomerate",
+              "href": "https://en.wikipedia.org/wiki/Conglomerate_(company)",
+              "title": "Conglomerate (company)"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$177,000",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$17,641",
+          "links": null
+        },
+        "Profit": {
+          "value": "160,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[41]",
+          "links": [
+            {
+              "text": "[41]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-42",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Ford Motor Company",
+          "links": [
+            {
+              "text": "Ford Motor Company",
+              "href": "https://en.wikipedia.org/wiki/Ford_Motor_Company",
+              "title": "Ford Motor Company"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive",
+              "title": "Automotive"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$176,191",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$4,347",
+          "links": null
+        },
+        "Profit": {
+          "value": "177,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[42]",
+          "links": [
+            {
+              "text": "[42]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-43",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Bank of China",
+          "links": [
+            {
+              "text": "Bank of China",
+              "href": "https://en.wikipedia.org/wiki/Bank_of_China",
+              "title": "Bank of China"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$172,328",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$32,758",
+          "links": null
+        },
+        "Profit": {
+          "value": "306,931",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[43]",
+          "links": [
+            {
+              "text": "[43]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-44",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Bank of America",
+          "links": [
+            {
+              "text": "Bank of America",
+              "href": "https://en.wikipedia.org/wiki/Bank_of_America",
+              "title": "Bank of America"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$171,912",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$26,515",
+          "links": null
+        },
+        "Profit": {
+          "value": "212,985",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[44]",
+          "links": [
+            {
+              "text": "[44]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-45",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "General Motors",
+          "links": [
+            {
+              "text": "General Motors",
+              "href": "https://en.wikipedia.org/wiki/General_Motors",
+              "title": "General Motors"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive",
+              "title": "Automotive"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$171,842",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$10,127",
+          "links": null
+        },
+        "Profit": {
+          "value": "163,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[45]",
+          "links": [
+            {
+              "text": "[45]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-46",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Elevance Health",
+          "links": [
+            {
+              "text": "Elevance Health",
+              "href": "https://en.wikipedia.org/wiki/Elevance_Health",
+              "title": "Elevance Health"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Healthcare",
+          "links": [
+            {
+              "text": "Healthcare",
+              "href": "https://en.wikipedia.org/wiki/Health_care",
+              "title": "Health care"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$171,340",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$5,987",
+          "links": null
+        },
+        "Profit": {
+          "value": "104,900",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[46]",
+          "links": [
+            {
+              "text": "[46]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-47",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "BMW Group",
+          "links": [
+            {
+              "text": "BMW Group",
+              "href": "https://en.wikipedia.org/wiki/BMW_Group",
+              "title": "BMW Group"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive_industry",
+              "title": "Automotive industry"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$168,103",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$12,205",
+          "links": null
+        },
+        "Profit": {
+          "value": "154,950",
+          "links": null
+        },
+        "Employees": {
+          "value": "Germany",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Germany",
+              "title": "Germany"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[47]",
+          "links": [
+            {
+              "text": "[47]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-48",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Tata Group",
+          "links": [
+            {
+              "text": "Tata Group",
+              "href": "https://en.wikipedia.org/wiki/Tata_Group",
+              "title": "Tata Group"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Conglomerate",
+          "links": [
+            {
+              "text": "Conglomerate",
+              "href": "https://en.wikipedia.org/wiki/Conglomerate_(company)",
+              "title": "Conglomerate (company)"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$165,500",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$12,205",
+          "links": null
+        },
+        "Profit": {
+          "value": "1,028,000",
+          "links": null
+        },
+        "Employees": {
+          "value": "India",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/India",
+              "title": "India"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[48]",
+          "links": [
+            {
+              "text": "[48]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-49",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Mercedes-Benz Group",
+          "links": [
+            {
+              "text": "Mercedes-Benz Group",
+              "href": "https://en.wikipedia.org/wiki/Mercedes-Benz_Group",
+              "title": "Mercedes-Benz Group"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Automotive",
+          "links": [
+            {
+              "text": "Automotive",
+              "href": "https://en.wikipedia.org/wiki/Automotive_industry",
+              "title": "Automotive industry"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$165,638",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$15,417",
+          "links": null
+        },
+        "Profit": {
+          "value": "166,056",
+          "links": null
+        },
+        "Employees": {
+          "value": "Germany",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Germany",
+              "title": "Germany"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[49]",
+          "links": [
+            {
+              "text": "[49]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-50",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "China Railway Construction Corporation",
+          "links": [
+            {
+              "text": "China Railway Construction Corporation",
+              "href": "https://en.wikipedia.org/wiki/China_Railway_Construction_Corporation",
+              "title": "China Railway Construction Corporation"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Construction",
+          "links": [
+            {
+              "text": "Construction",
+              "href": "https://en.wikipedia.org/wiki/Construction",
+              "title": "Construction"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$160,847",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$1,701",
+          "links": null
+        },
+        "Profit": {
+          "value": "336,433",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[50]",
+          "links": [
+            {
+              "text": "[50]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-51",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Baowu",
+          "links": [
+            {
+              "text": "Baowu",
+              "href": "https://en.wikipedia.org/wiki/Baowu",
+              "title": "Baowu"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Steel",
+          "links": [
+            {
+              "text": "Steel",
+              "href": "https://en.wikipedia.org/wiki/Steel",
+              "title": "Steel"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$157,216",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$2,494",
+          "links": null
+        },
+        "Profit": {
+          "value": "258,697",
+          "links": null
+        },
+        "Employees": {
+          "value": "China",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[51]",
+          "links": [
+            {
+              "text": "[51]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-52",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Citigroup",
+          "links": [
+            {
+              "text": "Citigroup",
+              "href": "https://en.wikipedia.org/wiki/Citigroup",
+              "title": "Citigroup"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Financials",
+          "links": [
+            {
+              "text": "Financials",
+              "href": "https://en.wikipedia.org/wiki/Financial_services",
+              "title": "Financial services"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$156,820",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$9,228",
+          "links": null
+        },
+        "Profit": {
+          "value": "237,925",
+          "links": null
+        },
+        "Employees": {
+          "value": "United States",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[52]",
+          "links": [
+            {
+              "text": "[52]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-53",
+              "title": null
+            }
+          ]
+        }
+      },
+      {
+        "Rank": {
+          "value": "Enel",
+          "links": [
+            {
+              "text": "Enel",
+              "href": "https://en.wikipedia.org/wiki/Enel",
+              "title": "Enel"
+            }
+          ]
+        },
+        "Ram": {
+          "value": "Energy",
+          "links": [
+            {
+              "text": "Energy",
+              "href": "https://en.wikipedia.org/wiki/Energy",
+              "title": "Energy"
+            }
+          ]
+        },
+        "Industry": {
+          "value": "$147,100",
+          "links": null
+        },
+        "Revenue": {
+          "value": "$3,400",
+          "links": null
+        },
+        "Profit": {
+          "value": "61,060",
+          "links": null
+        },
+        "Employees": {
+          "value": "Italy",
+          "links": [
+            {
+              "text": "",
+              "href": "https://en.wikipedia.org/wiki/Italy",
+              "title": "Italy"
+            }
+          ]
+        },
+        "Headquarters[note 1]": {
+          "value": "",
+          "links": null
+        },
+        "State-owned": {
+          "value": "[53]",
+          "links": [
+            {
+              "text": "[53]",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue#cite_note-54",
+              "title": null
+            }
+          ]
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 51,
+      "column_count": 60
+    }
+  },
+  {
+    "table_index": 1,
+    "title": "Breakdown by country",
+    "headers": [
+      "Rank",
+      "Country",
+      "Companies",
+      "1",
+      "2",
+      "3",
+      "4",
+      "4",
+      "6",
+      "6",
+      "6",
+      "6",
+      "6",
+      "6",
+      "6",
+      "6",
+      "6"
+    ],
+    "data": [
+      {
+        "Rank": {
+          "value": "United States of America",
+          "links": [
+            {
+              "text": "United States of America",
+              "href": "https://en.wikipedia.org/wiki/United_States",
+              "title": "United States"
+            }
+          ]
+        },
+        "Country": {
+          "value": "22",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "China",
+          "links": [
+            {
+              "text": "China",
+              "href": "https://en.wikipedia.org/wiki/China",
+              "title": "China"
+            }
+          ]
+        },
+        "Country": {
+          "value": "11",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Germany",
+          "links": [
+            {
+              "text": "Germany",
+              "href": "https://en.wikipedia.org/wiki/Germany",
+              "title": "Germany"
+            }
+          ]
+        },
+        "Country": {
+          "value": "4",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "United Kingdom",
+          "links": [
+            {
+              "text": "United Kingdom",
+              "href": "https://en.wikipedia.org/wiki/United_Kingdom",
+              "title": "United Kingdom"
+            }
+          ]
+        },
+        "Country": {
+          "value": "2",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Switzerland",
+          "links": [
+            {
+              "text": "Switzerland",
+              "href": "https://en.wikipedia.org/wiki/Switzerland",
+              "title": "Switzerland"
+            }
+          ]
+        },
+        "Country": {
+          "value": "2",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Japan",
+          "links": [
+            {
+              "text": "Japan",
+              "href": "https://en.wikipedia.org/wiki/Japan",
+              "title": "Japan"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "France",
+          "links": [
+            {
+              "text": "France",
+              "href": "https://en.wikipedia.org/wiki/France",
+              "title": "France"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Italy",
+          "links": [
+            {
+              "text": "Italy",
+              "href": "https://en.wikipedia.org/wiki/Italy",
+              "title": "Italy"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "India",
+          "links": [
+            {
+              "text": "India",
+              "href": "https://en.wikipedia.org/wiki/India",
+              "title": "India"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Netherlands",
+          "links": [
+            {
+              "text": "Netherlands",
+              "href": "https://en.wikipedia.org/wiki/Netherlands",
+              "title": "Netherlands"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "South Korea",
+          "links": [
+            {
+              "text": "South Korea",
+              "href": "https://en.wikipedia.org/wiki/South_Korea",
+              "title": "South Korea"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Saudi Arabia",
+          "links": [
+            {
+              "text": "Saudi Arabia",
+              "href": "https://en.wikipedia.org/wiki/Saudi_Arabia",
+              "title": "Saudi Arabia"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Singapore",
+          "links": [
+            {
+              "text": "Singapore",
+              "href": "https://en.wikipedia.org/wiki/Singapore",
+              "title": "Singapore"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      },
+      {
+        "Rank": {
+          "value": "Taiwan",
+          "links": [
+            {
+              "text": "Taiwan",
+              "href": "https://en.wikipedia.org/wiki/Taiwan",
+              "title": "Taiwan"
+            }
+          ]
+        },
+        "Country": {
+          "value": "1",
+          "links": null
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 14,
+      "column_count": 17
+    }
+  },
+  {
+    "table_index": 2,
+    "title": "Table 3",
+    "headers": [
+      "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth",
+      "Concepts",
+      "People",
+      "Wealth",
+      "Lists",
+      "People",
+      "Organizations",
+      "Other",
+      "Related",
+      "Philanthropy",
+      "Sayings",
+      "Media"
+    ],
+    "data": [
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Capital accumulation\nOveraccumulation\nEconomic inequality\nWealth distribution\nIncome distribution\nConsumption distribution\nHistory of economic inequality\nInternational inequality\nElite\nOligarchy\nOverclass\nPlutocracy\nPlutonomy\nBroligarchy\nPrimitive accumulation of capital\nUpper class\nNouveau riche (new money)\nVieux riche (old money)\nLuxury goods\nVeblen goods\nConspicuous consumption\nConspicuous leisure\nLuxury beliefs\nPeople\nBillionaire\nCaptain of industry\nHigh-net-worth individual\nUHNWI\nMagnate\nBusiness\nMillionaire\nOligarch\nBusiness\nRussian\nUkrainian\nRobber baron\nWealth\nConcentration\nDistribution\nDynastic\nEffect\nGeography\nInherited\nManagement\nNational\nPaper\nReligion\nTax",
+          "links": [
+            {
+              "text": "Capital accumulation",
+              "href": "https://en.wikipedia.org/wiki/Capital_accumulation",
+              "title": "Capital accumulation"
+            },
+            {
+              "text": "Overaccumulation",
+              "href": "https://en.wikipedia.org/wiki/Overaccumulation",
+              "title": "Overaccumulation"
+            },
+            {
+              "text": "Economic inequality",
+              "href": "https://en.wikipedia.org/wiki/Economic_inequality",
+              "title": "Economic inequality"
+            },
+            {
+              "text": "Wealth distribution",
+              "href": "https://en.wikipedia.org/wiki/Wealth_distribution",
+              "title": "Wealth distribution"
+            },
+            {
+              "text": "Income distribution",
+              "href": "https://en.wikipedia.org/wiki/Income_distribution",
+              "title": "Income distribution"
+            },
+            {
+              "text": "Consumption distribution",
+              "href": "https://en.wikipedia.org/wiki/Consumption_distribution",
+              "title": "Consumption distribution"
+            },
+            {
+              "text": "History of economic inequality",
+              "href": "https://en.wikipedia.org/wiki/History_of_economic_inequality",
+              "title": "History of economic inequality"
+            },
+            {
+              "text": "International inequality",
+              "href": "https://en.wikipedia.org/wiki/International_inequality",
+              "title": "International inequality"
+            },
+            {
+              "text": "Elite",
+              "href": "https://en.wikipedia.org/wiki/Elite",
+              "title": "Elite"
+            },
+            {
+              "text": "Oligarchy",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Overclass",
+              "href": "https://en.wikipedia.org/wiki/Overclass",
+              "title": "Overclass"
+            },
+            {
+              "text": "Plutocracy",
+              "href": "https://en.wikipedia.org/wiki/Plutocracy",
+              "title": "Plutocracy"
+            },
+            {
+              "text": "Plutonomy",
+              "href": "https://en.wikipedia.org/wiki/Plutonomy",
+              "title": "Plutonomy"
+            },
+            {
+              "text": "Broligarchy",
+              "href": "https://en.wikipedia.org/wiki/Broligarchy",
+              "title": "Broligarchy"
+            },
+            {
+              "text": "Primitive accumulation of capital",
+              "href": "https://en.wikipedia.org/wiki/Primitive_accumulation_of_capital",
+              "title": "Primitive accumulation of capital"
+            },
+            {
+              "text": "Upper class",
+              "href": "https://en.wikipedia.org/wiki/Upper_class",
+              "title": "Upper class"
+            },
+            {
+              "text": "Nouveau riche (new money)",
+              "href": "https://en.wikipedia.org/wiki/Nouveau_riche",
+              "title": "Nouveau riche"
+            },
+            {
+              "text": "Vieux riche (old money)",
+              "href": "https://en.wikipedia.org/wiki/Old_money",
+              "title": "Old money"
+            },
+            {
+              "text": "Luxury goods",
+              "href": "https://en.wikipedia.org/wiki/Luxury_goods",
+              "title": "Luxury goods"
+            },
+            {
+              "text": "Veblen goods",
+              "href": "https://en.wikipedia.org/wiki/Veblen_good",
+              "title": "Veblen good"
+            },
+            {
+              "text": "Conspicuous consumption",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_consumption",
+              "title": "Conspicuous consumption"
+            },
+            {
+              "text": "Conspicuous leisure",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_leisure",
+              "title": "Conspicuous leisure"
+            },
+            {
+              "text": "Luxury beliefs",
+              "href": "https://en.wikipedia.org/wiki/Luxury_beliefs",
+              "title": "Luxury beliefs"
+            },
+            {
+              "text": "Billionaire",
+              "href": "https://en.wikipedia.org/wiki/Billionaire",
+              "title": "Billionaire"
+            },
+            {
+              "text": "Captain of industry",
+              "href": "https://en.wikipedia.org/wiki/Captain_of_industry",
+              "title": "Captain of industry"
+            },
+            {
+              "text": "High-net-worth individual",
+              "href": "https://en.wikipedia.org/wiki/High-net-worth_individual",
+              "title": "High-net-worth individual"
+            },
+            {
+              "text": "UHNWI",
+              "href": "https://en.wikipedia.org/wiki/Ultra_high-net-worth_individual",
+              "title": "Ultra high-net-worth individual"
+            },
+            {
+              "text": "Magnate",
+              "href": "https://en.wikipedia.org/wiki/Magnate",
+              "title": "Magnate"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_magnate",
+              "title": "Business magnate"
+            },
+            {
+              "text": "Millionaire",
+              "href": "https://en.wikipedia.org/wiki/Millionaire",
+              "title": "Millionaire"
+            },
+            {
+              "text": "Oligarch",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_oligarch",
+              "title": "Business oligarch"
+            },
+            {
+              "text": "Russian",
+              "href": "https://en.wikipedia.org/wiki/Russian_oligarchs",
+              "title": "Russian oligarchs"
+            },
+            {
+              "text": "Ukrainian",
+              "href": "https://en.wikipedia.org/wiki/Ukrainian_oligarchs",
+              "title": "Ukrainian oligarchs"
+            },
+            {
+              "text": "Robber baron",
+              "href": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+              "title": "Robber baron (industrialist)"
+            },
+            {
+              "text": "Wealth",
+              "href": "https://en.wikipedia.org/wiki/Wealth",
+              "title": "Wealth"
+            },
+            {
+              "text": "Concentration",
+              "href": "https://en.wikipedia.org/wiki/Wealth_concentration",
+              "title": "Wealth concentration"
+            },
+            {
+              "text": "Distribution",
+              "href": "https://en.wikipedia.org/wiki/Distribution_of_wealth",
+              "title": "Distribution of wealth"
+            },
+            {
+              "text": "Dynastic",
+              "href": "https://en.wikipedia.org/wiki/Dynastic_wealth",
+              "title": "Dynastic wealth"
+            },
+            {
+              "text": "Effect",
+              "href": "https://en.wikipedia.org/wiki/Wealth_effect",
+              "title": "Wealth effect"
+            },
+            {
+              "text": "Geography",
+              "href": "https://en.wikipedia.org/wiki/Geography_and_wealth",
+              "title": "Geography and wealth"
+            },
+            {
+              "text": "Inherited",
+              "href": "https://en.wikipedia.org/wiki/Inheritance",
+              "title": "Inheritance"
+            },
+            {
+              "text": "Management",
+              "href": "https://en.wikipedia.org/wiki/Wealth_management",
+              "title": "Wealth management"
+            },
+            {
+              "text": "National",
+              "href": "https://en.wikipedia.org/wiki/National_wealth",
+              "title": "National wealth"
+            },
+            {
+              "text": "Paper",
+              "href": "https://en.wikipedia.org/wiki/Paper_wealth",
+              "title": "Paper wealth"
+            },
+            {
+              "text": "Religion",
+              "href": "https://en.wikipedia.org/wiki/Wealth_and_religion",
+              "title": "Wealth and religion"
+            },
+            {
+              "text": "Tax",
+              "href": "https://en.wikipedia.org/wiki/Wealth_tax",
+              "title": "Wealth tax"
+            }
+          ]
+        },
+        "Concepts": {
+          "value": "Capital accumulation\nOveraccumulation\nEconomic inequality\nWealth distribution\nIncome distribution\nConsumption distribution\nHistory of economic inequality\nInternational inequality\nElite\nOligarchy\nOverclass\nPlutocracy\nPlutonomy\nBroligarchy\nPrimitive accumulation of capital\nUpper class\nNouveau riche (new money)\nVieux riche (old money)\nLuxury goods\nVeblen goods\nConspicuous consumption\nConspicuous leisure\nLuxury beliefs",
+          "links": [
+            {
+              "text": "Capital accumulation",
+              "href": "https://en.wikipedia.org/wiki/Capital_accumulation",
+              "title": "Capital accumulation"
+            },
+            {
+              "text": "Overaccumulation",
+              "href": "https://en.wikipedia.org/wiki/Overaccumulation",
+              "title": "Overaccumulation"
+            },
+            {
+              "text": "Economic inequality",
+              "href": "https://en.wikipedia.org/wiki/Economic_inequality",
+              "title": "Economic inequality"
+            },
+            {
+              "text": "Wealth distribution",
+              "href": "https://en.wikipedia.org/wiki/Wealth_distribution",
+              "title": "Wealth distribution"
+            },
+            {
+              "text": "Income distribution",
+              "href": "https://en.wikipedia.org/wiki/Income_distribution",
+              "title": "Income distribution"
+            },
+            {
+              "text": "Consumption distribution",
+              "href": "https://en.wikipedia.org/wiki/Consumption_distribution",
+              "title": "Consumption distribution"
+            },
+            {
+              "text": "History of economic inequality",
+              "href": "https://en.wikipedia.org/wiki/History_of_economic_inequality",
+              "title": "History of economic inequality"
+            },
+            {
+              "text": "International inequality",
+              "href": "https://en.wikipedia.org/wiki/International_inequality",
+              "title": "International inequality"
+            },
+            {
+              "text": "Elite",
+              "href": "https://en.wikipedia.org/wiki/Elite",
+              "title": "Elite"
+            },
+            {
+              "text": "Oligarchy",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Overclass",
+              "href": "https://en.wikipedia.org/wiki/Overclass",
+              "title": "Overclass"
+            },
+            {
+              "text": "Plutocracy",
+              "href": "https://en.wikipedia.org/wiki/Plutocracy",
+              "title": "Plutocracy"
+            },
+            {
+              "text": "Plutonomy",
+              "href": "https://en.wikipedia.org/wiki/Plutonomy",
+              "title": "Plutonomy"
+            },
+            {
+              "text": "Broligarchy",
+              "href": "https://en.wikipedia.org/wiki/Broligarchy",
+              "title": "Broligarchy"
+            },
+            {
+              "text": "Primitive accumulation of capital",
+              "href": "https://en.wikipedia.org/wiki/Primitive_accumulation_of_capital",
+              "title": "Primitive accumulation of capital"
+            },
+            {
+              "text": "Upper class",
+              "href": "https://en.wikipedia.org/wiki/Upper_class",
+              "title": "Upper class"
+            },
+            {
+              "text": "Nouveau riche (new money)",
+              "href": "https://en.wikipedia.org/wiki/Nouveau_riche",
+              "title": "Nouveau riche"
+            },
+            {
+              "text": "Vieux riche (old money)",
+              "href": "https://en.wikipedia.org/wiki/Old_money",
+              "title": "Old money"
+            },
+            {
+              "text": "Luxury goods",
+              "href": "https://en.wikipedia.org/wiki/Luxury_goods",
+              "title": "Luxury goods"
+            },
+            {
+              "text": "Veblen goods",
+              "href": "https://en.wikipedia.org/wiki/Veblen_good",
+              "title": "Veblen good"
+            },
+            {
+              "text": "Conspicuous consumption",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_consumption",
+              "title": "Conspicuous consumption"
+            },
+            {
+              "text": "Conspicuous leisure",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_leisure",
+              "title": "Conspicuous leisure"
+            },
+            {
+              "text": "Luxury beliefs",
+              "href": "https://en.wikipedia.org/wiki/Luxury_beliefs",
+              "title": "Luxury beliefs"
+            }
+          ]
+        },
+        "People": {
+          "value": "Billionaire\nCaptain of industry\nHigh-net-worth individual\nUHNWI\nMagnate\nBusiness\nMillionaire\nOligarch\nBusiness\nRussian\nUkrainian\nRobber baron",
+          "links": [
+            {
+              "text": "Billionaire",
+              "href": "https://en.wikipedia.org/wiki/Billionaire",
+              "title": "Billionaire"
+            },
+            {
+              "text": "Captain of industry",
+              "href": "https://en.wikipedia.org/wiki/Captain_of_industry",
+              "title": "Captain of industry"
+            },
+            {
+              "text": "High-net-worth individual",
+              "href": "https://en.wikipedia.org/wiki/High-net-worth_individual",
+              "title": "High-net-worth individual"
+            },
+            {
+              "text": "UHNWI",
+              "href": "https://en.wikipedia.org/wiki/Ultra_high-net-worth_individual",
+              "title": "Ultra high-net-worth individual"
+            },
+            {
+              "text": "Magnate",
+              "href": "https://en.wikipedia.org/wiki/Magnate",
+              "title": "Magnate"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_magnate",
+              "title": "Business magnate"
+            },
+            {
+              "text": "Millionaire",
+              "href": "https://en.wikipedia.org/wiki/Millionaire",
+              "title": "Millionaire"
+            },
+            {
+              "text": "Oligarch",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_oligarch",
+              "title": "Business oligarch"
+            },
+            {
+              "text": "Russian",
+              "href": "https://en.wikipedia.org/wiki/Russian_oligarchs",
+              "title": "Russian oligarchs"
+            },
+            {
+              "text": "Ukrainian",
+              "href": "https://en.wikipedia.org/wiki/Ukrainian_oligarchs",
+              "title": "Ukrainian oligarchs"
+            },
+            {
+              "text": "Robber baron",
+              "href": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+              "title": "Robber baron (industrialist)"
+            }
+          ]
+        },
+        "Wealth": {
+          "value": "Concentration\nDistribution\nDynastic\nEffect\nGeography\nInherited\nManagement\nNational\nPaper\nReligion\nTax",
+          "links": [
+            {
+              "text": "Concentration",
+              "href": "https://en.wikipedia.org/wiki/Wealth_concentration",
+              "title": "Wealth concentration"
+            },
+            {
+              "text": "Distribution",
+              "href": "https://en.wikipedia.org/wiki/Distribution_of_wealth",
+              "title": "Distribution of wealth"
+            },
+            {
+              "text": "Dynastic",
+              "href": "https://en.wikipedia.org/wiki/Dynastic_wealth",
+              "title": "Dynastic wealth"
+            },
+            {
+              "text": "Effect",
+              "href": "https://en.wikipedia.org/wiki/Wealth_effect",
+              "title": "Wealth effect"
+            },
+            {
+              "text": "Geography",
+              "href": "https://en.wikipedia.org/wiki/Geography_and_wealth",
+              "title": "Geography and wealth"
+            },
+            {
+              "text": "Inherited",
+              "href": "https://en.wikipedia.org/wiki/Inheritance",
+              "title": "Inheritance"
+            },
+            {
+              "text": "Management",
+              "href": "https://en.wikipedia.org/wiki/Wealth_management",
+              "title": "Wealth management"
+            },
+            {
+              "text": "National",
+              "href": "https://en.wikipedia.org/wiki/National_wealth",
+              "title": "National wealth"
+            },
+            {
+              "text": "Paper",
+              "href": "https://en.wikipedia.org/wiki/Paper_wealth",
+              "title": "Paper wealth"
+            },
+            {
+              "text": "Religion",
+              "href": "https://en.wikipedia.org/wiki/Wealth_and_religion",
+              "title": "Wealth and religion"
+            },
+            {
+              "text": "Tax",
+              "href": "https://en.wikipedia.org/wiki/Wealth_tax",
+              "title": "Wealth tax"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Capital accumulation\nOveraccumulation\nEconomic inequality\nWealth distribution\nIncome distribution\nConsumption distribution\nHistory of economic inequality\nInternational inequality\nElite\nOligarchy\nOverclass\nPlutocracy\nPlutonomy\nBroligarchy\nPrimitive accumulation of capital\nUpper class\nNouveau riche (new money)\nVieux riche (old money)\nLuxury goods\nVeblen goods\nConspicuous consumption\nConspicuous leisure\nLuxury beliefs",
+          "links": [
+            {
+              "text": "Capital accumulation",
+              "href": "https://en.wikipedia.org/wiki/Capital_accumulation",
+              "title": "Capital accumulation"
+            },
+            {
+              "text": "Overaccumulation",
+              "href": "https://en.wikipedia.org/wiki/Overaccumulation",
+              "title": "Overaccumulation"
+            },
+            {
+              "text": "Economic inequality",
+              "href": "https://en.wikipedia.org/wiki/Economic_inequality",
+              "title": "Economic inequality"
+            },
+            {
+              "text": "Wealth distribution",
+              "href": "https://en.wikipedia.org/wiki/Wealth_distribution",
+              "title": "Wealth distribution"
+            },
+            {
+              "text": "Income distribution",
+              "href": "https://en.wikipedia.org/wiki/Income_distribution",
+              "title": "Income distribution"
+            },
+            {
+              "text": "Consumption distribution",
+              "href": "https://en.wikipedia.org/wiki/Consumption_distribution",
+              "title": "Consumption distribution"
+            },
+            {
+              "text": "History of economic inequality",
+              "href": "https://en.wikipedia.org/wiki/History_of_economic_inequality",
+              "title": "History of economic inequality"
+            },
+            {
+              "text": "International inequality",
+              "href": "https://en.wikipedia.org/wiki/International_inequality",
+              "title": "International inequality"
+            },
+            {
+              "text": "Elite",
+              "href": "https://en.wikipedia.org/wiki/Elite",
+              "title": "Elite"
+            },
+            {
+              "text": "Oligarchy",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Overclass",
+              "href": "https://en.wikipedia.org/wiki/Overclass",
+              "title": "Overclass"
+            },
+            {
+              "text": "Plutocracy",
+              "href": "https://en.wikipedia.org/wiki/Plutocracy",
+              "title": "Plutocracy"
+            },
+            {
+              "text": "Plutonomy",
+              "href": "https://en.wikipedia.org/wiki/Plutonomy",
+              "title": "Plutonomy"
+            },
+            {
+              "text": "Broligarchy",
+              "href": "https://en.wikipedia.org/wiki/Broligarchy",
+              "title": "Broligarchy"
+            },
+            {
+              "text": "Primitive accumulation of capital",
+              "href": "https://en.wikipedia.org/wiki/Primitive_accumulation_of_capital",
+              "title": "Primitive accumulation of capital"
+            },
+            {
+              "text": "Upper class",
+              "href": "https://en.wikipedia.org/wiki/Upper_class",
+              "title": "Upper class"
+            },
+            {
+              "text": "Nouveau riche (new money)",
+              "href": "https://en.wikipedia.org/wiki/Nouveau_riche",
+              "title": "Nouveau riche"
+            },
+            {
+              "text": "Vieux riche (old money)",
+              "href": "https://en.wikipedia.org/wiki/Old_money",
+              "title": "Old money"
+            },
+            {
+              "text": "Luxury goods",
+              "href": "https://en.wikipedia.org/wiki/Luxury_goods",
+              "title": "Luxury goods"
+            },
+            {
+              "text": "Veblen goods",
+              "href": "https://en.wikipedia.org/wiki/Veblen_good",
+              "title": "Veblen good"
+            },
+            {
+              "text": "Conspicuous consumption",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_consumption",
+              "title": "Conspicuous consumption"
+            },
+            {
+              "text": "Conspicuous leisure",
+              "href": "https://en.wikipedia.org/wiki/Conspicuous_leisure",
+              "title": "Conspicuous leisure"
+            },
+            {
+              "text": "Luxury beliefs",
+              "href": "https://en.wikipedia.org/wiki/Luxury_beliefs",
+              "title": "Luxury beliefs"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Billionaire\nCaptain of industry\nHigh-net-worth individual\nUHNWI\nMagnate\nBusiness\nMillionaire\nOligarch\nBusiness\nRussian\nUkrainian\nRobber baron",
+          "links": [
+            {
+              "text": "Billionaire",
+              "href": "https://en.wikipedia.org/wiki/Billionaire",
+              "title": "Billionaire"
+            },
+            {
+              "text": "Captain of industry",
+              "href": "https://en.wikipedia.org/wiki/Captain_of_industry",
+              "title": "Captain of industry"
+            },
+            {
+              "text": "High-net-worth individual",
+              "href": "https://en.wikipedia.org/wiki/High-net-worth_individual",
+              "title": "High-net-worth individual"
+            },
+            {
+              "text": "UHNWI",
+              "href": "https://en.wikipedia.org/wiki/Ultra_high-net-worth_individual",
+              "title": "Ultra high-net-worth individual"
+            },
+            {
+              "text": "Magnate",
+              "href": "https://en.wikipedia.org/wiki/Magnate",
+              "title": "Magnate"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_magnate",
+              "title": "Business magnate"
+            },
+            {
+              "text": "Millionaire",
+              "href": "https://en.wikipedia.org/wiki/Millionaire",
+              "title": "Millionaire"
+            },
+            {
+              "text": "Oligarch",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_oligarch",
+              "title": "Business oligarch"
+            },
+            {
+              "text": "Russian",
+              "href": "https://en.wikipedia.org/wiki/Russian_oligarchs",
+              "title": "Russian oligarchs"
+            },
+            {
+              "text": "Ukrainian",
+              "href": "https://en.wikipedia.org/wiki/Ukrainian_oligarchs",
+              "title": "Ukrainian oligarchs"
+            },
+            {
+              "text": "Robber baron",
+              "href": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+              "title": "Robber baron (industrialist)"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Concentration\nDistribution\nDynastic\nEffect\nGeography\nInherited\nManagement\nNational\nPaper\nReligion\nTax",
+          "links": [
+            {
+              "text": "Concentration",
+              "href": "https://en.wikipedia.org/wiki/Wealth_concentration",
+              "title": "Wealth concentration"
+            },
+            {
+              "text": "Distribution",
+              "href": "https://en.wikipedia.org/wiki/Distribution_of_wealth",
+              "title": "Distribution of wealth"
+            },
+            {
+              "text": "Dynastic",
+              "href": "https://en.wikipedia.org/wiki/Dynastic_wealth",
+              "title": "Dynastic wealth"
+            },
+            {
+              "text": "Effect",
+              "href": "https://en.wikipedia.org/wiki/Wealth_effect",
+              "title": "Wealth effect"
+            },
+            {
+              "text": "Geography",
+              "href": "https://en.wikipedia.org/wiki/Geography_and_wealth",
+              "title": "Geography and wealth"
+            },
+            {
+              "text": "Inherited",
+              "href": "https://en.wikipedia.org/wiki/Inheritance",
+              "title": "Inheritance"
+            },
+            {
+              "text": "Management",
+              "href": "https://en.wikipedia.org/wiki/Wealth_management",
+              "title": "Wealth management"
+            },
+            {
+              "text": "National",
+              "href": "https://en.wikipedia.org/wiki/National_wealth",
+              "title": "National wealth"
+            },
+            {
+              "text": "Paper",
+              "href": "https://en.wikipedia.org/wiki/Paper_wealth",
+              "title": "Paper wealth"
+            },
+            {
+              "text": "Religion",
+              "href": "https://en.wikipedia.org/wiki/Wealth_and_religion",
+              "title": "Wealth and religion"
+            },
+            {
+              "text": "Tax",
+              "href": "https://en.wikipedia.org/wiki/Wealth_tax",
+              "title": "Wealth tax"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "People\nForbes list of billionaires\nList of centibillionaires\nFemale billionaires\nRichest royals\nWealthiest Americans\nWealthiest families\nOrganizations\nLargest companies by revenue\nLargest corporate profits and losses\nLargest corporations by market capitalization\nLargest financial services companies by revenue\nLargest manufacturing companies by revenue\nLargest software companies by revenue\nLargest technology companies by revenue\nCharities\nPhilanthropists\nUniversities\nEndowment size\nNumber of billionaire alumni\nOther\nCities by number of billionaires\nCountries by number of billionaires\nCountries by total wealth\nCountries by wealth inequality\nWealth inequality in the United States\nIncome inequality in the United States\nMost expensive items\nby category\nWealthiest animals",
+          "links": [
+            {
+              "text": "People",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_people_by_net_worth",
+              "title": "Lists of people by net worth"
+            },
+            {
+              "text": "Forbes list of billionaires",
+              "href": "https://en.wikipedia.org/wiki/The_World%27s_Billionaires",
+              "title": "The World's Billionaires"
+            },
+            {
+              "text": "List of centibillionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_centibillionaires",
+              "title": "List of centibillionaires"
+            },
+            {
+              "text": "Female billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_female_billionaires",
+              "title": "List of female billionaires"
+            },
+            {
+              "text": "Richest royals",
+              "href": "https://en.wikipedia.org/wiki/List_of_royalty_by_net_worth",
+              "title": "List of royalty by net worth"
+            },
+            {
+              "text": "Wealthiest Americans",
+              "href": "https://en.wikipedia.org/wiki/List_of_richest_Americans_in_history",
+              "title": "List of richest Americans in history"
+            },
+            {
+              "text": "Wealthiest families",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_families",
+              "title": "List of wealthiest families"
+            },
+            {
+              "text": "Organizations",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_organizations",
+              "title": "List of wealthiest organizations"
+            },
+            {
+              "text": "Largest companies by revenue",
+              "href": "",
+              "title": null
+            },
+            {
+              "text": "Largest corporate profits and losses",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_corporate_profits_and_losses",
+              "title": "List of largest corporate profits and losses"
+            },
+            {
+              "text": "Largest corporations by market capitalization",
+              "href": "https://en.wikipedia.org/wiki/List_of_public_corporations_by_market_capitalization",
+              "title": "List of public corporations by market capitalization"
+            },
+            {
+              "text": "Largest financial services companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_financial_services_companies_by_revenue",
+              "title": "List of largest financial services companies by revenue"
+            },
+            {
+              "text": "Largest manufacturing companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_manufacturing_companies_by_revenue",
+              "title": "List of largest manufacturing companies by revenue"
+            },
+            {
+              "text": "Largest software companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_the_largest_software_companies",
+              "title": "List of the largest software companies"
+            },
+            {
+              "text": "Largest technology companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue",
+              "title": "List of largest technology companies by revenue"
+            },
+            {
+              "text": "Charities",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_charitable_foundations",
+              "title": "List of wealthiest charitable foundations"
+            },
+            {
+              "text": "Philanthropists",
+              "href": "https://en.wikipedia.org/wiki/List_of_philanthropists",
+              "title": "List of philanthropists"
+            },
+            {
+              "text": "Endowment size",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_institutions_of_higher_education_by_endowment_size",
+              "title": "Lists of institutions of higher education by endowment size"
+            },
+            {
+              "text": "Number of billionaire alumni",
+              "href": "https://en.wikipedia.org/wiki/List_of_universities_by_number_of_billionaire_alumni",
+              "title": "List of universities by number of billionaire alumni"
+            },
+            {
+              "text": "Cities by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_cities_by_number_of_billionaires",
+              "title": "List of cities by number of billionaires"
+            },
+            {
+              "text": "Countries by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_the_number_of_billionaires",
+              "title": "List of countries by the number of billionaires"
+            },
+            {
+              "text": "Countries by total wealth",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_total_wealth",
+              "title": "List of countries by total wealth"
+            },
+            {
+              "text": "Countries by wealth inequality",
+              "href": "https://en.wikipedia.org/wiki/List_of_sovereign_states_by_wealth_inequality",
+              "title": "List of sovereign states by wealth inequality"
+            },
+            {
+              "text": "Wealth inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Wealth_inequality_in_the_United_States",
+              "title": "Wealth inequality in the United States"
+            },
+            {
+              "text": "Income inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Income_inequality_in_the_United_States",
+              "title": "Income inequality in the United States"
+            },
+            {
+              "text": "Most expensive items",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_most_expensive_items_by_category",
+              "title": "Lists of most expensive items by category"
+            },
+            {
+              "text": "by category",
+              "href": "https://en.wikipedia.org/wiki/Category:Lists_of_most_expensive_things",
+              "title": "Category:Lists of most expensive things"
+            },
+            {
+              "text": "Wealthiest animals",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_animals",
+              "title": "List of wealthiest animals"
+            }
+          ]
+        },
+        "Concepts": {
+          "value": "Forbes list of billionaires\nList of centibillionaires\nFemale billionaires\nRichest royals\nWealthiest Americans\nWealthiest families",
+          "links": [
+            {
+              "text": "Forbes list of billionaires",
+              "href": "https://en.wikipedia.org/wiki/The_World%27s_Billionaires",
+              "title": "The World's Billionaires"
+            },
+            {
+              "text": "List of centibillionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_centibillionaires",
+              "title": "List of centibillionaires"
+            },
+            {
+              "text": "Female billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_female_billionaires",
+              "title": "List of female billionaires"
+            },
+            {
+              "text": "Richest royals",
+              "href": "https://en.wikipedia.org/wiki/List_of_royalty_by_net_worth",
+              "title": "List of royalty by net worth"
+            },
+            {
+              "text": "Wealthiest Americans",
+              "href": "https://en.wikipedia.org/wiki/List_of_richest_Americans_in_history",
+              "title": "List of richest Americans in history"
+            },
+            {
+              "text": "Wealthiest families",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_families",
+              "title": "List of wealthiest families"
+            }
+          ]
+        },
+        "People": {
+          "value": "Largest companies by revenue\nLargest corporate profits and losses\nLargest corporations by market capitalization\nLargest financial services companies by revenue\nLargest manufacturing companies by revenue\nLargest software companies by revenue\nLargest technology companies by revenue\nCharities\nPhilanthropists\nUniversities\nEndowment size\nNumber of billionaire alumni",
+          "links": [
+            {
+              "text": "Largest companies by revenue",
+              "href": "",
+              "title": null
+            },
+            {
+              "text": "Largest corporate profits and losses",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_corporate_profits_and_losses",
+              "title": "List of largest corporate profits and losses"
+            },
+            {
+              "text": "Largest corporations by market capitalization",
+              "href": "https://en.wikipedia.org/wiki/List_of_public_corporations_by_market_capitalization",
+              "title": "List of public corporations by market capitalization"
+            },
+            {
+              "text": "Largest financial services companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_financial_services_companies_by_revenue",
+              "title": "List of largest financial services companies by revenue"
+            },
+            {
+              "text": "Largest manufacturing companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_manufacturing_companies_by_revenue",
+              "title": "List of largest manufacturing companies by revenue"
+            },
+            {
+              "text": "Largest software companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_the_largest_software_companies",
+              "title": "List of the largest software companies"
+            },
+            {
+              "text": "Largest technology companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue",
+              "title": "List of largest technology companies by revenue"
+            },
+            {
+              "text": "Charities",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_charitable_foundations",
+              "title": "List of wealthiest charitable foundations"
+            },
+            {
+              "text": "Philanthropists",
+              "href": "https://en.wikipedia.org/wiki/List_of_philanthropists",
+              "title": "List of philanthropists"
+            },
+            {
+              "text": "Endowment size",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_institutions_of_higher_education_by_endowment_size",
+              "title": "Lists of institutions of higher education by endowment size"
+            },
+            {
+              "text": "Number of billionaire alumni",
+              "href": "https://en.wikipedia.org/wiki/List_of_universities_by_number_of_billionaire_alumni",
+              "title": "List of universities by number of billionaire alumni"
+            }
+          ]
+        },
+        "Wealth": {
+          "value": "Cities by number of billionaires\nCountries by number of billionaires\nCountries by total wealth\nCountries by wealth inequality\nWealth inequality in the United States\nIncome inequality in the United States\nMost expensive items\nby category\nWealthiest animals",
+          "links": [
+            {
+              "text": "Cities by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_cities_by_number_of_billionaires",
+              "title": "List of cities by number of billionaires"
+            },
+            {
+              "text": "Countries by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_the_number_of_billionaires",
+              "title": "List of countries by the number of billionaires"
+            },
+            {
+              "text": "Countries by total wealth",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_total_wealth",
+              "title": "List of countries by total wealth"
+            },
+            {
+              "text": "Countries by wealth inequality",
+              "href": "https://en.wikipedia.org/wiki/List_of_sovereign_states_by_wealth_inequality",
+              "title": "List of sovereign states by wealth inequality"
+            },
+            {
+              "text": "Wealth inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Wealth_inequality_in_the_United_States",
+              "title": "Wealth inequality in the United States"
+            },
+            {
+              "text": "Income inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Income_inequality_in_the_United_States",
+              "title": "Income inequality in the United States"
+            },
+            {
+              "text": "Most expensive items",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_most_expensive_items_by_category",
+              "title": "Lists of most expensive items by category"
+            },
+            {
+              "text": "by category",
+              "href": "https://en.wikipedia.org/wiki/Category:Lists_of_most_expensive_things",
+              "title": "Category:Lists of most expensive things"
+            },
+            {
+              "text": "Wealthiest animals",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_animals",
+              "title": "List of wealthiest animals"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Forbes list of billionaires\nList of centibillionaires\nFemale billionaires\nRichest royals\nWealthiest Americans\nWealthiest families",
+          "links": [
+            {
+              "text": "Forbes list of billionaires",
+              "href": "https://en.wikipedia.org/wiki/The_World%27s_Billionaires",
+              "title": "The World's Billionaires"
+            },
+            {
+              "text": "List of centibillionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_centibillionaires",
+              "title": "List of centibillionaires"
+            },
+            {
+              "text": "Female billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_female_billionaires",
+              "title": "List of female billionaires"
+            },
+            {
+              "text": "Richest royals",
+              "href": "https://en.wikipedia.org/wiki/List_of_royalty_by_net_worth",
+              "title": "List of royalty by net worth"
+            },
+            {
+              "text": "Wealthiest Americans",
+              "href": "https://en.wikipedia.org/wiki/List_of_richest_Americans_in_history",
+              "title": "List of richest Americans in history"
+            },
+            {
+              "text": "Wealthiest families",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_families",
+              "title": "List of wealthiest families"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Largest companies by revenue\nLargest corporate profits and losses\nLargest corporations by market capitalization\nLargest financial services companies by revenue\nLargest manufacturing companies by revenue\nLargest software companies by revenue\nLargest technology companies by revenue\nCharities\nPhilanthropists\nUniversities\nEndowment size\nNumber of billionaire alumni",
+          "links": [
+            {
+              "text": "Largest companies by revenue",
+              "href": "",
+              "title": null
+            },
+            {
+              "text": "Largest corporate profits and losses",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_corporate_profits_and_losses",
+              "title": "List of largest corporate profits and losses"
+            },
+            {
+              "text": "Largest corporations by market capitalization",
+              "href": "https://en.wikipedia.org/wiki/List_of_public_corporations_by_market_capitalization",
+              "title": "List of public corporations by market capitalization"
+            },
+            {
+              "text": "Largest financial services companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_financial_services_companies_by_revenue",
+              "title": "List of largest financial services companies by revenue"
+            },
+            {
+              "text": "Largest manufacturing companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_manufacturing_companies_by_revenue",
+              "title": "List of largest manufacturing companies by revenue"
+            },
+            {
+              "text": "Largest software companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_the_largest_software_companies",
+              "title": "List of the largest software companies"
+            },
+            {
+              "text": "Largest technology companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue",
+              "title": "List of largest technology companies by revenue"
+            },
+            {
+              "text": "Charities",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_charitable_foundations",
+              "title": "List of wealthiest charitable foundations"
+            },
+            {
+              "text": "Philanthropists",
+              "href": "https://en.wikipedia.org/wiki/List_of_philanthropists",
+              "title": "List of philanthropists"
+            },
+            {
+              "text": "Endowment size",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_institutions_of_higher_education_by_endowment_size",
+              "title": "Lists of institutions of higher education by endowment size"
+            },
+            {
+              "text": "Number of billionaire alumni",
+              "href": "https://en.wikipedia.org/wiki/List_of_universities_by_number_of_billionaire_alumni",
+              "title": "List of universities by number of billionaire alumni"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Cities by number of billionaires\nCountries by number of billionaires\nCountries by total wealth\nCountries by wealth inequality\nWealth inequality in the United States\nIncome inequality in the United States\nMost expensive items\nby category\nWealthiest animals",
+          "links": [
+            {
+              "text": "Cities by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_cities_by_number_of_billionaires",
+              "title": "List of cities by number of billionaires"
+            },
+            {
+              "text": "Countries by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_the_number_of_billionaires",
+              "title": "List of countries by the number of billionaires"
+            },
+            {
+              "text": "Countries by total wealth",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_total_wealth",
+              "title": "List of countries by total wealth"
+            },
+            {
+              "text": "Countries by wealth inequality",
+              "href": "https://en.wikipedia.org/wiki/List_of_sovereign_states_by_wealth_inequality",
+              "title": "List of sovereign states by wealth inequality"
+            },
+            {
+              "text": "Wealth inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Wealth_inequality_in_the_United_States",
+              "title": "Wealth inequality in the United States"
+            },
+            {
+              "text": "Income inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Income_inequality_in_the_United_States",
+              "title": "Income inequality in the United States"
+            },
+            {
+              "text": "Most expensive items",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_most_expensive_items_by_category",
+              "title": "Lists of most expensive items by category"
+            },
+            {
+              "text": "by category",
+              "href": "https://en.wikipedia.org/wiki/Category:Lists_of_most_expensive_things",
+              "title": "Category:Lists of most expensive things"
+            },
+            {
+              "text": "Wealthiest animals",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_animals",
+              "title": "List of wealthiest animals"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Diseases of affluence\nAffluenza\nAcquired situational narcissism\nArgumentum ad crumenam\nProsperity theology\nPhilanthropy\nGospel of Wealth\nThe Giving Pledge\nPhilanthrocapitalism\nVenture philanthropy\nSayings\nThe rich get richer and the poor get poorer\nSocialism for the rich and capitalism for the poor\nToo big to fail\nMedia\nDas Kapital\nPlutus\nGreek god of wealth\nSuperclass\nList\nThe Theory of the Leisure Class\nWealth\nThe Wealth of Nations",
+          "links": [
+            {
+              "text": "Diseases of affluence",
+              "href": "https://en.wikipedia.org/wiki/Diseases_of_affluence",
+              "title": "Diseases of affluence"
+            },
+            {
+              "text": "Affluenza",
+              "href": "https://en.wikipedia.org/wiki/Affluenza",
+              "title": "Affluenza"
+            },
+            {
+              "text": "Acquired situational narcissism",
+              "href": "https://en.wikipedia.org/wiki/Narcissism#Celebrity_narcissism",
+              "title": "Narcissism"
+            },
+            {
+              "text": "Argumentum ad crumenam",
+              "href": "https://en.wikipedia.org/wiki/Argumentum_ad_crumenam",
+              "title": "Argumentum ad crumenam"
+            },
+            {
+              "text": "Prosperity theology",
+              "href": "https://en.wikipedia.org/wiki/Prosperity_theology",
+              "title": "Prosperity theology"
+            },
+            {
+              "text": "Philanthropy",
+              "href": "https://en.wikipedia.org/wiki/Philanthropy",
+              "title": "Philanthropy"
+            },
+            {
+              "text": "Gospel of Wealth",
+              "href": "https://en.wikipedia.org/wiki/The_Gospel_of_Wealth",
+              "title": "The Gospel of Wealth"
+            },
+            {
+              "text": "The Giving Pledge",
+              "href": "https://en.wikipedia.org/wiki/The_Giving_Pledge",
+              "title": "The Giving Pledge"
+            },
+            {
+              "text": "Philanthrocapitalism",
+              "href": "https://en.wikipedia.org/wiki/Philanthrocapitalism",
+              "title": "Philanthrocapitalism"
+            },
+            {
+              "text": "Venture philanthropy",
+              "href": "https://en.wikipedia.org/wiki/Venture_philanthropy",
+              "title": "Venture philanthropy"
+            },
+            {
+              "text": "The rich get richer and the poor get poorer",
+              "href": "https://en.wikipedia.org/wiki/The_rich_get_richer_and_the_poor_get_poorer",
+              "title": "The rich get richer and the poor get poorer"
+            },
+            {
+              "text": "Socialism for the rich and capitalism for the poor",
+              "href": "https://en.wikipedia.org/wiki/Socialism_for_the_rich_and_capitalism_for_the_poor",
+              "title": "Socialism for the rich and capitalism for the poor"
+            },
+            {
+              "text": "Too big to fail",
+              "href": "https://en.wikipedia.org/wiki/Too_big_to_fail",
+              "title": "Too big to fail"
+            },
+            {
+              "text": "Das Kapital",
+              "href": "https://en.wikipedia.org/wiki/Das_Kapital",
+              "title": "Das Kapital"
+            },
+            {
+              "text": "Plutus",
+              "href": "https://en.wikipedia.org/wiki/Plutus_(play)",
+              "title": "Plutus (play)"
+            },
+            {
+              "text": "Greek god of wealth",
+              "href": "https://en.wikipedia.org/wiki/Plutus",
+              "title": "Plutus"
+            },
+            {
+              "text": "Superclass",
+              "href": "https://en.wikipedia.org/wiki/Superclass_(book)",
+              "title": "Superclass (book)"
+            },
+            {
+              "text": "List",
+              "href": "https://en.wikipedia.org/wiki/The_Superclass_List",
+              "title": "The Superclass List"
+            },
+            {
+              "text": "The Theory of the Leisure Class",
+              "href": "https://en.wikipedia.org/wiki/The_Theory_of_the_Leisure_Class",
+              "title": "The Theory of the Leisure Class"
+            },
+            {
+              "text": "Wealth",
+              "href": "https://en.wikipedia.org/wiki/Wealth_(film)",
+              "title": "Wealth (film)"
+            },
+            {
+              "text": "The Wealth of Nations",
+              "href": "https://en.wikipedia.org/wiki/The_Wealth_of_Nations",
+              "title": "The Wealth of Nations"
+            }
+          ]
+        },
+        "Concepts": {
+          "value": "Diseases of affluence\nAffluenza\nAcquired situational narcissism\nArgumentum ad crumenam\nProsperity theology",
+          "links": [
+            {
+              "text": "Diseases of affluence",
+              "href": "https://en.wikipedia.org/wiki/Diseases_of_affluence",
+              "title": "Diseases of affluence"
+            },
+            {
+              "text": "Affluenza",
+              "href": "https://en.wikipedia.org/wiki/Affluenza",
+              "title": "Affluenza"
+            },
+            {
+              "text": "Acquired situational narcissism",
+              "href": "https://en.wikipedia.org/wiki/Narcissism#Celebrity_narcissism",
+              "title": "Narcissism"
+            },
+            {
+              "text": "Argumentum ad crumenam",
+              "href": "https://en.wikipedia.org/wiki/Argumentum_ad_crumenam",
+              "title": "Argumentum ad crumenam"
+            },
+            {
+              "text": "Prosperity theology",
+              "href": "https://en.wikipedia.org/wiki/Prosperity_theology",
+              "title": "Prosperity theology"
+            }
+          ]
+        },
+        "People": {
+          "value": "Gospel of Wealth\nThe Giving Pledge\nPhilanthrocapitalism\nVenture philanthropy",
+          "links": [
+            {
+              "text": "Gospel of Wealth",
+              "href": "https://en.wikipedia.org/wiki/The_Gospel_of_Wealth",
+              "title": "The Gospel of Wealth"
+            },
+            {
+              "text": "The Giving Pledge",
+              "href": "https://en.wikipedia.org/wiki/The_Giving_Pledge",
+              "title": "The Giving Pledge"
+            },
+            {
+              "text": "Philanthrocapitalism",
+              "href": "https://en.wikipedia.org/wiki/Philanthrocapitalism",
+              "title": "Philanthrocapitalism"
+            },
+            {
+              "text": "Venture philanthropy",
+              "href": "https://en.wikipedia.org/wiki/Venture_philanthropy",
+              "title": "Venture philanthropy"
+            }
+          ]
+        },
+        "Wealth": {
+          "value": "The rich get richer and the poor get poorer\nSocialism for the rich and capitalism for the poor\nToo big to fail",
+          "links": [
+            {
+              "text": "The rich get richer and the poor get poorer",
+              "href": "https://en.wikipedia.org/wiki/The_rich_get_richer_and_the_poor_get_poorer",
+              "title": "The rich get richer and the poor get poorer"
+            },
+            {
+              "text": "Socialism for the rich and capitalism for the poor",
+              "href": "https://en.wikipedia.org/wiki/Socialism_for_the_rich_and_capitalism_for_the_poor",
+              "title": "Socialism for the rich and capitalism for the poor"
+            },
+            {
+              "text": "Too big to fail",
+              "href": "https://en.wikipedia.org/wiki/Too_big_to_fail",
+              "title": "Too big to fail"
+            }
+          ]
+        },
+        "Lists": {
+          "value": "Das Kapital\nPlutus\nGreek god of wealth\nSuperclass\nList\nThe Theory of the Leisure Class\nWealth\nThe Wealth of Nations",
+          "links": [
+            {
+              "text": "Das Kapital",
+              "href": "https://en.wikipedia.org/wiki/Das_Kapital",
+              "title": "Das Kapital"
+            },
+            {
+              "text": "Plutus",
+              "href": "https://en.wikipedia.org/wiki/Plutus_(play)",
+              "title": "Plutus (play)"
+            },
+            {
+              "text": "Greek god of wealth",
+              "href": "https://en.wikipedia.org/wiki/Plutus",
+              "title": "Plutus"
+            },
+            {
+              "text": "Superclass",
+              "href": "https://en.wikipedia.org/wiki/Superclass_(book)",
+              "title": "Superclass (book)"
+            },
+            {
+              "text": "List",
+              "href": "https://en.wikipedia.org/wiki/The_Superclass_List",
+              "title": "The Superclass List"
+            },
+            {
+              "text": "The Theory of the Leisure Class",
+              "href": "https://en.wikipedia.org/wiki/The_Theory_of_the_Leisure_Class",
+              "title": "The Theory of the Leisure Class"
+            },
+            {
+              "text": "Wealth",
+              "href": "https://en.wikipedia.org/wiki/Wealth_(film)",
+              "title": "Wealth (film)"
+            },
+            {
+              "text": "The Wealth of Nations",
+              "href": "https://en.wikipedia.org/wiki/The_Wealth_of_Nations",
+              "title": "The Wealth of Nations"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Diseases of affluence\nAffluenza\nAcquired situational narcissism\nArgumentum ad crumenam\nProsperity theology",
+          "links": [
+            {
+              "text": "Diseases of affluence",
+              "href": "https://en.wikipedia.org/wiki/Diseases_of_affluence",
+              "title": "Diseases of affluence"
+            },
+            {
+              "text": "Affluenza",
+              "href": "https://en.wikipedia.org/wiki/Affluenza",
+              "title": "Affluenza"
+            },
+            {
+              "text": "Acquired situational narcissism",
+              "href": "https://en.wikipedia.org/wiki/Narcissism#Celebrity_narcissism",
+              "title": "Narcissism"
+            },
+            {
+              "text": "Argumentum ad crumenam",
+              "href": "https://en.wikipedia.org/wiki/Argumentum_ad_crumenam",
+              "title": "Argumentum ad crumenam"
+            },
+            {
+              "text": "Prosperity theology",
+              "href": "https://en.wikipedia.org/wiki/Prosperity_theology",
+              "title": "Prosperity theology"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Gospel of Wealth\nThe Giving Pledge\nPhilanthrocapitalism\nVenture philanthropy",
+          "links": [
+            {
+              "text": "Gospel of Wealth",
+              "href": "https://en.wikipedia.org/wiki/The_Gospel_of_Wealth",
+              "title": "The Gospel of Wealth"
+            },
+            {
+              "text": "The Giving Pledge",
+              "href": "https://en.wikipedia.org/wiki/The_Giving_Pledge",
+              "title": "The Giving Pledge"
+            },
+            {
+              "text": "Philanthrocapitalism",
+              "href": "https://en.wikipedia.org/wiki/Philanthrocapitalism",
+              "title": "Philanthrocapitalism"
+            },
+            {
+              "text": "Venture philanthropy",
+              "href": "https://en.wikipedia.org/wiki/Venture_philanthropy",
+              "title": "Venture philanthropy"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "The rich get richer and the poor get poorer\nSocialism for the rich and capitalism for the poor\nToo big to fail",
+          "links": [
+            {
+              "text": "The rich get richer and the poor get poorer",
+              "href": "https://en.wikipedia.org/wiki/The_rich_get_richer_and_the_poor_get_poorer",
+              "title": "The rich get richer and the poor get poorer"
+            },
+            {
+              "text": "Socialism for the rich and capitalism for the poor",
+              "href": "https://en.wikipedia.org/wiki/Socialism_for_the_rich_and_capitalism_for_the_poor",
+              "title": "Socialism for the rich and capitalism for the poor"
+            },
+            {
+              "text": "Too big to fail",
+              "href": "https://en.wikipedia.org/wiki/Too_big_to_fail",
+              "title": "Too big to fail"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Das Kapital\nPlutus\nGreek god of wealth\nSuperclass\nList\nThe Theory of the Leisure Class\nWealth\nThe Wealth of Nations",
+          "links": [
+            {
+              "text": "Das Kapital",
+              "href": "https://en.wikipedia.org/wiki/Das_Kapital",
+              "title": "Das Kapital"
+            },
+            {
+              "text": "Plutus",
+              "href": "https://en.wikipedia.org/wiki/Plutus_(play)",
+              "title": "Plutus (play)"
+            },
+            {
+              "text": "Greek god of wealth",
+              "href": "https://en.wikipedia.org/wiki/Plutus",
+              "title": "Plutus"
+            },
+            {
+              "text": "Superclass",
+              "href": "https://en.wikipedia.org/wiki/Superclass_(book)",
+              "title": "Superclass (book)"
+            },
+            {
+              "text": "List",
+              "href": "https://en.wikipedia.org/wiki/The_Superclass_List",
+              "title": "The Superclass List"
+            },
+            {
+              "text": "The Theory of the Leisure Class",
+              "href": "https://en.wikipedia.org/wiki/The_Theory_of_the_Leisure_Class",
+              "title": "The Theory of the Leisure Class"
+            },
+            {
+              "text": "Wealth",
+              "href": "https://en.wikipedia.org/wiki/Wealth_(film)",
+              "title": "Wealth (film)"
+            },
+            {
+              "text": "The Wealth of Nations",
+              "href": "https://en.wikipedia.org/wiki/The_Wealth_of_Nations",
+              "title": "The Wealth of Nations"
+            }
+          ]
+        }
+      },
+      {
+        "hide.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:\"[ \"}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:\" ]\"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}vteExtreme wealth": {
+          "value": "Category\nby country",
+          "links": [
+            {
+              "text": "Category",
+              "href": "https://en.wikipedia.org/wiki/Category:Wealth",
+              "title": "Category:Wealth"
+            },
+            {
+              "text": "by country",
+              "href": "https://en.wikipedia.org/wiki/Category:Wealth_by_country",
+              "title": "Category:Wealth by country"
+            }
+          ]
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 14,
+      "column_count": 12
+    }
+  },
+  {
+    "table_index": 3,
+    "title": "Table 4",
+    "headers": [
+      "People",
+      "Wealth"
+    ],
+    "data": [
+      {
+        "People": {
+          "value": "Billionaire\nCaptain of industry\nHigh-net-worth individual\nUHNWI\nMagnate\nBusiness\nMillionaire\nOligarch\nBusiness\nRussian\nUkrainian\nRobber baron",
+          "links": [
+            {
+              "text": "Billionaire",
+              "href": "https://en.wikipedia.org/wiki/Billionaire",
+              "title": "Billionaire"
+            },
+            {
+              "text": "Captain of industry",
+              "href": "https://en.wikipedia.org/wiki/Captain_of_industry",
+              "title": "Captain of industry"
+            },
+            {
+              "text": "High-net-worth individual",
+              "href": "https://en.wikipedia.org/wiki/High-net-worth_individual",
+              "title": "High-net-worth individual"
+            },
+            {
+              "text": "UHNWI",
+              "href": "https://en.wikipedia.org/wiki/Ultra_high-net-worth_individual",
+              "title": "Ultra high-net-worth individual"
+            },
+            {
+              "text": "Magnate",
+              "href": "https://en.wikipedia.org/wiki/Magnate",
+              "title": "Magnate"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_magnate",
+              "title": "Business magnate"
+            },
+            {
+              "text": "Millionaire",
+              "href": "https://en.wikipedia.org/wiki/Millionaire",
+              "title": "Millionaire"
+            },
+            {
+              "text": "Oligarch",
+              "href": "https://en.wikipedia.org/wiki/Oligarchy",
+              "title": "Oligarchy"
+            },
+            {
+              "text": "Business",
+              "href": "https://en.wikipedia.org/wiki/Business_oligarch",
+              "title": "Business oligarch"
+            },
+            {
+              "text": "Russian",
+              "href": "https://en.wikipedia.org/wiki/Russian_oligarchs",
+              "title": "Russian oligarchs"
+            },
+            {
+              "text": "Ukrainian",
+              "href": "https://en.wikipedia.org/wiki/Ukrainian_oligarchs",
+              "title": "Ukrainian oligarchs"
+            },
+            {
+              "text": "Robber baron",
+              "href": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+              "title": "Robber baron (industrialist)"
+            }
+          ]
+        }
+      },
+      {
+        "People": {
+          "value": "Concentration\nDistribution\nDynastic\nEffect\nGeography\nInherited\nManagement\nNational\nPaper\nReligion\nTax",
+          "links": [
+            {
+              "text": "Concentration",
+              "href": "https://en.wikipedia.org/wiki/Wealth_concentration",
+              "title": "Wealth concentration"
+            },
+            {
+              "text": "Distribution",
+              "href": "https://en.wikipedia.org/wiki/Distribution_of_wealth",
+              "title": "Distribution of wealth"
+            },
+            {
+              "text": "Dynastic",
+              "href": "https://en.wikipedia.org/wiki/Dynastic_wealth",
+              "title": "Dynastic wealth"
+            },
+            {
+              "text": "Effect",
+              "href": "https://en.wikipedia.org/wiki/Wealth_effect",
+              "title": "Wealth effect"
+            },
+            {
+              "text": "Geography",
+              "href": "https://en.wikipedia.org/wiki/Geography_and_wealth",
+              "title": "Geography and wealth"
+            },
+            {
+              "text": "Inherited",
+              "href": "https://en.wikipedia.org/wiki/Inheritance",
+              "title": "Inheritance"
+            },
+            {
+              "text": "Management",
+              "href": "https://en.wikipedia.org/wiki/Wealth_management",
+              "title": "Wealth management"
+            },
+            {
+              "text": "National",
+              "href": "https://en.wikipedia.org/wiki/National_wealth",
+              "title": "National wealth"
+            },
+            {
+              "text": "Paper",
+              "href": "https://en.wikipedia.org/wiki/Paper_wealth",
+              "title": "Paper wealth"
+            },
+            {
+              "text": "Religion",
+              "href": "https://en.wikipedia.org/wiki/Wealth_and_religion",
+              "title": "Wealth and religion"
+            },
+            {
+              "text": "Tax",
+              "href": "https://en.wikipedia.org/wiki/Wealth_tax",
+              "title": "Wealth tax"
+            }
+          ]
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 2,
+      "column_count": 2
+    }
+  },
+  {
+    "table_index": 4,
+    "title": "Table 5",
+    "headers": [
+      "People",
+      "Organizations",
+      "Other"
+    ],
+    "data": [
+      {
+        "People": {
+          "value": "Largest companies by revenue\nLargest corporate profits and losses\nLargest corporations by market capitalization\nLargest financial services companies by revenue\nLargest manufacturing companies by revenue\nLargest software companies by revenue\nLargest technology companies by revenue\nCharities\nPhilanthropists\nUniversities\nEndowment size\nNumber of billionaire alumni",
+          "links": [
+            {
+              "text": "Largest companies by revenue",
+              "href": "",
+              "title": null
+            },
+            {
+              "text": "Largest corporate profits and losses",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_corporate_profits_and_losses",
+              "title": "List of largest corporate profits and losses"
+            },
+            {
+              "text": "Largest corporations by market capitalization",
+              "href": "https://en.wikipedia.org/wiki/List_of_public_corporations_by_market_capitalization",
+              "title": "List of public corporations by market capitalization"
+            },
+            {
+              "text": "Largest financial services companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_financial_services_companies_by_revenue",
+              "title": "List of largest financial services companies by revenue"
+            },
+            {
+              "text": "Largest manufacturing companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_manufacturing_companies_by_revenue",
+              "title": "List of largest manufacturing companies by revenue"
+            },
+            {
+              "text": "Largest software companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_the_largest_software_companies",
+              "title": "List of the largest software companies"
+            },
+            {
+              "text": "Largest technology companies by revenue",
+              "href": "https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue",
+              "title": "List of largest technology companies by revenue"
+            },
+            {
+              "text": "Charities",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_charitable_foundations",
+              "title": "List of wealthiest charitable foundations"
+            },
+            {
+              "text": "Philanthropists",
+              "href": "https://en.wikipedia.org/wiki/List_of_philanthropists",
+              "title": "List of philanthropists"
+            },
+            {
+              "text": "Endowment size",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_institutions_of_higher_education_by_endowment_size",
+              "title": "Lists of institutions of higher education by endowment size"
+            },
+            {
+              "text": "Number of billionaire alumni",
+              "href": "https://en.wikipedia.org/wiki/List_of_universities_by_number_of_billionaire_alumni",
+              "title": "List of universities by number of billionaire alumni"
+            }
+          ]
+        }
+      },
+      {
+        "People": {
+          "value": "Cities by number of billionaires\nCountries by number of billionaires\nCountries by total wealth\nCountries by wealth inequality\nWealth inequality in the United States\nIncome inequality in the United States\nMost expensive items\nby category\nWealthiest animals",
+          "links": [
+            {
+              "text": "Cities by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_cities_by_number_of_billionaires",
+              "title": "List of cities by number of billionaires"
+            },
+            {
+              "text": "Countries by number of billionaires",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_the_number_of_billionaires",
+              "title": "List of countries by the number of billionaires"
+            },
+            {
+              "text": "Countries by total wealth",
+              "href": "https://en.wikipedia.org/wiki/List_of_countries_by_total_wealth",
+              "title": "List of countries by total wealth"
+            },
+            {
+              "text": "Countries by wealth inequality",
+              "href": "https://en.wikipedia.org/wiki/List_of_sovereign_states_by_wealth_inequality",
+              "title": "List of sovereign states by wealth inequality"
+            },
+            {
+              "text": "Wealth inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Wealth_inequality_in_the_United_States",
+              "title": "Wealth inequality in the United States"
+            },
+            {
+              "text": "Income inequality in the United States",
+              "href": "https://en.wikipedia.org/wiki/Income_inequality_in_the_United_States",
+              "title": "Income inequality in the United States"
+            },
+            {
+              "text": "Most expensive items",
+              "href": "https://en.wikipedia.org/wiki/Lists_of_most_expensive_items_by_category",
+              "title": "Lists of most expensive items by category"
+            },
+            {
+              "text": "by category",
+              "href": "https://en.wikipedia.org/wiki/Category:Lists_of_most_expensive_things",
+              "title": "Category:Lists of most expensive things"
+            },
+            {
+              "text": "Wealthiest animals",
+              "href": "https://en.wikipedia.org/wiki/List_of_wealthiest_animals",
+              "title": "List of wealthiest animals"
+            }
+          ]
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 2,
+      "column_count": 3
+    }
+  },
+  {
+    "table_index": 5,
+    "title": "Table 6",
+    "headers": [
+      "Philanthropy",
+      "Sayings",
+      "Media"
+    ],
+    "data": [
+      {
+        "Philanthropy": {
+          "value": "Gospel of Wealth\nThe Giving Pledge\nPhilanthrocapitalism\nVenture philanthropy",
+          "links": [
+            {
+              "text": "Gospel of Wealth",
+              "href": "https://en.wikipedia.org/wiki/The_Gospel_of_Wealth",
+              "title": "The Gospel of Wealth"
+            },
+            {
+              "text": "The Giving Pledge",
+              "href": "https://en.wikipedia.org/wiki/The_Giving_Pledge",
+              "title": "The Giving Pledge"
+            },
+            {
+              "text": "Philanthrocapitalism",
+              "href": "https://en.wikipedia.org/wiki/Philanthrocapitalism",
+              "title": "Philanthrocapitalism"
+            },
+            {
+              "text": "Venture philanthropy",
+              "href": "https://en.wikipedia.org/wiki/Venture_philanthropy",
+              "title": "Venture philanthropy"
+            }
+          ]
+        }
+      },
+      {
+        "Philanthropy": {
+          "value": "The rich get richer and the poor get poorer\nSocialism for the rich and capitalism for the poor\nToo big to fail",
+          "links": [
+            {
+              "text": "The rich get richer and the poor get poorer",
+              "href": "https://en.wikipedia.org/wiki/The_rich_get_richer_and_the_poor_get_poorer",
+              "title": "The rich get richer and the poor get poorer"
+            },
+            {
+              "text": "Socialism for the rich and capitalism for the poor",
+              "href": "https://en.wikipedia.org/wiki/Socialism_for_the_rich_and_capitalism_for_the_poor",
+              "title": "Socialism for the rich and capitalism for the poor"
+            },
+            {
+              "text": "Too big to fail",
+              "href": "https://en.wikipedia.org/wiki/Too_big_to_fail",
+              "title": "Too big to fail"
+            }
+          ]
+        }
+      },
+      {
+        "Philanthropy": {
+          "value": "Das Kapital\nPlutus\nGreek god of wealth\nSuperclass\nList\nThe Theory of the Leisure Class\nWealth\nThe Wealth of Nations",
+          "links": [
+            {
+              "text": "Das Kapital",
+              "href": "https://en.wikipedia.org/wiki/Das_Kapital",
+              "title": "Das Kapital"
+            },
+            {
+              "text": "Plutus",
+              "href": "https://en.wikipedia.org/wiki/Plutus_(play)",
+              "title": "Plutus (play)"
+            },
+            {
+              "text": "Greek god of wealth",
+              "href": "https://en.wikipedia.org/wiki/Plutus",
+              "title": "Plutus"
+            },
+            {
+              "text": "Superclass",
+              "href": "https://en.wikipedia.org/wiki/Superclass_(book)",
+              "title": "Superclass (book)"
+            },
+            {
+              "text": "List",
+              "href": "https://en.wikipedia.org/wiki/The_Superclass_List",
+              "title": "The Superclass List"
+            },
+            {
+              "text": "The Theory of the Leisure Class",
+              "href": "https://en.wikipedia.org/wiki/The_Theory_of_the_Leisure_Class",
+              "title": "The Theory of the Leisure Class"
+            },
+            {
+              "text": "Wealth",
+              "href": "https://en.wikipedia.org/wiki/Wealth_(film)",
+              "title": "Wealth (film)"
+            },
+            {
+              "text": "The Wealth of Nations",
+              "href": "https://en.wikipedia.org/wiki/The_Wealth_of_Nations",
+              "title": "The Wealth of Nations"
+            }
+          ]
+        }
+      }
+    ],
+    "stats": {
+      "row_count": 3,
+      "column_count": 3
+    }
+  }
+]

@@ -1,0 +1,76 @@
+{
+  "rules": [
+    {
+      "type": "code_advice",
+      "condition": "contains_deprecated_methods",
+      "action": "verify_against_documentation",
+      "message": "Never suggest code without verifying each method/function against official documentation to ensure methods are not deprecated. Always provide a link to the specific documentation. If you do not have a link, do not suggest a solution. Instead, ask the user to provide a documentation link, or, ask the user what you need to provide a solution."
+    },
+    {
+      "type": "documentation_first",
+      "condition": "always",
+      "action": "check_existing_solutions",
+      "message": "ALWAYS check official documentation before suggesting any solution. Follow these steps:\n1. Search for existing solutions in the official documentation\n2. If a documented solution exists, use it instead of creating a new one\n3. Only suggest custom solutions when you can explicitly demonstrate that:\n   - The functionality doesn't exist in official libraries/frameworks\n   - The documented solution doesn't meet specific requirements\n   - There's a clear performance or functionality benefit\n4. When suggesting a solution, always:\n   - Link to relevant documentation\n   - Explain why existing solutions were not used (if creating custom solution)\n   - Show the documentation-based solution first\nThe burden of proof is on justifying custom solutions, not using documented ones."
+    },
+    {
+      "type": "confidence",
+      "condition": "always",
+      "action": "include_confidence_level",
+      "message": "Always provide a confidence level for any code suggestions or solutions."
+    },
+    {
+      "type": "simplicity",
+      "condition": "always",
+      "action": "prefer_simplest_solution",
+      "message": "Always prioritize the simplest solution to a problem, avoiding over-engineering. Default to functions instead of classes unless state management or package requirements necessitate a class architecture."
+    },
+    {
+      "type": "architecture",
+      "condition": "always",
+      "action": "prefer_functional_approach",
+      "message": "NEVER suggest or implement class-based architecture unless you can explicitly demonstrate ONE of these conditions:\n1. State management that would be significantly more complex with functions\n2. Resource lifecycle management that would be unwieldy with functions\n3. Performance requirements that specifically benefit from maintained state\n4. Interface contracts that require encapsulation\nThe burden of proof is on justifying class usage, not justifying functions. When in doubt, use functions."
+    },
+    {
+      "type": "code_example",
+      "condition": "always",
+      "action": "use_provided_example",
+      "message": "If a code example is referenced or provided, use that example as the basis for your code. DO NOT create a separate solution unless authorized to do so"
+    },
+    {
+      "type": "logging",
+      "condition": "always",
+      "action": "use_loguru",
+      "message": "Always use loguru for logging in all scripts. Implement reasonable error handling with appropriate logging levels (DEBUG, INFO, WARNING, ERROR, CRITICAL) based on the situation."
+    },
+    {
+      "type": "tool_availability",
+      "condition": "media_download_task",
+      "action": "recommend_yt-dlp",
+      "message": "YT-DLP TOOL AVAILABLE: Use yt-dlp Python package for media downloading tasks. \nPurpose: Download videos/audio/metadata from 1000+ platforms (YouTube, TikTok, SoundCloud). \nUse when: \n• Downloading video/audio from URL\n• Extracting subtitles/thumbnails\n• Batch downloads (playlists/channels)\n• Format conversion (e.g., to MP3)\nKey Features: \n• Supports age-restricted/private content (with cookies)\n• Metadata extraction (title, views, duration)\n• Automatic rate limit handling\nExamples: \n• 'Download this YouTube video: [URL]'\n• 'Extract audio as MP3'\nDependency: Ensure yt-dlp is installed via 'uv add yt-dlp'"
+    },
+    {
+      "type": "solution_validation",
+      "condition": "before_suggesting_solution",
+      "action": "validate_necessity",
+      "message": "Before suggesting ANY solution, PROVE necessity by:\n1. FIRST show the relevant documentation that proves a solution is needed\n2. DEMONSTRATE that the existing library/framework does NOT already solve this\n3. If suggesting additional code, answer:\n   - Why isn't the built-in solution sufficient?\n   - What specific problem are we solving?\n   - Why can't this be solved with existing tools?\n4. If you cannot PROVE all above points with documentation, DO NOT suggest the solution.\nNo proof = No suggestion."
+    },
+    {
+      "type": "agent_tools",
+      "condition": "method_analysis_task",
+      "action": "use_method_validator",
+      "message": "METHOD VALIDATOR TOOL AVAILABLE\n\nWhen user requests: '[task description]'\nYou MUST:\n1. Draft implementation (do not show)\n2. Run:\n   method-validator package_name --list-all\n   For each method:\n   method-validator package_name --method method_name\n3. Show verification results\n4. Present code ONLY if verified\n5. Include confirmation:\n   '✓ All methods verified\n    ✓ No duplication found'"
+    },
+    {
+      "type": "tool_dependencies",
+      "condition": "always",
+      "action": "use_uv_build",
+      "message": "ALWAYS use uv build for tool dependencies. Each tool should:\n1. Have its own pyproject.toml\n2. List exact versions of dependencies\n3. Be built with 'uv pip compile pyproject.toml'\n4. Include a requirements.txt for reproducibility"
+    },
+    {
+      "type": "method_validation_workflow",
+      "condition": "code_writing",
+      "action": "validate_methods",
+      "message": "AGENT WORKFLOW:\n1. Draft code first\n2. Extract methods to verify\n3. Verify each method before presenting code\n4. Check for duplicate functionality\n5. Only present verified code"
+    }
+  ]
+}
