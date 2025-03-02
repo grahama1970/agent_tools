@@ -161,7 +161,60 @@ However, the primary focus remains on enhancing AI agent capabilities within Cur
 
 # Method Validator
 
-A tool for analyzing and validating Python package methods.
+A tool for AI agents to verify that suggested code only uses real, existing methods.
+
+## Purpose
+
+As an AI assistant, I use method_validator to:
+1. Verify my code suggestions don't use non-existent methods
+2. Confirm method signatures and parameters after writing code
+3. Prevent method hallucination by validating after writing
+4. Ground my suggestions in actual package functionality
+
+## Example Usage (For AI Agents)
+
+WRONG Workflow ❌:
+```python
+# DON'T check methods before writing code
+method-validator litellm --method completion
+# Then write code...
+```
+
+RIGHT Workflow ✅:
+1. First write the code you think should work:
+```python
+def chat_with_llm(prompt: str) -> str:
+    response = litellm.completion(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
+```
+
+2. Then validate ALL methods you used:
+```bash
+# Verify each method exists
+method-validator litellm --method completion --quick
+```
+
+3. Fix any methods that don't exist or were hallucinated
+
+This ensures AI agents only suggest code using real methods.
+
+## Success Criteria
+
+1. Write code first based on training
+2. Validate ALL methods used in the code
+3. Fix any non-existent methods
+4. Only suggest code using verified methods
+
+## Implementation Notes
+
+1. Always validate AFTER writing code
+2. Check ALL methods used
+3. Use --quick mode for fast validation
+4. Fix or remove any non-existent methods
+5. Update code based on validation results
 
 ## Features
 
@@ -228,3 +281,7 @@ Analysis results are cached to improve performance. The cache:
 
 - 0: Success
 - 1: Method not found or error
+
+## Example Test Conversation
+
+User: "I want to use litellm to send a chat message"
