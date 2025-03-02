@@ -1,0 +1,16 @@
+// BM25 results
+LET bm25_results = (
+    FOR doc IN microsoft_view
+        SEARCH ANALYZER(doc.description IN TOKENS(
+            @search_text, "text_analyzer"), 
+            "text_analyzer"
+        )
+        LET bm25 = BM25(doc, @k1, @b)
+        FILTER bm25 >= @bm25_threshold
+        RETURN {
+            doc: doc,
+            _key: doc._key,
+            similarity_score: 0,
+            bm25_score: bm25
+        }
+)

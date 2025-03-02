@@ -1,0 +1,123 @@
+// Get embedding results
+LET embedding_results = (
+    FOR doc IN glossary_view
+        LET similarity = COSINE_SIMILARITY(doc.embedding, @embedding_search)
+        FILTER similarity >= @embedding_similarity_threshold 
+        SORT similarity DESC
+        LIMIT @top_n
+        RETURN {
+            doc: doc,
+            _key: doc._key,
+            similarity_score: similarity,
+            bm25_score: 0
+        }
+)
+
+// Get BM25 results
+LET bm25_results = (
+    FOR doc IN glossary_view
+        SEARCH ANALYZER(
+            doc.term IN TOKENS(@search_text, "text_en") OR
+            doc.primary_definition IN TOKENS(@search_text, "text_en") 
+            , 
+            "text_en"
+        )
+        // Filter the colelction you want
+        OPTIONS { collections: ["glossary"] }
+        LET bm25_score = BM25(doc, @k, @b) 
+        FILTER bm25_score > @bm25_similarity_threshold
+        SORT bm25_score DESC
+        LIMIT @top_n
+        RETURN {
+            doc: doc,
+            _key: doc._key,
+            similarity_score: 0,
+            bm25_score: bm25_score
+        }
+)
+
+
+
+
+// Get Keyword results from Glossary
+LET keyword_results = (
+    FOR entry IN glossary_view
+        LET normalizedEntryTerm = REGEX_REPLACE(
+            REGEX_REPLACE(entry.term, "<[^>]+>", ""), 
+            "[^a-zA-Z0-9 ]", ""
+        )
+        FILTER LENGTH(entry.term) > 0
+        FILTER REGEX_TEST(@search_text, CONCAT('\\b', LOWER(normalizedEntryTerm), '\\b'), true)
+        FILTER REGEX_TEST(@search_text, CONCAT('\\b', normalizedEntryTerm, '\\b'))
+        FILTER LENGTH(normalizedEntryTerm) >= 2  
+        FILTER SUBSTRING(entry.term, 0, 1) == UPPER(SUBSTRING(entry.term, 0, 1))
+        LET termLength = LENGTH(normalizedEntryTerm)
+        RETURN {
+            term: entry.term,
+            entry_length: termLength,
+            definition: entry.primary_definition
+        }
+)
+
+// Group keyword results by their root word
+LET grouped_keyword_results = (
+    FOR t IN keyword_results
+        LET normalizedTerm = t.term
+        LET rootWord = FIRST(TOKENS(normalizedTerm, "text_analyzer"))
+        COLLECT groupKey = rootWord INTO groupedTerms
+        LET longestTermInfo = FIRST(
+            FOR g IN groupedTerms
+                SORT LENGTH(g.t.term) DESC
+                RETURN {
+                    term: g.t.term,
+                    definition: g.t.definition
+                }
+        )
+        RETURN {
+            rootWord: groupKey,
+            longestTerm: longestTermInfo.term,
+            definition: longestTermInfo.definition
+        }
+)
+
+// Sort and limit keyword results
+LET final_keyword_results = (
+    FOR result IN grouped_keyword_results
+        SORT result.longestTerm ASC
+        LIMIT @top_n
+        RETURN {
+            term: result.longestTerm,
+            definition: result.definition
+        }
+)
+
+// Merge and deduplicate embedding and BM25 results
+LET merged_results = (
+    FOR result IN UNION_DISTINCT(embedding_results, bm25_results)
+        COLLECT key = result._key INTO group
+        LET doc = FIRST(group[*].result.doc)
+        LET similarity_score = MAX(group[*].result.similarity_score)
+        LET bm25_score = MAX(group[*].result.bm25_score)
+        RETURN {
+            "doc": doc,
+            "_key": key,
+            "similarity_score": similarity_score,
+            "bm25_score": bm25_score
+        }
+)
+
+// Sort and limit merged results
+LET final_merged_results = (
+    FOR result IN merged_results
+        SORT result.similarity_score DESC, result.bm25_score DESC
+        LIMIT @top_n
+        RETURN result
+)
+
+// Return all results
+RETURN {
+    bm25_results: bm25_results,
+    embedding_results: embedding_results,
+    embedding_results: embedding_results,
+    keyword_results: final_keyword_results
+}

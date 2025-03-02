@@ -1,0 +1,38 @@
+{
+  "database": {
+    "name": "IMDB",
+    "id": "123456",  
+    "options": {}
+  },
+  "collections": [
+    {
+      "parameters": {
+        "name": "imdb_edges",
+        "type": 2,  
+        "id": "f4353381bd511b59d5cccbd7f7db840b"  
+      },
+      "indexes": []
+    },
+    {
+      "parameters": {
+        "name": "imdb_vertices",
+        "type": 2,  // 2 = document collection
+        "id": "4ad17a956bfb063d03e22fb0da7d72cd"  // Replace with the actual collection ID
+      },
+      "indexes": []
+    }
+  ],
+  "views": [],
+  "graphs": [
+    {
+      "name": "my_graph",
+      "edgeDefinitions": [
+        {
+          "collection": "imdb_edges",
+          "from": ["imdb_vertices"],
+          "to": ["imdb_vertices"]
+        }
+      ]
+    }
+  ]
+}

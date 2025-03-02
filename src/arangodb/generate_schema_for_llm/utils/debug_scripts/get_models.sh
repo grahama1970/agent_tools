@@ -1,0 +1,2 @@
+VLLM_ALLOW_RUNTIME_LORA_UPDATING=True  \
+curl http://192.168.86.49:30002/v1/models | jq

@@ -12,13 +12,23 @@ from dataclasses import dataclass
 from collections import defaultdict
 from contextlib import contextmanager
 from loguru import logger
-from .analyzer import MethodAnalyzer
+from .utils import timing
 
 # Get the method_validator package root directory
 PACKAGE_ROOT = Path(__file__).parent
 
 # Compression level (0-9, where 0 is no compression and 9 is maximum)
 DEFAULT_COMPRESSION_LEVEL = 6
+
+# Lazy loading of analyzer to avoid circular imports
+_analyzer = None
+
+def get_analyzer():
+    global _analyzer
+    if _analyzer is None:
+        from .analyzer import MethodAnalyzer
+        _analyzer = MethodAnalyzer()
+    return _analyzer
 
 
 @dataclass
@@ -277,11 +287,10 @@ analysis_cache = AnalysisCache()
 
 
 def agent_analyze_package(package_name: str, target_functionality: str):
-    analyzer = MethodAnalyzer()
-
+    """Analyze a package using the agent-based approach."""
+    analyzer = get_analyzer()
     # First, quick scan to find relevant methods
     methods = analyzer.quick_scan(package_name)
-
     # Filter methods based on target functionality
     relevant_methods = [
         name
@@ -297,33 +306,3 @@ def agent_analyze_package(package_name: str, target_functionality: str):
             results.append(info)
 
     return results
-
-
-# Agent wants to write code for LiteLLM completion
-analyzer = MethodAnalyzer()
-
-# First, quick scan to find relevant methods
-methods = analyzer.quick_scan("litellm")
-completion_methods = [
-    name for name, summary, _ in methods if "completion" in name.lower()
-]
-
-# Deep analyze promising methods
-for method_name in completion_methods:
-    info = analyzer.deep_analyze("litellm", method_name)
-    if info:
-        # Check method categories
-        if "completion" in info["categories"]:
-            # Found a completion method
-
-            # Check if async or sync needed
-            if "async" in info["categories"]:
-                # Look for sync variant if needed
-                sync_variant = next(
-                    (
-                        r["name"]
-                        for r in info["related_methods"]
-                        if r["type"] == "sync_variant"
-                    ),
-                    None,
-                )

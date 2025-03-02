@@ -1,0 +1,12 @@
+// Vector similarity results
+LET embedding_results = (
+    FOR doc IN glossary_view
+        LET similarity = COSINE_SIMILARITY(doc.vector, @embedding_search)
+        FILTER similarity >= @embedding_similarity_threshold
+        RETURN {
+            doc: doc,
+            _key: doc._key,
+            similarity_score: similarity,
+            bm25_score: 0
+        }
+)

@@ -1,0 +1,69 @@
+// Collect potential matches
+LET terms = (
+    FOR entry IN glossary_view
+    
+
+        LET normalizedEntryTerm = REGEX_REPLACE(
+            REGEX_REPLACE(entry.term, "<[^>]+>", ""), 
+            "[^a-zA-Z0-9 ]", ""
+        )
+        
+        // Ensure entry.term is not empty
+        FILTER LENGTH(entry.term) > 0
+        
+        // Does the term exist?
+        FILTER REGEX_TEST(@search_text, CONCAT('\\b', LOWER(normalizedEntryTerm), '\\b'), true)
+        
+        // What is Data? -> should not match the term 'IS'
+        FILTER REGEX_TEST(@search_text, CONCAT('\\b',normalizedEntryTerm, '\\b'))
+        
+        // Filter out short matches
+        FILTER LENGTH(normalizedEntryTerm) >= 2  
+        
+        // Make sure match isn't lower case, look at first character
+        FILTER SUBSTRING(entry.term, 0, 1) == UPPER(SUBSTRING(entry.term, 0, 1)) // Reject lowercase
+        
+        
+        // Return the term and its length for further processing
+        LET termLength = LENGTH(normalizedEntryTerm)
+        RETURN {
+            term: entry.term,
+            entry_length: termLength,
+            definition: entry.primary_definition
+        }
+)
+
+// Group terms by their root word (first word in the term)
+LET groupedResults = (
+    FOR t IN terms
+        LET normalizedTerm = t.term
+        LET rootWord = FIRST(TOKENS(normalizedTerm, "text_analyzer")) // Use ANALYZER for tokenization
+        COLLECT groupKey = rootWord INTO groupedTerms // Group by the root word
+
+        // Find the longest term within the group
+        LET longestTermInfo = FIRST(
+            FOR g IN groupedTerms
+                SORT LENGTH(g.t.term) DESC
+                RETURN {
+                    term: g.t.term,
+                    definition: g.t.definition
+                }
+        )
+        RETURN {
+            rootWord: groupKey, // Use the root word as the group key
+            longestTerm: longestTermInfo.term,
+            definition: longestTermInfo.definition
+        }
+)
+
+LET finalResults = (
+    FOR result IN groupedResults
+        SORT result.longestTerm ASC
+        LIMIT @top_n
+        RETURN {
+            term: result.longestTerm,
+            definition: result.definition
+        }
+)
+
+RETURN finalResults

@@ -8,8 +8,17 @@ from dataclasses import dataclass
 from tqdm import tqdm
 from loguru import logger
 
-from .cache import timing, analysis_cache
+from .utils import timing
 
+# Lazy loading of cache to avoid circular imports
+_analysis_cache = None
+
+def get_cache():
+    global _analysis_cache
+    if _analysis_cache is None:
+        from .cache import AnalysisCache
+        _analysis_cache = AnalysisCache()
+    return _analysis_cache
 
 @dataclass
 class MethodInfo:
@@ -344,8 +353,9 @@ class MethodAnalyzer:
     """Analyzes methods in a package."""
 
     def __init__(self, target_file: Optional[str] = None):
+        self.target_file = target_file
+        self._cache = get_cache()
         self._module_cache = {}
-        self._target_file = target_file
 
     def _get_module(self, package_name: str) -> Any:
         """Get module with caching."""
@@ -356,12 +366,12 @@ class MethodAnalyzer:
 
     def _should_analyze_method(self, obj: Any) -> bool:
         """Determine if a method should be analyzed based on its source file."""
-        if not self._target_file:
+        if not self.target_file:
             return True
 
         try:
             source_file = inspect.getfile(obj)
-            return self._target_file in source_file
+            return self.target_file in source_file
         except (TypeError, OSError):
             return False
 
@@ -409,7 +419,7 @@ class MethodAnalyzer:
         cache_key = f"{obj.__module__}.{name}"
 
         # Try persistent cache first
-        cached_result = analysis_cache.get(obj.__module__, name, obj)
+        cached_result = self._cache.get(obj.__module__, name, obj)
         if cached_result is not None:
             return cached_result
 
@@ -418,7 +428,7 @@ class MethodAnalyzer:
             result = (name, info.summary, list(info._categorize_method()))
 
             # Cache the result
-            analysis_cache.set(obj.__module__, name, obj, result)
+            self._cache.set(obj.__module__, name, obj, result)
 
             return result
         except Exception as e:
