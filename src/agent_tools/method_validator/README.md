@@ -1,498 +1,230 @@
-# ✅ Method Validator - AI Agent's API Discovery Tool
+# 🛠️ Cursor Agent Tools
 
-A specialized tool for AI agents to autonomously analyze Python packages, discover existing methods, and validate APIs before implementing new solutions. This tool helps prevent redundant code creation and method hallucination by identifying existing functionality in non-standard packages.
+A collection of specialized tools designed to enhance AI agent capabilities within the Cursor IDE. These tools enable more intelligent code analysis, validation, and generation while preventing common AI pitfalls like method hallucination and redundant implementations.
 
-## For Users
+## 🎯 Purpose
 
-To ensure the AI agent properly validates methods and checks for duplicated functionality, always use this specific prompt format:
+This repository contains a growing collection of tools that help AI agents (like myself) work more effectively within Cursor. Each tool is designed to solve specific challenges in AI-assisted development:
+
+- Preventing method hallucination
+- Validating API usage
+- Discovering existing functionality
+- Ensuring correct implementation patterns
+- Maintaining code quality and consistency
+
+## 📦 Available Tools
+
+### Method Validator ✅
+
+The Method Validator is a specialized tool that helps AI agents analyze Python packages, discover existing methods, and validate APIs before implementing new solutions. This prevents redundant code creation and ensures correct API usage.
+
+Key features:
+- Smart package analysis with filtering of standard libraries
+- Detailed method discovery and validation
+- Intelligent categorization of methods
+- Exception pattern analysis
+- Optimized caching system
+- Machine-readable output for automated processing
+
+[Learn more about Method Validator](src/agent_tools/method_validator/README.md)
+
+## 🚀 Getting Started
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-org/agent-tools.git
+cd agent-tools
+
+# Install in development mode
+pip install -e .
+```
+
+### Using with Cursor
+
+These tools are designed to be used seamlessly within the Cursor IDE. When working with an AI agent in Cursor, you can trigger specific tools using designated prompts:
 
 ```
 TOOL: method_validator - Implement [task description]
 ```
 
 Example:
-
 ```
 TOOL: method_validator - Write a function to extract tables from a webpage using Playwright
 ```
 
-Why this format?
+## 🏗️ Project Structure
 
-- Forces the agent to use the method validator tool
-- Prevents method hallucination
-- Ensures verification before code presentation
-- Avoids duplicating existing functionality
-- Cursor's .cursorrules is (often) ignored by Cursor 🤷‍♂️
+```
+agent_tools/
+├── src/
+│   └── agent_tools/
+│       ├── method_validator/       # Method validation tool
+│       │   ├── analyzer.py        # Core analysis logic
+│       │   ├── cache.py          # Caching system
+│       │   ├── cli.py            # Command-line interface
+│       │   └── README.md         # Tool-specific documentation
+│       └── [future tools...]     # Additional tools will be added here
+├── tests/                        # Test suite
+├── examples/                     # Usage examples
+└── README.md                     # This file
+```
 
-The agent will:
+## 🎯 Design Philosophy
 
-1. Draft the implementation (without showing it)
-2. Verify all methods exist
-3. Check for duplicate functionality
-4. Only present code after verification
-5. Include verification markers:
-   ```
-   ✓ All methods verified to exist
-   ✓ No duplicate functionality found
-   Here's the implementation:
-   [code]
-   ```
+1. **Prevention Over Correction**
+   - Tools focus on preventing common AI mistakes rather than fixing them after the fact
+   - Built-in validation and verification at every step
 
-## For AI Agents
+2. **Intelligent Caching**
+   - Optimized caching systems to improve response times
+   - Smart invalidation based on source changes
 
-When a user requests code implementation:
+3. **Machine-First Design**
+   - All tools provide machine-readable output
+   - Structured data formats for easy parsing
+   - Clear success/failure indicators
 
-1. Draft your implementation (do not show yet)
-2. Extract ALL methods you plan to use
-3. Run verification:
-   ```bash
-   method-validator package_name --list-all  # Check for existing functionality
-   method-validator package_name --method method_name  # For each method
-   ```
-4. If verification fails:
-   - Remove non-existent methods
-   - Fix duplicated functionality
-5. Only present code after verification with confirmation markers
+4. **Progressive Enhancement**
+   - Tools work with basic functionality out of the box
+   - Advanced features available for more complex use cases
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have ideas for new tools or improvements to existing ones, please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a pull request
+
+Please ensure your contributions maintain or enhance the tools' autonomous operation capabilities.
+
+## 📝 License
+
+[MIT License](LICENSE)
+
+## 🔮 Future Tools
+
+We plan to add more tools to this repository, including:
+
+- Code Pattern Analyzer
+- Dependency Graph Generator
+- Test Case Validator
+- Documentation Analyzer
+- Type Inference Helper
+
+Stay tuned for updates!
+
+## 🚀 Next Steps
+
+We are actively developing additional agent tools for various technologies and platforms:
+
+### Database Tools
+- **ArangoDB Agent Tools**: Smart graph database operations, query optimization, and schema validation
+- **Database Migration Assistant**: Intelligent schema evolution and data transformation
+- **Database Schema Creator for LLM consumption**: Intelligent schema evolution and data transformation
+
+### Infrastructure Tools
+- **Docker Agent Tools**: Container optimization, security scanning, and deployment validation
+- **Infrastructure as Code Validator**: Template verification and best practices enforcement
+
+### Development Tools
+- **GitHub Integration Tools**: PR analysis, code review automation, and workflow optimization
+- **Local LLM Tools**: Integration with local language models for privacy-sensitive operations
+
+### Additional Planned Tools
+- CI/CD Pipeline Validator
+- Security Compliance Checker
+- Performance Optimization Analyzer
+- Cross-Platform Compatibility Validator
+- API Integration Assistant
+- Cloud Resource Optimizer
+
+Each tool will follow our core design principles of prevention over correction, intelligent caching, and machine-first design while providing specific capabilities for its target technology.
+
+## 🔗 Related Projects
+
+- [Cursor IDE](https://cursor.sh/)
+- [LiteLLM](https://github.com/BerriAI/litellm)
+
+## ⚠️ Note for Human Developers
+
+While these tools are primarily designed for AI agents, they can also be valuable for human developers:
+
+- Use Method Validator to explore unfamiliar packages
+- Leverage automated API discovery
+- Benefit from intelligent caching and analysis
+
+However, the primary focus remains on enhancing AI agent capabilities within Cursor.
+
+# Method Validator
+
+A tool for analyzing and validating Python package methods.
 
 ## Features
 
-- **Smart Package Analysis**: Automatically filters out standard library and common utility packages
-- **Method Discovery**: Quick scanning of available methods with categorization
-- **Detailed Analysis**: In-depth examination of method signatures, parameters, and return types
-- **Method Relationships**: Automatic detection of related methods (sync/async variants, specialized versions)
-- **Smart Categorization**: Automatic grouping of methods by functionality, provider, and execution mode
-- **Exception Analysis**: Identifies and prioritizes relevant error handling patterns
-- **Machine-Readable Output**: JSON format support for automated processing
-- **Optimized Caching**: SQLite-based caching with zlib compression for efficient storage
-- **Progress Visualization**: Real-time progress bars for human observers
-
-## Installation
-
-### As a Development Tool
-
-```bash
-# Clone the repository
-git clone https://github.com/your-org/method-validator.git
-cd method-validator
-
-# Install in development mode
-uv pip install -e .
-```
-
-### As a Package
-
-```bash
-# Install directly from PyPI
-uv pip install method-validator
-
-# Or using uv for better dependency resolution
-uv pip install method-validator
-```
+- Quick validation of method existence and accessibility
+- Deep analysis of method signatures, parameters, and documentation
+- Caching of analysis results for improved performance
+- Support for nested methods (e.g. `_Logger.add`)
 
 ## Usage
 
-### For AI Agents
+### Quick Validation
 
-```python
-from method_validator import MethodAnalyzer
-
-def agent_function():
-    analyzer = MethodAnalyzer()
-
-    # Quick check if functionality exists
-    methods = analyzer.quick_scan("target_package")
-
-    # Get detailed info about a specific method
-    method_info = analyzer.deep_analyze("target_package", "method_name")
-
-    # Access categorization and relationships
-    categories = method_info["categories"]  # e.g., ["async", "completion", "provider:openai"]
-    related_methods = method_info["related_methods"]  # e.g., sync/async variants
-
-    # Make intelligent decisions based on relationships
-    if "async" in categories:
-        sync_variant = next((r["name"] for r in related_methods if r["type"] == "sync_variant"), None)
-        if sync_variant:
-            # Use sync variant if needed
-            pass
-```
-
-### Command Line
+To quickly check if a method exists and is accessible:
 
 ```bash
-# Basic method analysis
-method-validator package_name --method method_name --json
-
-# List all available methods
-method-validator package_name --list-all --json
-
-# Get exception information
-method-validator package_name --exceptions-only --json
-
-# Cache management
-method-validator --cache-stats  # Show cache statistics
-method-validator --cache-clear  # Clear the cache
-method-validator --compression-level 9  # Set maximum compression
-method-validator --recompress  # Recompress all cached data
+method-validator package_name --method method_name --quick
 ```
 
-### Command Line Options
+This performs a fast check without deep analysis, ideal for:
+- Verifying method existence
+- Basic validation during development
+- CI/CD pipelines
 
-- `--method`: Analyze a specific method
-- `--list-all`: Show all available methods
-- `--by-category`: Group methods by category
-- `--show-exceptions`: Show detailed exception information
-- `--exceptions-only`: Focus on exception analysis
-- `--json`: Output in JSON format for machine consumption
-- `--timing`: Show execution timing statistics
-
-### Cache Management Options
-
-- `--cache-stats`: Show detailed cache statistics
-- `--cache-clear`: Clear the entire cache
-- `--cache-migrate`: Migrate from old cache location
-- `--cache-max-age`: Set maximum cache entry age in days
-- `--cache-max-size`: Set maximum cache size in MB
-- `--compression-level`: Set compression level (0-9)
-- `--recompress`: Recompress all cached data
-
-## Example Output
-
-```json
-{
-  "method_info": {
-    "name": "example_method",
-    "signature": "(param1: str, param2: Optional[int] = None) -> Dict[str, Any]",
-    "summary": "Example method description",
-    "parameters": {
-      "param1": {
-        "type": "str",
-        "required": true,
-        "description": "First parameter description"
-      }
-    },
-    "categories": ["async", "completion", "provider:openai"],
-    "related_methods": [
-      {
-        "name": "example_method_sync",
-        "type": "sync_variant"
-      },
-      {
-        "name": "example_method_streaming",
-        "type": "specialized_variant"
-      }
-    ],
-    "exceptions": [
-      {
-        "type": "ValueError",
-        "description": "When invalid input is provided"
-      }
-    ]
-  }
-}
+Example:
+```bash
+method-validator loguru --method _Logger.add --quick
 ```
 
-## Key Features for AI Agents
+### Deep Analysis
 
-1. **Autonomous Operation**:
+For detailed method analysis:
 
-   - Smart filtering of packages
-   - Machine-readable output format
-   - Persistent compressed caching
-   - Automatic method categorization
-   - Relationship detection between methods
-
-2. **Focused Analysis**:
-
-   - Prioritizes relevant methods and parameters
-   - Filters out internal/private methods
-   - Highlights commonly used parameters
-   - Groups related functionality
-   - Identifies method variants and alternatives
-
-3. **Error Handling Intelligence**:
-
-   - Identifies custom exceptions
-   - Prioritizes well-documented error cases
-   - Provides exception hierarchy information
-
-4. **Performance Optimizations**:
-   - SQLite-based persistent caching
-   - zlib compression for efficient storage
-   - Source code change detection
-   - Smart categorization caching
-   - Automatic cache cleanup
-
-## Method Categories
-
-The tool automatically categorizes methods based on:
-
-1. **Operation Type**:
-
-   - `completion`: Completion-related operations
-   - `embedding`: Embedding generation
-   - `streaming`: Streaming operations
-
-2. **Execution Mode**:
-
-   - `async`: Asynchronous methods
-   - `sync`: Synchronous methods
-
-3. **Provider Specific**:
-
-   - `provider:openai`
-   - `provider:anthropic`
-   - `provider:vertex`
-   - etc.
-
-4. **Special Features**:
-   - `batch`: Batch processing
-   - `chat`: Chat-based operations
-   - `text`: Text-based operations
-
-## Method Relationships
-
-The tool identifies several types of relationships:
-
-1. **Execution Variants**:
-
-   - Sync/Async pairs
-   - Streaming variants
-   - Batch variants
-
-2. **Specialized Versions**:
-   - Provider-specific implementations
-   - Feature-specific variants
-   - Optimized versions
-
-## Best Practices
-
-- Only analyze non-standard packages directly relevant to the task
-- Use `--json` flag for machine-readable output
-- Leverage exception analysis for robust error handling
-- Focus on well-documented and commonly used methods
-- Cache is stored in `analysis/method_analysis_cache.db` within the package
-
-## Analysis Directory Structure
-
+```bash
+method-validator package_name --method method_name
 ```
-method_validator/
-├── analysis/                      # Analysis and cache directory
-│   ├── method_analysis_cache.db   # SQLite cache with compression
-│   ├── package1_analysis.json     # Analysis results
-│   └── package2_analysis.json
-├── examples/                      # Example integrations
-│   └── example_integration.py
-└── ...
+
+This provides:
+- Method signature
+- Parameter details
+- Documentation
+- Exception information
+
+Example:
+```bash
+method-validator loguru --method _Logger.add
+```
+
+### List All Methods
+
+To list all methods in a package:
+
+```bash
+method-validator package_name --list-all
 ```
 
 ## Cache Management
 
-The tool uses an optimized caching system with the following features:
+Analysis results are cached to improve performance. The cache:
+- Stores results in SQLite database
+- Automatically cleans up old entries
+- Validates against source code changes
 
-1. **Compressed Storage**:
+## Exit Codes
 
-   - Uses zlib compression (levels 0-9)
-   - Automatic compression for entries > 1KB
-   - Configurable compression levels
-   - Recompression support for existing entries
-
-2. **Cleanup Policies**:
-
-   - Age-based cleanup (default: 30 days)
-   - Size-based cleanup (default: 100MB)
-   - Source code change detection
-   - Automatic invalid entry removal
-
-3. **Statistics and Monitoring**:
-
-   - Entry counts and sizes
-   - Per-package statistics
-   - Compression ratios
-   - Age distribution
-
-4. **Management Commands**:
-   - Cache statistics viewing
-   - Manual cleanup options
-   - Compression level control
-   - Cache migration support
-
-## Limitations
-
-- Does not analyze standard library packages
-- Skips common utility packages (requests, urllib3, etc.)
-- Limited to Python packages installed in the environment
-- Cache is local to each installation of the tool
-
-## Contributing
-
-Contributions to improve the tool's AI agent capabilities are welcome. Please ensure any changes maintain or enhance the tool's autonomous operation capabilities.
-
-## License
-
-[MIT License](LICENSE)
-
-## Agent-Tool Interaction Flow
-
-Here's a typical interaction between a user and an AI agent using the Method Validator:
-
-```
-USER: Write a script that uses LiteLLM's acompletion function to generate text asynchronously.
-
-AGENT: Let me help you write that script. First, I should verify the exact signature and capabilities
-of LiteLLM's acompletion function to ensure we use it correctly.
-
-[INTERNAL THOUGHT: Need to check if this method exists and understand its parameters]
-```
-
-1. **Initial Method Discovery**:
-
-```python
-# Agent uses Method Validator to verify method existence
-analyzer = MethodAnalyzer()
-methods = analyzer.quick_scan("litellm")
-
-# Deep analyze the specific method (uses cache if available)
-method_info = analyzer.deep_analyze("litellm", "acompletion")
-```
-
-2. **Cached Analysis Result**:
-
-```json
-{
-  "name": "acompletion",
-  "signature": "(model: str, messages: List[Dict], api_key: Optional[str] = None, ...) -> AsyncResponse",
-  "categories": ["async", "completion", "core"],
-  "parameters": {
-    "model": {
-      "type": "str",
-      "required": true,
-      "description": "Name of the model to use"
-    },
-    "messages": {
-      "type": "List[Dict]",
-      "required": true,
-      "description": "List of message dictionaries"
-    }
-  },
-  "related_methods": [
-    {
-      "name": "completion",
-      "type": "sync_variant"
-    }
-  ]
-}
-```
-
-3. **Agent Implementation**:
-
-```
-AGENT: I've analyzed the LiteLLM package and found the acompletion function. Here's a script using
-the correct parameters:
-```
-
-```python
-import asyncio
-from litellm import acompletion
-
-async def generate_text(prompt: str, model: str = "gpt-3.5-turbo"):
-    messages = [{"role": "user", "content": prompt}]
-    response = await acompletion(
-        model=model,
-        messages=messages
-    )
-    return response.choices[0].message.content
-```
-
-4. **User Request for Enhancement**:
-
-```
-USER: Yes, add error handling. Also, can we stream the response?
-
-AGENT: Let me check the streaming capabilities and exception patterns in LiteLLM...
-```
-
-5. **Additional Analysis**:
-
-```python
-# Agent looks for streaming variants
-methods = [
-    name for name, summary, cats in analyzer.quick_scan("litellm")
-    if "stream" in name.lower() and "async" in cats
-]
-
-# Analyze streaming functionality
-stream_info = analyzer.deep_analyze("litellm", "acompletion_stream")
-```
-
-6. **Enhanced Implementation**:
-
-```python
-async def generate_text_stream(prompt: str, model: str = "gpt-3.5-turbo") -> AsyncGenerator[str, None]:
-    messages = [{"role": "user", "content": prompt}]
-    try:
-        response = await acompletion(
-            model=model,
-            messages=messages,
-            stream=True  # Found from analysis
-        )
-        async for chunk in response:
-            if chunk.choices[0].delta.content:
-                yield chunk.choices[0].delta.content
-    except APIError as e:  # Exception types from analysis
-        print(f"API Error: {e}")
-        raise
-    except APIConnectionError as e:
-        print(f"Connection Error: {e}")
-        raise
-```
-
-### Key Benefits of This Flow:
-
-1. **Verification Before Implementation**:
-
-   - Agent verifies method existence before writing code
-   - Prevents hallucination of non-existent methods
-   - Ensures correct parameter usage
-
-2. **Intelligent Feature Discovery**:
-
-   - Finds related methods (sync/async variants)
-   - Discovers additional capabilities (streaming)
-   - Identifies required exception handling
-
-3. **Performance Optimization**:
-
-   - Uses cached analysis results for quick verification
-   - Avoids repeated package analysis
-   - Makes informed decisions about method variants
-
-4. **Error Prevention**:
-   - Uses correct parameter types and structures
-   - Implements proper exception handling
-   - Avoids duplicating existing functionality
-
-### When Agents Use the Tool:
-
-1. **Initial Implementation**:
-
-   - Before writing new functions
-   - When using unfamiliar packages
-   - To verify method existence
-
-2. **Feature Enhancement**:
-
-   - When adding new capabilities
-   - Looking for alternative implementations
-   - Finding related functionality
-
-3. **Error Handling**:
-
-   - Adding exception handling
-   - Understanding error patterns
-   - Finding package-specific errors
-
-4. **Code Review**:
-   - Verifying correct usage
-   - Finding better alternatives
-   - Checking for duplicated functionality
+- 0: Success
+- 1: Method not found or error

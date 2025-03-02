@@ -3,9 +3,11 @@
 import inspect
 import importlib
 import re
-from typing import Dict, List, Any, Optional, Tuple, Set
+import sys
+from types import ModuleType
+from typing import Dict, List, Any, Optional, Tuple, Set, Match, Callable, cast
 from dataclasses import dataclass
-from tqdm import tqdm
+from tqdm import tqdm  # type: ignore
 from loguru import logger
 
 from .utils import timing
@@ -13,12 +15,92 @@ from .utils import timing
 # Lazy loading of cache to avoid circular imports
 _analysis_cache = None
 
-def get_cache():
+def safe_get_signature(obj: Callable[..., Any]) -> str:
+    """Safely get a string signature of a function, injecting sys if needed."""
+    try:
+        return str(inspect.signature(obj))
+    except NameError:
+        # The function's globals might be missing sys – inject it
+        try:
+            g = getattr(obj, '__globals__', {})
+            if 'sys' not in g:
+                g['sys'] = sys
+        except Exception:
+            pass
+        try:
+            return str(inspect.signature(obj))
+        except Exception:
+            return "()"
+
+def safe_signature_object(obj: Callable[..., Any]) -> Optional[inspect.Signature]:
+    """Return the Signature object safely, injecting sys if needed."""
+    try:
+        return inspect.signature(obj)
+    except NameError:
+        try:
+            g = getattr(obj, '__globals__', {})
+            if 'sys' not in g:
+                g['sys'] = sys
+        except Exception:
+            pass
+        try:
+            return inspect.signature(obj)
+        except Exception:
+            return None
+
+def get_cache() -> Any:
     global _analysis_cache
     if _analysis_cache is None:
+        logger.debug("Initializing analysis cache for the first time")
         from .cache import AnalysisCache
         _analysis_cache = AnalysisCache()
     return _analysis_cache
+
+def validate_method(package_name: str, method_name: str) -> Tuple[bool, str]:
+    """Quickly validate if a method exists and is accessible.
+    
+    This is a fast validation that checks:
+    1. If the method exists in cache
+    2. If not, does a quick import check
+    3. Returns immediately without deep analysis
+    
+    Args:
+        package_name: Name of the package containing the method
+        method_name: Name of the method to validate
+        
+    Returns:
+        Tuple of (is_valid, message)
+        - is_valid: True if method exists and is accessible
+        - message: Description of validation result
+    """
+    cache = get_cache()
+    
+    # Check cache first
+    try:
+        module = cast(ModuleType, importlib.import_module(package_name))
+        if '.' in method_name:
+            # Handle nested methods like _Logger.add
+            parts = method_name.split('.')
+            obj: Any = module
+            for part in parts:
+                obj = getattr(obj, part, None)
+                if obj is None:
+                    return False, f"Method {method_name} not found in {package_name}"
+        else:
+            obj = getattr(module, method_name, None)
+            if obj is None:
+                return False, f"Method {method_name} not found in {package_name}"
+                
+        # Basic validation that it's callable
+        if not callable(obj):
+            return False, f"{method_name} exists but is not callable"
+            
+        return True, f"Method {method_name} exists and is callable"
+        
+    except ImportError:
+        return False, f"Could not import package {package_name}"
+    except Exception as e:
+        return False, f"Error validating method: {str(e)}"
 
 @dataclass
 class MethodInfo:
@@ -33,7 +115,7 @@ class MethodInfo:
         try:
             with timing.measure("docstring_extraction"):
                 self.doc = inspect.getdoc(obj) or ""
-                self.signature = str(inspect.signature(obj))
+                self.signature = safe_get_signature(obj)
                 self.module = obj.__module__
                 self.summary = self._generate_summary()
 
@@ -69,11 +151,13 @@ class MethodInfo:
 
     def _analyze_parameters(self) -> Dict[str, Dict[str, Any]]:
         """Analyze parameter types, defaults, and constraints."""
-        params = {}
-        signature = inspect.signature(self.obj)
+        params: Dict[str, Dict[str, Any]] = {}
+        signature = safe_signature_object(self.obj)
+        if not signature:
+            return params
 
         # Extract parameters mentioned in examples
-        example_params = set()
+        example_params: Set[str] = set()
         for example in self._extract_examples():
             param_matches = re.finditer(r"(\w+)\s*=", example)
             example_params.update(match.group(1) for match in param_matches)
@@ -163,7 +247,7 @@ class MethodInfo:
 
     def _analyze_exceptions(self) -> List[Dict[str, str]]:
         """Analyze exceptions that can be raised by the method."""
-        exceptions = []
+        exceptions: List[Dict[str, Any]] = []
         if not self.doc:
             return exceptions
 
@@ -198,7 +282,7 @@ class MethodInfo:
             # First pass: identify custom exceptions
             for line in source.split("\n"):
                 if "class" in line and "Error" in line and "Exception" in line:
-                    match = re.search(r"class\s+(\w+Error)", line)
+                    match: Optional[Match[str]] = re.search(r"class\s+(\w+Error)", line)
                     if match:
                         custom_exceptions.add(match.group(1))
 
@@ -417,18 +501,22 @@ class MethodAnalyzer:
     ) -> Optional[Tuple[str, str, List[str]]]:
         """Quick analysis of a single method with caching."""
         cache_key = f"{obj.__module__}.{name}"
+        logger.debug(f"Quick analyzing method: {cache_key}")
 
         # Try persistent cache first
         cached_result = self._cache.get(obj.__module__, name, obj)
         if cached_result is not None:
+            logger.debug(f"Cache hit for {cache_key}")
             return cached_result
 
         try:
             info = MethodInfo(obj, name)
             result = (name, info.summary, list(info._categorize_method()))
+            logger.debug(f"Generated result for {cache_key}: {result[:2]}")  # Don't log full result
 
             # Cache the result
             self._cache.set(obj.__module__, name, obj, result)
+            logger.debug(f"Cached result for {cache_key}")
 
             return result
         except Exception as e:

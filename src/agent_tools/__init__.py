@@ -1,5 +1,5 @@
-"""
-Agent Tools - A collection of tools for AI agents
-"""
+"""Method Validator - An AI Agent's Tool for API Discovery and Validation."""
 
-__version__ = "0.1.0" 
+from .method_validator.cli import main
+
+__all__ = ["main"]

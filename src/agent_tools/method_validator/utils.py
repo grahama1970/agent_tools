@@ -62,4 +62,4 @@ class TimingManager:
 
 
 # Create global timing instance
-timing = TimingManager() 
+timing = TimingManager()

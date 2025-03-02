@@ -6,13 +6,16 @@ import pickle
 import hashlib
 import inspect
 import zlib
+import json
 from pathlib import Path
-from typing import Dict, Any, Optional, Union
+from typing import Dict, Any, Optional, Union, List, Tuple, cast
 from dataclasses import dataclass
 from collections import defaultdict
 from contextlib import contextmanager
 from loguru import logger
-from .utils import timing
+from .utils import timing, TimingManager
+import importlib
+from types import ModuleType
 
 # Get the method_validator package root directory
 PACKAGE_ROOT = Path(__file__).parent
@@ -23,10 +26,12 @@ DEFAULT_COMPRESSION_LEVEL = 6
 # Lazy loading of analyzer to avoid circular imports
 _analyzer = None
 
+
 def get_analyzer():
     global _analyzer
     if _analyzer is None:
         from .analyzer import MethodAnalyzer
+
         _analyzer = MethodAnalyzer()
     return _analyzer
 
@@ -42,46 +47,6 @@ class TimingStats:
     @property
     def average_time(self) -> float:
         return self.total_time / self.calls if self.calls > 0 else 0.0
-
-
-class TimingManager:
-    """Manages timing statistics for method validator operations."""
-
-    def __init__(self):
-        self.stats: Dict[str, TimingStats] = defaultdict(lambda: TimingStats(""))
-        self.enabled = True
-
-    @contextmanager
-    def measure(self, operation: str, description: str = ""):
-        """Context manager to measure execution time of an operation."""
-        if not self.enabled:
-            yield
-            return
-
-        start_time = time.time()
-        try:
-            if description:
-                logger.debug(f"Starting {operation}: {description}")
-            yield
-        finally:
-            elapsed = time.time() - start_time
-            if operation not in self.stats:
-                self.stats[operation] = TimingStats(operation)
-            self.stats[operation].total_time += elapsed
-            self.stats[operation].calls += 1
-            if description:
-                logger.debug(f"Completed {operation} in {elapsed:.2f}s")
-
-    def get_summary(self) -> Dict[str, Dict[str, float]]:
-        """Get summary of timing statistics."""
-        return {
-            op: {
-                "total_time": stat.total_time,
-                "calls": stat.calls,
-                "average_time": stat.average_time,
-            }
-            for op, stat in self.stats.items()
-        }
 
 
 class AnalysisCache:
@@ -112,7 +77,10 @@ class AnalysisCache:
 
     def _init_db(self):
         """Initialize the SQLite database."""
+        logger.debug(f"Initializing database at {self.db_path}")
         with sqlite3.connect(self.db_path) as conn:
+            # Only create the table if it doesn't exist
+            logger.debug("Creating table if not exists")
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS method_cache (
@@ -125,12 +93,12 @@ class AnalysisCache:
                     compressed BOOLEAN,
                     PRIMARY KEY (package_name, method_name)
                 )
-            """
+                """
             )
-            # Add index on timestamp for faster cleanup queries
-            conn.execute(
-                "CREATE INDEX IF NOT EXISTS idx_timestamp ON method_cache(timestamp)"
-            )
+
+            # Verify schema
+            columns = conn.execute("PRAGMA table_info(method_cache)").fetchall()
+            logger.debug(f"method_cache columns: {columns}")
 
     def _compress_data(self, data: bytes) -> bytes:
         """Compress data using zlib."""
@@ -166,30 +134,55 @@ class AnalysisCache:
         return None
 
     def set(self, package_name: str, method_name: str, obj, result: Any):
-        """Cache analysis result with compression."""
+        """Cache analysis result."""
         source_hash = self._get_source_hash(obj)
         result_blob = pickle.dumps(result)
-
-        # Compress if the data is large enough to benefit
-        should_compress = len(result_blob) > 1024  # Only compress if > 1KB
-        if should_compress:
-            result_blob = self._compress_data(result_blob)
-
         size = len(result_blob)
+        timestamp = time.time()
+        compressed = False
+
+        logger.debug(f"Setting cache for {package_name}.{method_name}")
+        logger.debug(
+            f"Values: package_name={package_name}, method_name={method_name}, hash={source_hash[:8]}..., size={size}, timestamp={timestamp}, compressed={compressed}"
+        )
+        logger.debug(f"Result tuple: {result[:2]}")  # Only log first two elements for brevity
+        logger.debug(f"Table schema: {self._get_table_schema()}")
 
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute(
-                "INSERT OR REPLACE INTO method_cache VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (
+            try:
+                # Insert the values
+                insert_sql = """
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """
+                values = (
                     package_name,
                     method_name,
                     source_hash,
                     result_blob,
-                    time.time(),
+                    timestamp,
                     size,
-                    should_compress,
-                ),
-            )
+                    compressed,
+                )
+                logger.debug(f"Inserting with SQL: {insert_sql}")
+                logger.debug(f"Values: {values[:3]}, <blob>, {values[4:]}")  # Don't log the blob
+                conn.execute(insert_sql, values)
+                conn.commit()  # Add explicit commit
+                logger.debug(f"Successfully inserted/updated cache entry for {package_name}.{method_name}")
+            except sqlite3.Error as e:
+                logger.error(f"Database error: {e}")
+                # Log table schema at point of failure
+                columns = conn.execute("PRAGMA table_info(method_cache)").fetchall()
+                logger.error(f"Current table schema: {columns}")
+                raise
+
+    def _get_table_schema(self) -> str:
+        """Get the current table schema."""
+        with sqlite3.connect(self.db_path) as conn:
+            return conn.execute(
+                "SELECT sql FROM sqlite_master WHERE type='table' AND name='method_cache'"
+            ).fetchone()[0]
 
     def _cleanup_if_needed(self):
         """Perform cache cleanup if size or age limits are exceeded."""
@@ -197,7 +190,7 @@ class AnalysisCache:
             with sqlite3.connect(self.db_path) as conn:
                 # Get current cache size
                 total_size = conn.execute(
-                    "SELECT COALESCE(SUM(size), 0) FROM method_cache"
+                    "SELECT COALESCE(SUM(length(result)), 0) FROM method_cache"
                 ).fetchone()[0]
 
                 if total_size > self.max_size_mb * 1024 * 1024:
@@ -265,10 +258,10 @@ class AnalysisCache:
                         conn.execute(
                             """
                             UPDATE method_cache 
-                            SET result = ?, size = ?, compressed = 1
+                            SET result = ?, compressed = 1
                             WHERE package_name = ? AND method_name = ?
                             """,
-                            (compressed_data, new_size, pkg, method),
+                            (compressed_data, pkg, method),
                         )
                     else:
                         stats["size_after"] += len(data)
@@ -280,9 +273,133 @@ class AnalysisCache:
 
         return stats
 
+    def get_all_methods(self, package_name: str) -> List[Tuple[str, str, List[str]]]:
+        """Get all cached methods for a package."""
+        self._cleanup_if_needed()
+        
+        try:
+            # Time the database query
+            query_start = time.time()
+            with sqlite3.connect(self.db_path) as conn:
+                rows = conn.execute(
+                    """
+                    SELECT method_name, result, compressed
+                    FROM method_cache 
+                    WHERE package_name = ?
+                    """,
+                    (package_name,)
+                ).fetchall()
+            query_time = time.time() - query_start
+            logger.info(f"Database query completed in {query_time:.3f}s")
+
+            # Time the decompression and processing
+            process_start = time.time()
+            results = []
+            for method_name, data, is_compressed in rows:
+                try:
+                    if is_compressed:
+                        data = self._decompress_data(data)
+                    result = cast(Tuple[str, str, List[str]], pickle.loads(data))
+                    results.append(result)
+                except Exception as e:
+                    logger.debug(f"Error processing cached data for {method_name}: {e}")
+                    continue
+            
+            process_time = time.time() - process_start
+            logger.info(f"Data processing completed in {process_time:.3f}s")
+            logger.info(f"Total methods retrieved: {len(results)}")
+            
+            return results
+        except Exception as e:
+            logger.error(f"Cache retrieval error for package {package_name}: {e}")
+            return []
+
+    def test_performance(self, package_name: str) -> Dict[str, float]:
+        """Test database retrieval performance."""
+        perf_stats = {}
+        
+        # Test 1: Simple count query
+        start = time.time()
+        with sqlite3.connect(self.db_path) as conn:
+            count = conn.execute(
+                "SELECT COUNT(*) FROM method_cache WHERE package_name = ?",
+                (package_name,)
+            ).fetchone()[0]
+        perf_stats['count_query_time'] = time.time() - start
+        
+        # Test 2: Full retrieval without decompression
+        start = time.time()
+        with sqlite3.connect(self.db_path) as conn:
+            rows = conn.execute(
+                "SELECT method_name, result, compressed FROM method_cache WHERE package_name = ?",
+                (package_name,)
+            ).fetchall()
+        perf_stats['raw_retrieval_time'] = time.time() - start
+        
+        # Test 3: Full retrieval with decompression
+        start = time.time()
+        results = []
+        for _, data, is_compressed in rows:
+            try:
+                if is_compressed:
+                    data = self._decompress_data(data)
+                result = pickle.loads(data)
+                results.append(result)
+            except Exception:
+                continue
+        perf_stats['full_processing_time'] = time.time() - start
+        
+        logger.info(f"Performance test results for {package_name}:")
+        logger.info(f"Found {count} cached methods")
+        logger.info(f"Count query time: {perf_stats['count_query_time']:.3f}s")
+        logger.info(f"Raw retrieval time: {perf_stats['raw_retrieval_time']:.3f}s")
+        logger.info(f"Processing time: {perf_stats['full_processing_time']:.3f}s")
+        
+        return perf_stats
+
+    def set_batch(self, entries: List[Tuple[str, str, Any, Any]]):
+        """Cache multiple analysis results in a single transaction.
+        
+        Args:
+            entries: List of tuples containing (package_name, method_name, obj, result)
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            try:
+                # Prepare all entries
+                values = []
+                for package_name, method_name, obj, result in entries:
+                    source_hash = self._get_source_hash(obj)
+                    result_blob = pickle.dumps(result)
+                    size = len(result_blob)
+                    timestamp = time.time()
+                    compressed = False
+                    values.append((
+                        package_name,
+                        method_name,
+                        source_hash,
+                        result_blob,
+                        timestamp,
+                        size,
+                        compressed
+                    ))
+
+                # Insert all entries in a single transaction
+                conn.executemany(
+                    """
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    values
+                )
+                conn.commit()
+                logger.debug(f"Successfully inserted/updated {len(entries)} cache entries in batch")
+            except sqlite3.Error as e:
+                logger.error(f"Database error during batch insert: {e}")
+                raise
+
 
 # Create global instances
-timing = TimingManager()
 analysis_cache = AnalysisCache()
 
 
