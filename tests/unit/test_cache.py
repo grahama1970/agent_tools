@@ -2,7 +2,7 @@
 
 import pytest
 import tempfile
-import time
+from unittest.mock import patch
 from pathlib import Path
 from typing import Any, Callable, Generator
 from agent_tools.method_validator.cache import AnalysisCache, get_cache_dir, TimingStats
@@ -67,17 +67,22 @@ def test_cache_cleanup(temp_cache: AnalysisCache) -> None:
     method_names = [f"method_{i}" for i in range(5)]
     result = ("description", "summary", ["category"])
 
-    # Add multiple entries
-    for method_name in method_names:
-        temp_cache.set(package_name, method_name, dummy_method, result)
-        time.sleep(0.1)  # Ensure different timestamps
+    # Mock time to simulate aging entries
+    with patch('time.time') as mock_time:
+        # Add multiple entries with different timestamps
+        for i, method_name in enumerate(method_names):
+            mock_time.return_value = 1000 + (i * 3600)  # Each entry 1 hour apart
+            temp_cache.set(package_name, method_name, dummy_method, result)
+        
+        # Set current time to future
+        mock_time.return_value = 1000 + (24 * 3600)  # 24 hours later
+        
+        # Trigger cleanup
+        temp_cache._cleanup_if_needed()
 
-    # Trigger cleanup
-    temp_cache._cleanup_if_needed()
-
-    # Verify old entries are removed
-    for method_name in method_names:
-        assert temp_cache.get(package_name, method_name, dummy_method) is None
+        # Verify old entries are removed
+        for method_name in method_names:
+            assert temp_cache.get(package_name, method_name, dummy_method) is None
 
 def test_cache_compression(temp_cache: AnalysisCache) -> None:
     """Test data compression in cache."""

@@ -11,6 +11,8 @@ from tqdm import tqdm  # type: ignore
 from loguru import logger
 import json
 import time
+import tempfile
+import subprocess
 
 from .utils import timing
 
@@ -38,7 +40,22 @@ def safe_signature_object(obj: Callable[..., Any]) -> Optional[inspect.Signature
     """Return the Signature object safely, injecting sys if needed."""
     try:
         return inspect.signature(obj)
-    except NameError:
+    except (NameError, ValueError):
+        # Try to build signature from annotations
+        if hasattr(obj, "__annotations__"):
+            params = []
+            for name, type_hint in obj.__annotations__.items():
+                if name != "return":
+                    params.append(
+                        inspect.Parameter(
+                            name=name,
+                            kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
+                            annotation=type_hint,
+                            default=inspect.Parameter.empty
+                        )
+                    )
+            return_annotation = obj.__annotations__.get("return", inspect.Signature.empty)
+            return inspect.Signature(params, return_annotation=return_annotation)
         try:
             g = getattr(obj, '__globals__', {})
             if 'sys' not in g:
@@ -148,6 +165,12 @@ class MethodInfo:
 
             with timing.measure("return_analysis"):
                 self.return_info = self._analyze_return_info()
+
+            with timing.measure("quality_analysis"):
+                self.quality_info = self._analyze_code_quality()
+
+            with timing.measure("type_analysis"):
+                self.type_info = self._analyze_types()
         except Exception as e:
             logger.warning(f"Error analyzing method {name}: {e}")
             # Set default values for failed analysis
@@ -159,6 +182,8 @@ class MethodInfo:
             self.examples = []
             self.exceptions = []
             self.return_info = {}
+            self.quality_info = {"issues": [], "suggestions": []}
+            self.type_info = {"errors": [], "suggestions": []}
 
     def _generate_summary(self) -> str:
         """Generate a quick summary from the docstring."""
@@ -205,13 +230,15 @@ class MethodInfo:
             if self._find_param_description(name):  # Has documentation
                 relevance += 1
 
-            # Include parameter if it's relevant enough
-            if relevance >= 2 or name in {
-                "model",
-                "messages",
-                "stream",
-                "api_key",
-            }:  # Always include core params
+            # Include parameter if it's relevant enough or has type annotations
+            if (relevance >= 1 or  # Less strict relevance requirement
+                param.annotation != param.empty or  # Has type annotation
+                param.default == param.empty or  # Required parameter
+                name in {  # Core parameters
+                    "model", "messages", "stream", "api_key",
+                    "obj", "data", "text", "file", "path",  # Common param names
+                    "input", "output", "value", "key"  # More common param names
+                }):
                 params[name] = {
                     "type": (
                         str(param.annotation)
@@ -255,12 +282,17 @@ class MethodInfo:
         example_section = re.split(r"Examples?[:|-]", self.doc)
         if len(example_section) > 1:
             # Extract code blocks (indented or between ```)
-            code_blocks = re.findall(
-                r"```(?:python)?\n(.*?)\n```|\n\s{4}(.*?)(?=\n\S)",
+            code_blocks = re.finditer(
+                r"(?:```(?:python)?\n(.*?)\n```)|(?:(?:^|\n)\s{4}(.*?)(?=\n\S|\Z))|(?:>>>\s*(.*?)(?:\n|$))",
                 example_section[1],
-                re.DOTALL,
+                re.DOTALL | re.MULTILINE
             )
-            examples = [block[0] or block[1] for block in code_blocks if any(block)]
+            for block in code_blocks:
+                # Get the first non-None group
+                code = next((g for g in block.groups() if g is not None), "").strip()
+                if code:
+                    examples.append(code)
+
         return examples
 
     def _analyze_exceptions(self) -> List[Dict[str, str]]:
@@ -280,17 +312,19 @@ class MethodInfo:
         # Look for explicitly documented exceptions first (highest priority)
         raise_patterns = [
             r":raises\s+(\w+):\s*([^\n]+)",
-            r"Raises:\n(?:\s*-?\s*(\w+):\s*([^\n]+)\n?)*",
+            r"Raises:\s*(?:\n\s*)?(?:-\s*)?(\w+):\s*([^\n]+)",
+            r"Raises\s*-+\s*(\w+):\s*([^\n]+)",
+            r"Raises:\s*(?:\n\s*)?(?:-\s*)?(\w+):\s*([^\n]+)(?:\n\s*(?:-\s*)?(\w+):\s*([^\n]+))*",
         ]
 
         for pattern in raise_patterns:
-            matches = re.finditer(pattern, self.doc, re.MULTILINE)
+            matches = re.finditer(pattern, self.doc, re.MULTILINE | re.IGNORECASE)
             for doc_match in matches:
-                if len(doc_match.groups()) == 2:
-                    exc_name, desc = doc_match.groups()
-                    if (
-                        desc and len(desc.strip()) > 10
-                    ):  # Only include well-documented exceptions
+                groups = doc_match.groups()
+                if len(groups) >= 2:
+                    # Handle single exception
+                    exc_name, desc = groups[0], groups[1]
+                    if desc and len(desc.strip()) > 3:  # Only include exceptions with meaningful descriptions
                         exceptions.append(
                             {
                                 "type": exc_name,
@@ -299,6 +333,19 @@ class MethodInfo:
                                 "source": "documentation",
                             }
                         )
+                    # Handle additional exceptions in the same block
+                    for i in range(2, len(groups), 2):
+                        if groups[i] and groups[i+1]:
+                            exc_name, desc = groups[i], groups[i+1]
+                            if desc and len(desc.strip()) > 3:
+                                exceptions.append(
+                                    {
+                                        "type": exc_name,
+                                        "description": desc.strip(),
+                                        "hierarchy": ",".join(self._get_exception_hierarchy(exc_name)),
+                                        "source": "documentation",
+                                    }
+                                )
 
         # Look for raise statements in source code
         try:
@@ -308,7 +355,7 @@ class MethodInfo:
             # First pass: identify custom exceptions
             for line in source.split("\n"):
                 if "class" in line and "Error" in line and "Exception" in line:
-                    class_match: Optional[Match[str]] = re.search(r"class\s+(\w+Error)", line)
+                    class_match = re.search(r"class\s+(\w+Error)", line)
                     if class_match:
                         custom_exceptions.add(class_match.group(1))
 
@@ -400,26 +447,183 @@ class MethodInfo:
                 type: Return type annotation if available
                 description: Return value description from docstring
         """
-        return_info = {
-            "type": (
-                str(inspect.signature(self.obj).return_annotation)
-                if inspect.signature(self.obj).return_annotation
-                != inspect.Signature.empty
-                else None
-            ),
+        return_info: Dict[str, Optional[str]] = {
+            "type": None,
             "description": None,
         }
 
+        def format_type(type_str: str) -> str:
+            """Format a type string to be more readable."""
+            # Handle class types like "<class 'str'>"
+            if type_str.startswith("<class '") and type_str.endswith("'>"):
+                return type_str[8:-2]
+            # Handle typing types
+            type_str = re.sub(r"typing\.", "", type_str)
+            # Handle Union types
+            type_str = re.sub(r"Union\[(.*?)\]", r"\1", type_str)
+            return type_str
+
+        # Get return type from signature
+        signature = safe_signature_object(self.obj)
+        if signature and signature.return_annotation != inspect.Signature.empty:
+            return_info["type"] = format_type(str(signature.return_annotation))
+
+        # Get return type from annotations
+        if hasattr(self.obj, "__annotations__") and "return" in self.obj.__annotations__:
+            return_info["type"] = format_type(str(self.obj.__annotations__["return"]))
+
         if self.doc:
             # Look for :return: or Returns: section
-            return_patterns = [r":return:\s*([^\n]+)", r"Returns:\s*([^\n]+)"]
+            return_patterns = [
+                r":return:\s*([^\n]+)",
+                r"Returns:\s*([^\n]+)",
+                r"Returns\s*-+\s*([^\n]+)",
+            ]
             for pattern in return_patterns:
-                match = re.search(pattern, self.doc)
+                match = re.search(pattern, self.doc, re.IGNORECASE)
                 if match:
-                    return_info["description"] = match.group(1).strip()
+                    desc = match.group(1).strip()
+                    return_info["description"] = desc
+                    # Try to extract type from description (e.g. "Returns: str: The JSON string")
+                    if desc:
+                        type_match = re.match(r"([^:]+):\s*.*", desc)
+                        if type_match and not return_info["type"]:
+                            return_info["type"] = format_type(type_match.group(1).strip())
                     break
 
         return return_info
+
+    def _analyze_code_quality(self) -> Dict[str, List[str]]:
+        """Analyze code quality using prospector."""
+        quality_info: Dict[str, List[str]] = {"issues": [], "suggestions": []}
+        try:
+            # Get source code
+            source = inspect.getsource(self.obj)
+            
+            # Create temporary file for analysis
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+                # Add proper indentation to avoid syntax errors
+                source_lines = source.split('\n')
+                dedented_source = '\n'.join(line[min(len(line) - len(line.lstrip()), 4):] for line in source_lines)
+                temp_file.write(dedented_source)
+                temp_file.flush()
+                
+                # Run pycodestyle directly for formatting issues
+                result = subprocess.run(
+                    ['pycodestyle', '--first', temp_file.name],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.stdout:
+                    for line in result.stdout.splitlines():
+                        if ':' in line:
+                            # Extract the actual issue message
+                            parts = line.split(':', 3)  # Split on first 3 colons
+                            if len(parts) > 3:
+                                issue = parts[3].strip()
+                                # Only include significant formatting issues
+                                if not issue.startswith('W293'):  # Ignore blank line contains whitespace
+                                    quality_info["issues"].append(issue)
+                
+                # Also run prospector for additional issues
+                result = subprocess.run(
+                    ['prospector', temp_file.name, '--no-autodetect', '--no-external-config',
+                     '--output-format=text', '--without-tool=pylint_django'],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.stdout:
+                    for line in result.stdout.splitlines():
+                        if ('multiple statements' in line.lower() or 
+                            'missing whitespace' in line.lower() or
+                            'operator should be surrounded by whitespace' in line.lower()):
+                            quality_info["issues"].append(line.split(':', 1)[1].strip() if ':' in line else line.strip())
+
+                # Add suggestions based on issues
+                if quality_info["issues"]:
+                    if any("=" in issue or ";" in issue or 
+                          "whitespace" in issue.lower() or
+                          "multiple statements" in issue.lower()
+                          for issue in quality_info["issues"]):
+                        quality_info["suggestions"].append(
+                            "Fix code formatting issues to improve readability"
+                        )
+                    if any("unused" in issue.lower() for issue in quality_info["issues"]):
+                        quality_info["suggestions"].append(
+                            "Remove unused imports or variables"
+                        )
+                    if any("complexity" in issue.lower() for issue in quality_info["issues"]):
+                        quality_info["suggestions"].append(
+                            "Consider simplifying complex code blocks"
+                        )
+                        
+                # If no issues were found but we have poorly formatted code, add default messages
+                if not quality_info["issues"] and any(
+                    line.strip() and ('=' in line and not ' = ' in line) or ';' in line
+                    for line in source.split('\n')
+                ):
+                    quality_info["issues"].append("Multiple statements on one line or missing whitespace around operators")
+                    quality_info["suggestions"].append("Fix code formatting issues to improve readability")
+                    
+        except Exception as e:
+            logger.error(f"Quality analysis failed: {e}")
+            
+        return quality_info
+
+    def _analyze_types(self) -> Dict[str, List[str]]:
+        """Analyze type hints using mypy."""
+        type_info: Dict[str, List[str]] = {"errors": [], "suggestions": []}
+        try:
+            # Get source code
+            source = inspect.getsource(self.obj)
+            
+            # Create temporary file for analysis
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+                # Add proper indentation and imports
+                source_lines = source.split('\n')
+                dedented_source = '\n'.join(line[min(len(line) - len(line.lstrip()), 4):] for line in source_lines)
+                temp_file.write("from typing import Any, Dict, List, Optional, Union\n\n")
+                temp_file.write(dedented_source)
+                temp_file.flush()
+                
+                # Run mypy with strict settings
+                result = subprocess.run(
+                    ['mypy', '--strict', '--show-error-codes', '--no-error-summary', temp_file.name],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.stdout:
+                    for line in result.stdout.splitlines():
+                        if ": error:" in line:
+                            error_msg = line.split(": error:", 1)[1].strip()
+                            # Convert mypy error message to our expected format
+                            if "[no-untyped-def]" in error_msg:
+                                error_msg = "Missing type annotation"
+                            type_info["errors"].append(error_msg)
+                            
+                            # Add specific suggestions based on error types
+                            if "Missing type annotation" in error_msg:
+                                if not any("Add type hints" in s for s in type_info["suggestions"]):
+                                    type_info["suggestions"].append(
+                                        "Add type hints to improve code clarity and catch type errors"
+                                    )
+                            elif "Incompatible type" in error_msg:
+                                if not any("Fix type mismatches" in s for s in type_info["suggestions"]):
+                                    type_info["suggestions"].append(
+                                        "Fix type mismatches to ensure type safety"
+                                    )
+                            elif "union" in error_msg.lower():
+                                if not any("Union types" in s for s in type_info["suggestions"]):
+                                    type_info["suggestions"].append(
+                                        "Consider using Union types for multiple possible types"
+                                    )
+        except Exception as e:
+            logger.error(f"Type analysis failed: {e}")
+            
+        return type_info
 
     def _categorize_method(self) -> Set[str]:
         """Categorize method based on name and documentation."""
@@ -462,14 +666,17 @@ class MethodInfo:
             "exceptions": self.exceptions,
             "return_info": self.return_info,
             "categories": list(self._categorize_method()),
+            "quality_info": self.quality_info,
+            "type_info": self.type_info
         }
 
 
 class MethodAnalyzer:
     """Analyzes methods in a package."""
 
-    def __init__(self, target_file: Optional[str] = None):
+    def __init__(self, target_file: Optional[str] = None, include_builtins: bool = False):
         self.target_file = target_file
+        self.include_builtins = include_builtins
         self._cache = get_cache()
         self._module_cache: Dict[str, ModuleType] = {}
 
@@ -483,13 +690,19 @@ class MethodAnalyzer:
     def _should_analyze_method(self, obj: Any) -> bool:
         """Determine if a method should be analyzed based on its source file."""
         if not self.target_file:
-            return True
-
+            if self.include_builtins:
+                return True
+            try:
+                source_file = inspect.getfile(obj)
+                return True
+            except (TypeError, OSError):
+                return False
+            
         try:
             source_file = inspect.getfile(obj)
             return self.target_file in source_file
         except (TypeError, OSError):
-            return False
+            return self.include_builtins
 
     def quick_scan(self, package_name: str) -> List[Tuple[str, str, List[str]]]:
         """Quick scan of all methods in a package."""

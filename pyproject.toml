@@ -28,12 +28,16 @@ dependencies = [
     "aiohttp>=3.9.0",
     "python-dotenv>=1.0.0",
     "litellm>=1.61.20",
+    "pytest-xdist==3.5.0",
+    "mypy>=1.14.1",
+    "prospector>=1.10.3"
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.1.0",
+    "pytest-xdist==3.5.0",
     "black>=23.0.0",
     "isort>=5.12.0",
     "mypy>=1.5.0",
@@ -89,10 +93,12 @@ src = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --cov=agent_tools"
+addopts = "-n auto --dist loadfile"
 testpaths = ["tests"]
 pythonpath = ["src"]
 python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning",
@@ -115,5 +121,8 @@ exclude_lines = [
 
 [dependency-groups]
 dev = [
+    "mypy>=1.14.1",
+    "prospector>=1.10.3",
+    "pydantic>=2.10.6",
     "types-requests>=2.32.0.20241016",
 ]

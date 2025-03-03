@@ -18,6 +18,147 @@ from .utils import timing, TimingManager
 import importlib
 from types import ModuleType
 
+# Cache directory in user's home
+CACHE_DIR = Path.home() / ".cache" / "method_validator"
+DB_PATH = CACHE_DIR / "method_analysis_cache.db"
+
+# Ensure cache directory exists
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
+def get_db() -> sqlite3.Connection:
+    """Get database connection with proper settings."""
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.execute("PRAGMA journal_mode=WAL")  # Better concurrency
+    return conn
+
+def init_db() -> None:
+    """Initialize the database schema."""
+    logger.debug(f"Initializing database at {DB_PATH}")
+    
+    try:
+        with get_db() as conn:
+            logger.debug("Creating table if not exists")
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+            """)
+            
+            # Log table info for debugging
+            cursor = conn.execute("PRAGMA table_info(method_cache)")
+            columns = cursor.fetchall()
+            logger.debug(f"method_cache columns: {columns}")
+            
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {e}")
+        raise
+
+def store_result(
+    package_name: str,
+    method_name: str,
+    source_hash: str,
+    result: Any,
+    compress: bool = True
+) -> None:
+    """Store analysis result in cache."""
+    try:
+        serialized = pickle.dumps(result)
+        size = len(serialized)
+        
+        with get_db() as conn:
+            conn.execute(
+                """
+                INSERT OR REPLACE INTO method_cache
+                (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (package_name, method_name, source_hash, serialized, time.time(), size, compress)
+            )
+    except Exception as e:
+        logger.error(f"Failed to store result: {e}")
+
+def get_result(
+    package_name: str,
+    method_name: str,
+    source_hash: Optional[str] = None
+) -> Optional[Tuple[Any, float]]:
+    """
+    Get cached result if available and valid.
+    Returns (result, timestamp) tuple or None if not found/invalid.
+    """
+    try:
+        with get_db() as conn:
+            cursor = conn.execute(
+                """
+                SELECT result, timestamp, source_hash
+                FROM method_cache
+                WHERE package_name = ? AND method_name = ?
+                """,
+                (package_name, method_name)
+            )
+            row = cursor.fetchone()
+            
+            if not row:
+                return None
+                
+            result_blob, timestamp, cached_hash = row
+            
+            # Validate source hash if provided
+            if source_hash and cached_hash != source_hash:
+                return None
+                
+            try:
+                result = pickle.loads(result_blob)
+                return result, timestamp
+            except:
+                return None
+                
+    except Exception as e:
+        logger.error(f"Failed to get result: {e}")
+        return None
+
+def clear_cache() -> None:
+    """Clear all cached results."""
+    try:
+        with get_db() as conn:
+            conn.execute("DELETE FROM method_cache")
+    except Exception as e:
+        logger.error(f"Failed to clear cache: {e}")
+
+def get_cache_stats() -> Dict[str, Any]:
+    """Get statistics about the cache."""
+    try:
+        with get_db() as conn:
+            cursor = conn.execute("""
+                SELECT 
+                    COUNT(*) as total_entries,
+                    SUM(size) as total_size,
+                    MIN(timestamp) as oldest_entry,
+                    MAX(timestamp) as newest_entry
+                FROM method_cache
+            """)
+            row = cursor.fetchone()
+            
+            if not row:
+                return {}
+                
+            return {
+                "total_entries": row[0],
+                "total_size_bytes": row[1],
+                "oldest_entry_timestamp": row[2],
+                "newest_entry_timestamp": row[3]
+            }
+    except Exception as e:
+        logger.error(f"Failed to get cache stats: {e}")
+        return {}
+
 def get_cache_dir() -> Path:
     """Get the appropriate cache directory for the current platform.
     
