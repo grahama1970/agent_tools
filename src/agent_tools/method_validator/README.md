@@ -1,12 +1,14 @@
 # ✅ Method Validator
 
-A tool for AI agents to validate code suggestions against real, existing methods. This tool enables natural code generation while preventing method hallucination.
+A tool for AI agents to validate code suggestions against real, existing methods. This tool enables natural code generation while preventing both method hallucination and unnecessary duplication of functionality.
 
 ## 🎯 Purpose
 
 The Method Validator helps AI agents write better code by:
 - Validating methods after writing code but before showing to users
 - Preventing method hallucination without constraining code generation
+- Discovering existing functionality to prevent duplication
+- Analyzing package capabilities before implementing new solutions
 - Providing alternatives when methods don't exist
 - Ensuring correct API usage
 
@@ -19,15 +21,17 @@ The Method Validator implements a specific workflow designed to maximize natural
    - Generate complete solutions without constraints
    - Leverage understanding of common patterns and APIs
 
-2. **Validate Before Showing** ✅
+2. **Validate and Discover** 🔍
    - Check all methods exist AFTER writing code
+   - Scan packages for existing similar functionality
+   - Identify alternative methods if needed
    - Validate BEFORE showing code to users
-   - Quick validation for rapid verification
 
 3. **Smart Recovery** 🔄
    - Suggest alternatives if methods don't exist
-   - Provide similar existing methods
-   - Help adapt code to use valid APIs
+   - Identify similar existing functionality
+   - Help adapt code to use existing APIs
+   - Prevent reinventing existing solutions
 
 ## 📝 Example Usage
 
