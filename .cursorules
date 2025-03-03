@@ -71,6 +71,12 @@
       "condition": "code_writing",
       "action": "validate_methods",
       "message": "AGENT WORKFLOW:\n1. Draft code first\n2. Extract methods to verify\n3. Verify each method before presenting code\n4. Check for duplicate functionality\n5. Only present verified code"
+    },
+    {
+      "type": "testing",
+      "condition": "code_changes",
+      "action": "run_tests",
+      "message": "TESTING REQUIREMENTS:\n1. All code changes MUST have corresponding tests\n2. AI MUST:\n   a. Run tests BEFORE suggesting changes\n   b. Run tests IMMEDIATELY AFTER applying changes\n   c. NEVER proceed without both test runs\n3. Test steps:\n   a. Run existing tests: pytest tests/\n   b. Add new tests for changes\n   c. Verify both new and existing tests pass\n4. Test coverage requirements:\n   - Unit tests for all new functions\n   - Integration tests for feature changes\n   - Edge case coverage\n5. Testing guidelines:\n   - Use pytest fixtures for setup\n   - Mock external dependencies\n   - Follow AAA pattern (Arrange-Act-Assert)\n   - Keep tests focused and atomic\n6. When suggesting changes:\n   - Include test results in explanation\n   - Reference specific test files/cases\n   - Explain test coverage\n7. Test failure protocol:\n   a. If tests fail BEFORE changes: Document current failures\n   b. If tests fail AFTER changes: Revert changes or fix immediately"
     }
   ]
 }

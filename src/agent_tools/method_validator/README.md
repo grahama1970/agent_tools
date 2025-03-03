@@ -161,127 +161,174 @@ However, the primary focus remains on enhancing AI agent capabilities within Cur
 
 # Method Validator
 
-A tool for AI agents to verify that suggested code only uses real, existing methods.
+A tool for AI agents to validate code suggestions against real, existing methods. This tool enables natural code generation while preventing method hallucination.
 
-## Purpose
+## 🎯 Purpose & Design Philosophy
 
-As an AI assistant, I use method_validator to:
-1. Verify my code suggestions don't use non-existent methods
-2. Confirm method signatures and parameters after writing code
-3. Prevent method hallucination by validating after writing
-4. Ground my suggestions in actual package functionality
+The Method Validator is designed around a natural code generation workflow:
 
-## Example Usage (For AI Agents)
+1. **Write First**: AI agents use their training to write code naturally
+2. **Validate Before Showing**: Verify all methods exist before presenting to users
+3. **Fix if Needed**: Only modify code if validation fails
 
-WRONG Workflow ❌:
+This approach:
+- ✅ Leverages AI's full knowledge without artificial constraints
+- ✅ Maintains natural coding flow
+- ✅ Only validates methods actually used
+- ✅ Provides context for better alternatives when needed
+
+## 🔄 Workflow Example
+
 ```python
-# DON'T check methods before writing code
-method-validator litellm --method completion
-# Then write code...
-```
-
-RIGHT Workflow ✅:
-1. First write the code you think should work:
-```python
+# 1. First write code naturally based on training
 def chat_with_llm(prompt: str) -> str:
     response = litellm.completion(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
-```
 
-2. Then validate ALL methods you used:
-```bash
-# Verify each method exists
+# 2. Validate ALL methods before showing to user
 method-validator litellm --method completion --quick
+
+# 3. Only if validation fails, revise code
+# Example: If litellm.completion doesn't exist, find alternatives
 ```
 
-3. Fix any methods that don't exist or were hallucinated
+## 🎯 Success Criteria
 
-This ensures AI agents only suggest code using real methods.
+1. ✅ Natural Code Generation: Write code using full training knowledge
+2. ✅ Pre-presentation Validation: Verify before showing to user
+3. ✅ Efficient Validation: Only check methods actually used
+4. ✅ Smart Recovery: Suggest alternatives if validation fails
 
-## Success Criteria
+## 🛠️ Key Features
 
-1. Write code first based on training
-2. Validate ALL methods used in the code
-3. Fix any non-existent methods
-4. Only suggest code using verified methods
+- **Quick Validation**: Fast method existence checks
+- **Deep Analysis**: Detailed method information when needed
+- **Smart Caching**: Efficient validation through caching
+- **Flexible Analysis**: Different validation levels based on need
+- **Rich Information**: Complete method details available
 
-## Implementation Notes
+## 🚀 Usage Guide
 
-1. Always validate AFTER writing code
-2. Check ALL methods used
-3. Use --quick mode for fast validation
-4. Fix or remove any non-existent methods
-5. Update code based on validation results
-
-## Features
-
-- Quick validation of method existence and accessibility
-- Deep analysis of method signatures, parameters, and documentation
-- Caching of analysis results for improved performance
-- Support for nested methods (e.g. `_Logger.add`)
-
-## Usage
-
-### Quick Validation
-
-To quickly check if a method exists and is accessible:
+### For AI Agents
 
 ```bash
-method-validator package_name --method method_name --quick
+# Quick method validation (auto-executed)
+method-validator package --method method_name --quick
+
+# List all methods in package
+method-validator package --list-all
+
+# Deep method analysis (when needed)
+method-validator package --method method_name
 ```
 
-This performs a fast check without deep analysis, ideal for:
-- Verifying method existence
-- Basic validation during development
-- CI/CD pipelines
+### For Developers
 
-Example:
-```bash
-method-validator loguru --method _Logger.add --quick
+```python
+from agent_tools.method_validator import validate_method
+from agent_tools.method_validator.analyzer import MethodAnalyzer
+
+# Quick validation
+is_valid, message = validate_method("package_name", "method_name")
+
+# Deep analysis
+analyzer = MethodAnalyzer()
+details = analyzer.deep_analyze("package_name", "method_name")
 ```
 
-### Deep Analysis
+## 📦 Core Components
 
-For detailed method analysis:
+### analyzer.py - Core Analysis Engine
+- Main class: `MethodAnalyzer`
+- Key functions:
+  - `validate_method()`: Quick existence check
+  - `quick_scan()`: Fast package discovery
+  - `deep_analyze()`: Detailed analysis
 
-```bash
-method-validator package_name --method method_name
+### cache.py - Performance Optimization
+- Smart caching system
+- SQLite-based storage
+- Automatic cache management
+
+### cli.py - Command Interface
+- Autonomous validation commands
+- Multiple analysis modes
+- Machine-readable output
+
+### utils.py - Helper Functions
+- Command execution control
+- Timing utilities
+- Common helper functions
+
+## 🔍 Validation Levels
+
+1. **Quick Validation** (`--quick`):
+   - Method existence
+   - Basic callable check
+   - Cached results
+   
+2. **Deep Analysis**:
+   - Full signature
+   - Parameter details
+   - Return types
+   - Exceptions
+   - Usage examples
+
+## 🎯 Integration Guide
+
+### Basic Integration
+```python
+def validate_code(code: str) -> bool:
+    # Extract and validate methods
+    methods = extract_methods(code)
+    for package, method in methods:
+        is_valid, _ = validate_method(package, method)
+        if not is_valid:
+            return False
+    return True
 ```
 
-This provides:
-- Method signature
-- Parameter details
-- Documentation
-- Exception information
-
-Example:
-```bash
-method-validator loguru --method _Logger.add
+### Error Recovery
+```python
+try:
+    is_valid, message = validate_method(package, method)
+    if not is_valid:
+        # Get alternatives
+        alternatives = analyzer.quick_scan(package)
+        # Suggest similar methods
+except ImportError:
+    # Handle missing package
+    pass
 ```
 
-### List All Methods
+## 🔧 Performance Tips
 
-To list all methods in a package:
+1. Use `--quick` for existence checks
+2. Leverage the caching system
+3. Batch validate when possible
+4. Use deep analysis sparingly
 
-```bash
-method-validator package_name --list-all
-```
+## 🚫 Common Pitfalls
 
-## Cache Management
+1. ❌ Validating before writing code
+   - Constrains natural code generation
+   - May miss better solutions
+   
+2. ❌ Skipping validation before showing code
+   - Risk of method hallucination
+   - Poor user experience
+   
+3. ❌ Over-validation
+   - Checking standard library methods
+   - Validating obvious methods
 
-Analysis results are cached to improve performance. The cache:
-- Stores results in SQLite database
-- Automatically cleans up old entries
-- Validates against source code changes
+## 🎯 Best Practices
 
-## Exit Codes
-
-- 0: Success
-- 1: Method not found or error
-
-## Example Test Conversation
-
-User: "I want to use litellm to send a chat message"
+1. ✅ Write code naturally using training
+2. ✅ Validate before showing to user
+3. ✅ Use quick validation first
+4. ✅ Deep analyze only when needed
+5. ✅ Cache results for performance

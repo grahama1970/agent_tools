@@ -158,3 +158,50 @@ While these tools are primarily designed for AI agents, they can also be valuabl
 - Benefit from intelligent caching and analysis
 
 However, the primary focus remains on enhancing AI agent capabilities within Cursor.
+
+## Testing
+
+This project uses pytest for testing. The test suite includes both unit tests and integration tests.
+
+### Running Tests
+
+To run the test suite:
+
+```bash
+pytest tests/
+```
+
+For test coverage report:
+
+```bash
+pytest --cov=agent_tools tests/
+```
+
+### Test Structure
+
+- `tests/unit/`: Unit tests for individual components
+- `tests/integration/`: Integration tests for end-to-end functionality
+
+### Writing Tests
+
+When contributing to this project:
+
+1. All code changes must include corresponding tests
+2. Follow the AAA pattern (Arrange-Act-Assert)
+3. Use pytest fixtures for common setup
+4. Mock external dependencies appropriately
+5. Ensure both new and existing tests pass
+
+### Test Coverage Requirements
+
+- Unit tests for all new functions/methods
+- Integration tests for feature changes
+- Edge case coverage
+- Minimum 80% coverage for new code
+
+### Continuous Integration
+
+Tests are automatically run on:
+- Every pull request
+- Every merge to main branch
+- Every release tag

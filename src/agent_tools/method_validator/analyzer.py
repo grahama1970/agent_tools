@@ -5,10 +5,12 @@ import importlib
 import re
 import sys
 from types import ModuleType
-from typing import Dict, List, Any, Optional, Tuple, Set, Match, Callable, cast
+from typing import Dict, List, Any, Optional, Tuple, Set, Match, Callable, cast, Type
 from dataclasses import dataclass
 from tqdm import tqdm  # type: ignore
 from loguru import logger
+import json
+import time
 
 from .utils import timing
 
@@ -104,9 +106,25 @@ def validate_method(package_name: str, method_name: str) -> Tuple[bool, str]:
 
 @dataclass
 class MethodInfo:
-    """Structured container for method information."""
+    """Structured container for method information.
+    
+    Args:
+        obj: The method object to analyze
+        name: Name of the method
+        
+    Attributes:
+        name: Method name
+        doc: Method docstring
+        signature: Method signature
+        module: Module name
+        summary: Brief description
+        parameters: Parameter details
+        examples: Usage examples
+        exceptions: Possible exceptions
+        return_info: Return type information
+    """
 
-    def __init__(self, obj, name: str):
+    def __init__(self, obj: Any, name: str) -> None:
         if obj is None:
             raise ValueError(f"Cannot analyze None object for method {name}")
 
@@ -246,8 +264,16 @@ class MethodInfo:
         return examples
 
     def _analyze_exceptions(self) -> List[Dict[str, str]]:
-        """Analyze exceptions that can be raised by the method."""
-        exceptions: List[Dict[str, Any]] = []
+        """Analyze exceptions that can be raised by the method.
+        
+        Returns:
+            List of dictionaries containing exception information:
+            - type: Exception class name
+            - description: Exception description
+            - hierarchy: Exception class hierarchy
+            - source: Where the exception was found
+        """
+        exceptions: List[Dict[str, str]] = []
         if not self.doc:
             return exceptions
 
@@ -259,9 +285,9 @@ class MethodInfo:
 
         for pattern in raise_patterns:
             matches = re.finditer(pattern, self.doc, re.MULTILINE)
-            for match in matches:
-                if len(match.groups()) == 2:
-                    exc_name, desc = match.groups()
+            for doc_match in matches:
+                if len(doc_match.groups()) == 2:
+                    exc_name, desc = doc_match.groups()
                     if (
                         desc and len(desc.strip()) > 10
                     ):  # Only include well-documented exceptions
@@ -269,7 +295,7 @@ class MethodInfo:
                             {
                                 "type": exc_name,
                                 "description": desc.strip(),
-                                "hierarchy": self._get_exception_hierarchy(exc_name),
+                                "hierarchy": ",".join(self._get_exception_hierarchy(exc_name)),
                                 "source": "documentation",
                             }
                         )
@@ -282,14 +308,14 @@ class MethodInfo:
             # First pass: identify custom exceptions
             for line in source.split("\n"):
                 if "class" in line and "Error" in line and "Exception" in line:
-                    match: Optional[Match[str]] = re.search(r"class\s+(\w+Error)", line)
-                    if match:
-                        custom_exceptions.add(match.group(1))
+                    class_match: Optional[Match[str]] = re.search(r"class\s+(\w+Error)", line)
+                    if class_match:
+                        custom_exceptions.add(class_match.group(1))
 
             # Second pass: find raise statements
             raise_statements = re.finditer(r"raise\s+(\w+)(?:\(|$)", source)
-            for match in raise_statements:
-                exc_name = match.group(1)
+            for raise_match in raise_statements:
+                exc_name = raise_match.group(1)
                 # Prioritize custom exceptions and well-known error types
                 if (
                     exc_name in custom_exceptions
@@ -304,7 +330,7 @@ class MethodInfo:
                                 "description": self._infer_exception_description(
                                     exc_name, source
                                 ),
-                                "hierarchy": self._get_exception_hierarchy(exc_name),
+                                "hierarchy": ",".join(self._get_exception_hierarchy(exc_name)),
                                 "source": "source_code",
                             }
                         )
@@ -366,8 +392,14 @@ class MethodInfo:
         except (AttributeError, TypeError):
             return []
 
-    def _analyze_return_info(self) -> Dict[str, str]:
-        """Analyze return type and description."""
+    def _analyze_return_info(self) -> Dict[str, Optional[str]]:
+        """Analyze return type and description.
+        
+        Returns:
+            Dict with keys:
+                type: Return type annotation if available
+                description: Return value description from docstring
+        """
         return_info = {
             "type": (
                 str(inspect.signature(self.obj).return_annotation)
@@ -375,7 +407,7 @@ class MethodInfo:
                 != inspect.Signature.empty
                 else None
             ),
-            "description": "",
+            "description": None,
         }
 
         if self.doc:
@@ -439,7 +471,7 @@ class MethodAnalyzer:
     def __init__(self, target_file: Optional[str] = None):
         self.target_file = target_file
         self._cache = get_cache()
-        self._module_cache = {}
+        self._module_cache: Dict[str, ModuleType] = {}
 
     def _get_module(self, package_name: str) -> Any:
         """Get module with caching."""
@@ -484,22 +516,44 @@ class MethodAnalyzer:
 
         results = []
         with timing.measure("method_analysis", "Analyzing methods"):
-            progress = tqdm(methods, desc="Analyzing methods", unit="method")
-            for name, obj in progress:
-                try:
-                    result = self._analyze_method_quick(name, obj)
-                    if result:
-                        results.append(result)
-                    progress.set_postfix({"current": name})
-                except Exception as e:
-                    logger.debug(f"Error analyzing method {name}: {e}")
+            # Check if running in a test environment
+            is_test = 'pytest' in sys.modules
+            if is_test:
+                # Skip progress bar in tests
+                for name, obj in methods:
+                    try:
+                        result = self._analyze_method_quick(name, obj)
+                        if result:
+                            results.append(result)
+                    except Exception as e:
+                        logger.debug(f"Error analyzing method {name}: {e}")
+            else:
+                # Show progress bar in normal operation
+                progress = tqdm(methods, desc="Analyzing methods", unit="method")
+                for name, obj in progress:
+                    try:
+                        result = self._analyze_method_quick(name, obj)
+                        if result:
+                            results.append(result)
+                        progress.set_postfix({"current": name})
+                    except Exception as e:
+                        logger.debug(f"Error analyzing method {name}: {e}")
 
         return sorted(results, key=lambda x: x[0])
 
     def _analyze_method_quick(
         self, name: str, obj: Any
     ) -> Optional[Tuple[str, str, List[str]]]:
-        """Quick analysis of a single method with caching."""
+        """Quick analysis of a single method with caching.
+        
+        Args:
+            name: Method name
+            obj: Method object
+            
+        Returns:
+            Tuple of (name, summary, categories) if successful,
+            None if analysis fails
+        """
         cache_key = f"{obj.__module__}.{name}"
         logger.debug(f"Quick analyzing method: {cache_key}")
 
@@ -507,7 +561,7 @@ class MethodAnalyzer:
         cached_result = self._cache.get(obj.__module__, name, obj)
         if cached_result is not None:
             logger.debug(f"Cache hit for {cache_key}")
-            return cached_result
+            return cast(Tuple[str, str, List[str]], cached_result)
 
         try:
             info = MethodInfo(obj, name)
@@ -550,3 +604,166 @@ class MethodAnalyzer:
             except Exception as e:
                 logger.warning(f"Error in deep analysis of {method_name}: {e}")
                 return None
+
+def usage_examples() -> None:
+    """Example usage of the Method Validator tool.
+    
+    These examples demonstrate how to use the Method Validator for both development
+    and debugging purposes. The tool helps prevent common AI pitfalls like method
+    hallucination while providing useful insights for developers.
+    
+    Key Features Demonstrated:
+    1. Method Validation - Verify method existence
+    2. Package Analysis - Discover available methods
+    3. Deep Analysis - Get detailed method information
+    4. Method Info - Extract specific method details
+    5. Caching - Performance optimization
+    
+    Developer Notes:
+    - Use quick validation (--quick flag) for rapid checks
+    - Use deep analysis for detailed method information
+    - Cache results are stored in ./analysis/method_analysis_cache.db
+    - Standard libraries and common utilities are automatically filtered
+    
+    Common Use Cases:
+    1. Exploring new packages: Use quick_scan() to discover methods
+    2. API Validation: Use validate_method() to verify method existence
+    3. Documentation: Use deep_analyze() to get detailed method info
+    4. Debugging: Use MethodInfo for specific method analysis
+    """
+    
+    def example_validate_method() -> None:
+        """Quick validation of method existence.
+        
+        Use this when you need to:
+        - Verify a method exists before using it
+        - Check method accessibility
+        - Validate API endpoints
+        """
+        exists, message = validate_method("requests", "get")
+        print(f"Method validation: {message}")
+        
+        exists, message = validate_method("requests", "nonexistent_method")
+        print(f"Invalid method: {message}")
+
+    def example_quick_scan() -> None:
+        """Scan a package for available methods.
+        
+        Use this when you need to:
+        - Explore a new package
+        - Discover available functionality
+        - Understand method categories
+        """
+        analyzer = MethodAnalyzer()
+        methods = analyzer.quick_scan("requests")
+        print("\nAvailable methods in requests:")
+        for name, summary, categories in methods[:5]:
+            print(f"- {name}: {summary}")
+            print(f"  Categories: {', '.join(categories)}")
+
+    def example_deep_analysis() -> None:
+        """Detailed analysis of a specific method.
+        
+        Use this when you need to:
+        - Understand method parameters
+        - Check return types
+        - Review possible exceptions
+        - Get complete documentation
+        """
+        analyzer = MethodAnalyzer()
+        details = analyzer.deep_analyze("requests", "get")
+        if details:
+            print("\nDetailed analysis of requests.get:")
+            print(f"Parameters: {json.dumps(details['parameters'], indent=2)}")
+            print(f"Return type: {details['return_info']['type']}")
+            print("Exceptions:")
+            for exc in details['exceptions']:
+                print(f"- {exc['type']}: {exc['description']}")
+
+    def example_method_info() -> None:
+        """Extract specific information about a method.
+        
+        Use this when you need to:
+        - Get method signatures
+        - Extract usage examples
+        - Understand method categories
+        - Access raw docstrings
+        """
+        import requests
+        info = MethodInfo(requests.get, "get")
+        print("\nMethod Info for requests.get:")
+        print(f"Signature: {info.signature}")
+        print(f"Summary: {info.summary}")
+        print(f"Examples found: {len(info.examples)}")
+        print(f"Categories: {info._categorize_method()}")
+
+    def example_cache_usage() -> None:
+        """Demonstrate cache functionality.
+        
+        Use this when you need to:
+        - Understand caching behavior
+        - Measure performance impact
+        - Debug cache issues
+        """
+        cache = get_cache()
+        analyzer = MethodAnalyzer()
+        
+        print("\nCache demonstration:")
+        start = time.time()
+        analyzer.deep_analyze("requests", "get")
+        first_time = time.time() - start
+        
+        start = time.time()
+        analyzer.deep_analyze("requests", "get")
+        second_time = time.time() - start
+        
+        print(f"First call time: {first_time:.3f}s")
+        print(f"Second call time (cached): {second_time:.3f}s")
+
+    # Run all examples
+    examples = [
+        example_validate_method,
+        example_quick_scan,
+        example_deep_analysis,
+        example_method_info,
+        example_cache_usage
+    ]
+    
+    print("\nMethod Validator Tool - Developer Examples")
+    print("==========================================")
+    print("This tool helps prevent method hallucination and validates API usage.")
+    print("It's designed for both AI agents and human developers.\n")
+    print("Key Features:")
+    print("- Smart package analysis with filtering")
+    print("- Detailed method discovery and validation")
+    print("- Intelligent categorization of methods")
+    print("- Exception pattern analysis")
+    print("- Optimized caching system\n")
+    
+    for example in examples:
+        print(f"\n{'='*50}")
+        print(f"Running: {example.__name__}")
+        if example.__doc__:
+            print(f"Purpose: {example.__doc__.splitlines()[0]}")
+        print(f"{'='*50}")
+        example()
+
+if __name__ == "__main__":
+    # Configure logging
+    logger.remove()
+    logger.add(sys.stderr, level="INFO")
+    
+    print("Method Validator Tool - Usage Examples")
+    print("This will demonstrate various ways to use the tool")
+    print("Note: These examples use the 'requests' package for demonstration")
+    
+    try:
+        import requests
+    except ImportError:
+        print("\nPlease install 'requests' package to run examples:")
+        print("pip install requests")
+        print("\nThis tool works with any Python package, but we use")
+        print("requests for these examples as it's well-known and stable.")
+        sys.exit(1)
+        
+    usage_examples()

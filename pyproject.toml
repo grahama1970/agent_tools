@@ -92,3 +92,28 @@ minversion = "7.0"
 addopts = "-ra -q --cov=agent_tools"
 testpaths = ["tests"]
 pythonpath = ["src"]
+python_files = ["test_*.py"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+[tool.coverage.run]
+source = ["agent_tools"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+
+[dependency-groups]
+dev = [
+    "types-requests>=2.32.0.20241016",
+]

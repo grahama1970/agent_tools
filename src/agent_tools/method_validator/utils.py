@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from collections import defaultdict
 from contextlib import contextmanager
 from loguru import logger
+import re
 
 
 @dataclass
@@ -63,3 +64,26 @@ class TimingManager:
 
 # Create global timing instance
 timing = TimingManager()
+
+def should_auto_execute_command(command: str) -> bool:
+    """Determine if a command should be executed automatically without user confirmation.
+    
+    Args:
+        command: The command to check
+        
+    Returns:
+        True if the command should be executed automatically, False otherwise
+    """
+    # List of regex patterns for commands that can be executed automatically
+    auto_patterns = [
+        # Git commands
+        r'^git (status|add|commit|push|pull|fetch|branch|checkout|merge|rebase|log|diff|clone|init)',
+        # Build/compilation commands
+        r'^(make|cmake|gcc|g\+\+|javac|mvn|gradle|npm run build|yarn build)',
+        # Pytest commands
+        r'^pytest\s+(?:(?!rm|remove|delete|drop|truncate|format|clean).)*$',  # Allow pytest but not destructive flags
+        # Method validator commands
+        r'^method-validator\s+\S+\s+(?:--method\s+\S+\s+--quick|--list-all)$'  # Allow quick validation and list-all commands
+    ]
+    
+    return any(re.match(pattern, command) for pattern in auto_patterns)

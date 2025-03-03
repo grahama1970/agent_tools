@@ -7,6 +7,7 @@ import hashlib
 import inspect
 import zlib
 import json
+import os
 from pathlib import Path
 from typing import Dict, Any, Optional, Union, List, Tuple, cast
 from dataclasses import dataclass
@@ -17,8 +18,23 @@ from .utils import timing, TimingManager
 import importlib
 from types import ModuleType
 
-# Get the method_validator package root directory
-PACKAGE_ROOT = Path(__file__).parent
+def get_cache_dir() -> Path:
+    """Get the appropriate cache directory for the current platform.
+    
+    Returns:
+        Path to the cache directory, created if it doesn't exist.
+        Windows: %LOCALAPPDATA%/method_validator
+        Unix: ~/.cache/method_validator or $XDG_CACHE_HOME/method_validator
+    """
+    if os.name == 'nt':  # Windows
+        base_dir = Path(os.environ.get('LOCALAPPDATA', '~/.cache'))
+    else:  # Unix-like
+        base_dir = Path(os.environ.get('XDG_CACHE_HOME', '~/.cache'))
+    
+    base_dir = base_dir.expanduser()
+    cache_dir = base_dir / 'method_validator'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    return cache_dir
 
 # Compression level (0-9, where 0 is no compression and 9 is maximum)
 DEFAULT_COMPRESSION_LEVEL = 6
@@ -69,10 +85,8 @@ class AnalysisCache:
         self.max_size_mb = max_size_mb
         self.compression_level = compression_level
 
-        # Store cache in the analysis directory within the package
-        cache_dir = PACKAGE_ROOT / "analysis"
-        cache_dir.mkdir(parents=True, exist_ok=True)
-        self.db_path = cache_dir / "method_analysis_cache.db"
+        # Use platform-specific cache directory
+        self.db_path = get_cache_dir() / "method_analysis_cache.db"
         self._init_db()
 
     def _init_db(self):
