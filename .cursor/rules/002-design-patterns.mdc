@@ -1,0 +1,182 @@
+---
+name: "Design Patterns Rules"
+description: "Common design patterns and code templates for consistent implementation"
+version: "1.0"
+author: "Robert"
+priority: 2
+globs:
+  - "src/**/*.py"
+  - "tests/**/*.py"
+  - "*.py"
+triggers:
+  - file_change
+  - file_create
+  - code_review
+sections:
+  - async_patterns
+  - data_processing
+  - caching
+  - text_processing
+---
+
+# Design Patterns Rules
+
+## Async Processing Patterns
+
+**1. Async Batch Processing Rule**
+- **Type:** `design_pattern`
+- **Condition:** `batch_processing`
+- **Action:** `use_async_pattern`
+- **Message:**
+  When implementing batch processing operations:
+  1. Use asyncio with aiohttp for concurrent processing
+  2. Implement progress tracking with tqdm
+  3. Use asyncio.as_completed for immediate results processing
+  
+  **Template:**
+  ```python
+  async def process_batch(items):
+      async with aiohttp.ClientSession() as session:
+          tasks = [process_single_item(session, item) for item in items]
+          
+          results = []
+          with tqdm(total=len(tasks), desc="Processing items") as pbar:
+              for coro in asyncio.as_completed(tasks):
+                  result = await coro
+                  results.append(result)
+                  pbar.update(1)
+          return results
+  ```
+
+  **Dependencies:**
+  ```python
+  import asyncio
+  import aiohttp
+  from tqdm import tqdm
+  ```
+
+**2. Rate Limited Processing Rule**
+- **Type:** `design_pattern`
+- **Condition:** `rate_limiting`
+- **Action:** `use_rate_limiter`
+- **Message:**
+  When implementing rate-limited operations:
+  1. Use asyncio.Semaphore for rate limiting
+  2. Implement error handling and retries
+  3. Use connection pooling
+  
+  **Template:**
+  ```python
+  async def rate_limited_process(items, max_concurrent=10):
+      semaphore = asyncio.Semaphore(max_concurrent)
+      async with aiohttp.ClientSession() as session:
+          async def process_with_limit(item):
+              async with semaphore:
+                  return await process_single_item(session, item)
+          
+          tasks = [process_with_limit(item) for item in items]
+          return await asyncio.gather(*tasks)
+  ```
+
+## Text Processing Patterns
+
+**3. Text Normalization Rule**
+- **Type:** `design_pattern`
+- **Condition:** `text_processing`
+- **Action:** `use_text_normalizer`
+- **Message:**
+  When implementing text normalization:
+  1. Use the text_normalizer package with appropriate config
+  2. Handle different normalization modes
+  3. Implement error handling
+  
+  **Template:**
+  ```python
+  from snippets.src.snippets.cleaning.text_normalizer.text_normalizer import (
+      normalize, 
+      TextNormalizerConfig
+  )
+
+  def setup_text_normalizer(mode="basic"):
+      config = TextNormalizerConfig(mode=mode)
+      
+      def normalize_text(text):
+          try:
+              return normalize(text, config)
+          except Exception as e:
+              logger.error(f"Normalization error: {e}")
+              return text
+              
+      return normalize_text
+  ```
+
+## Caching Patterns
+
+**4. LiteLLM Caching Rule**
+- **Type:** `design_pattern`
+- **Condition:** `llm_caching`
+- **Action:** `use_litellm_cache`
+- **Message:**
+  When implementing LLM caching:
+  1. Use Redis as primary cache with local fallback
+  2. Implement connection testing
+  3. Use environment variables for configuration
+  
+  **Template:**
+  ```python
+  import litellm
+  import redis
+  from loguru import logger
+  
+  def initialize_litellm_cache(
+      redis_host="localhost",
+      redis_port=6379,
+      redis_password=None
+  ):
+      try:
+          # Test Redis connection
+          test_redis = redis.Redis(
+              host=redis_host,
+              port=redis_port,
+              password=redis_password,
+              socket_timeout=2
+          )
+          if not test_redis.ping():
+              raise ConnectionError("Redis not responding")
+
+          litellm.cache = litellm.Cache(
+              type="redis",
+              host=redis_host,
+              port=redis_port,
+              password=redis_password,
+          )
+          litellm.enable_cache()
+          logger.info("✅ Redis caching enabled")
+
+      except (redis.ConnectionError, redis.TimeoutError) as e:
+          logger.warning(f"⚠️ Redis failed: {e}. Using in-memory cache.")
+          litellm.cache = litellm.Cache(type="local")
+          litellm.enable_cache()
+  ```
+
+## Best Practices
+
+1. **Error Handling:**
+   - Always implement proper error handling
+   - Use try/except blocks with specific exceptions
+   - Log errors with appropriate levels
+
+2. **Configuration:**
+   - Use environment variables for configuration
+   - Implement fallback options
+   - Use type hints and documentation
+
+3. **Performance:**
+   - Use connection pooling for network operations
+   - Implement proper resource cleanup
+   - Monitor and log performance metrics
+
+4. **Testing:**
+   - Write unit tests for each pattern
+   - Test edge cases and failure modes
+   - Implement integration tests for external services 

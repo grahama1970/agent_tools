@@ -205,3 +205,67 @@ Tests are automatically run on:
 - Every pull request
 - Every merge to main branch
 - Every release tag
+
+# Cursor Patterns
+
+A centralized repository of Cursor MDC rules and design patterns for consistent code generation across projects.
+
+## Structure
+
+```
+cursor-patterns/
+├── rules/              # All MDC rules
+│   ├── core/          # Core rules (code advice, design patterns index)
+│   ├── design_patterns/  # Specific design pattern implementations
+│   └── project_specific/ # Language-specific patterns
+├── scripts/           # Installation and update scripts
+└── README.md
+```
+
+## Installation
+
+1. Clone this repository:
+```bash
+git clone https://github.com/yourusername/cursor-patterns
+```
+
+2. Run the installation script:
+```bash
+cd cursor-patterns
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+## Updating
+
+To update your patterns to the latest version:
+
+```bash
+chmod +x scripts/update.sh
+./scripts/update.sh
+```
+
+This will create a backup of your current rules before updating.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+### Adding New Patterns
+
+1. Create a new `.mdc` file in the appropriate directory
+2. Follow the MDC format:
+   - Include clear frontmatter (name, version, author, etc.)
+   - Add specific glob patterns
+   - Define clear triggers
+   - Document the pattern thoroughly
+3. Update the index file if necessary
+4. Test the pattern in a real project
+5. Submit a pull request
+
+## License
+
+MIT

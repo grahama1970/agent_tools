@@ -1,0 +1,64 @@
+---
+name: "Design Patterns Index"
+description: "Index of all design patterns and their locations"
+version: "1.0"
+author: "Robert"
+priority: 2
+globs:
+  - "src/**/*.py"
+  - "tests/**/*.py"
+  - "*.py"
+triggers:
+  - file_change
+  - file_create
+  - code_review
+references:
+  - "@.cursor/rules/design_patterns/async_patterns.mdc"
+  - "@.cursor/rules/design_patterns/text_processing.mdc"
+  - "@.cursor/rules/design_patterns/caching.mdc"
+  - "@.cursor/rules/design_patterns/data_processing.mdc"
+---
+
+# Design Patterns Index
+
+This file serves as an index for all design patterns. Patterns are organized by category in separate files for better maintainability.
+
+## Available Pattern Categories
+
+1. **Async Patterns** (@async_patterns.mdc)
+   - Batch Processing
+   - Rate Limiting
+   - Connection Pooling
+
+2. **Text Processing** (@text_processing.mdc)
+   - Text Normalization
+   - Text Cleaning
+   - Text Analysis
+
+3. **Caching** (@caching.mdc)
+   - LiteLLM Caching
+   - Redis Integration
+   - Local Fallbacks
+
+4. **Data Processing** (@data_processing.mdc)
+   - Batch Processing
+   - Stream Processing
+   - Pipeline Patterns
+
+## Usage
+
+Each pattern file contains:
+- Templates with working code
+- Dependencies and requirements
+- Best practices and guidelines
+- Error handling examples
+
+## Maintenance
+
+These patterns are sourced from the central repository at:
+https://github.com/yourusername/cursor-patterns
+
+To update patterns:
+1. Pull latest from the central repo
+2. Copy relevant patterns to your project
+3. Customize as needed for your specific use case 
