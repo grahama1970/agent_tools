@@ -42,7 +42,7 @@ dev = [
     "isort>=5.12.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
-    "cursor-rules @ git+https://github.com/grahama1970/snippets.git#subdirectory=.cursor/rules"
+    "cursor-rules @ git+https://github.com/grahama1970/snippets.git#egg=cursor-rules&subdirectory=.cursor/rules"
 ]
 
 [project.urls]
@@ -130,4 +130,4 @@ dev = [
 
 [tool.cursor.patterns]
 pattern_directories = [".cursor/rules"]
-snippets_source = "cursor-rules"
+install_location = "project_root"
