@@ -11,7 +11,7 @@ from pathlib import Path
 
 import click
 
-from cursor_rules_simple import (
+from agent_tools.cursor_rules.cursor_rules import (
     setup_cursor_rules_db,
     get_all_rules,
     get_examples_for_rule,

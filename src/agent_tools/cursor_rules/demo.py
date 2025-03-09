@@ -6,7 +6,7 @@ This script demonstrates how to use the cursor rules database to solve a coding 
 It searches for relevant rules and applies them to generate a solution.
 """
 import sys
-from cursor_rules_simple import setup_cursor_rules_db, semantic_search, hybrid_search, get_examples_for_rule
+from agent_tools.cursor_rules.cursor_rules import setup_cursor_rules_db, semantic_search, hybrid_search, get_examples_for_rule
 
 def find_relevant_rules(db, query, limit=3, use_hybrid=True):
     """Find rules relevant to the query."""
