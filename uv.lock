@@ -97,7 +97,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.1.0" },
-    { name = "pytest-xdist", specifier = "==3.5.0" },
+    { name = "pytest-xdist", specifier = ">=3.5.0" },
     { name = "pytest-xdist", marker = "extra == 'dev'", specifier = "==3.5.0" },
     { name = "python-arango", specifier = ">=7.5.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
