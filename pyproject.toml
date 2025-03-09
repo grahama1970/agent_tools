@@ -31,6 +31,12 @@ dependencies = [
     "pytest-xdist==3.5.0",
     "mypy>=1.14.1",
     "prospector>=1.10.3"
+    # Cursor Rules dependencies
+    "python-arango>=7.5.0",
+    "transformers>=4.38.2",
+    "sentence-transformers>=2.5.1",
+    "torch>=2.0.0",
+    "numpy>=1.21.0",
 ]
 
 [project.optional-dependencies]
@@ -53,6 +59,7 @@ Issues = "https://github.com/graham1970/agent-tools/issues"
 
 [project.scripts]
 method-validator = "agent_tools.method_validator.cli:main"
+cursor-rules = "agent_tools.cursor_rules.cli:cli"
 
 [build-system]
 requires = ["hatchling"]
@@ -124,6 +131,12 @@ exclude_lines = [
 dev = [
     "mypy>=1.14.1",
     "prospector>=1.10.3",
+    # Cursor Rules dependencies
+    "python-arango>=7.5.0",
+    "transformers>=4.38.2",
+    "sentence-transformers>=2.5.1",
+    "torch>=2.0.0",
+    "numpy>=1.21.0",
     "pydantic>=2.10.6",
     "types-requests>=2.32.0.20241016",
 ]
@@ -131,3 +144,18 @@ dev = [
 [tool.cursor.patterns]
 pattern_directories = [".cursor/rules"]
 install_location = "project_root"
+
+# Cursor Rules configuration
+[tool.cursor-rules]
+auto_setup = true
+db_url = "http://localhost:8529"
+db_name = "cursor_rules"
+rules_dir = ".cursor/rules"
+enable_embeddings = true
+enable_views = true
+default_priority = 3
+critical_categories = [
+    "database",
+    "async",
+    "testing"
+]
