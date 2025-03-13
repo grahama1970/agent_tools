@@ -93,7 +93,11 @@ The hybrid search implements the recommended approach from the ArangoDB document
 
 ```aql
 FOR doc IN rules_search_view
-  SEARCH ANALYZER(doc.content LIKE @searchText OR doc.title LIKE @searchText, "text_analyzer")
+  SEARCH ANALYZER(
+    doc.content IN TOKENS(@searchText, "text_analyzer") OR 
+    doc.title IN TOKENS(@searchText, "text_analyzer"), 
+    "text_analyzer"
+  )
   LET bm25Score = BM25(doc)
   LET vectorScore = 1 - COSINE_SIMILARITY(doc.embedding, @queryVector)
   LET hybridScore = (bm25Score * 0.6) + (vectorScore * 0.4)
@@ -126,4 +130,77 @@ If you encounter issues:
 1. **Database Connection** - Ensure ArangoDB is running with the correct password
 2. **Missing Embeddings** - The implementation gracefully handles missing embedding utilities
 3. **Rule Loading** - Check that rule files in `.cursor/rules` follow the naming pattern `NNN-name-of-rule.mdc`
-4. **Search View Creation** - ArangoSearch views require Enterprise Edition for optimal performance 
+4. **Search View Creation** - ArangoSearch views require Enterprise Edition for optimal performance
+
+## Cursor Rules Package
+
+A powerful tool for managing and enforcing coding rules and patterns in your projects.
+
+### Directory Structure
+
+The Cursor Rules package is organized according to the following structure:
+
+```
+cursor_rules/
+├── __init__.py              # Package initialization
+├── README.md                # This file
+├── core/                    # Core functionality
+│   ├── cursor_rules.py      # Main implementation
+│   └── db.py                # Database connection handling
+├── schemas/                 # JSON schemas and data models
+│   ├── ai_knowledge_schema.json
+│   └── db_schema.json
+├── cli/                     # Command-line interfaces
+│   ├── cli.py
+│   └── commands/            # CLI subcommands
+├── utils/                   # Utility functions
+│   ├── helpers/             # General helpers
+│   ├── ai/                  # AI-specific utilities
+│   └── text/                # Text processing utilities
+├── views/                   # Database view management
+│   └── view_utils.py
+├── scenarios/               # Scenario management
+│   ├── sample_scenarios.json
+│   └── scenario_management.py
+├── docs/                    # Documentation
+│   ├── retrieval_scenarios.md
+│   └── task.md
+├── scripts/                 # Utility scripts
+│   ├── cleanup_databases.py
+│   └── demo.py
+└── tests/                   # Test suite
+    ├── unit/                # Unit tests
+    ├── integration/         # Integration tests
+    └── end_to_end/          # End-to-end tests
+```
+
+### Environment Setup
+
+To properly use this package, ensure your environment is set up correctly:
+
+1. Add `PYTHONPATH` to your `.env` file:
+   ```
+   PYTHONPATH=/path/to/your/project/src
+   ```
+
+2. Install the package in development mode:
+   ```
+   uv pip install -e .
+   ```
+
+3. Run commands using the module syntax:
+   ```
+   python -m agent_tools.cursor_rules.cli
+   ```
+
+### Package Organization Guidelines
+
+1. **Core Functionality:** Place main business logic in the `core` directory
+2. **CLI Commands:** Add new commands to the `cli/commands` directory
+3. **Utils:** Add utility functions to the appropriate subdirectory in `utils`
+4. **Schemas:** Store all JSON schemas in the `schemas` directory
+5. **Tests:** Organize tests to mirror the structure of the code they test
+
+### Troubleshooting
+
+If you encounter import errors or other issues, refer to the `.cursor/TROUBLESHOOTING.md` file for detailed solutions. 

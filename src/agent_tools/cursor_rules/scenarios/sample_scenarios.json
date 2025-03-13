@@ -1,0 +1,302 @@
+[
+  {
+    "title": "Find method signature",
+    "description": "How to find the correct signature for a specific method in a package",
+    "query_example": "What parameters does requests.get accept?",
+    "expected_result_format": "Method signature with parameter types and documentation",
+    "priority": 1,
+    "category": "method_usage",
+    "tags": ["method", "signature", "requests", "get"],
+    "metatags": ["signature", "parameters"]
+  },
+  {
+    "title": "Debug import error",
+    "description": "Finding solutions for import errors",
+    "query_example": "How to fix 'ImportError: No module named X'?",
+    "expected_result_format": "Error cause and step-by-step resolution",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["error", "import", "module"],
+    "metatags": ["import", "error"]
+  },
+  {
+    "title": "Async file handling pattern",
+    "description": "Finding the correct pattern for asynchronous file operations",
+    "query_example": "What's the right way to implement async file reading?",
+    "expected_result_format": "Code snippet with explanation and documentation references",
+    "priority": 2,
+    "category": "implementation_pattern",
+    "tags": ["async", "file", "io"],
+    "metatags": ["async", "file_read"]
+  },
+  {
+    "title": "Database connection best practices",
+    "description": "Best practices for database connections in various environments",
+    "query_example": "What's the safest way to store and use database credentials?",
+    "expected_result_format": "Security guidelines with code examples",
+    "priority": 1,
+    "category": "security",
+    "tags": ["database", "security", "credentials"],
+    "metatags": ["connection", "credentials"]
+  },
+  {
+    "title": "Test mocking strategies",
+    "description": "Different strategies for mocking dependencies in tests",
+    "query_example": "How do I mock a REST API in pytest?",
+    "expected_result_format": "Multiple approaches with pros/cons and code examples",
+    "priority": 2,
+    "category": "testing",
+    "tags": ["testing", "mock", "pytest"],
+    "metatags": ["mock", "unit test"]
+  },
+  {
+    "title": "API pagination handling",
+    "description": "Patterns for handling paginated API responses",
+    "query_example": "What's the best way to handle paginated API results?",
+    "expected_result_format": "Code patterns with explanation of trade-offs",
+    "priority": 2,
+    "category": "implementation_pattern",
+    "tags": ["api", "pagination", "rest"],
+    "metatags": ["pagination", "api"]
+  },
+  {
+    "title": "Memory optimization techniques",
+    "description": "Techniques for optimizing memory usage in data processing",
+    "query_example": "How can I process a large dataset without running out of memory?",
+    "expected_result_format": "Multiple techniques with code examples and performance considerations",
+    "priority": 2,
+    "category": "performance",
+    "tags": ["memory", "optimization", "performance"],
+    "metatags": ["memory", "optimization"]
+  },
+  {
+    "title": "Dependency injection patterns",
+    "description": "Different approaches to dependency injection in Python",
+    "query_example": "What's the cleanest way to implement dependency injection in Python?",
+    "expected_result_format": "Multiple patterns with code examples and trade-offs",
+    "priority": 3,
+    "category": "design_pattern",
+    "tags": ["dependency", "injection", "architecture"],
+    "metatags": ["di", "design"]
+  },
+  {
+    "title": "Error handling strategies",
+    "description": "Strategies for robust error handling in different contexts",
+    "query_example": "What's the best practice for handling network errors in a web scraper?",
+    "expected_result_format": "Different approaches with code examples and recovery strategies",
+    "priority": 1,
+    "category": "error_handling",
+    "tags": ["error", "handling", "retry"],
+    "metatags": ["error", "recovery"]
+  },
+  {
+    "title": "Configuration management",
+    "description": "Best practices for managing configuration in different environments",
+    "query_example": "What's the best way to manage configuration for dev/test/prod environments?",
+    "expected_result_format": "Different approaches with security considerations and code examples",
+    "priority": 2,
+    "category": "architecture",
+    "tags": ["configuration", "env", "settings"],
+    "metatags": ["config", "management"]
+  },
+  {
+    "title": "Find Correct Usage of asyncio.to_thread",
+    "description": "How to correctly wrap synchronous functions using asyncio.to_thread to avoid blocking the event loop.",
+    "query_example": "How do I correctly use asyncio.to_thread for a DB operation?",
+    "expected_result_format": "Correct code snippet with best practices",
+    "priority": 1,
+    "category": "method_usage",
+    "tags": ["asyncio", "to_thread", "pattern"],
+    "metatags": ["asyncio", "synchronous", "async"]
+  },
+  {
+    "title": "Verify Method Signature for requests.post",
+    "description": "Need to confirm parameters for requests.post method.",
+    "query_example": "What are the parameters for requests.post?",
+    "expected_result_format": "Signature info with parameter details",
+    "priority": 1,
+    "category": "method_usage",
+    "tags": ["requests", "post", "signature"],
+    "metatags": ["http", "parameters"]
+  },
+  {
+    "title": "Find Alternative Pattern to time.sleep in Async Code",
+    "description": "Need an async alternative to the blocking time.sleep function.",
+    "query_example": "What is the async alternative to time.sleep?",
+    "expected_result_format": "Code snippet with alternative method suggestions",
+    "priority": 2,
+    "category": "implementation_pattern",
+    "tags": ["async", "time.sleep", "alternative"],
+    "metatags": ["async", "sleep"]
+  },
+  {
+    "title": "Identify Correct Import Statement",
+    "description": "Need to determine the correct import statement for a specific functionality.",
+    "query_example": "What is the correct import for XYZ functionality?",
+    "expected_result_format": "Import statements and installation command if needed",
+    "priority": 2,
+    "category": "dependency",
+    "tags": ["import", "module", "syntax"],
+    "metatags": ["import", "error"]
+  },
+  {
+    "title": "Validate PyTorch Tensor Operations",
+    "description": "Confirm the correct way to perform a specific tensor operation in PyTorch.",
+    "query_example": "How do I perform tensor addition in PyTorch?",
+    "expected_result_format": "Verified code pattern with documentation link",
+    "priority": 2,
+    "category": "method_usage",
+    "tags": ["pytorch", "tensor", "operations"],
+    "metatags": ["pytorch", "tensor"]
+  },
+  {
+    "title": "Fix 'Coroutine Was Never Awaited' Error",
+    "description": "Find solutions for the 'coroutine was never awaited' error in asyncio.",
+    "query_example": "How do I fix the 'coroutine was never awaited' error?",
+    "expected_result_format": "Error explanation and code example for proper await usage",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["async", "await", "coroutine"],
+    "metatags": ["async", "error"]
+  },
+  {
+    "title": "Resolve Package Conflict",
+    "description": "Identify and resolve conflicts between package dependencies.",
+    "query_example": "How do I resolve a package conflict between A and B?",
+    "expected_result_format": "Resolution strategies with compatible versions",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["package", "conflict", "dependency"],
+    "metatags": ["error", "version"]
+  },
+  {
+    "title": "Debug Database Connection Error",
+    "description": "Troubleshoot and resolve connection issues with the database.",
+    "query_example": "Why can't I connect to the database?",
+    "expected_result_format": "Troubleshooting steps with configuration checks",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["database", "connection", "debug"],
+    "metatags": ["arango", "connectivity"]
+  },
+  {
+    "title": "Fix Incorrect AQL Query Pattern",
+    "description": "Identify errors in AQL query syntax and provide corrected patterns.",
+    "query_example": "How do I fix an AQL syntax error?",
+    "expected_result_format": "Corrected AQL query with explanation",
+    "priority": 2,
+    "category": "database",
+    "tags": ["AQL", "query", "pattern"],
+    "metatags": ["aql", "error"]
+  },
+  {
+    "title": "Find Anti-Patterns to Avoid",
+    "description": "Identify common anti-patterns in code and explain why to avoid them.",
+    "query_example": "What are the anti-patterns in asynchronous programming?",
+    "expected_result_format": "List of anti-patterns with explanations",
+    "priority": 3,
+    "category": "design_pattern",
+    "tags": ["anti-pattern", "design", "warning"],
+    "metatags": ["pattern", "avoid"]
+  },
+  {
+    "title": "Get Critical Error Prevention Rules",
+    "description": "Retrieve rules focused on preventing critical errors in code.",
+    "query_example": "What rules help prevent critical errors in production?",
+    "expected_result_format": "List of error prevention rules",
+    "priority": 1,
+    "category": "critical",
+    "tags": ["error", "prevention", "critical"],
+    "metatags": ["critical", "rules"]
+  },
+  {
+    "title": "Find Patterns for File Type",
+    "description": "Retrieve design patterns relevant to a specific file type.",
+    "query_example": "What patterns are suited for .py files?",
+    "expected_result_format": "List of file type patterns",
+    "priority": 2,
+    "category": "implementation_pattern",
+    "tags": ["file", "pattern", "design"],
+    "metatags": ["file", "usage"]
+  },
+  {
+    "title": "Get Patterns Based on Import Statements",
+    "description": "Identify coding patterns based on the import statements used in a file.",
+    "query_example": "What patterns apply if my file imports numpy?",
+    "expected_result_format": "Relevant code patterns with explanations",
+    "priority": 2,
+    "category": "dependency",
+    "tags": ["import", "pattern", "dependencies"],
+    "metatags": ["import", "pattern"]
+  },
+  {
+    "title": "Find Testing Patterns for Current Code",
+    "description": "Discover effective testing strategies for the current implementation.",
+    "query_example": "What are the best testing practices for asynchronous code?",
+    "expected_result_format": "Testing patterns with code examples",
+    "priority": 2,
+    "category": "testing",
+    "tags": ["testing", "patterns", "pytest"],
+    "metatags": ["test", "pattern"]
+  },
+  {
+    "title": "Get Error Handling for Current Task",
+    "description": "Retrieve error handling patterns specifically for the current context.",
+    "query_example": "How should errors be handled in this module?",
+    "expected_result_format": "Error handling strategies with examples",
+    "priority": 1,
+    "category": "error_handling",
+    "tags": ["error", "handling", "current"],
+    "metatags": ["error", "task"]
+  },
+  {
+    "title": "Find Optimization for Current Algorithm",
+    "description": "Discover optimization techniques tailored for the current algorithm.",
+    "query_example": "How can I optimize this sorting algorithm?",
+    "expected_result_format": "Optimization strategies with trade-offs",
+    "priority": 2,
+    "category": "performance",
+    "tags": ["optimization", "algorithm", "performance"],
+    "metatags": ["performance", "algorithm"]
+  },
+  {
+    "title": "Parse Stack Trace for Solution",
+    "description": "Analyze a stack trace to identify the underlying error and recommended fixes.",
+    "query_example": "How do I interpret this stack trace?",
+    "expected_result_format": "Identified error with recommended solution steps",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["stack trace", "parsing", "error"],
+    "metatags": ["debug", "stack"]
+  },
+  {
+    "title": "Analyze Compiler Error Message",
+    "description": "Break down a compiler error message and suggest fixes.",
+    "query_example": "What does error XYZ mean in my C++ code?",
+    "expected_result_format": "Explanation of error and code fix example",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["compiler", "error", "analysis"],
+    "metatags": ["compiler", "fix"]
+  },
+  {
+    "title": "Find Solution by Error Keywords",
+    "description": "Match error keywords to potential solutions from the knowledge base.",
+    "query_example": "How do I resolve a null pointer exception?",
+    "expected_result_format": "Possible fixes ranked by relevance",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["error", "keywords", "solution"],
+    "metatags": ["error", "solution"]
+  },
+  {
+    "title": "Identify Missing Dependency Errors",
+    "description": "Identify if an error is due to a missing dependency and suggest installation steps.",
+    "query_example": "How do I fix a ModuleNotFoundError for a specific module?",
+    "expected_result_format": "Dependency details and installation instructions",
+    "priority": 1,
+    "category": "error_resolution",
+    "tags": ["dependency", "missing", "error"],
+    "metatags": ["dependency", "install"]
+  }
+] 

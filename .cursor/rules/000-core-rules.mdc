@@ -1,0 +1,115 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Core Rules - ALWAYS READ AND FOLLOW THESE
+
+## 1. Virtual Environment Rule
+- **Type:** `core`
+- **Priority:** `1`
+- **Message:**
+  ALWAYS use the project's virtualenv:
+  - Activate with `source .venv/bin/activate` before ANY Python operation
+  - NEVER use system Python
+  - ALL Python commands must run inside virtualenv
+
+## 2. Package Management Rule
+- **Type:** `core`
+- **Priority:** `1`
+- **Message:**
+  ALWAYS use `uv`:
+  - NEVER use pip
+  - ALWAYS run `uv add` for packages
+  - Use `uv add --dev` for development dependencies
+
+## 3. Testing Rule
+- **Type:** `core`
+- **Priority:** `1`
+- **Message:**
+  ALWAYS run tests:
+  - Before making changes (baseline)
+  - After making changes
+  - Run autonomously without asking user
+  - Fix failing tests before proceeding
+
+## 4. Error Handling Rule
+- **Type:** `core`
+- **Priority:** `1`
+- **Message:**
+  When encountering errors:
+  - First ensure all tests PASS functionally
+  - Only address linter warnings AFTER tests work as expected
+  - Address ROOT CAUSE, not symptoms
+  - Maximum 3 attempts to fix same error
+  - Ask user for guidance after 3 failed attempts
+
+## 5. Test Iteration Rule
+- **Type:** `core`
+- **Priority:** `1`
+- **Message:**
+  Re-read rules frequently:
+  - After EACH test iteration
+  - Before making significant changes
+  - When switching between different types of tasks
+  - Consider a test iteration as:
+    * Each complete pytest run
+    * Each major code change
+  - This ensures up-to-date knowledge within context limits
+
+## Testing Rules
+
+**1. Test Iteration Rule**
+- **Type:** `core`
+- **Priority:** 1
+- **Condition:** `test_execution`
+- **Action:** `reread_cursor_rules`
+- **Message:**
+  1. Every 3 test iterations:
+     - Re-read all rules in `.cursor/rules`
+     - Reset test iteration counter
+  2. Track test iterations across conversations
+  3. Consider a test iteration as:
+     - Each pytest run
+     - Each test file execution
+     - Each test suite completion
+
+**2. Virtual Environment Rule**
+- **Type:** `core`
+- **Priority:** 1
+- **Condition:** `python_operation`
+- **Action:** `use_venv`
+- **Message:**
+  1. ALWAYS activate virtual environment before Python operations
+  2. NEVER use system Python
+  3. Use `.venv/bin/python` for all Python commands
+  4. Ensure virtual environment is active for:
+     - Running tests
+     - Installing packages
+     - Running Python scripts
+
+**3. Package Management Rule**
+- **Type:** `core`
+- **Priority:** 1
+- **Condition:** `package_installation`
+- **Action:** `use_uv`
+- **Message:**
+  1. ALWAYS use `uv` for package management
+  2. NEVER use pip
+  3. Use `uv add` for production dependencies
+  4. Use `uv add --dev` for development dependencies
+
+**4. Error Handling Rule**
+- **Type:** `core`
+- **Priority:** 1
+- **Condition:** `error_occurs`
+- **Action:** `handle_error`
+- **Message:**
+  1. First ensure all tests PASS functionally
+  2. Only fix linter errors after tests work correctly
+  3. Address root cause of errors
+  4. Maximum 3 attempts to fix same error
+  5. If error persists after 3 attempts:
+     - Stop current approach
+     - Ask user for guidance
+     - Document attempted solutions 

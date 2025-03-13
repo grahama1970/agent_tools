@@ -1,0 +1,1354 @@
+2025-03-10 11:26:39.457 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_setup_command_async:175 - Testing setup command
+2025-03-10 11:26:39.458 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli setup --reset
+2025-03-10 11:26:46.674 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli setup --reset
+2025-03-10 11:26:46.675 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Setting up enhanced database 'cursor_rules_enhanced' (with reset)
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Reset: Deleted existing database 'cursor_rules_enhanced'
+Created database 'cursor_rules_enhanced'
+Created collection 'rules'
+Created collection 'rule_examples'
+Created collection 'troubleshooting_guides'
+Created collection 'lessons_learned'
+Created collection 'prompt_templates'
+Created edge collection 'rule_has_example'
+Created edge collection 'rule_references_rule'
+Created edge collection 'rule_resolves_problem'
+Created edge collection 'lesson_references_resource'
+Created edge collection 'prompt_uses_resource'
+Created edge collection 'resource_applies_to_language'
+Created unified ArangoSearch view 'unified_search_view'
+Created graph 'knowledge_graph'
+
+Database setup complete!
+
+2025-03-10 11:26:46.678 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_setup_command_async:175 - Testing setup command
+2025-03-10 11:26:46.678 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli setup --reset
+2025-03-10 11:26:53.302 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli setup --reset
+2025-03-10 11:26:53.303 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Setting up enhanced database 'cursor_rules_enhanced' (with reset)
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Reset: Deleted existing database 'cursor_rules_enhanced'
+Created database 'cursor_rules_enhanced'
+Created collection 'rules'
+Created collection 'rule_examples'
+Created collection 'troubleshooting_guides'
+Created collection 'lessons_learned'
+Created collection 'prompt_templates'
+Created edge collection 'rule_has_example'
+Created edge collection 'rule_references_rule'
+Created edge collection 'rule_resolves_problem'
+Created edge collection 'lesson_references_resource'
+Created edge collection 'prompt_uses_resource'
+Created edge collection 'resource_applies_to_language'
+Created unified ArangoSearch view 'unified_search_view'
+Created graph 'knowledge_graph'
+
+Database setup complete!
+
+2025-03-10 11:26:53.306 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_search_command_async:189 - Testing search command
+2025-03-10 11:26:53.306 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli search 'code'
+2025-03-10 11:27:10.661 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli search 'code'
+2025-03-10 11:27:10.661 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Searching for: code
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Database 'cursor_rules_enhanced' already exists
+Collection 'rules' already exists
+Collection 'rule_examples' already exists
+Collection 'troubleshooting_guides' already exists
+Collection 'lessons_learned' already exists
+Collection 'prompt_templates' already exists
+Edge collection 'rule_has_example' already exists
+Edge collection 'rule_references_rule' already exists
+Edge collection 'rule_resolves_problem' already exists
+Edge collection 'lesson_references_resource' already exists
+Edge collection 'prompt_uses_resource' already exists
+Edge collection 'resource_applies_to_language' already exists
+ArangoSearch view 'unified_search_view' already exists
+Graph 'knowledge_graph' already exists
+No results found
+
+2025-03-10 11:27:10.665 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_search_command_async:189 - Testing search command
+2025-03-10 11:27:10.666 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli search 'code'
+2025-03-10 11:27:27.120 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli search 'code'
+2025-03-10 11:27:27.120 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Searching for: code
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Database 'cursor_rules_enhanced' already exists
+Collection 'rules' already exists
+Collection 'rule_examples' already exists
+Collection 'troubleshooting_guides' already exists
+Collection 'lessons_learned' already exists
+Collection 'prompt_templates' already exists
+Edge collection 'rule_has_example' already exists
+Edge collection 'rule_references_rule' already exists
+Edge collection 'rule_resolves_problem' already exists
+Edge collection 'lesson_references_resource' already exists
+Edge collection 'prompt_uses_resource' already exists
+Edge collection 'resource_applies_to_language' already exists
+ArangoSearch view 'unified_search_view' already exists
+Graph 'knowledge_graph' already exists
+No results found
+
+2025-03-10 11:27:27.123 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_list_command_async:203 - Testing list command
+2025-03-10 11:27:27.124 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli list
+2025-03-10 11:27:35.135 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli list
+2025-03-10 11:27:35.135 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Listing all rules in the database
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Database 'cursor_rules_enhanced' already exists
+Collection 'rules' already exists
+Collection 'rule_examples' already exists
+Collection 'troubleshooting_guides' already exists
+Collection 'lessons_learned' already exists
+Collection 'prompt_templates' already exists
+Edge collection 'rule_has_example' already exists
+Edge collection 'rule_references_rule' already exists
+Edge collection 'rule_resolves_problem' already exists
+Edge collection 'lesson_references_resource' already exists
+Edge collection 'prompt_uses_resource' already exists
+Edge collection 'resource_applies_to_language' already exists
+ArangoSearch view 'unified_search_view' already exists
+Graph 'knowledge_graph' already exists
+Getting rules from database...
+Rules collection: rules
+Rules count from AQL: 0
+Found 0 rules using collection.all()
+No rules found in the database
+
+2025-03-10 11:27:35.137 | INFO     | agent_tools.cursor_rules.test_cli_integration:test_list_command_async:203 - Testing list command
+2025-03-10 11:27:35.138 | INFO     | agent_tools.cursor_rules.test_cli_integration:run_cli_command_async:43 - Running command: python -m src.agent_tools.cursor_rules.enhanced_cli list
+2025-03-10 11:27:43.322 | INFO     | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:85 - Command succeeded: python -m src.agent_tools.cursor_rules.enhanced_cli list
+2025-03-10 11:27:43.323 | DEBUG    | agent_tools.cursor_rules.test_cli_integration:check_command_success_async:86 - Output: Listing all rules in the database
+Connecting to ArangoDB at http://localhost:8529
+Using username: root
+Connected to _system database
+Database 'cursor_rules_enhanced' already exists
+Collection 'rules' already exists
+Collection 'rule_examples' already exists
+Collection 'troubleshooting_guides' already exists
+Collection 'lessons_learned' already exists
+Collection 'prompt_templates' already exists
+Edge collection 'rule_has_example' already exists
+Edge collection 'rule_references_rule' already exists
+Edge collection 'rule_resolves_problem' already exists
+Edge collection 'lesson_references_resource' already exists
+Edge collection 'prompt_uses_resource' already exists
+Edge collection 'resource_applies_to_language' already exists
+ArangoSearch view 'unified_search_view' already exists
+Graph 'knowledge_graph' already exists
+Getting rules from database...
+Rules collection: rules
+Rules count from AQL: 0
+Found 0 rules using collection.all()
+No rules found in the database
+
+2025-03-10 11:27:43.371 | INFO     | fetch_page.embedding.embedding_utils:_load_model_and_tokenizer:57 - Using model directory: ./models/huggingface/
+2025-03-10 11:27:49.877 | INFO     | fetch_page.embedding.embedding_utils:_load_model_and_tokenizer:66 - Model files in cache directory: ['.locks', 'models--nomic-ai--nomic-bert-2048', 'models--nomic-ai--nomic-embed-text-v2-moe']
+2025-03-10 11:27:50.663 | INFO     | fetch_page.embedding.embedding_utils:_load_model_and_tokenizer:71 - Using GPU for embeddings.
+2025-03-10 11:27:50.663 | INFO     | fetch_page.embedding.embedding_utils:_load_model_and_tokenizer:77 - Model nomic-ai/nomic-embed-text-v2-moe loaded successfully in 7.29 seconds and stored in ./models/huggingface/
+2025-03-10 11:27:57.822 | INFO     | test_packages:test_completion:8 - Testing LiteLLM completion...
+2025-03-10 11:27:59.204 | SUCCESS  | test_packages:test_completion:14 - Got response: Hello! I'm just a computer program, so I don't have feelings in the same way humans do. But I'm here and ready to help you with anything you need. How can I assist you today?
+2025-03-10 11:27:59.244 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_rules
+2025-03-10 11:27:59.244 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_methods
+2025-03-10 11:27:59.245 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_rules
+2025-03-10 11:27:59.245 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_methods
+2025-03-10 11:27:59.257 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_requires
+2025-03-10 11:27:59.257 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_requires
+2025-03-10 11:27:59.265 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph test_knowledge_graph
+2025-03-10 11:27:59.266 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph test_knowledge_graph
+2025-03-10 11:27:59.274 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view test_search_view
+2025-03-10 11:27:59.274 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:201 - View test_search_view already exists
+2025-03-10 11:27:59.284 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer text_en
+2025-03-10 11:27:59.285 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:27:59.295 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key test_schema_key
+2025-03-10 11:27:59.296 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key test_schema_key
+2025-03-10 11:27:59.309 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_db does not exist, creating it: [HTTP 401][ERR 11] not authorized to execute this request
+2025-03-10 11:27:59.603 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_cursor_rules_integration does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:27:59.626 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_cursor_rules_integration
+2025-03-10 11:27:59.636 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:27:59.640 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_rules
+2025-03-10 11:27:59.644 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:27:59.647 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_requires
+2025-03-10 11:27:59.650 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:27:59.654 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:27:59.655 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:27:59.658 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph test_knowledge_graph
+2025-03-10 11:27:59.661 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:27:59.664 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view test_search_view
+2025-03-10 11:27:59.678 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-27-59_675385_schema
+2025-03-10 11:27:59.679 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-27-59_675385_schema
+2025-03-10 11:27:59.719 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-27-59_716465_schema
+2025-03-10 11:27:59.789 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_cursor_rules_integration
+2025-03-10 11:27:59.795 | ERROR    | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:399 - Error dropping collection test_rules: [HTTP 500][ERR 1942] must not drop collection while part of graph: collection 'test_rules' is a vertex collection inside graph 'test_knowledge_graph'
+2025-03-10 11:27:59.799 | ERROR    | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:399 - Error dropping collection test_requires: [HTTP 500][ERR 1942] must not drop collection while part of graph: collection 'test_requires' is an edge collection inside graph 'test_knowledge_graph'
+2025-03-10 11:27:59.803 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:397 - Dropped collection schema_docs
+2025-03-10 11:27:59.809 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:405 - Dropped view test_search_view
+2025-03-10 11:27:59.815 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:413 - Dropped graph test_knowledge_graph
+2025-03-10 11:27:59.816 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:27:59.819 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:68 - Collection test_rules already exists
+2025-03-10 11:27:59.819 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:27:59.822 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:96 - Edge collection test_requires already exists
+2025-03-10 11:27:59.822 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:27:59.826 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:27:59.826 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:27:59.830 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph test_knowledge_graph
+2025-03-10 11:27:59.834 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:27:59.838 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view test_search_view
+2025-03-10 11:27:59.854 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-27-59_850692_schema
+2025-03-10 11:27:59.854 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-27-59_850692_schema
+2025-03-10 11:28:01.434 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_rules
+2025-03-10 11:28:01.435 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_edges
+2025-03-10 11:28:01.438 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view test_view
+2025-03-10 11:28:01.441 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer text_en
+2025-03-10 11:28:01.455 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:01.468 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:01.478 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:01.481 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:01.488 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:01.495 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:01.502 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:01.509 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:01.515 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:01.522 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:01.529 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:01.536 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:01.543 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:01.549 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:01.555 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:01.561 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:01.564 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:01.567 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:01.574 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:01.580 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:01.586 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:01.593 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:01.599 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:01.605 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:01.612 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:01.619 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:01.626 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:01.633 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:01.639 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:01.642 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:01.646 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:01.646 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:01.650 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:01.653 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:01.658 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:01.660 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:01.668 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:01.671 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:01.675 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:01.686 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-01_681764_schema
+2025-03-10 11:28:01.686 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-01_681764_schema
+2025-03-10 11:28:01.726 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:01.736 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:01.745 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:01.748 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:01.755 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:01.763 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:01.769 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:01.776 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:01.782 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:01.790 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:01.796 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:01.802 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:01.808 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:01.815 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:01.822 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:01.828 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:01.832 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:01.835 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:01.841 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:01.848 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:01.855 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:01.861 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:01.867 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:01.874 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:01.881 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:01.888 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:01.894 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:01.901 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:01.908 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:01.912 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:01.916 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:01.917 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:01.920 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:01.924 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:01.928 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:01.930 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:01.938 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:01.943 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:01.948 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:01.959 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-01_955015_schema
+2025-03-10 11:28:01.959 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-01_955015_schema
+2025-03-10 11:28:01.962 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_methods
+2025-03-10 11:28:01.969 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_patterns
+2025-03-10 11:28:01.979 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_requires
+2025-03-10 11:28:02.019 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:02.030 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:02.040 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:02.043 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:02.050 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:02.056 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:02.063 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:02.069 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:02.076 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:02.082 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:02.090 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:02.097 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:02.103 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:02.110 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:02.118 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:02.125 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:02.128 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:02.132 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:02.139 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:02.149 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:02.157 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:02.164 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:02.172 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:02.180 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:02.189 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:02.197 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:02.205 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:02.213 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:02.219 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:02.224 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:02.227 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:02.228 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:02.231 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:02.235 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:02.240 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:02.244 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:02.251 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:02.256 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:02.261 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:02.275 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-02_269181_schema
+2025-03-10 11:28:02.275 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-02_269181_schema
+2025-03-10 11:28:02.280 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_methods
+2025-03-10 11:28:02.288 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_patterns
+2025-03-10 11:28:02.296 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection test_requires
+2025-03-10 11:28:02.304 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph test_knowledge_graph
+2025-03-10 11:28:02.348 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:02.360 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:02.371 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:02.375 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:02.382 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:02.389 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:02.396 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:02.404 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:02.411 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:02.418 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:02.424 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:02.432 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:02.440 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:02.447 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:02.464 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:02.473 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:02.478 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:02.481 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:02.487 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:02.493 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:02.501 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:02.507 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:02.513 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:02.520 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:02.527 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:02.535 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:02.541 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:02.548 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:02.554 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:02.558 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:02.561 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:02.561 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:02.565 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:02.568 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:02.571 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:02.575 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:02.583 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:02.587 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:02.591 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:02.602 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-02_598110_schema
+2025-03-10 11:28:02.602 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-02_598110_schema
+2025-03-10 11:28:02.606 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_methods
+2025-03-10 11:28:02.613 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection test_patterns
+2025-03-10 11:28:02.620 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:02.623 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view test_search_view
+2025-03-10 11:28:02.668 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:02.679 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:02.688 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:02.691 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:02.698 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:02.705 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:02.712 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:02.718 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:02.724 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:02.731 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:02.738 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:02.745 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:02.752 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:02.759 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:02.765 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:02.772 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:02.775 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:02.778 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:02.785 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:02.792 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:02.798 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:02.805 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:02.812 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:02.819 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:02.827 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:02.834 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:02.840 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:02.847 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:02.854 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:02.858 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:02.863 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:02.864 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:02.867 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:02.871 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:02.875 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:02.878 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:02.885 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:02.889 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:02.894 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:02.905 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-02_901525_schema
+2025-03-10 11:28:02.905 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-02_901525_schema
+2025-03-10 11:28:02.912 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-02_909942_schema
+2025-03-10 11:28:02.948 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:02.959 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:02.971 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:02.974 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:02.980 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:02.987 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:02.994 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:03.001 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:03.008 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:03.014 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:03.022 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:03.029 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:03.036 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:03.042 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:03.049 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:03.058 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:03.062 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:03.065 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:03.072 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:03.078 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:03.084 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:03.092 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:03.099 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:03.105 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:03.111 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:03.118 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:03.124 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:03.130 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:03.137 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:03.141 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:03.144 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:03.145 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:03.148 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:03.152 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:03.156 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:03.160 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:03.167 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:03.171 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:03.175 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:03.186 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-03_181913_schema
+2025-03-10 11:28:03.187 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-03_181913_schema
+2025-03-10 11:28:03.195 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-03_191635_schema
+2025-03-10 11:28:03.236 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:372 - Database test_ai_knowledge_17825 does not exist, creating it: [HTTP 404][ERR 1228] database not found
+2025-03-10 11:28:03.248 | WARNING  | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:389 - Resetting database test_ai_knowledge_17825
+2025-03-10 11:28:03.262 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:418 - Creating document collections
+2025-03-10 11:28:03.265 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection rules
+2025-03-10 11:28:03.272 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection critical_rules
+2025-03-10 11:28:03.280 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection code_patterns
+2025-03-10 11:28:03.289 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_signatures
+2025-03-10 11:28:03.297 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection method_parameters
+2025-03-10 11:28:03.305 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_codes
+2025-03-10 11:28:03.313 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection error_solutions
+2025-03-10 11:28:03.322 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_references
+2025-03-10 11:28:03.329 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection documentation_examples
+2025-03-10 11:28:03.337 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection import_statements
+2025-03-10 11:28:03.345 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection implementation_steps
+2025-03-10 11:28:03.354 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection dependencies
+2025-03-10 11:28:03.364 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_document_collections:65 - Creating collection schema_docs
+2025-03-10 11:28:03.369 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:421 - Creating edge collections
+2025-03-10 11:28:03.372 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_import
+2025-03-10 11:28:03.381 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_parameter
+2025-03-10 11:28:03.390 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection triggers_error
+2025-03-10 11:28:03.400 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection causes_error
+2025-03-10 11:28:03.410 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection resolves_error
+2025-03-10 11:28:03.421 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection alternative_to
+2025-03-10 11:28:03.430 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection documented_at
+2025-03-10 11:28:03.439 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_example
+2025-03-10 11:28:03.451 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_pattern
+2025-03-10 11:28:03.460 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection implementation_step
+2025-03-10 11:28:03.470 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection requires_dependency
+2025-03-10 11:28:03.480 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_edge_collections:93 - Creating edge collection has_requirement
+2025-03-10 11:28:03.487 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:424 - Creating analyzers
+2025-03-10 11:28:03.493 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:291 - Analyzer text_en already exists
+2025-03-10 11:28:03.494 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_analyzers:277 - Creating analyzer ngram_analyzer
+2025-03-10 11:28:03.500 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:427 - Creating graphs
+2025-03-10 11:28:03.506 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_named_graphs:121 - Creating graph knowledge_graph
+2025-03-10 11:28:03.513 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:430 - Creating views
+2025-03-10 11:28:03.518 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view unified_search_view
+2025-03-10 11:28:03.528 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view error_search_view
+2025-03-10 11:28:03.533 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view method_search_view
+2025-03-10 11:28:03.539 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:create_views:167 - Creating view pattern_search_view
+2025-03-10 11:28:03.556 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:store_schema_doc:336 - Stored schema document with key 2025-03-10T11-28-03_549824_schema
+2025-03-10 11:28:03.557 | INFO     | src.agent_tools.cursor_rules.ai_knowledge_db:setup_ai_knowledge_db:435 - Set up AI knowledge database with schema 2025-03-10T11-28-03_549824_schema
+2025-03-10 11:28:03.662 | DEBUG    | src.agent_tools.method_validator.analyzer:get_cache:73 - Initializing analysis cache for the first time
+2025-03-10 11:28:03.663 | DEBUG    | src.agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:28:03.663 | DEBUG    | src.agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:28:03.664 | DEBUG    | src.agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:28:04.812 | DEBUG    | agent_tools.method_validator.analyzer:get_cache:73 - Initializing analysis cache for the first time
+2025-03-10 11:28:04.813 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:28:04.814 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:28:04.815 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:28:04.820 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:04.820 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:04.821 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:07.436 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.62s
+2025-03-10 11:28:07.446 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_discovery: Discovering methods
+2025-03-10 11:28:07.447 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:07.447 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:07.449 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_discovery in 0.00s
+2025-03-10 11:28:07.449 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_analysis: Analyzing methods
+2025-03-10 11:28:07.449 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_any_call
+2025-03-10 11:28:07.452 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for unittest.mock.assert_any_call
+2025-03-10 11:28:07.453 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_called
+2025-03-10 11:28:07.456 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for unittest.mock.assert_called
+2025-03-10 11:28:07.456 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_called_once
+2025-03-10 11:28:09.721 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.assert_called_once: ('assert_called_once', 'assert that the mock was called only once')
+2025-03-10 11:28:09.722 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.assert_called_once
+2025-03-10 11:28:09.722 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=assert_called_once, hash=6066ea96..., size=99, timestamp=1741620489.7223794, compressed=False
+2025-03-10 11:28:09.723 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('assert_called_once', 'assert that the mock was called only once')
+2025-03-10 11:28:09.724 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:09.724 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:09.725 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'assert_called_once', '6066ea962519e71ec685e793c969fec791e17145119d5986d56b55a8220614cf'), <blob>, (1741620489.7223794, 99, False)
+2025-03-10 11:28:09.736 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.assert_called_once
+2025-03-10 11:28:09.740 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.assert_called_once
+2025-03-10 11:28:09.740 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_called_once_with
+2025-03-10 11:28:11.959 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.assert_called_once_with: ('assert_called_once_with', 'assert that the mock was called exactly once and that that call was')
+2025-03-10 11:28:11.960 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.assert_called_once_with
+2025-03-10 11:28:11.961 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=assert_called_once_with, hash=4a5623e7..., size=130, timestamp=1741620491.9609325, compressed=False
+2025-03-10 11:28:11.961 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('assert_called_once_with', 'assert that the mock was called exactly once and that that call was')
+2025-03-10 11:28:11.962 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:11.963 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:11.963 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'assert_called_once_with', '4a5623e7cbc2eb8dbbd441c900ffb8b1b5c809d254326cbc783d14d462597337'), <blob>, (1741620491.9609325, 130, False)
+2025-03-10 11:28:11.975 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.assert_called_once_with
+2025-03-10 11:28:11.979 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.assert_called_once_with
+2025-03-10 11:28:11.979 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_called_with
+2025-03-10 11:28:14.213 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.assert_called_with: ('assert_called_with', 'assert that the last call was made with the specified arguments')
+2025-03-10 11:28:14.214 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.assert_called_with
+2025-03-10 11:28:14.215 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=assert_called_with, hash=6ec3c6ee..., size=121, timestamp=1741620494.214676, compressed=False
+2025-03-10 11:28:14.215 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('assert_called_with', 'assert that the last call was made with the specified arguments')
+2025-03-10 11:28:14.216 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:14.217 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:14.218 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'assert_called_with', '6ec3c6eed43fad5b6b049f41a92b09868302dc9d983a7a8c78a58d87c93b476c'), <blob>, (1741620494.214676, 121, False)
+2025-03-10 11:28:14.230 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.assert_called_with
+2025-03-10 11:28:14.234 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.assert_called_with
+2025-03-10 11:28:14.234 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_has_calls
+2025-03-10 11:28:16.439 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.assert_has_calls: ('assert_has_calls', 'assert the mock has been called with the specified calls')
+2025-03-10 11:28:16.441 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.assert_has_calls
+2025-03-10 11:28:16.442 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=assert_has_calls, hash=a3463486..., size=112, timestamp=1741620496.441732, compressed=False
+2025-03-10 11:28:16.442 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('assert_has_calls', 'assert the mock has been called with the specified calls')
+2025-03-10 11:28:16.443 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:16.444 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:16.445 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'assert_has_calls', 'a3463486bd74f9d848247d9b3d8c1a27677f17424acb671ba50f40941da6c8bc'), <blob>, (1741620496.441732, 112, False)
+2025-03-10 11:28:16.457 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.assert_has_calls
+2025-03-10 11:28:16.460 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.assert_has_calls
+2025-03-10 11:28:16.461 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.assert_not_called
+2025-03-10 11:28:17.588 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.assert_not_called: ('assert_not_called', 'assert that the mock was never called')
+2025-03-10 11:28:17.589 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.assert_not_called
+2025-03-10 11:28:17.589 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=assert_not_called, hash=bfc504ce..., size=94, timestamp=1741620497.5894246, compressed=False
+2025-03-10 11:28:17.590 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('assert_not_called', 'assert that the mock was never called')
+2025-03-10 11:28:17.591 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:17.592 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:17.592 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'assert_not_called', 'bfc504ce4797ef561dde2428439f660dc190dd7a0d1d9f0523be0db892772747'), <blob>, (1741620497.5894246, 94, False)
+2025-03-10 11:28:17.609 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.assert_not_called
+2025-03-10 11:28:17.613 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.assert_not_called
+2025-03-10 11:28:17.613 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.attach_mock
+2025-03-10 11:28:19.810 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.attach_mock: ('attach_mock', 'Attach a mock as an attribute of this one, replacing its name and')
+2025-03-10 11:28:19.812 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.attach_mock
+2025-03-10 11:28:19.812 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=attach_mock, hash=dd3c9d76..., size=98, timestamp=1741620499.8122456, compressed=False
+2025-03-10 11:28:19.813 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('attach_mock', 'Attach a mock as an attribute of this one, replacing its name and')
+2025-03-10 11:28:19.814 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:19.815 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:19.815 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'attach_mock', 'dd3c9d7601d82087d432827d85782f2d883d99da7a2520798d71835f8bb3459c'), <blob>, (1741620499.8122456, 98, False)
+2025-03-10 11:28:19.826 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.attach_mock
+2025-03-10 11:28:19.830 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.attach_mock
+2025-03-10 11:28:19.830 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.configure_mock
+2025-03-10 11:28:22.368 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.configure_mock: ('configure_mock', 'Set attributes on the mock through keyword arguments')
+2025-03-10 11:28:22.369 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.configure_mock
+2025-03-10 11:28:22.370 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=configure_mock, hash=fe66ceae..., size=98, timestamp=1741620502.369749, compressed=False
+2025-03-10 11:28:22.370 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('configure_mock', 'Set attributes on the mock through keyword arguments')
+2025-03-10 11:28:22.372 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:22.372 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:22.373 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'configure_mock', 'fe66ceaeef7f0967616f9a78816cf372f86d8272dd1d17622249708c9576571d'), <blob>, (1741620502.369749, 98, False)
+2025-03-10 11:28:22.386 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.configure_mock
+2025-03-10 11:28:22.390 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.configure_mock
+2025-03-10 11:28:22.391 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.dumps
+2025-03-10 11:28:22.394 | ERROR    | agent_tools.method_validator.analyzer:_analyze_code_quality:571 - Quality analysis failed: could not get source code
+2025-03-10 11:28:22.394 | ERROR    | agent_tools.method_validator.analyzer:_analyze_types:624 - Type analysis failed: could not get source code
+2025-03-10 11:28:22.394 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.dumps: ('dumps', 'Serialize obj to JSON')
+2025-03-10 11:28:22.395 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.dumps
+2025-03-10 11:28:22.395 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=dumps, hash=..., size=48, timestamp=1741620502.395395, compressed=False
+2025-03-10 11:28:22.396 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('dumps', 'Serialize obj to JSON')
+2025-03-10 11:28:22.397 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:22.397 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:22.398 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'dumps', ''), <blob>, (1741620502.395395, 48, False)
+2025-03-10 11:28:22.409 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.dumps
+2025-03-10 11:28:22.414 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.dumps
+2025-03-10 11:28:22.414 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.loads
+2025-03-10 11:28:22.417 | ERROR    | agent_tools.method_validator.analyzer:_analyze_code_quality:571 - Quality analysis failed: could not get source code
+2025-03-10 11:28:22.417 | ERROR    | agent_tools.method_validator.analyzer:_analyze_types:624 - Type analysis failed: could not get source code
+2025-03-10 11:28:22.418 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.loads: ('loads', 'Parse JSON string')
+2025-03-10 11:28:22.418 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.loads
+2025-03-10 11:28:22.419 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=loads, hash=..., size=55, timestamp=1741620502.418603, compressed=False
+2025-03-10 11:28:22.419 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('loads', 'Parse JSON string')
+2025-03-10 11:28:22.420 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:22.421 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:22.421 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'loads', ''), <blob>, (1741620502.418603, 55, False)
+2025-03-10 11:28:22.434 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.loads
+2025-03-10 11:28:22.438 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.loads
+2025-03-10 11:28:22.439 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.mock_add_spec
+2025-03-10 11:28:24.801 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.mock_add_spec: ('mock_add_spec', 'Add a spec to a mock')
+2025-03-10 11:28:24.802 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.mock_add_spec
+2025-03-10 11:28:24.802 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=mock_add_spec, hash=193b8d27..., size=65, timestamp=1741620504.8024662, compressed=False
+2025-03-10 11:28:24.803 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('mock_add_spec', 'Add a spec to a mock')
+2025-03-10 11:28:24.804 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:24.804 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:24.805 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'mock_add_spec', '193b8d2786bd76baf8e7e0ddd48c534b23130a3512d89b0a101214f97cf14063'), <blob>, (1741620504.8024662, 65, False)
+2025-03-10 11:28:24.817 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.mock_add_spec
+2025-03-10 11:28:24.821 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.mock_add_spec
+2025-03-10 11:28:24.821 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: unittest.mock.reset_mock
+2025-03-10 11:28:26.991 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for unittest.mock.reset_mock: ('reset_mock', 'Restore the mock object to its initial state')
+2025-03-10 11:28:26.993 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for unittest.mock.reset_mock
+2025-03-10 11:28:26.993 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=unittest.mock, method_name=reset_mock, hash=50a6d88e..., size=96, timestamp=1741620506.9931126, compressed=False
+2025-03-10 11:28:26.994 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('reset_mock', 'Restore the mock object to its initial state')
+2025-03-10 11:28:26.995 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:26.995 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:26.996 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('unittest.mock', 'reset_mock', '50a6d88eebda928e7b809f6d3f16a7645ad3137594860a5fe6cdb17b141101b4'), <blob>, (1741620506.9931126, 96, False)
+2025-03-10 11:28:27.010 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for unittest.mock.reset_mock
+2025-03-10 11:28:27.014 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for unittest.mock.reset_mock
+2025-03-10 11:28:27.015 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_analysis in 19.57s
+2025-03-10 11:28:27.018 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:27.018 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:27.019 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:29.254 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.24s
+2025-03-10 11:28:29.258 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of loads
+2025-03-10 11:28:29.258 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:29.259 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:31.409 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.15s
+2025-03-10 11:28:31.413 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:31.413 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:31.414 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:33.614 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.20s
+2025-03-10 11:28:33.619 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:33.619 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:33.620 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:35.905 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.29s
+2025-03-10 11:28:35.909 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of nonexistent_method
+2025-03-10 11:28:35.909 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:35.910 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:35.910 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 0.00s
+2025-03-10 11:28:35.912 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of method
+2025-03-10 11:28:35.913 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package nonexistent_package
+2025-03-10 11:28:35.913 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:35.914 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 0.00s
+2025-03-10 11:28:35.916 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_discovery: Discovering methods
+2025-03-10 11:28:35.916 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:35.917 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:35.917 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_discovery in 0.00s
+2025-03-10 11:28:35.918 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_analysis: Analyzing methods
+2025-03-10 11:28:35.918 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.decoder.JSONDecoder.decode
+2025-03-10 11:28:38.130 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.decoder.JSONDecoder.decode: ('JSONDecoder.decode', 'Return the Python representation of ``s`` (a ``str`` instance')
+2025-03-10 11:28:38.132 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.decoder.JSONDecoder.decode
+2025-03-10 11:28:38.132 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json.decoder, method_name=JSONDecoder.decode, hash=08217750..., size=119, timestamp=1741620518.1320753, compressed=False
+2025-03-10 11:28:38.132 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('JSONDecoder.decode', 'Return the Python representation of ``s`` (a ``str`` instance')
+2025-03-10 11:28:38.134 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:38.134 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:38.135 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json.decoder', 'JSONDecoder.decode', '082177500ea155c76c6ef76aae8bc482c6169880f87ccb54b41fc95aa2e89456'), <blob>, (1741620518.1320753, 119, False)
+2025-03-10 11:28:38.147 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.decoder.JSONDecoder.decode
+2025-03-10 11:28:38.150 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.decoder.JSONDecoder.decode
+2025-03-10 11:28:38.151 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:40.138 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.decoder.JSONDecoder.raw_decode: ('JSONDecoder.raw_decode', 'Decode a JSON document from ``s`` (a ``str`` beginning with')
+2025-03-10 11:28:40.139 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:40.139 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json.decoder, method_name=JSONDecoder.raw_decode, hash=a5b69124..., size=121, timestamp=1741620520.1394074, compressed=False
+2025-03-10 11:28:40.140 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('JSONDecoder.raw_decode', 'Decode a JSON document from ``s`` (a ``str`` beginning with')
+2025-03-10 11:28:40.141 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:40.142 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:40.142 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json.decoder', 'JSONDecoder.raw_decode', 'a5b69124042877e5f3aca6ec6cfd5dae12b8bcc136699dfa68c78438356ae3e8'), <blob>, (1741620520.1394074, 121, False)
+2025-03-10 11:28:40.156 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:40.160 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:40.161 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.default
+2025-03-10 11:28:42.235 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.encoder.JSONEncoder.default: ('JSONEncoder.default', 'Implement this method in a subclass such that it returns')
+2025-03-10 11:28:42.236 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.encoder.JSONEncoder.default
+2025-03-10 11:28:42.236 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json.encoder, method_name=JSONEncoder.default, hash=732d0948..., size=115, timestamp=1741620522.2362618, compressed=False
+2025-03-10 11:28:42.237 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('JSONEncoder.default', 'Implement this method in a subclass such that it returns')
+2025-03-10 11:28:42.238 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:42.239 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:42.239 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json.encoder', 'JSONEncoder.default', '732d09486e66095a9c7c2c3e828f6f76bab3a72d565b7b3fdc266c110621a5a6'), <blob>, (1741620522.2362618, 115, False)
+2025-03-10 11:28:42.252 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.encoder.JSONEncoder.default
+2025-03-10 11:28:42.255 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.encoder.JSONEncoder.default
+2025-03-10 11:28:42.256 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.encode
+2025-03-10 11:28:44.418 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.encoder.JSONEncoder.encode: ('JSONEncoder.encode', 'Return a JSON string representation of a Python data structure')
+2025-03-10 11:28:44.419 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.encoder.JSONEncoder.encode
+2025-03-10 11:28:44.420 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json.encoder, method_name=JSONEncoder.encode, hash=71131fc2..., size=102, timestamp=1741620524.419968, compressed=False
+2025-03-10 11:28:44.420 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('JSONEncoder.encode', 'Return a JSON string representation of a Python data structure')
+2025-03-10 11:28:44.421 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:44.422 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:44.422 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json.encoder', 'JSONEncoder.encode', '71131fc271e57ca2d7f6e2c5608fc4131dede28cb2fe9421a0121da91866a74c'), <blob>, (1741620524.419968, 102, False)
+2025-03-10 11:28:44.434 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.encoder.JSONEncoder.encode
+2025-03-10 11:28:44.438 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.encoder.JSONEncoder.encode
+2025-03-10 11:28:44.438 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:46.588 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.encoder.JSONEncoder.iterencode: ('JSONEncoder.iterencode', 'Encode the given object and yield each string')
+2025-03-10 11:28:46.590 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:46.590 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json.encoder, method_name=JSONEncoder.iterencode, hash=0a9b6ccb..., size=107, timestamp=1741620526.5902414, compressed=False
+2025-03-10 11:28:46.591 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('JSONEncoder.iterencode', 'Encode the given object and yield each string')
+2025-03-10 11:28:46.592 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:46.592 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:46.593 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json.encoder', 'JSONEncoder.iterencode', '0a9b6ccb5629e72139cc148747220658decca0dbd19bdd33c19f805a011ff77e'), <blob>, (1741620526.5902414, 107, False)
+2025-03-10 11:28:46.606 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:46.612 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:46.613 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.detect_encoding
+2025-03-10 11:28:47.448 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.detect_encoding: ('detect_encoding', '')
+2025-03-10 11:28:47.450 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.detect_encoding
+2025-03-10 11:28:47.451 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=detect_encoding, hash=2c68b9ee..., size=37, timestamp=1741620527.4507651, compressed=False
+2025-03-10 11:28:47.451 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('detect_encoding', '')
+2025-03-10 11:28:47.452 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:47.453 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:47.453 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'detect_encoding', '2c68b9ee7c30972d4517aae6ff3c357b375f08bd7a6d85d7ecc6d8e6ea50d4f0'), <blob>, (1741620527.4507651, 37, False)
+2025-03-10 11:28:47.475 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.detect_encoding
+2025-03-10 11:28:47.479 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.detect_encoding
+2025-03-10 11:28:47.479 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.dump
+2025-03-10 11:28:49.449 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.dump: ('dump', 'Serialize ``obj`` as a JSON formatted stream to ``fp`` (a')
+2025-03-10 11:28:49.451 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.dump
+2025-03-10 11:28:49.452 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=dump, hash=7a5cf30a..., size=94, timestamp=1741620529.4516861, compressed=False
+2025-03-10 11:28:49.452 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('dump', 'Serialize ``obj`` as a JSON formatted stream to ``fp`` (a')
+2025-03-10 11:28:49.453 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:49.454 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:49.454 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'dump', '7a5cf30af31383c7c1b22eaac1344e7b58631ab56a95a349735712e9a608f6fc'), <blob>, (1741620529.4516861, 94, False)
+2025-03-10 11:28:49.476 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.dump
+2025-03-10 11:28:49.479 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.dump
+2025-03-10 11:28:49.480 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.dumps
+2025-03-10 11:28:51.360 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.dumps: ('dumps', 'Serialize ``obj`` to a JSON formatted ``str``')
+2025-03-10 11:28:51.362 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.dumps
+2025-03-10 11:28:51.362 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=dumps, hash=2aeed87f..., size=83, timestamp=1741620531.3625815, compressed=False
+2025-03-10 11:28:51.363 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('dumps', 'Serialize ``obj`` to a JSON formatted ``str``')
+2025-03-10 11:28:51.364 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:51.364 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:51.365 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'dumps', '2aeed87f2853842efdcd89d42b98f11d78c77457a972c57d1692aef209192d2b'), <blob>, (1741620531.3625815, 83, False)
+2025-03-10 11:28:51.379 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.dumps
+2025-03-10 11:28:51.383 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.dumps
+2025-03-10 11:28:51.383 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.load
+2025-03-10 11:28:53.264 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.load: ('load', 'Deserialize ``fp`` (a ``')
+2025-03-10 11:28:53.266 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.load
+2025-03-10 11:28:53.266 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=load, hash=2981e0fd..., size=50, timestamp=1741620533.2660108, compressed=False
+2025-03-10 11:28:53.266 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('load', 'Deserialize ``fp`` (a ``')
+2025-03-10 11:28:53.267 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:53.268 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:53.268 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'load', '2981e0fd4467bdfe77f293bb212836d9079eebed8b6da9d34b79dca445fe81af'), <blob>, (1741620533.2660108, 50, False)
+2025-03-10 11:28:53.280 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.load
+2025-03-10 11:28:53.284 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.load
+2025-03-10 11:28:53.285 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.loads
+2025-03-10 11:28:55.269 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:782 - Generated result for json.loads: ('loads', 'Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance')
+2025-03-10 11:28:55.272 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for json.loads
+2025-03-10 11:28:55.272 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=json, method_name=loads, hash=cd42a7fe..., size=110, timestamp=1741620535.2720656, compressed=False
+2025-03-10 11:28:55.272 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('loads', 'Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance')
+2025-03-10 11:28:55.273 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:28:55.274 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:28:55.274 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('json', 'loads', 'cd42a7fea10191986cd106b2547b3d828bf597deac8c39b847c274a485b1d5dd'), <blob>, (1741620535.2720656, 110, False)
+2025-03-10 11:28:55.296 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for json.loads
+2025-03-10 11:28:55.300 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:786 - Cached result for json.loads
+2025-03-10 11:28:55.301 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_analysis in 19.38s
+2025-03-10 11:28:55.306 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:55.306 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:55.306 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:57.598 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.29s
+2025-03-10 11:28:57.598 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:59.723 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.13s
+2025-03-10 11:28:59.726 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_discovery: Discovering methods
+2025-03-10 11:28:59.726 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:59.727 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:28:59.727 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_discovery in 0.00s
+2025-03-10 11:28:59.728 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting method_analysis: Analyzing methods
+2025-03-10 11:28:59.728 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.decoder.JSONDecoder.decode
+2025-03-10 11:28:59.731 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.decoder.JSONDecoder.decode
+2025-03-10 11:28:59.731 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:59.734 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.decoder.JSONDecoder.raw_decode
+2025-03-10 11:28:59.735 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.default
+2025-03-10 11:28:59.737 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.encoder.JSONEncoder.default
+2025-03-10 11:28:59.737 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.encode
+2025-03-10 11:28:59.740 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.encoder.JSONEncoder.encode
+2025-03-10 11:28:59.741 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:59.744 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.encoder.JSONEncoder.iterencode
+2025-03-10 11:28:59.745 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.detect_encoding
+2025-03-10 11:28:59.748 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.detect_encoding
+2025-03-10 11:28:59.749 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.dump
+2025-03-10 11:28:59.753 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.dump
+2025-03-10 11:28:59.753 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.dumps
+2025-03-10 11:28:59.757 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.dumps
+2025-03-10 11:28:59.757 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.load
+2025-03-10 11:28:59.759 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.load
+2025-03-10 11:28:59.760 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:771 - Quick analyzing method: json.loads
+2025-03-10 11:28:59.763 | DEBUG    | agent_tools.method_validator.analyzer:_analyze_method_quick:776 - Cache hit for json.loads
+2025-03-10 11:28:59.764 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed method_analysis in 0.04s
+2025-03-10 11:28:59.767 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:28:59.767 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting package_import: Importing package json
+2025-03-10 11:28:59.768 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed package_import in 0.00s
+2025-03-10 11:29:01.951 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.18s
+2025-03-10 11:29:01.951 | DEBUG    | agent_tools.method_validator.utils:measure:42 - Starting deep_analysis: Deep analysis of dumps
+2025-03-10 11:29:04.101 | DEBUG    | agent_tools.method_validator.utils:measure:51 - Completed deep_analysis in 2.15s
+2025-03-10 11:29:15.078 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.079 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.080 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.080 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmp4zlmkxyc/test_cache.db
+2025-03-10 11:29:15.081 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.096 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.100 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.100 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.101 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.102 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpber5dg4a/test_cache.db
+2025-03-10 11:29:15.102 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.116 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.118 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.test_method
+2025-03-10 11:29:15.119 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=test_method, hash=db1dac64..., size=66, timestamp=1741620555.118811, compressed=False
+2025-03-10 11:29:15.119 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.120 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.120 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.121 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'test_method', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.118811, 66, False)
+2025-03-10 11:29:15.132 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.test_method
+2025-03-10 11:29:15.136 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.136 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.137 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.137 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpkkye5sq5/test_cache.db
+2025-03-10 11:29:15.138 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.157 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.159 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.test_method
+2025-03-10 11:29:15.160 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=test_method, hash=db1dac64..., size=52, timestamp=1741620555.159538, compressed=False
+2025-03-10 11:29:15.160 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.161 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.161 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.162 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'test_method', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.159538, 52, False)
+2025-03-10 11:29:15.172 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.test_method
+2025-03-10 11:29:15.188 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.189 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.190 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.190 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpt6o426_v/test_cache.db
+2025-03-10 11:29:15.191 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.205 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.208 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method_0
+2025-03-10 11:29:15.208 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method_0, hash=db1dac64..., size=52, timestamp=1000, compressed=False
+2025-03-10 11:29:15.209 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.209 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.210 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.210 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method_0', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1000, 52, False)
+2025-03-10 11:29:15.222 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method_0
+2025-03-10 11:29:15.223 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method_1
+2025-03-10 11:29:15.224 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method_1, hash=db1dac64..., size=52, timestamp=4600, compressed=False
+2025-03-10 11:29:15.224 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.225 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.226 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.226 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method_1', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (4600, 52, False)
+2025-03-10 11:29:15.237 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method_1
+2025-03-10 11:29:15.239 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method_2
+2025-03-10 11:29:15.239 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method_2, hash=db1dac64..., size=52, timestamp=8200, compressed=False
+2025-03-10 11:29:15.239 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.240 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.241 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.241 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method_2', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (8200, 52, False)
+2025-03-10 11:29:15.253 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method_2
+2025-03-10 11:29:15.254 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method_3
+2025-03-10 11:29:15.254 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method_3, hash=db1dac64..., size=52, timestamp=11800, compressed=False
+2025-03-10 11:29:15.255 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.255 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.256 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.256 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method_3', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (11800, 52, False)
+2025-03-10 11:29:15.267 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method_3
+2025-03-10 11:29:15.269 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method_4
+2025-03-10 11:29:15.269 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method_4, hash=db1dac64..., size=52, timestamp=15400, compressed=False
+2025-03-10 11:29:15.270 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.271 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.271 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.272 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method_4', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (15400, 52, False)
+2025-03-10 11:29:15.283 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method_4
+2025-03-10 11:29:15.302 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.303 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.304 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.304 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpg1pgb7vy/test_cache.db
+2025-03-10 11:29:15.305 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.320 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.321 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.test_method
+2025-03-10 11:29:15.322 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=test_method, hash=db1dac64..., size=2051, timestamp=1741620555.321631, compressed=False
+2025-03-10 11:29:15.322 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('description', 'summary')
+2025-03-10 11:29:15.323 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.324 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.324 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'test_method', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.321631, 2051, False)
+2025-03-10 11:29:15.335 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.test_method
+2025-03-10 11:29:15.341 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.342 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.343 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.343 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpv6tb73vp/test_cache.db
+2025-03-10 11:29:15.345 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.360 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.362 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method1
+2025-03-10 11:29:15.362 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method1, hash=db1dac64..., size=39, timestamp=1741620555.362383, compressed=False
+2025-03-10 11:29:15.363 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('desc1', 'sum1')
+2025-03-10 11:29:15.364 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.364 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.365 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method1', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.362383, 39, False)
+2025-03-10 11:29:15.377 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method1
+2025-03-10 11:29:15.378 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method2
+2025-03-10 11:29:15.378 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method2, hash=db1dac64..., size=39, timestamp=1741620555.378063, compressed=False
+2025-03-10 11:29:15.378 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('desc2', 'sum2')
+2025-03-10 11:29:15.379 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.380 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.380 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method2', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.378063, 39, False)
+2025-03-10 11:29:15.391 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method2
+2025-03-10 11:29:15.391 | DEBUG    | agent_tools.method_validator.cache:set:299 - Setting cache for test_package.method3
+2025-03-10 11:29:15.392 | DEBUG    | agent_tools.method_validator.cache:set:300 - Values: package_name=test_package, method_name=method3, hash=db1dac64..., size=39, timestamp=1741620555.3917887, compressed=False
+2025-03-10 11:29:15.392 | DEBUG    | agent_tools.method_validator.cache:set:303 - Result tuple: ('desc3', 'sum3')
+2025-03-10 11:29:15.393 | DEBUG    | agent_tools.method_validator.cache:set:304 - Table schema: CREATE TABLE method_cache (
+                    package_name TEXT,
+                    method_name TEXT,
+                    source_hash TEXT,
+                    result BLOB,
+                    timestamp REAL,
+                    size INTEGER,
+                    compressed BOOLEAN,
+                    PRIMARY KEY (package_name, method_name)
+                )
+2025-03-10 11:29:15.393 | DEBUG    | agent_tools.method_validator.cache:set:323 - Inserting with SQL: 
+                    INSERT OR REPLACE INTO method_cache 
+                    (package_name, method_name, source_hash, result, timestamp, size, compressed)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                
+2025-03-10 11:29:15.394 | DEBUG    | agent_tools.method_validator.cache:set:324 - Values: ('test_package', 'method3', 'db1dac64ef36d1935bbd85ad7a4e5e82f6eda7018cd93587e007c4de9fd08196'), <blob>, (1741620555.3917887, 39, False)
+2025-03-10 11:29:15.405 | DEBUG    | agent_tools.method_validator.cache:set:327 - Successfully inserted/updated cache entry for test_package.method3
+2025-03-10 11:29:15.406 | INFO     | agent_tools.method_validator.cache:get_all_methods:448 - Database query completed in 0.000s
+2025-03-10 11:29:15.407 | INFO     | agent_tools.method_validator.cache:get_all_methods:464 - Data processing completed in 0.000s
+2025-03-10 11:29:15.407 | INFO     | agent_tools.method_validator.cache:get_all_methods:465 - Total methods retrieved: 3
+2025-03-10 11:29:15.417 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.417 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.419 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.419 | DEBUG    | agent_tools.method_validator.cache:_init_db:235 - Initializing database at /tmp/tmpx1r0k14k/test_cache.db
+2025-03-10 11:29:15.420 | DEBUG    | agent_tools.method_validator.cache:_init_db:238 - Creating table if not exists
+2025-03-10 11:29:15.435 | DEBUG    | agent_tools.method_validator.cache:_init_db:256 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]
+2025-03-10 11:29:15.449 | DEBUG    | agent_tools.method_validator.cache:set_batch:551 - Successfully inserted/updated 3 cache entries in batch
+2025-03-10 11:29:15.553 | DEBUG    | agent_tools.method_validator.cache:init_db:36 - Initializing database at /root/.cache/method_validator/method_analysis_cache.db
+2025-03-10 11:29:15.554 | DEBUG    | agent_tools.method_validator.cache:init_db:40 - Creating table if not exists
+2025-03-10 11:29:15.555 | DEBUG    | agent_tools.method_validator.cache:init_db:57 - method_cache columns: [(0, 'package_name', 'TEXT', 0, None, 1), (1, 'method_name', 'TEXT', 0, None, 2), (2, 'source_hash', 'TEXT', 0, None, 0), (3, 'result', 'BLOB', 0, None, 0), (4, 'timestamp', 'REAL', 0, None, 0), (5, 'size', 'INTEGER', 0, None, 0), (6, 'compressed', 'BOOLEAN', 0, None, 0)]

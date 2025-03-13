@@ -1,0 +1,303 @@
+{
+  "database_name": "cursor_rules",
+  "description": "Enhanced knowledge system for coding guidelines, examples, troubleshooting, and context",
+  "collections": {
+    "rules": {
+      "type": "document",
+      "description": "Primary collection for storing cursor rules from markdown files",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the rule (derived from filename)", "indexed": true},
+        "rule_number": {"type": "string", "description": "Numeric rule identifier (e.g., '001')", "indexed": true},
+        "title": {"type": "string", "description": "Rule title from H1 heading", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Brief description of the rule", "analyzer": "text_en"},
+        "content": {"type": "string", "description": "Full markdown content of the rule", "analyzer": "text_en"},
+        "rule_type": {"type": "string", "description": "Type of rule (e.g., 'code_advice', 'pattern')", "indexed": true},
+        "glob_pattern": {"type": "string", "description": "File pattern where rule applies (e.g., '*.py')", "indexed": true},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "priority": {"type": "integer", "description": "Priority order for rules", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      },
+      "primary_sort_field": ["rule_number"],
+      "sample_doc": {
+        "_key": "001-code-advice-rules",
+        "rule_number": "001",
+        "title": "Code Advice Rules",
+        "description": "Project Code Advice Rules for AI Code Generation",
+        "rule_type": "code_advice",
+        "glob_pattern": "*.py",
+        "tags": ["code_style", "best_practice", "ai_generation"],
+        "priority": 1
+      }
+    },
+    "rule_examples": {
+      "type": "document",
+      "description": "Code examples demonstrating rules",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the example", "indexed": true},
+        "title": {"type": "string", "description": "Example title", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Description of the example", "analyzer": "text_en"},
+        "language": {"type": "string", "description": "Programming language of the example", "indexed": true},
+        "good_example": {"type": "string", "description": "Code example showing good practice", "analyzer": "text_en"},
+        "bad_example": {"type": "string", "description": "Code example showing anti-pattern", "analyzer": "text_en"},
+        "context": {"type": "string", "description": "Additional context for when to apply the example", "analyzer": "text_en"},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      },
+      "indexes": [
+        {
+          "type": "persistent",
+          "fields": ["language"],
+          "sparse": false
+        }
+      ]
+    },
+    "troubleshooting_guides": {
+      "type": "document",
+      "description": "Guides for resolving common issues and problems",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the guide", "indexed": true},
+        "title": {"type": "string", "description": "Guide title", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Brief description of the problem", "analyzer": "text_en"},
+        "problem_type": {"type": "string", "description": "Type of problem (e.g., 'runtime', 'compilation')", "indexed": true},
+        "symptoms": {"type": "array", "items": "string", "description": "Common symptoms or error messages", "indexed": true},
+        "steps": {"type": "string", "description": "Troubleshooting steps in markdown", "analyzer": "text_en"},
+        "resolution": {"type": "string", "description": "Expected resolution", "analyzer": "text_en"},
+        "language": {"type": "string", "description": "Primary programming language", "indexed": true},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "lessons_learned": {
+      "type": "document",
+      "description": "Knowledge and insights from project experiences",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the lesson", "indexed": true},
+        "title": {"type": "string", "description": "Lesson title", "indexed": true, "analyzer": "text_en"},
+        "context": {"type": "string", "description": "Project context or background", "analyzer": "text_en"},
+        "content": {"type": "string", "description": "Full lesson content in markdown", "analyzer": "text_en"},
+        "outcome": {"type": "string", "description": "The result or impact of applying this lesson", "analyzer": "text_en"},
+        "date_added": {"type": "string", "description": "ISO 8601 date when the lesson was added", "indexed": true},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      },
+      "indexes": [
+        {
+          "type": "persistent",
+          "fields": ["date_added"],
+          "sparse": false
+        }
+      ]
+    },
+    "prompt_templates": {
+      "type": "document",
+      "description": "Reusable prompt patterns for different tasks",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the template", "indexed": true},
+        "title": {"type": "string", "description": "Template title", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Template purpose description", "analyzer": "text_en"},
+        "template_text": {"type": "string", "description": "The actual prompt template text", "analyzer": "text_en"},
+        "use_case": {"type": "string", "description": "Primary use case for this prompt", "indexed": true},
+        "variables": {"type": "array", "items": "string", "description": "Variables that should be filled in the template", "indexed": true},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    }
+  },
+  "edge_collections": {
+    "rule_has_example": {
+      "type": "edge",
+      "description": "Links rules to their examples",
+      "fields": {
+        "relationship_type": {"type": "string", "description": "Type of example relationship (e.g., 'core', 'edge_case')", "indexed": true},
+        "relevance": {"type": "number", "description": "Relevance score 0-1", "indexed": true},
+        "context": {"type": "string", "description": "Additional context about the relationship", "analyzer": "text_en"}
+      },
+      "from": ["rules"],
+      "to": ["rule_examples"]
+    },
+    "rule_references_rule": {
+      "type": "edge",
+      "description": "Links between related rules",
+      "fields": {
+        "relationship_type": {"type": "string", "description": "Type of relationship (e.g., 'similar', 'prerequisite', 'contrasts_with')", "indexed": true},
+        "strength": {"type": "number", "description": "Relationship strength 0-1", "indexed": true},
+        "description": {"type": "string", "description": "Description of how the rules are related", "analyzer": "text_en"},
+        "bidirectional": {"type": "boolean", "description": "Whether the relationship applies in both directions", "indexed": true}
+      },
+      "from": ["rules"],
+      "to": ["rules"]
+    },
+    "rule_resolves_problem": {
+      "type": "edge",
+      "description": "Links rules to troubleshooting guides they help resolve",
+      "fields": {
+        "resolution_type": {"type": "string", "description": "How the rule helps (e.g., 'prevents', 'fixes', 'explains')", "indexed": true},
+        "confidence": {"type": "number", "description": "Confidence score 0-1 that the rule resolves the issue", "indexed": true},
+        "context": {"type": "string", "description": "Additional context about how the rule applies", "analyzer": "text_en"}
+      },
+      "from": ["rules"],
+      "to": ["troubleshooting_guides"]
+    },
+    "lesson_references_resource": {
+      "type": "edge",
+      "description": "Links lessons to any related resource",
+      "fields": {
+        "reference_type": {"type": "string", "description": "How the lesson references the resource (e.g., 'applies', 'derives_from', 'contradicts')", "indexed": true},
+        "importance": {"type": "number", "description": "Importance of this reference 0-1", "indexed": true},
+        "context": {"type": "string", "description": "Additional context about the reference", "analyzer": "text_en"}
+      },
+      "from": ["lessons_learned"],
+      "to": ["rules", "rule_examples", "troubleshooting_guides", "prompt_templates"]
+    },
+    "prompt_uses_resource": {
+      "type": "edge",
+      "description": "Links prompt templates to resources they reference",
+      "fields": {
+        "usage_type": {"type": "string", "description": "How the prompt uses the resource (e.g., 'references', 'builds_on', 'demonstrates')", "indexed": true},
+        "context": {"type": "string", "description": "Additional context about the usage", "analyzer": "text_en"}
+      },
+      "from": ["prompt_templates"],
+      "to": ["rules", "rule_examples", "troubleshooting_guides", "lessons_learned"]
+    },
+    "resource_applies_to_language": {
+      "type": "edge",
+      "description": "Links any resource to specific programming languages",
+      "fields": {
+        "language": {"type": "string", "description": "Programming language (e.g., 'python', 'javascript')", "indexed": true},
+        "specificity": {"type": "number", "description": "How specific the resource is to this language 0-1", "indexed": true},
+        "dialect": {"type": "string", "description": "Specific dialect or version if applicable", "indexed": true}
+      },
+      "from": ["rules", "rule_examples", "troubleshooting_guides", "lessons_learned", "prompt_templates"],
+      "to": ["programming_languages"]
+    }
+  },
+  "views": {
+    "unified_search_view": {
+      "type": "arangosearch",
+      "description": "Comprehensive search view across all collections with BM25 and vector search",
+      "properties": {
+        "analyzer": "text_en",
+        "features": ["frequency", "position", "norm", "bm25"],
+        "include_all_fields": false,
+        "track_listings": true,
+        "store_values": true,
+        "cleanup_interval_step": 2,
+        "commit_interval_msec": 1000
+      },
+      "links": {
+        "rules": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "content": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "rule_examples": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "good_example": {"analyzer": "text_en"},
+            "bad_example": {"analyzer": "text_en"},
+            "context": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "troubleshooting_guides": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "symptoms": {"analyzer": "text_en"},
+            "steps": {"analyzer": "text_en"},
+            "resolution": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "lessons_learned": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "context": {"analyzer": "text_en"},
+            "content": {"analyzer": "text_en"},
+            "outcome": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "prompt_templates": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "template_text": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        }
+      }
+    }
+  },
+  "analyzers": {
+    "text_en": {
+      "type": "text",
+      "properties": {
+        "locale": "en",
+        "case": "lower",
+        "accent": false,
+        "stemming": true,
+        "stopwords": [
+          "the", "and", "or", "in", "on", "at", "to", "for", "with", "by",
+          "about", "from", "as", "into", "of", "that", "this", "these", "those"
+        ],
+        "features": ["frequency", "norm", "position"]
+      }
+    }
+  },
+  "example_queries": {
+    "multi_hop_rule_discovery": {
+      "name": "Multi-Hop Rule Discovery",
+      "description": "Discover rules connected through multiple relationships",
+      "query": "FOR start_rule IN rules FILTER start_rule.rule_number == @ruleNumber LET related_rules = (FOR related IN 1..3 OUTBOUND start_rule rule_references_rule RETURN DISTINCT { rule: related, depth: LENGTH(PATH), path_vertices: PATH.vertices[*]._key }) RETURN { start_rule: start_rule, related_rules: related_rules }"
+    },
+    "knowledge_path_between_resources": {
+      "name": "Knowledge Path Between Resources",
+      "description": "Find paths connecting two resources through any relationship",
+      "query": "FOR path IN ANY SHORTEST_PATH @startId TO @endId GRAPH 'knowledge_graph' RETURN { vertices: path.vertices, edges: path.edges }"
+    },
+    "rule_complete_context": {
+      "name": "Complete Rule Context",
+      "description": "Get a rule with all its related resources",
+      "query": "FOR rule IN rules FILTER rule._key == @ruleKey LET examples = (FOR e IN OUTBOUND rule rule_has_example RETURN e) LET related_rules = (FOR r IN OUTBOUND rule rule_references_rule RETURN r) LET troubleshooting = (FOR t IN OUTBOUND rule rule_resolves_problem RETURN t) LET lessons = (FOR l, edge IN INBOUND rule lesson_references_resource RETURN { lesson: l, reference_type: edge.reference_type }) LET prompts = (FOR p, edge IN INBOUND rule prompt_uses_resource RETURN { prompt: p, usage_type: edge.usage_type }) RETURN { rule: rule, examples: examples, related_rules: related_rules, troubleshooting: troubleshooting, lessons: lessons, prompts: prompts }"
+    },
+    "language_specific_resources": {
+      "name": "Language-Specific Resources",
+      "description": "Find all resources for a specific programming language",
+      "query": "FOR edge IN resource_applies_to_language FILTER edge.language == @language LET resource = DOCUMENT(edge._from) RETURN { resource_type: PARSE_IDENTIFIER(edge._from).collection, resource: resource, specificity: edge.specificity }"
+    },
+    "hybrid_cross_collection_search": {
+      "name": "Hybrid Cross-Collection Search",
+      "description": "Search across all collections using both text and vector similarity",
+      "query": "FOR doc IN unified_search_view SEARCH ANALYZER(doc.title IN TOKENS(@searchText, 'text_en') OR doc.description IN TOKENS(@searchText, 'text_en'), 'text_en') LET vector_score = COSINE_SIMILARITY(doc.embedding, @queryVector) LET bm25_score = BM25(doc) LET combined_score = bm25_score * 0.5 + vector_score * 0.5 FILTER combined_score > 0.5 SORT combined_score DESC LIMIT 10 RETURN { resource: doc, collection: PARSE_IDENTIFIER(doc._id).collection, relevance: combined_score }"
+    },
+    "contextual_recommendation": {
+      "name": "Contextual Resource Recommendation",
+      "description": "Recommend resources based on current context",
+      "query": "LET context_rules = (FOR rule IN rules FILTER rule.glob_pattern == @filePattern RETURN rule) LET relevant_examples = (FOR rule IN context_rules FOR example IN OUTBOUND rule rule_has_example FILTER example.language == @language RETURN example) LET relevant_troubleshooting = (FOR problem IN troubleshooting_guides FILTER problem.language == @language FOR rule IN INBOUND problem rule_resolves_problem FILTER rule.glob_pattern == @filePattern RETURN problem) RETURN { context_rules: context_rules, examples: relevant_examples, troubleshooting: relevant_troubleshooting }"
+    }
+  },
+  "optimization_rules": {
+    "indexes": [
+      "Use persistent indexes for frequently filtered fields like 'language', 'rule_number', 'tags'",
+      "Create sparse indexes for optional fields",
+      "Index edge collection relationship types for faster graph traversal filtering"
+    ],
+    "query_patterns": [
+      "Use graph traversals for relationship-based queries",
+      "Combine BM25 and vector search for hybrid relevance",
+      "Use SHORTEST_PATH for finding connections between resources",
+      "Apply DISTINCT operations after traversals to avoid duplicates"
+    ],
+    "data_modeling": [
+      "Normalize primary entities into separate collections",
+      "Use edge collections for all relationships between entities",
+      "Store rich metadata on edges to context-aware traversals",
+      "Use consistent embedding dimensions across all collections"
+    ]
+  }
+} 

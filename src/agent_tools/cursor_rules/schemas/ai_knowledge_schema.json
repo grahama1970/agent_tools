@@ -1,0 +1,619 @@
+{
+  "database_name": "cursor_rules",
+  "description": "Enhanced knowledge system optimized for AI agent retrieval with context efficiency",
+  "collections": {
+    "rules": {
+      "type": "document",
+      "description": "Primary collection for storing cursor rules from markdown files",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the rule", "indexed": true},
+        "rule_number": {"type": "string", "description": "Numeric rule identifier (e.g., '001')", "indexed": true},
+        "title": {"type": "string", "description": "Rule title from H1 heading", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Brief description of the rule", "analyzer": "text_en"},
+        "content": {"type": "string", "description": "Full markdown content of the rule", "analyzer": "text_en"},
+        "rule_type": {"type": "string", "description": "Type of rule (e.g., 'code_advice', 'pattern')", "indexed": true},
+        "glob_pattern": {"type": "string", "description": "File pattern where rule applies (e.g., '*.py')", "indexed": true},
+        "priority": {"type": "integer", "description": "Priority order for rules", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"},
+        "verification_status": {"type": "string", "description": "Status of verification (verified, experimental)", "indexed": true},
+        "confidence_score": {"type": "number", "description": "Confidence in rule correctness (0-1)", "indexed": true},
+        "last_accessed": {"type": "string", "description": "ISO timestamp of last access", "indexed": true},
+        "access_count": {"type": "integer", "description": "Number of times this rule has been accessed", "indexed": true}
+      }
+    },
+    "critical_rules": {
+      "type": "document",
+      "description": "Core rules that must never be violated",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the rule", "indexed": true},
+        "title": {"type": "string", "description": "Rule title", "indexed": true, "analyzer": "text_en"},
+        "description": {"type": "string", "description": "Brief description of the rule", "analyzer": "text_en"},
+        "content": {"type": "string", "description": "Full markdown content of the rule", "analyzer": "text_en"},
+        "packages": {"type": "array", "items": "string", "description": "Packages this rule applies to", "indexed": true},
+        "glob_pattern": {"type": "string", "description": "File pattern where rule applies", "indexed": true},
+        "priority": {"type": "integer", "description": "Priority order (lower = more important)", "indexed": true},
+        "purpose": {"type": "string", "description": "Purpose of the rule (e.g., error_prevention)", "indexed": true},
+        "error_type": {"type": "string", "description": "Type of error this rule prevents", "indexed": true},
+        "implementation_type": {"type": "string", "description": "Type of implementation this applies to", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "code_patterns": {
+      "type": "document",
+      "description": "Verified implementation patterns with source documentation",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier for the pattern", "indexed": true},
+        "name": {"type": "string", "description": "Pattern name", "indexed": true},
+        "method_name": {"type": "string", "description": "Method or function name", "indexed": true},
+        "library": {"type": "string", "description": "Library or package name", "indexed": true},
+        "language": {"type": "string", "description": "Programming language", "indexed": true},
+        "framework": {"type": "string", "description": "Framework if applicable", "indexed": true},
+        "description": {"type": "string", "description": "Description of the pattern", "analyzer": "text_en"},
+        "code_example": {"type": "string", "description": "Example code implementing the pattern", "analyzer": "text_en"},
+        "anti_pattern_example": {"type": "string", "description": "Example of incorrect implementation", "analyzer": "text_en"},
+        "explanation": {"type": "string", "description": "Detailed explanation of how it works", "analyzer": "text_en"},
+        "tags": {"type": "array", "items": "string", "description": "Categorization tags", "indexed": true},
+        "operation_type": {"type": "string", "description": "Type of operation (e.g., tensor_manipulation)", "indexed": true},
+        "category": {"type": "string", "description": "Category (e.g., async, error_handling)", "indexed": true},
+        "sub_category": {"type": "string", "description": "Sub-category for more specific filtering", "indexed": true},
+        "context": {"type": "string", "description": "Context where this pattern applies", "indexed": true},
+        "applies_to": {"type": "string", "description": "Type of implementation this applies to", "indexed": true},
+        "functionality": {"type": "string", "description": "Functional description", "indexed": true},
+        "file_types": {"type": "array", "items": "string", "description": "File types this applies to", "indexed": true},
+        "packages": {"type": "array", "items": "string", "description": "Packages this involves", "indexed": true},
+        "algorithm_type": {"type": "string", "description": "Algorithm type if applicable", "indexed": true},
+        "component_type": {"type": "string", "description": "Component type for UI frameworks", "indexed": true},
+        "is_best_practice": {"type": "boolean", "description": "Whether this is a best practice", "indexed": true},
+        "is_anti_pattern": {"type": "boolean", "description": "Whether this is an anti-pattern to avoid", "indexed": true},
+        "is_async": {"type": "boolean", "description": "Whether this is an async pattern", "indexed": true},
+        "is_correct": {"type": "boolean", "description": "Whether this is a correct pattern", "indexed": true},
+        "error_prone": {"type": "boolean", "description": "Whether this pattern is error-prone", "indexed": true},
+        "advantages": {"type": "array", "items": "string", "description": "Advantages of this pattern"},
+        "disadvantages": {"type": "array", "items": "string", "description": "Disadvantages of this pattern"},
+        "comparison_notes": {"type": "string", "description": "Notes comparing to alternatives", "analyzer": "text_en"},
+        "speed_impact": {"type": "number", "description": "Impact on speed (-1 to 1)", "indexed": true},
+        "memory_impact": {"type": "number", "description": "Impact on memory usage (-1 to 1)", "indexed": true},
+        "readability_impact": {"type": "number", "description": "Impact on code readability (-1 to 1)", "indexed": true},
+        "performance_impact": {"type": "number", "description": "Overall performance impact (0-1)", "indexed": true},
+        "modern_practice": {"type": "number", "description": "How modern the practice is (0-1)", "indexed": true},
+        "robustness": {"type": "number", "description": "Robustness of the pattern (0-1)", "indexed": true},
+        "reliability": {"type": "number", "description": "Reliability of the pattern (0-1)", "indexed": true},
+        "relevance": {"type": "number", "description": "Relevance score (0-1)", "indexed": true},
+        "frequency": {"type": "number", "description": "Usage frequency (0-1)", "indexed": true},
+        "confidence_score": {"type": "number", "description": "Confidence in pattern correctness (0-1)", "indexed": true},
+        "verification_status": {"type": "string", "description": "Status of verification", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "method_signatures": {
+      "type": "document",
+      "description": "Store package method signatures and parameters",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "package": {"type": "string", "description": "Package name", "indexed": true},
+        "name": {"type": "string", "description": "Method name", "indexed": true},
+        "signature": {"type": "string", "description": "Full method signature", "indexed": true},
+        "return_type": {"type": "string", "description": "Return type", "indexed": true},
+        "description": {"type": "string", "description": "Method description", "analyzer": "text_en"},
+        "is_async": {"type": "boolean", "description": "Whether this is an async method", "indexed": true},
+        "is_deprecated": {"type": "boolean", "description": "Whether this method is deprecated", "indexed": true},
+        "version_added": {"type": "string", "description": "Version when this was added", "indexed": true},
+        "version_deprecated": {"type": "string", "description": "Version when deprecated, if applicable", "indexed": true},
+        "confidence_score": {"type": "number", "description": "Confidence in signature correctness (0-1)", "indexed": true},
+        "verification_status": {"type": "string", "description": "Status of verification", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "method_parameters": {
+      "type": "document",
+      "description": "Parameters for method signatures",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "method_key": {"type": "string", "description": "Reference to method_signatures._key", "indexed": true},
+        "name": {"type": "string", "description": "Parameter name", "indexed": true},
+        "type": {"type": "string", "description": "Parameter type", "indexed": true},
+        "description": {"type": "string", "description": "Parameter description", "analyzer": "text_en"},
+        "is_required": {"type": "boolean", "description": "Whether parameter is required", "indexed": true},
+        "default_value": {"type": "string", "description": "Default value if any", "indexed": true},
+        "order": {"type": "integer", "description": "Position in parameter list", "indexed": true}
+      }
+    },
+    "error_codes": {
+      "type": "document",
+      "description": "Common errors with resolution steps",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "message": {"type": "string", "description": "Error message pattern", "analyzer": "text_en", "indexed": true},
+        "description": {"type": "string", "description": "Error description", "analyzer": "text_en"},
+        "error_type": {"type": "string", "description": "Type of error", "indexed": true},
+        "category": {"type": "string", "description": "Error category", "indexed": true},
+        "component": {"type": "string", "description": "Affected component", "indexed": true},
+        "symptoms": {"type": "array", "items": "string", "description": "Common symptoms", "indexed": true},
+        "severity": {"type": "string", "description": "Error severity (error, warning)", "indexed": true},
+        "stack_trace_pattern": {"type": "string", "description": "Pattern to match in stack traces", "indexed": true},
+        "compiler": {"type": "string", "description": "Compiler name if applicable", "indexed": true},
+        "code": {"type": "string", "description": "Error code if any", "indexed": true},
+        "packages": {"type": "array", "items": "string", "description": "Affected packages", "indexed": true},
+        "module": {"type": "string", "description": "Affected module", "indexed": true},
+        "keywords": {"type": "array", "items": "string", "description": "Search keywords", "indexed": true},
+        "is_common": {"type": "boolean", "description": "Whether this is a common error", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "error_solutions": {
+      "type": "document",
+      "description": "Solutions for error codes",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "error_key": {"type": "string", "description": "Reference to error_codes._key", "indexed": true},
+        "title": {"type": "string", "description": "Solution title", "indexed": true},
+        "description": {"type": "string", "description": "Solution description", "analyzer": "text_en"},
+        "steps": {"type": "array", "items": "string", "description": "Resolution steps", "analyzer": "text_en"},
+        "code_example": {"type": "string", "description": "Example code fix", "analyzer": "text_en"},
+        "explanation": {"type": "string", "description": "Detailed explanation", "analyzer": "text_en"},
+        "confidence_score": {"type": "number", "description": "Confidence in solution (0-1)", "indexed": true},
+        "effectiveness": {"type": "number", "description": "How effective this solution is (0-1)", "indexed": true},
+        "step_order": {"type": "integer", "description": "Order in multi-step solution", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "documentation_references": {
+      "type": "document",
+      "description": "Links to official documentation with version info",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "package": {"type": "string", "description": "Package name", "indexed": true},
+        "title": {"type": "string", "description": "Documentation title", "indexed": true},
+        "url": {"type": "string", "description": "Documentation URL", "indexed": true},
+        "version": {"type": "string", "description": "Package version", "indexed": true},
+        "version_date": {"type": "string", "description": "Version release date", "indexed": true},
+        "is_stable": {"type": "boolean", "description": "Whether this is a stable version", "indexed": true},
+        "content_summary": {"type": "string", "description": "Summary of documentation content", "analyzer": "text_en"},
+        "feature": {"type": "string", "description": "Specific feature documented", "indexed": true},
+        "type": {"type": "string", "description": "Documentation type (API, guide)", "indexed": true},
+        "endpoint": {"type": "string", "description": "API endpoint if applicable", "indexed": true},
+        "breaking_changes": {"type": "array", "items": "string", "description": "Breaking changes from previous version"},
+        "new_features": {"type": "array", "items": "string", "description": "New features in this version"},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "documentation_examples": {
+      "type": "document",
+      "description": "Code examples from official documentation",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "doc_key": {"type": "string", "description": "Reference to documentation_references._key", "indexed": true},
+        "title": {"type": "string", "description": "Example title", "indexed": true},
+        "code": {"type": "string", "description": "Example code", "analyzer": "text_en"},
+        "explanation": {"type": "string", "description": "Explanation of the example", "analyzer": "text_en"},
+        "url_fragment": {"type": "string", "description": "URL fragment to specific section", "indexed": true},
+        "embedding": {"type": "vector", "dimension": 768, "similarity": "cosine", "description": "Vector embedding for semantic search"}
+      }
+    },
+    "import_statements": {
+      "type": "document",
+      "description": "Import statements for packages and methods",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "package": {"type": "string", "description": "Package name", "indexed": true},
+        "module": {"type": "string", "description": "Module name", "indexed": true},
+        "import_statement": {"type": "string", "description": "Full import statement", "indexed": true},
+        "methods": {"type": "array", "items": "string", "description": "Methods imported", "indexed": true},
+        "alias": {"type": "string", "description": "Import alias if any", "indexed": true},
+        "installation_command": {"type": "string", "description": "Command to install if needed", "indexed": true},
+        "is_standard_library": {"type": "boolean", "description": "Whether this is from standard library", "indexed": true}
+      }
+    },
+    "implementation_steps": {
+      "type": "document",
+      "description": "Ordered steps for implementing features",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "goal_key": {"type": "string", "description": "Reference to implementation goal", "indexed": true},
+        "title": {"type": "string", "description": "Step title", "indexed": true},
+        "description": {"type": "string", "description": "Step description", "analyzer": "text_en"},
+        "code_example": {"type": "string", "description": "Example code for this step", "analyzer": "text_en"},
+        "order": {"type": "integer", "description": "Step order", "indexed": true}
+      }
+    },
+    "dependencies": {
+      "type": "document",
+      "description": "Package dependencies",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier", "indexed": true},
+        "name": {"type": "string", "description": "Dependency name", "indexed": true},
+        "version": {"type": "string", "description": "Version specification", "indexed": true},
+        "installation_command": {"type": "string", "description": "Installation command", "indexed": true},
+        "description": {"type": "string", "description": "Dependency description", "analyzer": "text_en"}
+      }
+    },
+    "schema_docs": {
+      "type": "document", 
+      "description": "Database schema documentation with timestamp versioning",
+      "fields": {
+        "_key": {"type": "string", "description": "Unique identifier with timestamp prefix", "indexed": true},
+        "timestamp": {"type": "string", "description": "ISO timestamp of schema creation", "indexed": true},
+        "description": {"type": "string", "description": "Schema description", "analyzer": "text_en"},
+        "schema": {"type": "object", "description": "Complete schema definition"},
+        "version": {"type": "string", "description": "Schema version", "indexed": true},
+        "changelog": {"type": "string", "description": "Changes from previous version", "analyzer": "text_en"}
+      }
+    }
+  },
+  "edge_collections": {
+    "requires_import": {
+      "type": "edge",
+      "description": "Links patterns to required imports",
+      "fields": {
+        "importance": {"type": "number", "description": "Importance of this import (0-1)", "indexed": true}
+      },
+      "from": ["code_patterns", "method_signatures"],
+      "to": ["import_statements"]
+    },
+    "has_parameter": {
+      "type": "edge",
+      "description": "Links methods to parameter requirements",
+      "fields": {},
+      "from": ["method_signatures"],
+      "to": ["method_parameters"]
+    },
+    "triggers_error": {
+      "type": "edge",
+      "description": "Links implementations to potential errors",
+      "fields": {
+        "likelihood": {"type": "number", "description": "Likelihood of triggering error (0-1)", "indexed": true},
+        "context": {"type": "string", "description": "Context in which error occurs", "indexed": true}
+      },
+      "from": ["code_patterns"],
+      "to": ["error_codes"]
+    },
+    "causes_error": {
+      "type": "edge",
+      "description": "Links between error causes",
+      "fields": {
+        "relationship_type": {"type": "string", "description": "Type of causal relationship", "indexed": true}
+      },
+      "from": ["error_codes"],
+      "to": ["error_codes"]
+    },
+    "resolves_error": {
+      "type": "edge",
+      "description": "Links errors to solution patterns",
+      "fields": {
+        "effectiveness": {"type": "number", "description": "Effectiveness score (0-1)", "indexed": true}
+      },
+      "from": ["error_codes"],
+      "to": ["error_solutions", "code_patterns"]
+    },
+    "alternative_to": {
+      "type": "edge",
+      "description": "Links between alternative implementations",
+      "fields": {
+        "relationship_type": {"type": "string", "description": "Type of alternative relationship", "indexed": true},
+        "preference_score": {"type": "number", "description": "Preference score (-1 to 1)", "indexed": true}
+      },
+      "from": ["code_patterns"],
+      "to": ["code_patterns"]
+    },
+    "documented_at": {
+      "type": "edge",
+      "description": "Links to documentation references",
+      "fields": {
+        "section": {"type": "string", "description": "Specific documentation section", "indexed": true}
+      },
+      "from": ["code_patterns", "method_signatures", "error_codes"],
+      "to": ["documentation_references"]
+    },
+    "has_example": {
+      "type": "edge",
+      "description": "Links documentation to examples",
+      "fields": {},
+      "from": ["documentation_references"],
+      "to": ["documentation_examples"]
+    },
+    "requires_pattern": {
+      "type": "edge",
+      "description": "Dependencies between implementation patterns",
+      "fields": {
+        "requirement_type": {"type": "string", "description": "Type of requirement", "indexed": true}
+      },
+      "from": ["code_patterns"],
+      "to": ["code_patterns"]
+    },
+    "implementation_step": {
+      "type": "edge",
+      "description": "Links implementation goals to steps",
+      "fields": {
+        "step_order": {"type": "integer", "description": "Order of steps", "indexed": true}
+      },
+      "from": ["code_patterns"],
+      "to": ["implementation_steps"]
+    },
+    "requires_dependency": {
+      "type": "edge",
+      "description": "Links to required dependencies",
+      "fields": {
+        "is_optional": {"type": "boolean", "description": "Whether dependency is optional", "indexed": true}
+      },
+      "from": ["error_codes", "code_patterns", "method_signatures"],
+      "to": ["dependencies"]
+    },
+    "has_requirement": {
+      "type": "edge",
+      "description": "Links rules to requirements",
+      "fields": {
+        "requirement_type": {"type": "string", "description": "Type of requirement", "indexed": true}
+      },
+      "from": ["critical_rules"],
+      "to": ["code_patterns"]
+    }
+  },
+  "views": {
+    "unified_search_view": {
+      "type": "arangosearch",
+      "description": "Comprehensive search view across all collections",
+      "properties": {
+        "analyzer": "text_en",
+        "features": ["frequency", "position", "norm", "bm25"],
+        "include_all_fields": false,
+        "track_listings": true,
+        "store_values": true,
+        "cleanup_interval_step": 2,
+        "commit_interval_msec": 1000
+      },
+      "links": {
+        "rules": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "content": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "critical_rules": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "content": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "code_patterns": {
+          "fields": {
+            "name": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "code_example": {"analyzer": "text_en"},
+            "explanation": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "error_codes": {
+          "fields": {
+            "message": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "symptoms": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "error_solutions": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "steps": {"analyzer": "text_en"},
+            "code_example": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "method_signatures": {
+          "fields": {
+            "signature": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        },
+        "documentation_references": {
+          "fields": {
+            "title": {"analyzer": "text_en"},
+            "content_summary": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        }
+      }
+    },
+    "error_search_view": {
+      "type": "arangosearch",
+      "description": "Specialized view for error message search",
+      "properties": {
+        "analyzer": "text_en",
+        "features": ["frequency", "position", "norm", "bm25"],
+        "include_all_fields": false,
+        "track_listings": true,
+        "store_values": true
+      },
+      "links": {
+        "error_codes": {
+          "fields": {
+            "message": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "symptoms": {"analyzer": "text_en"},
+            "stack_trace_pattern": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        }
+      }
+    },
+    "method_search_view": {
+      "type": "arangosearch",
+      "description": "Specialized view for method search",
+      "properties": {
+        "analyzer": "text_en",
+        "features": ["frequency", "position", "norm", "bm25"],
+        "include_all_fields": false,
+        "track_listings": true,
+        "store_values": true
+      },
+      "links": {
+        "method_signatures": {
+          "fields": {
+            "package": {"analyzer": "text_en"},
+            "name": {"analyzer": "text_en"},
+            "signature": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        }
+      }
+    },
+    "pattern_search_view": {
+      "type": "arangosearch",
+      "description": "Specialized view for code pattern search",
+      "properties": {
+        "analyzer": "text_en",
+        "features": ["frequency", "position", "norm", "bm25"],
+        "include_all_fields": false,
+        "track_listings": true,
+        "store_values": true
+      },
+      "links": {
+        "code_patterns": {
+          "fields": {
+            "name": {"analyzer": "text_en"},
+            "method_name": {"analyzer": "text_en"},
+            "description": {"analyzer": "text_en"},
+            "code_example": {"analyzer": "text_en"},
+            "explanation": {"analyzer": "text_en"},
+            "tags": {"analyzer": "text_en"},
+            "embedding": {"type": "vector", "dimension": 768}
+          }
+        }
+      }
+    }
+  },
+  "analyzers": {
+    "text_en": {
+      "type": "text",
+      "properties": {
+        "locale": "en",
+        "case": "lower",
+        "accent": false,
+        "stemming": true,
+        "stopwords": [
+          "the", "and", "or", "in", "on", "at", "to", "for", "with", "by",
+          "about", "from", "as", "into", "of", "that", "this", "these", "those"
+        ],
+        "features": ["frequency", "norm", "position"]
+      }
+    },
+    "ngram_analyzer": {
+      "type": "ngram",
+      "properties": {
+        "min": 2,
+        "max": 5,
+        "preserveOriginal": true
+      }
+    }
+  },
+  "example_queries": {
+    "method_usage_pattern": {
+      "name": "Find Correct Usage of Method",
+      "description": "Get verified patterns for a specific method",
+      "query": "FOR pattern IN code_patterns FILTER pattern.method_name == @method_name SORT pattern.confidence_score DESC LIMIT 1 LET docs = (FOR doc IN OUTBOUND pattern documented_at RETURN doc) RETURN { pattern: pattern, documentation_links: docs }"
+    },
+    "verify_method_signature": {
+      "name": "Verify Method Signature",
+      "description": "Get method signature with parameters",
+      "query": "FOR method IN method_signatures FILTER method.package == @package AND method.name == @method LET params = (FOR param IN OUTBOUND method has_parameter RETURN param) RETURN { method: method, parameters: params }"
+    },
+    "find_alternative_pattern": {
+      "name": "Find Alternative Implementation",
+      "description": "Get alternative patterns for a specific method or pattern",
+      "query": "FOR pattern IN code_patterns FILTER pattern.method_name == @method_name LET alternatives = (FOR alt IN OUTBOUND pattern alternative_to FILTER alt.is_async == @is_async RETURN alt) RETURN { pattern: pattern, alternatives: alternatives }"
+    },
+    "resolve_error": {
+      "name": "Find Solution for Error",
+      "description": "Get solution for a specific error message",
+      "query": "FOR error IN error_codes SEARCH ANALYZER(error.message IN TOKENS(@error_text, \"text_en\"), \"text_en\") LET solutions = (FOR sol IN OUTBOUND error resolves_error SORT sol.confidence_score DESC LIMIT 1 RETURN sol) RETURN { error: error, solution: solutions[0] }"
+    },
+    "find_documentation": {
+      "name": "Find Documentation for Package",
+      "description": "Get latest documentation for a package",
+      "query": "FOR doc IN documentation_references FILTER doc.package == @package_name SORT doc.version DESC LIMIT 1 RETURN doc"
+    },
+    "get_rules_for_file_type": {
+      "name": "Get Rules for File Type",
+      "description": "Find rules applicable to a specific file type",
+      "query": "FOR rule IN critical_rules FILTER rule.glob_pattern == @file_pattern OR rule.glob_pattern == \"*\" SORT rule.priority ASC RETURN rule"
+    },
+    "multi_hop_related_concepts": {
+      "name": "Find Related Concepts",
+      "description": "Discover concepts related to a specific concept via graph traversal",
+      "query": "FOR concept IN code_patterns FILTER concept.name == @concept_name LET related = (FOR rel IN 1..2 ANY concept GRAPH \"knowledge_graph\" RETURN DISTINCT { concept: rel, relationship: rel.relationship_type, distance: LENGTH(PATH) }) RETURN { concept: concept, related_concepts: related }"
+    }
+  },
+  "named_graphs": {
+    "knowledge_graph": {
+      "edge_definitions": [
+        {
+          "collection": "requires_import",
+          "from": ["code_patterns", "method_signatures"],
+          "to": ["import_statements"]
+        },
+        {
+          "collection": "has_parameter",
+          "from": ["method_signatures"],
+          "to": ["method_parameters"]
+        },
+        {
+          "collection": "triggers_error",
+          "from": ["code_patterns"],
+          "to": ["error_codes"]
+        },
+        {
+          "collection": "causes_error",
+          "from": ["error_codes"],
+          "to": ["error_codes"]
+        },
+        {
+          "collection": "resolves_error",
+          "from": ["error_codes"],
+          "to": ["error_solutions", "code_patterns"]
+        },
+        {
+          "collection": "alternative_to",
+          "from": ["code_patterns"],
+          "to": ["code_patterns"]
+        },
+        {
+          "collection": "documented_at",
+          "from": ["code_patterns", "method_signatures", "error_codes"],
+          "to": ["documentation_references"]
+        },
+        {
+          "collection": "has_example",
+          "from": ["documentation_references"],
+          "to": ["documentation_examples"]
+        },
+        {
+          "collection": "requires_pattern",
+          "from": ["code_patterns"],
+          "to": ["code_patterns"]
+        },
+        {
+          "collection": "implementation_step",
+          "from": ["code_patterns"],
+          "to": ["implementation_steps"]
+        },
+        {
+          "collection": "requires_dependency",
+          "from": ["error_codes", "code_patterns", "method_signatures"],
+          "to": ["dependencies"]
+        },
+        {
+          "collection": "has_requirement",
+          "from": ["critical_rules"],
+          "to": ["code_patterns"]
+        }
+      ]
+    }
+  }
+} 

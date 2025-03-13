@@ -2,23 +2,12 @@
 name = "agent-tools"
 version = "0.1.0"
 description = "AI Agent's tool for Python package method analysis and API discovery"
-authors = [{ name = "Sparta Team", email = "team@sparta.ai" }]
-readme = "README.md"
+authors = [{ name = "Graham Anderson", email = "graham@grahama.co" }]
 requires-python = ">=3.8"
 license = { text = "MIT" }
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-]
+readme = "README.md"
 dependencies = [
+    # Core dependencies
     "loguru>=0.7.0",
     "tqdm>=4.66.0",
     "pydantic>=2.0.0",
@@ -27,49 +16,56 @@ dependencies = [
     "requests>=2.31.0",
     "aiohttp>=3.9.0",
     "python-dotenv>=1.0.0",
-    "litellm>=1.61.20",
-    "pytest-xdist>=3.5.0",
-    "mypy>=1.14.1",
-    "prospector>=1.10.3",
     # Cursor Rules dependencies
     "python-arango>=7.5.0",
     "transformers>=4.38.2",
     "sentence-transformers>=2.5.1",
     "torch>=2.0.0",
     "numpy>=1.21.0",
+    "tabulate>=0.9.0",
+    "click>=8.0.0",
+    "spacy>=3.5.0",
+    "nltk>=3.8.0",
+    "litellm>=1.61.20",
+    "pytest>=8.3.5",
+    "pylint>=3.2.7",
+    "einops>=0.8.1",
+    "json-repair>=0.30.0",
+    "psutil>=7.0.0",
+    "pytest-asyncio>=0.24.0",
+    "rapidfuzz>=3.9.7",
+    "deepmerge>=2.0",
+    "tenacity>=9.0.0",
+    "pillow>=10.4.0",
+    "redis>=5.2.1",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.1.0",
-    "pytest-xdist==3.5.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-asyncio>=0.24.0",
     "black>=23.0.0",
     "isort>=5.12.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
-    "cursor-rules @ git+https://github.com/grahama1970/snippets.git#egg=cursor-rules&subdirectory=.cursor/rules"
+    # "cursor-rules @ git+https://github.com/grahama1970/snippets.git#egg=cursor-rules&subdirectory=.cursor/rules"
 ]
-
-[project.urls]
-Homepage = "https://github.com/graham1970/agent-tools"
-Documentation = "https://github.com/graham1970/agent-tools#readme"
-Repository = "https://github.com/graham1970/agent-tools.git"
-Issues = "https://github.com/graham1970/agent-tools/issues"
-
-[project.scripts]
-method-validator = "agent_tools.method_validator.cli:main"
-cursor-rules = "agent_tools.cursor_rules.cli:cli"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-packages = ["src/agent_tools"]
+#packages = ["find:src/agent_tools"]
+packages = ["find:src"]
+
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/agent_tools"]
+#packages = ["find:src/agent_tools"]
+packages = ["find:src"]
+
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -102,7 +98,7 @@ src = ["src"]
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-n auto --dist loadfile"
-testpaths = ["tests"]
+testpaths = ["tests", "src/agent_tools"]
 pythonpath = ["src"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
@@ -111,35 +107,12 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning",
 ]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
 
-[tool.coverage.run]
-source = ["agent_tools"]
-branch = true
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self.debug:",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "pass",
-    "raise ImportError",
-]
-
-[dependency-groups]
-dev = [
-    "mypy>=1.14.1",
-    "prospector>=1.10.3",
-    # Cursor Rules dependencies
-    "python-arango>=7.5.0",
-    "transformers>=4.38.2",
-    "sentence-transformers>=2.5.1",
-    "torch>=2.0.0",
-    "numpy>=1.21.0",
-    "pydantic>=2.10.6",
-    "types-requests>=2.32.0.20241016",
-]
+[project.scripts]
+method-validator = "agent_tools.method_validator.cli:main"
+cursor-rules = "agent_tools.cursor_rules.cli:cli"
 
 [tool.cursor.patterns]
 pattern_directories = [".cursor/rules"]

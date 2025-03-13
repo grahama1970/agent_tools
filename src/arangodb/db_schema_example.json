@@ -1,0 +1,434 @@
+{
+    "database_name": "microsoft_knowledge_base",
+    "description": "Comprehensive database of Microsoft products, issues, and support interactions",
+    "collections": {
+        "microsoft_products": {
+            "type": "document",
+            "description": "Core collection of Microsoft products and services",
+            "fields": {
+                "_key": {
+                    "type": "string",
+                    "description": "UUID of the product",
+                    "indexed": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Product name",
+                    "indexed": true,
+                    "analyzer": "text_analyzer"
+                },
+                "category": {
+                    "type": "string",
+                    "description": "Product category (e.g., Cloud Computing, Operating System)",
+                    "indexed": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Product description",
+                    "analyzer": "text_analyzer"
+                },
+                "sentiment": {
+                    "type": "string",
+                    "description": "Aggregated user sentiment",
+                    "indexed": true
+                },
+                "rating": {
+                    "type": "number",
+                    "description": "Product rating (1-5)",
+                    "indexed": true
+                },
+                "embedding": {
+                    "type": "vector",
+                    "dimension": 768,
+                    "similarity": "cosine",
+                    "description": "Vector embedding for semantic search"
+                }
+            },
+            "primary_sort_field": [
+                "name"
+            ],
+            "sample_doc": {
+                "_key": "6b7c8d9e-0f1g-2h3i-4j5k-6l7m8n9o0p",
+                "name": "Microsoft Azure",
+                "category": "Cloud Computing",
+                "description": "Cloud computing platform for building, testing, deploying, and managing applications",
+                "sentiment": "Highly regarded in enterprise",
+                "rating": 4
+            }
+        },
+        "microsoft_issues": {
+            "type": "document",
+            "description": "Product issues and feature requests",
+            "fields": {
+                "_key": {
+                    "type": "string",
+                    "description": "Issue identifier",
+                    "indexed": true
+                },
+                "product_id": {
+                    "type": "string",
+                    "description": "Reference to microsoft_products._key",
+                    "indexed": true
+                },
+                "issue_type": {
+                    "type": "string",
+                    "description": "Bug, Feature Request, or Performance",
+                    "indexed": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Issue description",
+                    "analyzer": "text_analyzer"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "High, Medium, or Low",
+                    "indexed": true
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Open, In Progress, Under Review, or Resolved",
+                    "indexed": true
+                },
+                "reported_date": {
+                    "type": "string",
+                    "description": "ISO 8601 date",
+                    "indexed": true
+                },
+                "embedding": {
+                    "type": "vector",
+                    "dimension": 768,
+                    "similarity": "cosine"
+                }
+            },
+            "indexes": [
+                {
+                    "type": "persistent",
+                    "fields": [
+                        "product_id",
+                        "status",
+                        "severity"
+                    ],
+                    "sparse": false
+                }
+            ]
+        },
+        "microsoft_glossary": {
+            "type": "document",
+            "description": "Technical terms and definitions",
+            "fields": {
+                "term": {
+                    "type": "string",
+                    "description": "Technical term",
+                    "indexed": true,
+                    "analyzer": "text_analyzer"
+                },
+                "definition": {
+                    "type": "string",
+                    "description": "Detailed explanation",
+                    "analyzer": "text_analyzer"
+                },
+                "metatags": {
+                    "type": "array",
+                    "items": "string",
+                    "description": "Related categories",
+                    "indexed": true
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Reference URL"
+                },
+                "embedding": {
+                    "type": "vector",
+                    "dimension": 768,
+                    "similarity": "cosine"
+                }
+            }
+        },
+        "microsoft_message_objects": {
+            "type": "document",
+            "description": "Support conversation messages",
+            "fields": {
+                "_key": {
+                    "type": "string",
+                    "description": "Message identifier",
+                    "indexed": true
+                },
+                "conversation_id": {
+                    "type": "string",
+                    "description": "Conversation group ID",
+                    "indexed": true
+                },
+                "role": {
+                    "type": "string",
+                    "description": "system, user, or assistant",
+                    "indexed": true
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Message content",
+                    "analyzer": "text_analyzer"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "ISO 8601 timestamp",
+                    "indexed": true
+                },
+                "products_mentioned": {
+                    "type": "array",
+                    "items": "string",
+                    "description": "Product _keys mentioned"
+                },
+                "issues_referenced": {
+                    "type": "array",
+                    "items": "string",
+                    "description": "Issue _keys referenced"
+                },
+                "glossary_terms_used": {
+                    "type": "array",
+                    "items": "string",
+                    "description": "Glossary terms used"
+                },
+                "embedding": {
+                    "type": "vector",
+                    "dimension": 768,
+                    "similarity": "cosine"
+                }
+            }
+        }
+    },
+    "edge_collections": {
+        "microsoft_message_mentions_product": {
+            "type": "edge",
+            "description": "Links messages to mentioned products",
+            "fields": {
+                "mention_type": {
+                    "type": "string",
+                    "description": "direct or indirect",
+                    "indexed": true
+                },
+                "context": {
+                    "type": "string",
+                    "description": "Context of mention",
+                    "indexed": true
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "ISO 8601 timestamp",
+                    "indexed": true
+                }
+            },
+            "from": [
+                "microsoft_message_objects"
+            ],
+            "to": [
+                "microsoft_products"
+            ]
+        },
+        "microsoft_message_references_issue": {
+            "type": "edge",
+            "description": "Links messages to referenced issues",
+            "from": [
+                "microsoft_message_objects"
+            ],
+            "to": [
+                "microsoft_issues"
+            ]
+        },
+        "microsoft_message_uses_term": {
+            "type": "edge",
+            "description": "Links messages to glossary terms",
+            "from": [
+                "microsoft_message_objects"
+            ],
+            "to": [
+                "microsoft_glossary"
+            ]
+        },
+        "microsoft_product_relates_to": {
+            "type": "edge",
+            "description": "Product relationships",
+            "fields": {
+                "relationship_type": {
+                    "type": "string",
+                    "description": "integration, dependency, or alternative",
+                    "indexed": true
+                },
+                "strength": {
+                    "type": "number",
+                    "description": "Relationship strength 0-1",
+                    "indexed": true
+                }
+            },
+            "from": [
+                "microsoft_products"
+            ],
+            "to": [
+                "microsoft_products"
+            ]
+        },
+        "microsoft_issue_affects_product": {
+            "type": "edge",
+            "description": "Secondary product impacts",
+            "fields": {
+                "impact_level": {
+                    "type": "string",
+                    "description": "direct or indirect",
+                    "indexed": true
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "High, Medium, or Low",
+                    "indexed": true
+                }
+            },
+            "from": [
+                "microsoft_issues"
+            ],
+            "to": [
+                "microsoft_products"
+            ]
+        }
+    },
+    "views": {
+        "microsoft_search_view": {
+            "type": "arangosearch",
+            "description": "Unified search across all collections with BM25 and vector search",
+            "properties": {
+                "analyzer": "text_analyzer",
+                "features": [
+                    "frequency",
+                    "position",
+                    "norm",
+                    "bm25"
+                ],
+                "include_all_fields": false,
+                "track_listings": true,
+                "store_values": true,
+                "cleanup_interval_step": 2,
+                "commit_interval_msec": 1000
+            },
+            "links": {
+                "microsoft_products": {
+                    "fields": {
+                        "name": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "description": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "embedding": {
+                            "type": "vector",
+                            "dimension": 768
+                        }
+                    }
+                },
+                "microsoft_issues": {
+                    "fields": {
+                        "description": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "embedding": {
+                            "type": "vector",
+                            "dimension": 768
+                        }
+                    }
+                },
+                "microsoft_glossary": {
+                    "fields": {
+                        "term": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "definition": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "embedding": {
+                            "type": "vector",
+                            "dimension": 768
+                        }
+                    }
+                },
+                "microsoft_message_objects": {
+                    "fields": {
+                        "content": {
+                            "analyzer": "text_analyzer"
+                        },
+                        "embedding": {
+                            "type": "vector",
+                            "dimension": 768
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "analyzers": {
+        "text_analyzer": {
+            "type": "text",
+            "properties": {
+                "locale": "en",
+                "case": "lower",
+                "accent": false,
+                "stemming": true,
+                "stopwords": [
+                    "the",
+                    "and",
+                    "or",
+                    "in",
+                    "on",
+                    "at",
+                    "to",
+                    "for",
+                    "with",
+                    "by"
+                ],
+                "features": [
+                    "frequency",
+                    "norm",
+                    "position"
+                ]
+            }
+        }
+    },
+    "example_queries": {
+        "product_issues": {
+            "name": "Product Issues with Context",
+            "description": "Find product issues with related messages and affected products",
+            "query": "FOR issue IN microsoft_issues LET primary_product = DOCUMENT(\\\"microsoft_products\\\", issue.product_id) LET affected_products = (FOR affected IN OUTBOUND issue microsoft_issue_affects_product RETURN affected) LET related_messages = (FOR msg IN INBOUND issue microsoft_message_references_issue RETURN { \\\"content\\\": msg.content, \\\"timestamp\\\": msg.timestamp }) RETURN { \\\"issue\\\": { \\\"description\\\": issue.description, \\\"type\\\": issue.issue_type, \\\"severity\\\": issue.severity, \\\"status\\\": issue.status }, \\\"primary_product\\\": { \\\"name\\\": primary_product.name, \\\"category\\\": primary_product.category }, \\\"affected_products\\\": affected_products, \\\"messages\\\": related_messages }"
+        },
+        "hybrid_search": {
+            "name": "Hybrid Product Search",
+            "description": "Combined BM25 and vector search",
+            "query": "FOR doc IN microsoft_search_view SEARCH ANALYZER(doc.name LIKE @searchText OR doc.description LIKE @searchText, \\\"text_analyzer\\\") LET score = BM25(doc) + 0.5 * COSINE_SIMILARITY(doc.embedding, @queryVector) SORT score DESC LIMIT 10 RETURN { \\\"product\\\": doc, \\\"relevance\\\": score }"
+        },
+        "relationship_graph": {
+            "name": "Product Relationship Graph",
+            "description": "Find product relationships with strength filtering",
+            "query": "FOR p1 IN microsoft_products FOR p2 IN OUTBOUND p1 microsoft_product_relates_to FILTER p2.relationship_type IN @relationTypes AND p2.strength >= @minStrength RETURN { \\\"source\\\": { \\\"name\\\": p1.name, \\\"category\\\": p1.category }, \\\"target\\\": { \\\"name\\\": p2.name, \\\"category\\\": p2.category }, \\\"relationship\\\": { \\\"type\\\": p2.relationship_type, \\\"strength\\\": p2.strength } }"
+        },
+        "conversation_analysis": {
+            "name": "Conversation Thread Analysis",
+            "description": "Analyze conversation threads with product and issue context",
+            "query": "FOR msg IN microsoft_message_objects FILTER msg.conversation_id == @conversationId LET mentioned_products = (FOR p IN OUTBOUND msg microsoft_message_mentions_product RETURN { \\\"name\\\": p.name, \\\"category\\\": p.category, \\\"mention_type\\\": p.mention_type }) LET referenced_issues = (FOR i IN OUTBOUND msg microsoft_message_references_issue RETURN { \\\"description\\\": i.description, \\\"status\\\": i.status, \\\"severity\\\": i.severity }) RETURN { \\\"message\\\": { \\\"role\\\": msg.role, \\\"content\\\": msg.content, \\\"timestamp\\\": msg.timestamp }, \\\"products\\\": mentioned_products, \\\"issues\\\": referenced_issues }"
+        }
+    },
+    "optimization_rules": {
+        "indexes": [
+            "Create persistent indexes for frequently filtered fields",
+            "Use sparse indexes for fields that are often null",
+            "Index array fields when used in FILTER operations"
+        ],
+        "query_patterns": [
+            "Use FOR...FILTER for simple lookups",
+            "Use SEARCH for text-based queries",
+            "Combine BM25 and vector search for hybrid relevance",
+            "Use graph traversals for relationship queries"
+        ],
+        "data_modeling": [
+            "Store embeddings in document collections for vector search",
+            "Use edge collections for many-to-many relationships",
+            "Denormalize frequently accessed data",
+            "Use arrays for simple one-to-many relationships"
+        ]
+    }
+}

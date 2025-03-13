@@ -1,0 +1,420 @@
+# Embedding Practices
+
+## Overview
+
+This rule provides guidelines for working with vector embeddings in the fetch-page project. Embeddings are critical for semantic search and content retrieval, requiring consistent implementation patterns.
+
+> **Note:** This rule builds upon patterns defined in:
+> - `003-package-usage.mdc` - For basic embedding utility usage
+> - `004-testing-practices.mdc` - For general testing principles
+> - `005-async-patterns.mdc` - For async code patterns
+
+## Core Principles
+
+1. **Consistency**: Use the same embedding model and parameters throughout the project
+2. **Efficiency**: Implement proper batching and caching strategies
+3. **Robustness**: Handle errors gracefully and implement fallbacks
+4. **Testability**: Design embedding code to be easily testable with minimal mocking
+
+## Model Selection and Configuration
+
+**1. Standard Model Rule**
+- **Type:** `embedding_model`
+- **Condition:** `embedding_generation_task`
+- **Action:** `use_nomic_embed_v2`
+- **Message:**
+  Always use the Nomic Embed v2 model for generating embeddings:
+  ```python
+  from snippets.embedding import get_embeddings
+  
+  # Standard configuration
+  model_name = "nomic-ai/nomic-embed-text-v2-moe"
+  embedding_dim = 768  # Standard dimension for this model
+  ```
+
+**2. Model Versioning Rule**
+- **Type:** `embedding_versioning`
+- **Condition:** `embedding_storage_task`
+- **Action:** `store_model_metadata`
+- **Message:**
+  Always store model metadata with embeddings:
+  ```python
+  embedding_metadata = {
+      "embedding_model": "nomic-ai/nomic-embed-text-v2-moe",
+      "embedding_timestamp": datetime.now().isoformat(),
+      "embedding_method": "local",  # or "api" if using remote API
+      "embedding_dim": 768
+  }
+  
+  # Store both the embedding vector and its metadata
+  document = {
+      "content": "...",
+      "embedding": embedding_vector,
+      "embedding_metadata": embedding_metadata
+  }
+  ```
+
+## Embedding Storage
+
+**1. Database Storage Rule**
+- **Type:** `embedding_storage`
+- **Condition:** `database_storage_task`
+- **Action:** `use_standard_format`
+- **Message:**
+  Store embeddings in ArangoDB using this standard format:
+  ```python
+  # Standard embedding document structure
+  embedding_doc = {
+      "_key": generate_page_key(url),
+      "url": url,
+      "title": title,
+      "content": content,
+      "embedding": {
+          "embedding": embedding_vector,  # The actual vector
+          "metadata": {
+              "embedding_model": model_name,
+              "embedding_timestamp": timestamp,
+              "embedding_method": method,
+              "embedding_dim": dim
+          }
+      }
+  }
+  
+  # Store in the database
+  db.collection("pages").insert(embedding_doc)
+  ```
+
+**2. Indexing Rule**
+- **Type:** `embedding_indexing`
+- **Condition:** `vector_search_task`
+- **Action:** `create_vector_index`
+- **Message:**
+  Always create appropriate vector indexes for embedding collections:
+  ```python
+  # Create vector index on the embedding field
+  db.collection("pages").add_hash_index(
+      fields=["embedding.embedding"],
+      unique=False,
+      sparse=True
+  )
+  ```
+
+## Batch Processing
+
+**1. Batch Size Rule**
+- **Type:** `embedding_batching`
+- **Condition:** `multiple_embedding_task`
+- **Action:** `use_optimal_batch_size`
+- **Message:**
+  Process embeddings in optimal batch sizes:
+  ```python
+  # Optimal batch size for embedding generation
+  OPTIMAL_BATCH_SIZE = 32
+  
+  def batch_embed_documents(texts: List[str]) -> List[List[float]]:
+      """Process documents in optimal batches."""
+      results = []
+      for i in range(0, len(texts), OPTIMAL_BATCH_SIZE):
+          batch = texts[i:i + OPTIMAL_BATCH_SIZE]
+          batch_embeddings = get_embeddings(batch)
+          results.extend(batch_embeddings)
+      return results
+  ```
+
+**2. Error Handling Rule**
+- **Type:** `embedding_error_handling`
+- **Condition:** `batch_processing_task`
+- **Action:** `implement_partial_success`
+- **Message:**
+  Handle partial batch failures gracefully:
+  ```python
+  def robust_batch_embed(texts: List[str]) -> Dict[int, Optional[List[float]]]:
+      """Process embeddings with per-item error handling."""
+      results = {}
+      for i in range(0, len(texts), OPTIMAL_BATCH_SIZE):
+          batch = texts[i:i + OPTIMAL_BATCH_SIZE]
+          try:
+              batch_embeddings = get_embeddings(batch)
+              for j, embedding in enumerate(batch_embeddings):
+                  results[i + j] = embedding
+          except Exception as e:
+              logger.error(f"Batch embedding error: {e}")
+              # Process items individually to isolate failures
+              for j, text in enumerate(batch):
+                  try:
+                      single_embedding = get_embeddings([text])[0]
+                      results[i + j] = single_embedding
+                  except Exception as inner_e:
+                      logger.error(f"Individual embedding error for item {i+j}: {inner_e}")
+                      results[i + j] = None
+      return results
+  ```
+
+## Caching Strategy
+
+**1. Embedding Cache Rule**
+- **Type:** `embedding_caching`
+- **Condition:** `repeated_embedding_task`
+- **Action:** `implement_cache`
+- **Message:**
+  Implement caching for embedding operations:
+  ```python
+  from functools import lru_cache
+  import hashlib
+  
+  def get_text_hash(text: str) -> str:
+      """Generate a stable hash for text content."""
+      return hashlib.sha256(text.encode('utf-8')).hexdigest()
+  
+  @lru_cache(maxsize=1000)
+  def cached_get_embedding(text_hash: str, text: str) -> List[float]:
+      """Cache embeddings based on content hash."""
+      return get_embeddings([text])[0]
+  
+  def get_embedding_with_cache(text: str) -> List[float]:
+      """Get embedding with caching."""
+      text_hash = get_text_hash(text)
+      return cached_get_embedding(text_hash, text)
+  ```
+
+**2. Redis Cache Rule**
+- **Type:** `embedding_distributed_cache`
+- **Condition:** `distributed_embedding_task`
+- **Action:** `use_redis_cache`
+- **Message:**
+  Use Redis for distributed embedding caching:
+  ```python
+  import redis
+  import json
+  
+  # Initialize Redis connection
+  redis_client = redis.Redis(host='localhost', port=6379, db=0)
+  CACHE_TTL = 86400  # 24 hours in seconds
+  
+  def get_embedding_with_redis_cache(text: str) -> List[float]:
+      """Get embedding with Redis caching."""
+      text_hash = get_text_hash(text)
+      cache_key = f"embedding:{text_hash}"
+      
+      # Try to get from cache
+      cached = redis_client.get(cache_key)
+      if cached:
+          return json.loads(cached)
+          
+      # Generate new embedding
+      embedding = get_embeddings([text])[0]
+      
+      # Store in cache
+      redis_client.setex(
+          cache_key,
+          CACHE_TTL,
+          json.dumps(embedding)
+      )
+      
+      return embedding
+  ```
+
+## Testing Practices
+
+**1. Mock Embedding Rule**
+- **Type:** `embedding_testing`
+- **Condition:** `test_embedding_task`
+- **Action:** `use_consistent_mocks`
+- **Message:**
+  Use consistent mock embeddings for tests:
+  ```python
+  import pytest
+  from typing import Dict, Any, List
+  
+  @pytest.fixture
+  def sample_embedding() -> Dict[str, Any]:
+      """Return a sample embedding for testing."""
+      return {
+          'embedding': [0.1, 0.2, 0.3],  # Simplified vector
+          'metadata': {
+              'embedding_model': 'nomic-ai/nomic-embed-text-v2-moe',
+              'embedding_timestamp': '2023-01-01T00:00:00Z',
+              'embedding_method': 'local',
+              'embedding_dim': 3
+          }
+      }
+  
+  def test_embedding_storage(sample_embedding):
+      """Test embedding storage with mock embedding."""
+      with patch("fetch_page.db.arangodb_utils.create_embedding_for_page", 
+                return_value=sample_embedding):
+          # Test code here
+          pass
+  ```
+
+**2. Real Database Rule**
+- **Type:** `embedding_integration_testing`
+- **Condition:** `integration_test_task`
+- **Action:** `use_real_database`
+- **Message:**
+  Use real database connections for integration tests, following the principles in `004-testing-practices.mdc`:
+  ```python
+  @pytest.mark.asyncio
+  async def test_query_with_embedding():
+      """Test querying with embeddings using real database."""
+      # Create test document with embedding
+      key = generate_page_key("https://example.com")
+      db = get_db("http://localhost:8529", "mydb")
+      collection = db.collection("pages")
+      
+      # Check if document exists and handle appropriately
+      existing_doc = collection.get(key)
+      if existing_doc is not None:
+          collection.delete(key)
+      
+      # Create test document
+      doc = {
+          "_key": key,
+          "url": "https://example.com",
+          "embedding": sample_embedding
+      }
+      collection.insert(doc)
+      
+      # Test the actual query function
+      result = await query_page(key)
+      
+      # Verify embedding in result
+      assert "embedding" in result
+      assert result["embedding"] == sample_embedding
+      
+      # Clean up
+      collection.delete(key)
+  ```
+
+## Performance Considerations
+
+**1. Dimensionality Rule**
+- **Type:** `embedding_performance`
+- **Condition:** `high_volume_task`
+- **Action:** `consider_dimension_reduction`
+- **Message:**
+  Consider dimensionality reduction for large-scale applications:
+  ```python
+  from sklearn.decomposition import PCA
+  
+  def reduce_embedding_dimensions(embeddings: List[List[float]], 
+                                 target_dim: int = 128) -> List[List[float]]:
+      """Reduce embedding dimensions using PCA."""
+      pca = PCA(n_components=target_dim)
+      reduced = pca.fit_transform(embeddings)
+      return reduced.tolist()
+  ```
+
+**2. Memory Management Rule**
+- **Type:** `embedding_memory`
+- **Condition:** `large_embedding_task`
+- **Action:** `implement_streaming`
+- **Message:**
+  Implement streaming for large embedding operations:
+  ```python
+  def stream_embeddings(file_path: str, batch_size: int = 32):
+      """Stream embeddings from a large file."""
+      with open(file_path, 'r') as f:
+          batch = []
+          for line in f:
+              text = line.strip()
+              if text:
+                  batch.append(text)
+                  
+              if len(batch) >= batch_size:
+                  yield get_embeddings(batch)
+                  batch = []
+                  
+          # Process any remaining items
+          if batch:
+              yield get_embeddings(batch)
+  ```
+
+## Best Practices
+
+1. **Normalization**: Always normalize embedding vectors before storage or comparison
+2. **Versioning**: Track embedding model versions to handle model updates
+3. **Fallbacks**: Implement fallback strategies for embedding generation failures
+4. **Monitoring**: Log embedding generation times and error rates
+5. **Documentation**: Document embedding dimensions and expected ranges
+
+## Implementation Examples
+
+**1. Complete Embedding Pipeline**
+```python
+async def process_and_store_with_embedding(url: str, db_url: str, db_name: str) -> str:
+    """Extract content, generate embedding, and store in database."""
+    try:
+        # Extract content
+        extraction_result = await extract_page(url)
+        
+        # Generate embedding - use asyncio.to_thread for CPU-bound operations
+        embedding = await asyncio.to_thread(
+            create_embedding_for_page,
+            extraction_result
+        )
+        
+        # Store in database with embedding
+        key = await store_page_content(
+            extraction_result, 
+            embedding=embedding,
+            db_url=db_url, 
+            db_name=db_name
+        )
+        
+        return key
+    except Exception as e:
+        logger.error(f"Error in embedding pipeline: {e}")
+        raise
+```
+
+**2. Semantic Search Implementation**
+```python
+async def semantic_search(query: str, db_url: str, db_name: str, 
+                         limit: int = 10) -> List[Dict[str, Any]]:
+    """Perform semantic search using embeddings."""
+    try:
+        # Generate query embedding - use asyncio.to_thread for CPU-bound operations
+        query_embedding = await asyncio.to_thread(
+            lambda: get_embeddings([query])[0]
+        )
+        
+        # Connect to database
+        db = await asyncio.to_thread(get_db, db_url, db_name)
+        
+        # Perform vector search
+        aql = """
+        FOR doc IN pages
+            FILTER doc.embedding != null
+            SORT DISTANCE(doc.embedding.embedding, @query_vector)
+            LIMIT @limit
+            RETURN doc
+        """
+        
+        bind_vars = {
+            "query_vector": query_embedding,
+            "limit": limit
+        }
+        
+        # Execute AQL query
+        cursor = await asyncio.to_thread(
+            db.aql.execute,
+            aql,
+            bind_vars=bind_vars
+        )
+        
+        # Process results
+        results = []
+        async for doc in cursor:
+            results.append(doc)
+        return results
+    except Exception as e:
+        logger.error(f"Error in semantic search: {e}")
+        raise
+```
+
+## See Also
+
+- `003-package-usage.mdc` - For basic embedding utility usage
+- `004-testing-practices.mdc` - For general testing principles
+- `005-async-patterns.mdc` - For async code patterns 

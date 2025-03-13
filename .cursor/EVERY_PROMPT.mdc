@@ -1,0 +1,18 @@
+---
+description: Rules to include for EVERY prompt
+globs: 
+alwaysApply: false
+---
+# CRITICAL RULES - ALWAYS FOLLOW THESE
+
+1. EXAMPLES FIRST: Always look at existing examples before writing any code. Never rely on pre-training.
+
+2. NO MODIFICATIONS: Copy working examples exactly first. Only modify if they don't work.
+
+3. DOCUMENTATION IS TRUTH: Official documentation and working examples are the only source of truth.
+
+4. NO INVENTING: Do not invent solutions when examples exist. Do not try to be "clever."
+
+5. VERIFY UNDERSTANDING: Confirm you understand the example before proceeding.
+
+6. REAL TESTS REQUIRED: Always verify with real tests before moving on.

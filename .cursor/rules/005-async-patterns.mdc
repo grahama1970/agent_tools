@@ -1,0 +1,516 @@
+---
+description: "This rule gives async design patterns you must follow"
+globs: 
+alwaysApply: false
+---
+# Async Patterns and Testing Rules
+
+## Click Async Command Pattern
+
+**1. Click Async Command Rule**
+- **Type:** `code_pattern`
+- **Condition:** `click_async_command`
+- **Action:** `use_async_command_pattern`
+- **Message:**
+  When implementing async Click commands:
+  1. ALWAYS use this pattern:
+     ```python
+     @cli.command()
+     @click.argument("arg_name", type=click.Path(exists=True))
+     @async_command  # Must be innermost decorator
+     async def command_name(arg_name: str) -> None:
+         """Command docstring."""
+         try:
+             # Async implementation
+             result = await async_operation()
+         except Exception as e:
+             raise click.ClickException(str(e))
+  2. DO NOT:
+     - Use asyncio.run() inside commands
+     - Nest async functions inside sync commands
+     - Mix sync and async contexts unnecessarily
+
+## Event Loop Management
+
+**2. Event Loop Rule**
+- **Type:** `code_pattern`
+- **Condition:** `event_loop_management`
+- **Action:** `use_single_event_loop`
+- **Message:**
+  When managing event loops:
+  1. ALWAYS:
+     - Use a single event loop at the entry point
+     - Let Click's command invocation handle the loop
+     - Use the @async_command decorator for async commands
+  2. DO NOT:
+     - Create multiple event loops
+     - Use asyncio.run() inside commands
+     - Nest event loops
+
+## Testing Async Code
+
+**3. Async Testing Rule**
+- **Type:** `code_pattern`
+- **Condition:** `async_testing`
+- **Action:** `use_click_runner`
+- **Message:**
+  When testing async Click commands:
+  1. ALWAYS use this pattern:
+     ```python
+     def test_command(tmp_path):
+         runner = CliRunner()
+         result = runner.invoke(cli, [
+             "command",
+             "--arg", "value"
+         ])
+         assert result.exit_code == 0
+     ```
+  2. DO NOT:
+     - Await runner.invoke()
+     - Create event loops in tests
+     - Mix sync and async contexts
+
+## LLM Testing
+
+**4. LLM Testing Rule**
+- **Type:** `code_pattern`
+- **Condition:** `llm_testing`
+- **Action:** `use_real_llm_ids`
+- **Message:**
+  When testing LLM integrations:
+  1. ALWAYS:
+     - Use real LiteLLM model IDs (e.g., "openai/gpt-4")
+     - Test both streaming and non-streaming responses
+     - Handle API errors and retries
+  2. DO NOT:
+     - Mock LLM responses unless absolutely necessary
+     - Use invalid model IDs in tests
+     - Skip error handling tests
+
+## Best Practices
+
+1. **Command Structure:**
+   - Keep async commands focused and single-purpose
+   - Handle errors with Click's exception system
+   - Use proper type hints and docstrings
+
+2. **Testing:**
+   - Test both success and error paths
+   - Use temporary directories for file operations
+   - Clean up resources in tests
+   - Test with real model IDs
+
+3. **Error Handling:**
+   - Use Click's exception system
+   - Provide clear error messages
+   - Clean up resources in finally blocks
+   - Log errors appropriately
+
+# Async Design Patterns
+
+## Core Async Patterns
+
+**1. Async Error Handling Rule**
+- **Type:** `async_pattern`
+- **Condition:** `when_using_async`
+- **Action:** `handle_async_errors`
+- **Message:**
+  When implementing async functions:
+  1. ALWAYS use try/except blocks around await statements
+  2. Implement proper retry logic with exponential backoff
+  3. Set appropriate timeouts for all external calls
+  4. Provide context in error messages about which async operation failed
+  5. Use asyncio.gather with return_exceptions=True for parallel operations
+
+**2. Async Resource Management Rule**
+- **Type:** `async_pattern`
+- **Condition:** `when_managing_resources`
+- **Action:** `manage_async_resources`
+- **Message:**
+  When managing async resources:
+  1. Use async context managers (async with) for resources
+  2. Ensure proper cleanup in finally blocks
+  3. Avoid creating too many concurrent tasks
+  4. Use semaphores to limit concurrency
+  5. Close sessions and connections explicitly
+
+**3. Async Testing Rule**
+- **Type:** `async_testing`
+- **Condition:** `when_testing_async`
+- **Action:** `test_async_properly`
+- **Message:**
+  When testing async code:
+  1. Use pytest.mark.asyncio for async tests
+  2. Mock external async dependencies
+  3. Test both success and failure paths
+  4. Verify timeouts and cancellations
+  5. Use appropriate fixtures for async resources
+
+## Web Scraping Patterns
+
+**1. Robust Extraction Rule**
+- **Type:** `web_scraping`
+- **Condition:** `when_extracting_web_content`
+- **Action:** `extract_robustly`
+- **Message:**
+  When extracting content from web pages:
+  1. Handle missing elements gracefully
+  2. Use CSS selectors with fallbacks
+  3. Implement progressive enhancement for content extraction
+  4. Validate extracted content before processing
+  5. Preserve original structure when possible
+
+**2. Rate Limiting Rule**
+- **Type:** `web_scraping`
+- **Condition:** `when_making_http_requests`
+- **Action:** `implement_rate_limiting`
+- **Message:**
+  When making HTTP requests:
+  1. Implement proper rate limiting
+  2. Use exponential backoff for retries
+  3. Respect robots.txt and site policies
+  4. Add appropriate headers (User-Agent, etc.)
+  5. Cache responses when appropriate
+
+# Async Patterns
+
+## Core Async Principles
+
+1. **Explicit Async**: Mark all async functions with `async def`
+2. **Proper Awaiting**: Always `await` async functions
+3. **Thread Safety**: Use `asyncio.to_thread` for CPU-bound operations
+4. **Error Handling**: Implement proper error handling in async contexts
+5. **Cancellation**: Handle task cancellation gracefully
+
+## Function Definitions
+
+**1. Async Function Rule**
+- **Type:** `async_definition`
+- **Condition:** `defining_async_function`
+- **Action:** `use_async_def`
+- **Message:**
+  Define async functions with `async def`:
+  ```python
+  async def fetch_data(url: str) -> Dict[str, Any]:
+      """Fetch data from URL asynchronously."""
+      # Async implementation
+  ```
+
+**2. Sync Wrapper Rule**
+- **Type:** `sync_wrapper`
+- **Condition:** `creating_sync_interface`
+- **Action:** `implement_sync_wrapper`
+- **Message:**
+  Implement synchronous wrappers for async functions:
+  ```python
+  def fetch_data_sync(url: str) -> Dict[str, Any]:
+      """Synchronous wrapper for fetch_data."""
+      loop = asyncio.get_event_loop()
+      return loop.run_until_complete(fetch_data(url))
+  ```
+
+## Error Handling
+
+**1. Async Error Rule**
+- **Type:** `async_error_handling`
+- **Condition:** `handling_async_errors`
+- **Action:** `use_try_except`
+- **Message:**
+  Use try-except blocks in async functions:
+  ```python
+  async def fetch_data(url: str) -> Dict[str, Any]:
+      """Fetch data from URL asynchronously with error handling."""
+      try:
+          # Async implementation
+          return result
+      except Exception as e:
+          logger.error(f"Error fetching data: {e}")
+          raise
+  ```
+
+**2. Timeout Rule**
+- **Type:** `async_timeout`
+- **Condition:** `preventing_hanging`
+- **Action:** `implement_timeout`
+- **Message:**
+  Implement timeouts for async operations:
+  ```python
+  import asyncio
+  
+  async def fetch_data_with_timeout(url: str, timeout: float = 10.0) -> Dict[str, Any]:
+      """Fetch data with timeout."""
+      try:
+          return await asyncio.wait_for(fetch_data(url), timeout=timeout)
+      except asyncio.TimeoutError:
+          logger.error(f"Timeout fetching data from {url}")
+          raise
+  ```
+
+## CPU-Bound Operations
+
+**1. To Thread Rule**
+- **Type:** `cpu_bound_operations`
+- **Condition:** `handling_cpu_bound_tasks`
+- **Action:** `use_to_thread`
+- **Message:**
+  Use `asyncio.to_thread` for CPU-bound operations:
+  ```python
+  import asyncio
+  
+  def cpu_intensive_task(data: bytes) -> Dict[str, Any]:
+      """CPU-intensive synchronous function."""
+      # Process data
+      return result
+  
+  async def process_data(data: bytes) -> Dict[str, Any]:
+      """Process data asynchronously using to_thread."""
+      return await asyncio.to_thread(cpu_intensive_task, data)
+  ```
+
+**2. Embedding Computation Rule**
+- **Type:** `async_embedding`
+- **Condition:** `computing_embeddings`
+- **Action:** `use_to_thread_for_embeddings`
+- **Message:**
+  Use `asyncio.to_thread` for embedding computations, following patterns in `011-embedding-practices.mdc`:
+  ```python
+  import asyncio
+  from typing import List, Dict, Any
+  
+  def compute_embedding(text: str) -> List[float]:
+      """Compute embedding synchronously (CPU-intensive)."""
+      # Compute embedding vector
+      return embedding_vector
+  
+  async def get_embedding_async(text: str) -> List[float]:
+      """Get embedding asynchronously using to_thread."""
+      return await asyncio.to_thread(compute_embedding, text)
+  
+  async def process_document_with_embedding(doc: Dict[str, Any]) -> Dict[str, Any]:
+      """Process document and add embedding."""
+      # Extract text for embedding
+      text = doc.get("content", "")
+      
+      # Compute embedding asynchronously
+      embedding = await get_embedding_async(text)
+      
+      # Add embedding to document
+      doc["embedding"] = {
+          "embedding": embedding,
+          "metadata": {
+              "embedding_model": "nomic-ai/nomic-embed-text-v2-moe",
+              "embedding_timestamp": datetime.now().isoformat(),
+              "embedding_method": "local",
+              "embedding_dim": len(embedding)
+          }
+      }
+      
+      return doc
+  ```
+
+## Task Management
+
+**1. Task Creation Rule**
+- **Type:** `task_creation`
+- **Condition:** `creating_tasks`
+- **Action:** `use_create_task`
+- **Message:**
+  Use `asyncio.create_task` to create tasks:
+  ```python
+  import asyncio
+  
+  async def process_items(items: List[str]) -> List[Dict[str, Any]]:
+      """Process multiple items concurrently."""
+      tasks = [
+          asyncio.create_task(process_item(item))
+          for item in items
+      ]
+      return await asyncio.gather(*tasks)
+  ```
+
+**2. Task Cancellation Rule**
+- **Type:** `task_cancellation`
+- **Condition:** `handling_cancellation`
+- **Action:** `implement_cancellation_handling`
+- **Message:**
+  Implement proper cancellation handling:
+  ```python
+  import asyncio
+  
+  async def process_with_cancellation(item: str) -> Dict[str, Any]:
+      """Process item with cancellation handling."""
+      try:
+          # Process item
+          return result
+      except asyncio.CancelledError:
+          logger.info(f"Task for {item} was cancelled")
+          # Clean up resources
+          raise
+  ```
+
+## Concurrency Control
+
+**1. Semaphore Rule**
+- **Type:** `concurrency_control`
+- **Condition:** `limiting_concurrency`
+- **Action:** `use_semaphore`
+- **Message:**
+  Use semaphores to limit concurrency:
+  ```python
+  import asyncio
+  
+  async def process_items_with_limit(items: List[str], limit: int = 5) -> List[Dict[str, Any]]:
+      """Process items with concurrency limit."""
+      semaphore = asyncio.Semaphore(limit)
+      
+      async def process_with_semaphore(item: str) -> Dict[str, Any]:
+          async with semaphore:
+              return await process_item(item)
+      
+      tasks = [
+          asyncio.create_task(process_with_semaphore(item))
+          for item in items
+      ]
+      return await asyncio.gather(*tasks)
+  ```
+
+**2. Batch Processing Rule**
+- **Type:** `batch_processing`
+- **Condition:** `processing_batches`
+- **Action:** `implement_batch_processing`
+- **Message:**
+  Implement batch processing for large datasets:
+  ```python
+  import asyncio
+  from typing import List, Dict, Any, TypeVar, Generic
+  
+  T = TypeVar('T')
+  R = TypeVar('R')
+  
+  async def process_in_batches(
+      items: List[T],
+      processor: callable,
+      batch_size: int = 10
+  ) -> List[R]:
+      """Process items in batches."""
+      results = []
+      for i in range(0, len(items), batch_size):
+          batch = items[i:i + batch_size]
+          batch_results = await asyncio.gather(
+              *[processor(item) for item in batch]
+          )
+          results.extend(batch_results)
+      return results
+  ```
+
+## Database Operations
+
+**1. Database Connection Rule**
+- **Type:** `async_database`
+- **Condition:** `connecting_to_database`
+- **Action:** `use_to_thread_for_db`
+- **Message:**
+  Use `asyncio.to_thread` for database operations:
+  ```python
+  import asyncio
+  
+  def get_db(url: str, db_name: str):
+      """Get database connection (synchronous)."""
+      # Connect to database
+      return db_connection
+  
+  async def get_document(key: str, db_url: str, db_name: str) -> Dict[str, Any]:
+      """Get document asynchronously."""
+      # Get database connection using to_thread
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      
+      # Get document using to_thread
+      return await asyncio.to_thread(db.collection("documents").get, key)
+  ```
+
+**2. Transaction Rule**
+- **Type:** `async_transaction`
+- **Condition:** `using_transactions`
+- **Action:** `wrap_transaction_in_to_thread`
+- **Message:**
+  Wrap database transactions in `asyncio.to_thread`:
+  ```python
+  import asyncio
+  
+  def execute_transaction(db, operations: List[Dict[str, Any]]) -> Dict[str, Any]:
+      """Execute transaction synchronously."""
+      # Execute transaction
+      return result
+  
+  async def update_documents(
+      keys: List[str],
+      updates: List[Dict[str, Any]],
+      db_url: str,
+      db_name: str
+  ) -> Dict[str, Any]:
+      """Update documents in a transaction asynchronously."""
+      # Get database connection
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      
+      # Prepare operations
+      operations = [
+          {"operation": "update", "key": key, "data": update}
+          for key, update in zip(keys, updates)
+      ]
+      
+      # Execute transaction using to_thread
+      return await asyncio.to_thread(execute_transaction, db, operations)
+  ```
+
+## Testing Async Code
+
+**1. Async Test Rule**
+- **Type:** `async_testing`
+- **Condition:** `testing_async_functions`
+- **Action:** `use_pytest_asyncio`
+- **Message:**
+  Use pytest-asyncio for testing async functions:
+  ```python
+  import pytest
+  
+  @pytest.mark.asyncio
+  async def test_fetch_data():
+      """Test async fetch_data function."""
+      result = await fetch_data("https://example.com")
+      assert result["status"] == "success"
+  ```
+
+**2. Mock Async Rule**
+- **Type:** `mock_async`
+- **Condition:** `mocking_async_functions`
+- **Action:** `use_async_mock`
+- **Message:**
+  Use AsyncMock for mocking async functions:
+  ```python
+  import pytest
+  from unittest.mock import AsyncMock, patch
+  
+  @pytest.mark.asyncio
+  async def test_process_with_mock():
+      """Test with AsyncMock."""
+      with patch("module.fetch_data", new_callable=AsyncMock) as mock_fetch:
+          mock_fetch.return_value = {"status": "success"}
+          result = await process_data("test")
+          assert result["status"] == "success"
+          mock_fetch.assert_called_once_with("test")
+  ```
+
+## Best Practices
+
+1. **Avoid Blocking**: Never use blocking calls in async functions
+2. **Use to_thread**: Use `asyncio.to_thread` for CPU-bound operations
+3. **Handle Errors**: Always implement proper error handling
+4. **Limit Concurrency**: Use semaphores to prevent resource exhaustion
+5. **Implement Timeouts**: Always use timeouts to prevent hanging
+6. **Clean Up Resources**: Ensure resources are cleaned up, even on cancellation
+7. **Test Async Code**: Use proper tools for testing async functions
+
+## See Also
+
+- `004-testing-practices.mdc` - For testing async code
+- `011-embedding-practices.mdc` - For async embedding operations 

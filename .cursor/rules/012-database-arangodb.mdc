@@ -1,0 +1,400 @@
+---
+description: "Database operations with ArangoDB rules and patterns"
+globs: 
+alwaysApply: false
+---
+# Database Operations with ArangoDB
+
+## Core Database Principles
+
+**1. Synchronous Database Rule**
+- **Type:** `database_pattern`
+- **Condition:** `database_operations`
+- **Action:** `use_synchronous_functions`
+- **Message:**
+  When implementing database operations:
+  1. ALWAYS implement database functions as synchronous
+  2. Use `asyncio.to_thread` when calling from async contexts
+  3. Handle connection pooling explicitly
+  4. Implement proper error handling and retries
+  5. Close connections explicitly when done
+  
+  **Example:**
+  ```python
+  # Synchronous database function
+  def get_db(db_url: str, db_name: str):
+      """Get database connection (synchronous)."""
+      client = ArangoClient(hosts=db_url)
+      return client.db(db_name, username="root", password=os.getenv("ARANGO_ROOT_PASSWORD"))
+  
+  # Async wrapper using to_thread
+  async def get_document_async(key: str, db_url: str, db_name: str) -> Dict[str, Any]:
+      """Get document asynchronously."""
+      # Get database connection using to_thread
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      
+      # Get document using to_thread
+      return await asyncio.to_thread(lambda: db.collection("documents").get(key))
+  ```
+
+**2. Transaction Rule**
+- **Type:** `database_pattern`
+- **Condition:** `transaction_operations`
+- **Action:** `use_explicit_transactions`
+- **Message:**
+  When implementing database transactions:
+  1. Use explicit transaction blocks
+  2. Keep transactions short and focused
+  3. Handle transaction failures gracefully
+  4. Use `asyncio.to_thread` for async contexts
+  
+  **Example:**
+  ```python
+  # Synchronous transaction function
+  def execute_transaction(db, operations: List[Dict[str, Any]]) -> Dict[str, Any]:
+      """Execute transaction synchronously."""
+      result = db.begin_transaction(
+          read_collections=["documents"],
+          write_collections=["documents"]
+      )
+      transaction_id = result["id"]
+      
+      try:
+          # Execute operations in transaction
+          for op in operations:
+              if op["operation"] == "insert":
+                  db.collection(op["collection"]).insert(op["data"], transaction_id=transaction_id)
+              elif op["operation"] == "update":
+                  db.collection(op["collection"]).update(op["key"], op["data"], transaction_id=transaction_id)
+          
+          # Commit transaction
+          db.commit_transaction(transaction_id)
+          return {"status": "success"}
+      except Exception as e:
+          # Abort transaction on error
+          db.abort_transaction(transaction_id)
+          return {"status": "error", "error": str(e)}
+  
+  # Async wrapper using to_thread
+  async def execute_transaction_async(db_url: str, db_name: str, operations: List[Dict[str, Any]]) -> Dict[str, Any]:
+      """Execute transaction asynchronously."""
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      return await asyncio.to_thread(execute_transaction, db, operations)
+  ```
+
+## Query Patterns
+
+**1. Query Rule**
+- **Type:** `database_pattern`
+- **Condition:** `query_operations`
+- **Action:** `use_parameterized_queries`
+- **Message:**
+  When implementing database queries:
+  1. Use parameterized queries to prevent injection
+  2. Keep queries simple and focused
+  3. Use proper indexing for performance
+  4. Handle empty results gracefully
+  
+  **Example:**
+  ```python
+  # Synchronous query function
+  def query_documents(db, query_params: Dict[str, Any]) -> List[Dict[str, Any]]:
+      """Query documents synchronously."""
+      aql = """
+      FOR doc IN documents
+          FILTER doc.type == @type
+          SORT doc.created_at DESC
+          LIMIT @limit
+          RETURN doc
+      """
+      cursor = db.aql.execute(
+          aql,
+          bind_vars={
+              "type": query_params.get("type"),
+              "limit": query_params.get("limit", 10)
+          }
+      )
+      return [doc for doc in cursor]
+  
+  # Async wrapper using to_thread
+  async def query_documents_async(db_url: str, db_name: str, query_params: Dict[str, Any]) -> List[Dict[str, Any]]:
+      """Query documents asynchronously."""
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      return await asyncio.to_thread(query_documents, db, query_params)
+  ```
+
+## Error Handling
+
+**1. Database Error Rule**
+- **Type:** `database_pattern`
+- **Condition:** `error_handling`
+- **Action:** `implement_specific_error_handling`
+- **Message:**
+  When handling database errors:
+  1. Catch specific database exceptions
+  2. Implement proper retries with backoff
+  3. Log detailed error information
+  4. Return meaningful error messages
+  
+  **Example:**
+  ```python
+  from arango.exceptions import ArangoServerError, ArangoClientError
+  from tenacity import retry, stop_after_attempt, wait_exponential
+  
+  # Retry decorator for database operations
+  @retry(
+      stop=stop_after_attempt(3),
+      wait=wait_exponential(multiplier=1, min=1, max=10),
+      retry=retry_if_exception_type((ArangoServerError, ArangoClientError)),
+      reraise=True
+  )
+  def get_document_with_retry(db, key: str) -> Dict[str, Any]:
+      """Get document with retry logic."""
+      try:
+          return db.collection("documents").get(key)
+      except ArangoServerError as e:
+          logger.error(f"Server error getting document {key}: {e}")
+          raise
+      except ArangoClientError as e:
+          logger.error(f"Client error getting document {key}: {e}")
+          raise
+      except Exception as e:
+          logger.error(f"Unexpected error getting document {key}: {e}")
+          raise
+  
+  # Async wrapper using to_thread
+  async def get_document_with_retry_async(db_url: str, db_name: str, key: str) -> Dict[str, Any]:
+      """Get document with retry logic asynchronously."""
+      db = await asyncio.to_thread(get_db, db_url, db_name)
+      return await asyncio.to_thread(get_document_with_retry, db, key)
+  ```
+
+## Connection Management
+
+**1. Connection Pool Rule**
+- **Type:** `database_pattern`
+- **Condition:** `connection_management`
+- **Action:** `use_connection_pooling`
+- **Message:**
+  When managing database connections:
+  1. Use a connection pool for efficiency
+  2. Limit the maximum number of connections
+  3. Set appropriate timeouts
+  4. Close connections explicitly when done
+  
+  **Example:**
+  ```python
+  import threading
+  from arango import ArangoClient
+  
+  # Thread-local storage for connection pool
+  _thread_local = threading.local()
+  
+  def get_db_from_pool(db_url: str, db_name: str):
+      """Get database connection from pool."""
+      if not hasattr(_thread_local, "clients"):
+          _thread_local.clients = {}
+      
+      key = f"{db_url}:{db_name}"
+      if key not in _thread_local.clients:
+          client = ArangoClient(hosts=db_url)
+          db = client.db(db_name, username="root", password=os.getenv("ARANGO_ROOT_PASSWORD"))
+          _thread_local.clients[key] = db
+      
+      return _thread_local.clients[key]
+  
+  def close_db_connections():
+      """Close all database connections in the pool."""
+      if hasattr(_thread_local, "clients"):
+          for client in _thread_local.clients.values():
+              client.close()
+          _thread_local.clients = {}
+  
+  # Async wrapper using to_thread
+  async def get_db_from_pool_async(db_url: str, db_name: str):
+      """Get database connection from pool asynchronously."""
+      return await asyncio.to_thread(get_db_from_pool, db_url, db_name)
+  ```
+
+## Best Practices
+
+1. **Database Operations:**
+   - Keep database functions synchronous
+   - Use `asyncio.to_thread` when calling from async contexts
+   - Implement proper error handling and retries
+   - Use connection pooling for efficiency
+   - Close connections explicitly when done
+
+2. **Transactions:**
+   - Use explicit transaction blocks
+   - Keep transactions short and focused
+   - Handle transaction failures gracefully
+   - Commit or abort transactions explicitly
+
+3. **Queries:**
+   - Use parameterized queries to prevent injection
+   - Keep queries simple and focused
+   - Use proper indexing for performance
+   - Handle empty results gracefully
+
+4. **Error Handling:**
+   - Catch specific database exceptions
+   - Implement proper retries with backoff
+   - Log detailed error information
+   - Return meaningful error messages
+
+5. **Connection Management:**
+   - Use a connection pool for efficiency
+   - Limit the maximum number of connections
+   - Set appropriate timeouts
+   - Close connections explicitly when done 
+
+## Testing with pytest-asyncio
+
+**1. Test Fixture Rule**
+- **Type:** `database_pattern`
+- **Condition:** `test_fixtures`
+- **Action:** `match_fixture_scopes`
+- **Message:**
+  When creating test fixtures for ArangoDB:
+  1. Match fixture scopes with event_loop
+  2. Create test databases in fixtures
+  3. Clean up after tests
+  4. Use dependency injection
+  
+  **Example:**
+  ```python
+  import pytest
+  import asyncio
+  from arango import ArangoClient
+  
+  @pytest.fixture(scope="function")
+  def event_loop():
+      """Create an instance of the default event loop for each test case."""
+      loop = asyncio.get_event_loop_policy().new_event_loop()
+      yield loop
+      loop.close()
+  
+  @pytest.fixture(scope="function")
+  async def test_db():
+      """Create a test database for each test."""
+      # Create test database
+      client = ArangoClient(hosts="http://localhost:8529")
+      sys_db = client.db("_system", username="root", password="openSesame")
+      
+      # Create test database
+      db_name = f"test_db_{uuid.uuid4().hex}"
+      await asyncio.to_thread(lambda: sys_db.create_database(db_name))
+      
+      # Get database connection
+      db = await asyncio.to_thread(lambda: client.db(db_name, username="root", password="openSesame"))
+      
+      yield db
+      
+      # Cleanup
+      await asyncio.to_thread(lambda: sys_db.delete_database(db_name))
+  
+  @pytest.fixture(scope="function")
+  async def test_collection(test_db):
+      """Create a test collection for each test."""
+      collection_name = f"test_collection_{uuid.uuid4().hex}"
+      collection = await asyncio.to_thread(lambda: test_db.create_collection(collection_name))
+      
+      yield collection
+      
+      # Cleanup
+      await asyncio.to_thread(lambda: test_db.delete_collection(collection_name))
+  ```
+
+**2. Test Pattern Rule**
+- **Type:** `database_pattern`
+- **Condition:** `test_patterns`
+- **Action:** `use_async_patterns`
+- **Message:**
+  When writing tests for ArangoDB operations:
+  1. Use `@pytest.mark.asyncio` for async tests
+  2. Always await `asyncio.to_thread` calls
+  3. Test both success and error cases
+  4. Use proper assertions
+  
+  **Example:**
+  ```python
+  import pytest
+  from arango.exceptions import DocumentGetError
+  
+  @pytest.mark.asyncio
+  async def test_document_operations(test_db, test_collection):
+      """Test basic document operations."""
+      # Insert document
+      doc = {"_key": "test1", "value": "test"}
+      result = await asyncio.to_thread(lambda: test_collection.insert(doc))
+      assert result["_key"] == "test1"
+      
+      # Get document
+      retrieved = await asyncio.to_thread(lambda: test_collection.get("test1"))
+      assert retrieved["value"] == "test"
+      
+      # Test error case
+      with pytest.raises(DocumentGetError):
+          await asyncio.to_thread(lambda: test_collection.get("nonexistent"))
+  ```
+
+**3. Test Documentation Rule**
+- **Type:** `database_pattern`
+- **Condition:** `test_documentation`
+- **Action:** `document_test_patterns`
+- **Message:**
+  When documenting database tests:
+  1. Include docstrings explaining test purpose
+  2. Reference official documentation
+  3. Document fixture dependencies
+  4. Explain test data setup
+  
+  **Example:**
+  ```python
+  @pytest.mark.asyncio
+  async def test_complex_query(test_db, test_collection):
+      """Test complex AQL query execution.
+      
+      This test verifies that complex AQL queries work correctly with
+      the async wrapper pattern using asyncio.to_thread.
+      
+      References:
+      - ArangoDB AQL: https://www.arangodb.com/docs/stable/aql/
+      - pytest-asyncio: https://pytest-asyncio.readthedocs.io/
+      
+      Fixtures:
+      - test_db: Provides a clean test database
+      - test_collection: Provides a clean test collection
+      """
+      # Test implementation
+      pass
+  ```
+
+## Common Testing Pitfalls
+
+1. **Fixture Scope Mismatch:**
+   - Don't use module-scoped fixtures with function-scoped event loops
+   - Match all database fixture scopes with event_loop scope
+   - Use function scope for database operations
+
+2. **Async/Sync Mixing:**
+   - Don't call sync operations directly in async tests
+   - Always wrap database calls with asyncio.to_thread
+   - Use lambda for complex arguments
+
+3. **Resource Cleanup:**
+   - Always clean up test databases and collections
+   - Use fixture teardown for cleanup
+   - Handle cleanup errors gracefully
+
+4. **Test Isolation:**
+   - Create unique database/collection names
+   - Don't share resources between tests
+   - Reset state between tests
+
+5. **Documentation:**
+   - Document fixture dependencies
+   - Include relevant documentation links
+   - Explain test data setup
+   - Document expected behavior 

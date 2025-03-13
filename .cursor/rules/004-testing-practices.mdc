@@ -1,0 +1,468 @@
+---
+description: "follow these core testing rules for pytests"
+globs: 
+alwaysApply: false
+---
+# Testing Practices
+
+## Core Testing Philosophy
+- **Type:** `testing_philosophy`
+- **Condition:** `all_tests`
+- **Action:** `test_real_functionality`
+- **Message:**
+  1. NEVER test for the sake of testing
+  2. ONLY test actual functionality that matters to users
+  3. AVOID mocks unless absolutely necessary
+  4. Focus on end-to-end workflows that reflect real usage
+  5. Use real external services (Redis, APIs) when possible
+  6. Only mock when:
+     - External service is unreliable/costly
+     - Service has strict rate limits
+     - Testing edge cases impossible to reproduce
+  7. Prefer integration tests over unit tests
+  8. Test actual user workflows over implementation details
+
+## Cache Testing Rules
+- **Type:** `cache_testing`
+- **Condition:** `cache_related_tests`
+- **Action:** `test_real_cache`
+- **Message:**
+  1. ALWAYS test with real Redis instance
+  2. Test actual cache hits/misses
+  3. Verify real data persistence
+  4. Test real fallback scenarios
+  5. NO mocking of cache operations
+  6. Test with real LLM responses
+
+## LLM Testing Rules
+- **Type:** `llm_testing`
+- **Condition:** `llm_related_tests`
+- **Action:** `test_real_llm`
+- **Message:**
+  1. Use real model IDs
+  2. Test actual API responses
+  3. Verify real token counting
+  4. Test streaming and non-streaming
+  5. Only mock if rate limits/costs are prohibitive
+
+## Error Testing Rules
+- **Type:** `error_testing`
+- **Condition:** `error_handling_tests`
+- **Action:** `test_real_errors`
+- **Message:**
+  1. Test with real error conditions
+  2. Use actual network failures
+  3. Test with real invalid inputs
+  4. Verify actual error messages
+  5. NO artificial error injection unless unavoidable
+
+## Test Organization Rules
+
+**1. Progressive Testing Rule**
+- **Type:** `test_organization`
+- **Condition:** `complex_test_task`
+- **Action:** `break_down_tests`
+- **Message:**
+  When implementing tests:
+  1. ALWAYS start with simple unit tests before complex integration tests
+  2. Break down complex tests into smaller, focused test functions
+  3. Follow this testing hierarchy:
+     - Basic unit tests
+     - Component integration tests
+     - Full integration tests
+  
+  **Example Structure:**
+  ```python
+  @pytest.mark.asyncio
+  async def test_basic_functionality():
+      """Test basic component functionality in isolation."""
+      pass
+
+  @pytest.mark.asyncio
+  async def test_component_integration():
+      """Test how components work together."""
+      pass
+
+  @pytest.mark.asyncio
+  async def test_full_integration():
+      """Test full system integration."""
+      pass
+  ```
+
+**2. Test Fixture Rule**
+- **Type:** `test_organization`
+- **Condition:** `test_setup_task`
+- **Action:** `use_fixtures`
+- **Message:**
+  When setting up test environments:
+  1. Use fixtures for reusable setup and teardown
+  2. Keep fixtures focused and minimal
+  3. Use fixture scopes appropriately
+  
+  **Example:**
+  ```python
+  @pytest.fixture(scope="function")
+  async def setup_component():
+      """Setup individual component for testing."""
+      component = await create_component()
+      yield component
+      await cleanup_component(component)
+  ```
+
+**3. Mock Response Rule**
+- **Type:** `test_organization`
+- **Condition:** `external_dependency_task`
+- **Action:** `use_mocks`
+- **Message:**
+  When testing external dependencies:
+  1. Start with mock responses
+  2. Use deterministic test data
+  3. Clearly separate mock tests from integration tests
+  
+  **Example:**
+  ```python
+  @pytest.mark.asyncio
+  async def test_with_mock():
+      """Test using mock responses."""
+      response = await acompletion(
+          model="gpt-3.5-turbo",
+          messages=[{"role": "user", "content": "test"}],
+          mock_response="mocked response"
+      )
+      assert response.choices[0].message.content == "mocked response"
+  ```
+
+**4. Parallel Testing Rule**
+- **Type:** `test_organization`
+- **Condition:** `test_performance`
+- **Action:** `use_parallel_testing`
+- **Message:**
+  When running tests:
+  1. ALWAYS use pytest-xdist for parallel execution
+  2. Configure optimal worker count based on CPU cores
+  3. Ensure tests are independent and can run in parallel
+  
+  **Configuration:**
+  ```python
+  # In pyproject.toml
+  [tool.pytest.ini_options]
+  addopts = "-n auto"  # Use optimal number of workers
+  ```
+  
+  **Example Usage:**
+  ```bash
+  # Run tests in parallel
+  pytest -n auto
+  
+  # Run with specific number of workers
+  pytest -n 4
+  ```
+
+## Best Practices
+
+1. **Test Organization:**
+   - One concept per test function
+   - Clear, descriptive test names
+   - Progressive complexity in test suite
+   - Run tests in parallel by default
+
+2. **Test Setup:**
+   - Minimize shared state
+   - Clean up after tests
+   - Use appropriate scopes for fixtures
+   - Ensure thread safety for parallel execution
+
+3. **Assertions:**
+   - One logical assertion per test
+   - Clear failure messages
+   - Test both positive and negative cases
+
+4. **Documentation:**
+   - Document test purpose
+   - Document test requirements
+   - Document any non-obvious test setup
+   - Note any parallel execution considerations
+
+## Core Testing Rules
+
+**1. Functional Tests First Rule**
+- **Type:** `testing_practice`
+- **Condition:** `when_fixing_bugs`
+- **Action:** `prioritize_functional_tests`
+- **Message:**
+  When fixing bugs or implementing new features:
+  1. ALWAYS make functional tests pass before addressing linter errors
+  2. Limit to maximum 3 attempts to fix the same linter error before seeking guidance
+  3. Focus on behavior correctness over implementation details
+  4. Use test-driven development when possible
+
+**2. Test Flexibility Rule**
+- **Type:** `testing_practice`
+- **Condition:** `when_writing_tests`
+- **Action:** `write_flexible_tests`
+- **Message:**
+  When writing or modifying tests:
+  1. Test for specific behaviors rather than exact implementations
+  2. Use assertions that check for presence of expected elements/behaviors
+  3. Avoid brittle tests that depend on exact counts or ordering when possible
+  4. Include clear error messages in assertions to aid debugging
+
+**3. Edge Case Handling Rule**
+- **Type:** `testing_practice`
+- **Condition:** `when_handling_edge_cases`
+- **Action:** `test_edge_cases`
+- **Message:**
+  Always include tests for these edge cases:
+  1. Empty inputs
+  2. Malformed inputs
+  3. Boundary conditions
+  4. Type variations (strings, numbers, nulls)
+  5. Special characters and encoding issues
+
+## HTML Processing Rules
+
+**1. HTML Cleaning Order Rule**
+- **Type:** `html_processing`
+- **Condition:** `when_cleaning_html`
+- **Action:** `follow_cleaning_order`
+- **Message:**
+  When cleaning HTML, follow this specific order:
+  1. Remove unwanted elements first (scripts, styles, ads)
+  2. Process and deduplicate images
+  3. Remove empty elements
+  4. Sanitize attributes
+  5. Handle special cases and malformed HTML
+
+**2. Content Preservation Rule**
+- **Type:** `html_processing`
+- **Condition:** `when_extracting_content`
+- **Action:** `preserve_important_content`
+- **Message:**
+  Always preserve these elements during HTML processing:
+  1. Tables with meaningful data
+  2. Images (with proper deduplication)
+  3. Semantic structure (headings, lists)
+  4. Text content in paragraphs
+  5. Links with proper sanitization
+
+## Data Model Handling
+
+**1. Type Consistency Rule**
+- **Type:** `data_modeling`
+- **Condition:** `when_using_models`
+- **Action:** `ensure_type_consistency`
+- **Message:**
+  When working with data models:
+  1. Ensure consistent types across serialization/deserialization
+  2. Convert numeric values to strings when needed for JSON compatibility
+  3. Use proper type hints and validation
+  4. Handle optional fields appropriately
+  5. Validate model initialization parameters
+
+**2. Defensive Programming Rule**
+- **Type:** `error_handling`
+- **Condition:** `when_processing_external_data`
+- **Action:** `use_defensive_programming`
+- **Message:**
+  When processing external data:
+  1. Always check types before operations
+  2. Use try/except blocks for potentially failing operations
+  3. Provide meaningful error messages
+  4. Implement graceful fallbacks
+  5. Log errors with appropriate context
+
+## Embedding Testing
+
+**1. Embedding Test Rule**
+- **Type:** `embedding_testing`
+- **Condition:** `testing_embedding_functionality`
+- **Action:** `follow_embedding_test_practices`
+- **Message:**
+  Follow the embedding testing practices defined in `011-embedding-practices.mdc`:
+  
+  ```python
+  import pytest
+  from typing import Dict, Any
+  
+  @pytest.fixture
+  def sample_embedding() -> Dict[str, Any]:
+      """Return a sample embedding for testing."""
+      return {
+          'embedding': [0.1, 0.2, 0.3],  # Simplified vector
+          'metadata': {
+              'embedding_model': 'nomic-ai/nomic-embed-text-v2-moe',
+              'embedding_timestamp': '2023-01-01T00:00:00Z',
+              'embedding_method': 'local',
+              'embedding_dim': 3
+          }
+      }
+  
+  @pytest.mark.asyncio
+  async def test_embedding_storage(sample_embedding):
+      """Test storing a document with embedding."""
+      # Mock only the embedding generation, not the database operations
+      with patch("fetch_page.db.arangodb_utils.create_embedding_for_page", 
+                return_value=sample_embedding):
+          # Use actual database connection
+          key = await store_page_with_embedding("https://example.com")
+          
+          # Verify the document was stored with embedding
+          db = get_db("http://localhost:8529", "test_db")
+          doc = db.collection("pages").get(key)
+          assert "embedding" in doc
+          assert doc["embedding"] == sample_embedding
+  ```
+
+**2. Embedding Mock Rule**
+- **Type:** `embedding_mocking`
+- **Condition:** `mocking_embeddings`
+- **Action:** `mock_only_computation`
+- **Message:**
+  When testing embedding functionality, only mock the embedding computation, not the database operations:
+  
+  ```python
+  @pytest.mark.asyncio
+  async def test_query_with_embedding():
+      """Test querying with embeddings."""
+      # Mock only the embedding computation
+      with patch("fetch_page.db.arangodb_utils.create_embedding_for_page", 
+                return_value=sample_embedding):
+          
+          # Use actual database for storage and retrieval
+          key = generate_page_key("https://example.com")
+          db = get_db("http://localhost:8529", "test_db")
+          
+          # Prepare test document
+          doc = {
+              "_key": key,
+              "url": "https://example.com",
+              "embedding": sample_embedding
+          }
+          
+          # Handle existing documents
+          if db.collection("pages").has(key):
+              db.collection("pages").delete(key)
+          
+          # Insert test document
+          db.collection("pages").insert(doc)
+          
+          # Test the query function
+          result = await query_page(key)
+          
+          # Verify embedding in result
+          assert "embedding" in result
+          assert result["embedding"] == sample_embedding
+          
+          # Clean up
+          db.collection("pages").delete(key)
+  ```
+
+## Test Fixtures
+
+**1. Fixture Scope Rule**
+- **Type:** `fixture_scope`
+- **Condition:** `defining_fixtures`
+- **Action:** `use_appropriate_scope`
+- **Message:**
+  Use the appropriate scope for fixtures:
+  ```python
+  import pytest
+  
+  @pytest.fixture(scope="function")
+  def function_fixture():
+      # Set up
+      data = {"key": "value"}
+      yield data
+      # Tear down
+      data.clear()
+  
+  @pytest.fixture(scope="module")
+  def module_fixture():
+      # Set up once per module
+      connection = create_connection()
+      yield connection
+      # Tear down once per module
+      connection.close()
+  
+  @pytest.fixture(scope="session")
+  def session_fixture():
+      # Set up once per test session
+      config = load_config()
+      yield config
+      # No tear down needed
+  ```
+
+**2. Fixture Composition Rule**
+- **Type:** `fixture_composition`
+- **Condition:** `combining_fixtures`
+- **Action:** `compose_fixtures`
+- **Message:**
+  Compose fixtures to build complex test scenarios:
+  ```python
+  import pytest
+  
+  @pytest.fixture
+  def user_data():
+      return {"username": "testuser", "email": "test@example.com"}
+  
+  @pytest.fixture
+  def post_data():
+      return {"title": "Test Post", "content": "This is a test post."}
+  
+  @pytest.fixture
+  def user_with_post(user_data, post_data):
+      user_data["posts"] = [post_data]
+      return user_data
+  
+  def test_user_post_count(user_with_post):
+      assert len(user_with_post["posts"]) == 1
+  ```
+
+## Test Coverage
+
+**1. Coverage Measurement Rule**
+- **Type:** `coverage_measurement`
+- **Condition:** `measuring_coverage`
+- **Action:** `use_pytest_cov`
+- **Message:**
+  Use pytest-cov to measure test coverage:
+  ```bash
+  # Run tests with coverage
+  python -m pytest --cov=mypackage tests/
+  
+  # Generate HTML coverage report
+  python -m pytest --cov=mypackage --cov-report=html tests/
+  ```
+
+**2. Coverage Target Rule**
+- **Type:** `coverage_target`
+- **Condition:** `setting_coverage_goals`
+- **Action:** `aim_for_high_coverage`
+- **Message:**
+  Aim for high test coverage, with these minimum targets:
+  - 90% coverage for core business logic
+  - 80% coverage for utility functions
+  - 70% coverage for UI/presentation code
+  
+  ```python
+  # Example of using coverage thresholds
+  # In pytest.ini
+  [pytest]
+  addopts = --cov=mypackage --cov-fail-under=85
+  ```
+
+## Best Practices
+
+1. **Test Independence**: Tests should not depend on each other or on execution order
+2. **Fast Tests**: Tests should run quickly to encourage frequent testing
+3. **Readable Tests**: Tests should be easy to understand and maintain
+4. **Test Data**: Use fixtures and factories to create test data
+5. **Test First**: Consider writing tests before implementing features (TDD)
+6. **Continuous Testing**: Run tests automatically on code changes
+7. **Minimal Mocking**: Only mock external dependencies, not internal code
+8. **Real Connections**: Use real database connections when possible for integration tests
+
+## See Also
+
+- `005-async-patterns.mdc` - For async code patterns used in tests
+- `011-embedding-practices.mdc` - For detailed embedding testing practices 
