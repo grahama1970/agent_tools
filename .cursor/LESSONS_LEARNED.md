@@ -294,6 +294,7 @@ async def process_document(doc_id):
 ### 5. Documentation References
 - pytest-asyncio: https://pytest-asyncio.readthedocs.io/
 - python-arango: https://python-arango.readthedocs.io/
+- arangodb AQL query reference: https://docs.arangodb.com/stable/aql/
 - asyncio: https://docs.python.org/3/library/asyncio.html
 
 ## Better Approaches for the Simplified Version

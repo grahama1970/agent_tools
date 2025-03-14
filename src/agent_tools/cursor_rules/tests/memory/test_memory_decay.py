@@ -320,34 +320,9 @@ def test_hybrid_search_debug(memory_system):
         print(f"Content: {result.get('content')}", file=sys.stderr)
         print(f"Score: {result.get('score')}", file=sys.stderr)
         if 'components' in result:
-            comp = result['components']
-            print(f"Component scores - Semantic: {comp.get('semantic_score')}, BM25: {comp.get('bm25_score')}, "
-                  f"Glossary: {comp.get('glossary_score')}, Importance: {comp.get('importance_boost')}", file=sys.stderr)
+            print(f"Components:", file=sys.stderr)
+            for component, score in result.get('components', {}).items():
+                print(f"  {component}: {score}", file=sys.stderr)
     
-    # Debug direct simple find
-    elephant_fact = memory_system.db.collection(TEST_COLLECTION).find({"content": {"LIKE": "%elephant%"}})
-    elephant_list = [doc for doc in elephant_fact]
-    print(f"\nDirect query for elephant facts found: {len(elephant_list)}", file=sys.stderr)
-    for fact in elephant_list:
-        print(f"Elephant fact content: {fact.get('content')}", file=sys.stderr)
-        print(f"Elephant fact domains: {fact.get('domains')}", file=sys.stderr)
-        print(f"Elephant fact importance: {fact.get('importance')}", file=sys.stderr)
-        print(f"Elephant fact embedding present: {'Yes' if fact.get('embedding') else 'No'}", file=sys.stderr)
-    
-    # Test if fact is found via simple direct matching
-    domains_match = False
-    content_match = False
-    for domain in SAMPLE_FACTS[0]['domains']:
-        if domain.lower() in query.lower():
-            domains_match = True
-    
-    for term in query.lower().split():
-        if term in SAMPLE_FACTS[0]['content'].lower():
-            content_match = True
-    
-    print(f"\nDirect term matching:", file=sys.stderr)
-    print(f"Domain match: {domains_match}", file=sys.stderr)
-    print(f"Content match: {content_match}", file=sys.stderr)
-    
-    # Assert something to satisfy pytest
-    assert True
+    # At least one result should be found for the test query
+    assert len(results) > 0, "Should find at least one result for the test query"

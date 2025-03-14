@@ -123,6 +123,45 @@ alwaysApply: false
       return await asyncio.to_thread(query_documents, db, query_params)
   ```
 
+## ArangoDB Query Patterns
+
+**1. Collection Name Rule**
+- **Type:** `database_pattern`
+- **Condition:** `aql_query_operations`
+- **Action:** `use_fstring_for_collection_names`
+- **Message:**
+  When writing AQL queries, collection names cannot be bound as parameters:
+  1. Always use f-strings to inject collection names directly into the query
+  2. Only bind actual values as parameters
+  3. Never attempt to bind collection names with @collection
+  
+  **Example:**
+  ```python
+  # CORRECT - use f-string for collection name
+  collection_name = "documents"
+  aql_query = f"""
+  FOR doc IN {collection_name}
+      FILTER doc.key == @key
+      RETURN doc
+  """
+  
+  bind_vars = {
+      "key": "some_key"  # Only bind actual values
+  }
+  
+  # INCORRECT - will cause errors
+  aql_query = """
+  FOR doc IN @collection  # THIS DOESN'T WORK IN ARANGODB
+      FILTER doc.key == @key
+      RETURN doc
+  """
+  
+  bind_vars = {
+      "collection": collection_name,  # Collection names CANNOT be bound
+      "key": "some_key"
+  }
+  ```
+
 ## Error Handling
 
 **1. Database Error Rule**
@@ -397,4 +436,4 @@ alwaysApply: false
    - Document fixture dependencies
    - Include relevant documentation links
    - Explain test data setup
-   - Document expected behavior 
+   - Document expected behavior

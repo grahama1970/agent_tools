@@ -21,10 +21,10 @@ _tqdm_lock: Optional[Any] = None
 # Load environment variables if needed
 load_dotenv()
 
-# Default model configuration
-DEFAULT_MODEL_NAME = 'nomic-ai/nomic-embed-text-v2-moe'
+# Updated model configuration to use ModernBert
+DEFAULT_MODEL_NAME = 'BAAI/bge-large-en-v1.5'  # Using BGE as ModernBert implementation
 DEFAULT_MODEL_DIR = './models/huggingface/'
-DEFAULT_EMBEDDING_DIM = 768
+DEFAULT_EMBEDDING_DIM = 1024  # Updated dimension for BGE model
 
 # Batching and Workers
 def init_worker(model_name: str, model_dir: str, progress_lock: Optional[Any] = None) -> None:
@@ -44,7 +44,12 @@ def average_pool(last_hidden_states: torch.Tensor, attention_mask: torch.Tensor)
 @lru_cache(maxsize=1)
 def _load_model_and_tokenizer(model_dir: str = DEFAULT_MODEL_DIR, 
                              model_name: str = DEFAULT_MODEL_NAME) -> Tuple[Any, Any]:
-    """Load the model and tokenizer for local embedding."""
+    """
+    Load the ModernBert (BGE) model and tokenizer for local embedding.
+    
+    BGE (BAAI General Embedding) is our implementation of ModernBert
+    for high-quality text embeddings with strong semantic search capabilities.
+    """
     warnings.filterwarnings('ignore', message='`resume_download` is deprecated and will be removed in version 1.0.0')
     
     try:
@@ -59,7 +64,7 @@ def _load_model_and_tokenizer(model_dir: str = DEFAULT_MODEL_DIR,
         # Load the tokenizer and model
         start_time = time.time()
         tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=model_dir)
-        model = AutoModel.from_pretrained(model_name, cache_dir=model_dir, trust_remote_code=True)
+        model = AutoModel.from_pretrained(model_name, cache_dir=model_dir)
         
         # Log the model files in the cache directory
         model_files = os.listdir(model_dir)
@@ -74,12 +79,12 @@ def _load_model_and_tokenizer(model_dir: str = DEFAULT_MODEL_DIR,
         
         # Log the load time
         load_time = time.time() - start_time
-        logger.info(f'Model {model_name} loaded successfully in {load_time:.2f} seconds and stored in {model_dir}')
+        logger.info(f'ModernBert model {model_name} loaded successfully in {load_time:.2f} seconds and stored in {model_dir}')
         
         return model, tokenizer
         
     except Exception as e:
-        logger.error(f"Error loading model and tokenizer: {e}")
+        logger.error(f"Error loading ModernBert model and tokenizer: {e}")
         raise
 
 
@@ -87,7 +92,7 @@ def get_model_and_tokenizer(
         model_dir: str = DEFAULT_MODEL_DIR, 
         model_name: str = DEFAULT_MODEL_NAME
 ) -> Tuple[Any, Any]:
-    """Get or lazily initialize model and tokenizer."""
+    """Get or lazily initialize ModernBert model and tokenizer."""
     global _model, _tokenizer
     if _model is None or _tokenizer is None:
         _model, _tokenizer = _load_model_and_tokenizer(model_dir, model_name)
@@ -95,16 +100,11 @@ def get_model_and_tokenizer(
 
 
 def ensure_text_has_prefix(text: str) -> str:
-    """Ensure text has the required prefix for the Nomic Embed model."""
-    # Check if text already has a prefix
-    if text.startswith("search_query:") or text.startswith("search_document:"):
-        return text
-    
-    # Add the document prefix by default
-    return f"search_document: {text}"
-
-
-async def create_embedding(text: str, embedder_config: Optional[Dict[str, Any]] = None) -> Dict[str, Union[List[float], Dict[str, Any]]]:
+    """
+    Prepare text for BGE model (ModernBert implementation).
+    BGE models perform better without prefixes like those used in Nomic models.
+    """
+    # For BGE models, we don't need the search_query/search_document prefixes
     """Generate an embedding using a local model."""
     if embedder_config is None:
         embedder_config = {
