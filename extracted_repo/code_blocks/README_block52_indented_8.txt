@@ -1,0 +1,8 @@
+"repomix": {
+  "command": "npx",
+  "args": [
+    "-y",
+    "repomix",
+    "--mcp"
+  ]
+}

@@ -1,0 +1,10 @@
+# 缓存目录
+.cache/
+tmp/
+
+# 构建输出
+dist/
+build/
+
+# 日志
+*.log

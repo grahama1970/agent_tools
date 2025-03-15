@@ -1,0 +1,6 @@
+param1: Type1,
+param2: Type2,
+deps = {
+  defaultFunction1,
+  defaultFunction2,
+}

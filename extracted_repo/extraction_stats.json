@@ -1,0 +1,14 @@
+{
+  "total_files": 294,
+  "code_files": 119,
+  "documentation_files": 128,
+  "code_blocks": 903,
+  "languages": {
+    "typescript": 119
+  },
+  "file_types": {
+    ".md": 128,
+    ".ts": 119
+  },
+  "errors": []
+}

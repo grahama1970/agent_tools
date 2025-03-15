@@ -1,0 +1,5 @@
+- `--no-gitignore`: Disable .gitignore file usage
+- `--no-default-patterns`: Disable default patterns
+- `--header-text <text>`: Custom text to include in the file header
+- `--instruction-file-path <path>`: Path to a file containing detailed custom instructions
+- `--include-empty-directories`: Include empty directories in the output

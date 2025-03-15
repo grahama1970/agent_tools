@@ -1,0 +1,12 @@
+   Please package the local directory /path/to/project for AI analysis using Repomix.
+   ```
+   or
+   ```
+   Please fetch and package the GitHub repository yamadashy/repomix for AI analysis.
+   ```
+
+## Usage Examples
+
+Here are some examples of how to use Repomix MCP server with AI assistants:
+
+### Local Codebase Analysis

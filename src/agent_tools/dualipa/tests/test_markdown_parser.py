@@ -243,3 +243,51 @@ This is section 1 content.
     # Even without advanced parsers, we should get at least basic sections
     sections = extract_sections_from_markdown(markdown_content)
     assert len(sections) >= 2  # Title, Section 1 
+
+
+def test_extract_indented_code_blocks():
+    """Test extracting indented code blocks from markdown content."""
+    # Markdown content with indented code blocks
+    markdown_content = """# Test Markdown
+
+This is a test markdown file with indented code blocks.
+
+## Python Example
+
+    # Python code block
+    def hello():
+        print("Hello, World!")
+
+## JavaScript Example
+
+    // JavaScript code block
+    function greet() {
+        console.log("Hello, World!");
+    }
+"""
+    
+    # Extract code blocks
+    code_blocks = extract_code_blocks(markdown_content)
+    
+    # Verify code blocks were extracted
+    assert len(code_blocks) == 2
+    
+    # Check if Python block was detected correctly
+    python_block_found = False
+    for lang, content in code_blocks.items():
+        if lang == "python" or lang.startswith("python_"):
+            python_block_found = True
+            assert "def hello():" in content
+            assert "print(\"Hello, World!\")" in content
+    
+    assert python_block_found, "Python code block was not detected"
+    
+    # Check if JavaScript block was detected correctly
+    js_block_found = False
+    for lang, content in code_blocks.items():
+        if lang == "javascript" or lang.startswith("javascript_"):
+            js_block_found = True
+            assert "function greet()" in content
+            assert "console.log(\"Hello, World!\");" in content
+    
+    assert js_block_found, "JavaScript code block was not detected" 

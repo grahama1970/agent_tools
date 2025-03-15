@@ -1,0 +1,1 @@
+<img src="website/client/src/public/images/repomix-title.png" alt="Repomix" width="500" height="auto" />

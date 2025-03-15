@@ -93,27 +93,84 @@ def extract_sections_from_markdown(content: str) -> Dict[str, str]:
         return {"Error": str(e)}
 
 
-def extract_code_blocks(markdown_content: str) -> List[Dict[str, str]]:
+def extract_code_blocks(markdown_content: str) -> Dict[str, str]:
     """Extract code blocks from markdown content.
     
     Args:
         markdown_content: Raw markdown content
         
     Returns:
-        List of code blocks with language and code content
+        Dictionary of code blocks with language as key and code content as value
     """
-    # Pattern for code blocks: ```language\ncode\n```
-    pattern = r'```(\w*)\n([\s\S]*?)\n```'
-    matches = re.finditer(pattern, markdown_content)
+    code_blocks = {}
     
-    code_blocks = []
-    for match in matches:
+    # Pattern for backtick code blocks: ```language\ncode\n```
+    backtick_pattern = r'```(\w*)\n([\s\S]*?)\n```'
+    backtick_matches = re.finditer(backtick_pattern, markdown_content)
+    
+    for match in backtick_matches:
         language = match.group(1) or "text"
         code = match.group(2)
-        code_blocks.append({
-            "language": language,
-            "content": code
-        })
+        # Use a unique key if language already exists
+        key = language
+        counter = 1
+        while key in code_blocks:
+            key = f"{language}_{counter}"
+            counter += 1
+        code_blocks[key] = code
+    
+    # Pattern for indented code blocks - 4+ spaces at beginning of lines
+    # First, split content into lines and find indented blocks
+    lines = markdown_content.split('\n')
+    in_indented_block = False
+    current_block = []
+    
+    for i, line in enumerate(lines):
+        # Check if line starts with 4+ spaces or a tab
+        if re.match(r'^( {4,}|\t)', line):
+            if not in_indented_block:
+                in_indented_block = True
+                current_block = []
+            # Remove the first 4 spaces (or tab) from the line
+            dedented_line = re.sub(r'^( {4}|\t)', '', line, 1)
+            current_block.append(dedented_line)
+        else:
+            # If we were in a block and now we're not, save the block
+            if in_indented_block and current_block:
+                # Try to detect language from first line comment or keep as "indented"
+                language = "indented"
+                if current_block and current_block[0].strip().startswith('#'):
+                    language = "python"  # Assume Python for # comments
+                elif current_block and current_block[0].strip().startswith('//'):
+                    language = "javascript"  # Assume JS for // comments
+                
+                # Use a unique key
+                key = language
+                counter = 1
+                while key in code_blocks:
+                    key = f"{language}_{counter}"
+                    counter += 1
+                
+                # Join the block lines and add to code blocks
+                code_blocks[key] = '\n'.join(current_block)
+                in_indented_block = False
+                current_block = []
+    
+    # Don't forget the last block if file ends with an indented block
+    if in_indented_block and current_block:
+        language = "indented"
+        if current_block and current_block[0].strip().startswith('#'):
+            language = "python"
+        elif current_block and current_block[0].strip().startswith('//'):
+            language = "javascript"
+        
+        key = language
+        counter = 1
+        while key in code_blocks:
+            key = f"{language}_{counter}"
+            counter += 1
+        
+        code_blocks[key] = '\n'.join(current_block)
     
     return code_blocks
 
@@ -194,21 +251,18 @@ This is an example of markdown content with various elements.
 
 Here's a Python code block:
 
-```python
-def hello_world():
-    print("Hello, World!")
-    return True
-```
+    # Python code
+    def hello_world():
+        print("Hello, World!")
+        return True
 
 And here's a JSON block:
 
-```json
-{
-    "name": "DuaLipa",
-    "version": "0.1.0",
-    "description": "Dual Language Integration for Python AI"
-}
-```
+    {
+        "name": "DuaLipa",
+        "version": "0.1.0",
+        "description": "Dual Language Integration for Python AI"
+    }
 
 ## Lists and Formatting
 
@@ -230,12 +284,9 @@ Check out [Python](https://python.org) for more information.
         code_blocks = extract_code_blocks(example_markdown)
         logger.info(f"  Found {len(code_blocks)} code blocks")
         
-        for i, block in enumerate(code_blocks):
-            language = block.get("language", "unknown")
-            content = block.get("content", "")
-            logger.info(f"  Block {i+1}: Language: {language}, Length: {len(content)} chars")
-            if i == 0:  # Show the first block as example
-                logger.info(f"  Example content:\n  {content.strip()}")
+        for language, content in code_blocks.items():
+            logger.info(f"  Block: Language: {language}, Length: {len(content)} chars")
+            logger.info(f"  Example content:\n{content.strip()}")
         
         # 2. Extract sections
         logger.info("\n2. Extracting sections:")

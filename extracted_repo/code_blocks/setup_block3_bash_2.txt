@@ -1,0 +1,10 @@
+# テストの実行
+npm run test
+
+# テストカバレッジ
+npm run test-coverage
+
+# リント
+npm run lint-biome
+npm run lint-ts
+npm run lint-secretlint

@@ -1,0 +1,9 @@
+# 使用简写格式
+npx repomix --remote yamadashy/repomix
+
+# 使用完整 URL（支持分支和特定路径）
+npx repomix --remote https://github.com/yamadashy/repomix
+npx repomix --remote https://github.com/yamadashy/repomix/tree/main
+
+# 使用提交 URL
+npx repomix --remote https://github.com/yamadashy/repomix/commit/836abcd7335137228ad77feb28655d85712680f1

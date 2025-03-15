@@ -1,0 +1,4 @@
+- `remote`: GitHub repository URL or user/repo format (e.g., yamadashy/repomix)
+- `compress`: (Optional, default: true) Whether to perform intelligent code extraction
+- `includePatterns`: (Optional) Comma-separated list of include patterns
+- `ignorePatterns`: (Optional) Comma-separated list of ignore patterns

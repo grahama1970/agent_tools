@@ -1,0 +1,5 @@
+# 使用完整 URL
+repomix --remote https://github.com/user/repo
+
+# 使用 GitHub 简写
+repomix --remote user/repo

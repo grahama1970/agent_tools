@@ -1,0 +1,2 @@
+title: AI 优化
+details: 以 AI 易于理解和处理的方式格式化代码库。

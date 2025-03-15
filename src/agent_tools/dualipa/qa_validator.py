@@ -14,11 +14,23 @@ from typing import Dict, List, Optional, Set, Tuple, Union, Any
 from pathlib import Path
 import json
 import asyncio
+import os
+import time
+import inspect
+import functools
+from datetime import datetime
 
 import random
 from pydantic import BaseModel, Field, validator
 from rapidfuzz import fuzz, process
 from loguru import logger
+
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type
+)
 
 # Constants for QA validation
 MIN_QUESTION_LENGTH = 10
@@ -199,10 +211,10 @@ def validate_function_qa_pair(
     return result
 
 
-@cached_retry(
-    retries=3,
-    cache_ttl=3600,  # 1 hour
-    exceptions=(ConnectionError, TimeoutError)
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+    retry=retry_if_exception_type((ConnectionError, TimeoutError)),
 )
 async def validate_and_enhance_qa_pairs(
     qa_pairs: List[Dict[str, str]], 

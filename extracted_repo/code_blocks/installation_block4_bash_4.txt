@@ -1,0 +1,8 @@
+# 处理当前目录
+docker run -v .:/app -it --rm ghcr.io/yamadashy/repomix
+
+# 处理指定目录
+docker run -v .:/app -it --rm ghcr.io/yamadashy/repomix path/to/directory
+
+# 处理远程仓库
+docker run -v ./output:/app -it --rm ghcr.io/yamadashy/repomix --remote yamadashy/repomix

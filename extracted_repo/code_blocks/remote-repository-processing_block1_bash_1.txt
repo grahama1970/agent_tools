@@ -1,0 +1,8 @@
+# 指定分支
+repomix --remote user/repo --remote-branch main
+
+# 指定标签
+repomix --remote user/repo --remote-branch v1.0.0
+
+# 指定提交哈希
+repomix --remote user/repo --remote-branch 935b695

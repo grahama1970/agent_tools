@@ -1,0 +1,8 @@
+# XML 格式（默认）
+repomix --style xml
+
+# Markdown 格式
+repomix --style markdown
+
+# 纯文本格式
+repomix --style plain

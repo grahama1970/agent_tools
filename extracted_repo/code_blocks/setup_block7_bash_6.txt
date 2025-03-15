@@ -1,0 +1,8 @@
+# 运行代码检查
+pnpm run lint
+
+# 自动修复代码问题
+pnpm run lint:fix
+
+# 类型检查
+pnpm run typecheck

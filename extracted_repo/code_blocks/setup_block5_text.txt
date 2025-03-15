@@ -1,0 +1,9 @@
+.
+├── src/                # 源代码
+│   ├── cli/           # CLI 实现
+│   ├── config/        # 配置处理
+│   ├── core/          # 核心功能
+│   └── shared/        # 共享工具
+├── tests/             # 测试文件
+├── website/           # 文档网站
+└── package.json       # 项目依赖

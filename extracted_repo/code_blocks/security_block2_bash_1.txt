@@ -1,0 +1,7 @@
+🔍 Security Check:
+──────────────────
+2 suspicious file(s) detected and excluded:
+1. config/credentials.json
+   - Found AWS access key
+2. .env.local
+   - Found database password

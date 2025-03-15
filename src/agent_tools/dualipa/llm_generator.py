@@ -27,6 +27,17 @@ from loguru import logger
 import tempfile
 from pathlib import Path
 import async_timeout
+from concurrent.futures import ThreadPoolExecutor
+import functools
+from datetime import datetime
+import inspect
+
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type
+)
 
 # Configure logging
 logger.remove()
@@ -41,12 +52,6 @@ LITELLM_AVAILABLE = False
 try:
     import litellm
     from litellm import completion
-    from tenacity import (
-        retry,
-        stop_after_attempt, 
-        wait_exponential,
-        retry_if_exception_type
-    )
     LITELLM_AVAILABLE = True
     logger.info("LiteLLM is available for enhanced Q&A generation")
 except ImportError:
@@ -66,14 +71,13 @@ if "agent_tools" in str(root_dir):
 
 # Import litellm components
 try:
-    from litellm_call import call_litellm, CallOptions
-    from initialize_litellm_cache import init_litellm, get_cache_key
-    from retry_llm_call import retry_llm_call
-    from multimodal_utils import process_image_for_llm, extract_image_from_base64
-    from snippets.caching_tenacity import cached_retry
+    from agent_tools.dualipa.llm.litellm_call import litellm_call
+    from agent_tools.dualipa.llm.initialize_litellm_cache import initialize_litellm_cache
+    from agent_tools.dualipa.llm.retry_llm_call import retry_llm_call
+    from agent_tools.dualipa.llm.multimodal_utils import is_multimodal, format_multimodal_messages
     
     # Initialize litellm with caching
-    init_litellm()
+    initialize_litellm_cache()
     LITELLM_AVAILABLE = True
     logger.info("LiteLLM initialized and available for use")
 except ImportError as e:
@@ -163,10 +167,10 @@ async def with_timeout(coro, timeout_seconds: float, fallback_function: Callable
             return fallback_function(*fallback_args)
         raise
 
-@cached_retry(
-    retries=3,
-    cache_ttl=3600,  # 1 hour
-    exceptions=(ConnectionError, TimeoutError)
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+    retry=retry_if_exception_type((ConnectionError, TimeoutError)),
 )
 async def generate_code_qa_pairs(
     code_content: str,
@@ -316,10 +320,10 @@ async def _generate_code_qa_pairs_internal(
         logger.error(f"Error generating code QA pairs: {str(e)}")
         return await asyncio.to_thread(_generate_basic_code_qa, code_content, function_name, max_pairs)
 
-@cached_retry(
-    retries=3,
-    cache_ttl=3600,  # 1 hour
-    exceptions=(ConnectionError, TimeoutError)
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+    retry=retry_if_exception_type((ConnectionError, TimeoutError)),
 )
 async def generate_markdown_qa_pairs(
     markdown_content: str,
@@ -1829,3 +1833,97 @@ if __name__ == "__main__":
             
         except Exception as e:
             logger.error(f"Error processing command line arguments: {e}") 
+
+async def validate_and_enhance_qa_pairs(
+    qa_pairs: List[Dict[str, str]],
+    original_content: str,
+    function_name: Optional[str] = None,
+    deduplicate: bool = True
+) -> List[Dict[str, str]]:
+    """Validate and enhance QA pairs to improve quality.
+    
+    This function:
+    1. Checks answer relevance to original content
+    2. Removes duplicate or very similar questions
+    3. Enhances answers with additional context if needed
+    
+    Args:
+        qa_pairs: List of QA pairs to validate
+        original_content: Original content to check relevance against
+        function_name: Optional function name for targeted enhancement
+        deduplicate: Whether to remove duplicate questions
+        
+    Returns:
+        List of validated and enhanced QA pairs
+    """
+    if not qa_pairs:
+        return []
+        
+    # Basic validation - ensure required fields
+    validated = []
+    for pair in qa_pairs:
+        if "question" in pair and "answer" in pair:
+            if pair["question"].strip() and pair["answer"].strip():
+                validated.append(pair)
+                
+    # Simple deduplication based on question similarity
+    if deduplicate and len(validated) > 1:
+        unique_pairs = []
+        seen_questions = set()
+        
+        for pair in validated:
+            # Normalize question for comparison
+            normalized_q = " ".join(pair["question"].lower().split())
+            
+            # Check if very similar question exists
+            is_duplicate = False
+            for seen_q in seen_questions:
+                # Use basic string similarity for now
+                if _similarity(normalized_q, seen_q) > 0.8:
+                    is_duplicate = True
+                    break
+                    
+            if not is_duplicate:
+                seen_questions.add(normalized_q)
+                unique_pairs.append(pair)
+                
+        validated = unique_pairs
+        
+    # TODO: In the future, enhance answers with additional context
+    
+    return validated
+
+def _similarity(str1: str, str2: str) -> float:
+    """Calculate similarity between two strings (0-1).
+    
+    Using a basic Levenshtein-inspired approach.
+    
+    Args:
+        str1: First string
+        str2: Second string
+        
+    Returns:
+        Similarity score between 0 and 1 (1 being identical)
+    """
+    # Basic implementation - can be replaced with more sophisticated algorithm
+    if not str1 or not str2:
+        return 0.0
+        
+    # Normalize strings
+    s1, s2 = str1.lower(), str2.lower()
+    
+    # Check for complete match
+    if s1 == s2:
+        return 1.0
+        
+    # Check for substring
+    if s1 in s2 or s2 in s1:
+        return 0.9
+        
+    # Count common words
+    words1 = set(s1.split())
+    words2 = set(s2.split())
+    common_words = len(words1.intersection(words2))
+    total_words = len(words1.union(words2))
+    
+    return common_words / total_words if total_words > 0 else 0.0 

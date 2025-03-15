@@ -1,0 +1,58 @@
+Testing DuaLipa Pipeline Stage 1: Project Setup and Repository Download
+================================================================================
+
+📦 1. Project Setup Verification
+--------------------------------------------------
+✅ Essential project directories found
+✅ Module 'github_utils' imported successfully
+✅ Module 'code_extractor' imported successfully
+✅ Module 'format_dataset' imported successfully
+✅ Essential project files found
+
+🔍 2. Running Smoke Tests
+--------------------------------------------------
+✅ GitPython is available
+✅ Function 'download_github_repo' is available and callable
+✅ Function 'parse_github_url' is available and callable
+✅ parse_github_url returned: owner='owner', repo='repo', path='path', branch='branch'
+✅ parse_github_url works correctly
+
+📥 3. Testing GitHub Repository Download
+--------------------------------------------------
+No repository URL provided, using default: https://github.com/yamadashy/repomix
+Output directory: /tmp/dualipa_download_l8m3x6iz
+Downloading repository...
+✅ Repository downloaded to: /tmp/dualipa_download_l8m3x6iz
+⏱️ Download completed in 1.46 seconds
+📊 Repository contains 406 files (5.20 MB)
+📄 Documentation files: 134
+💻 Code files: 177
+  - Javascript: 4
+  - Typescript: 171
+  - Web: 2
+📊 Top file extensions:
+  - .ts: 171
+  - .md: 131
+  - .json: 17
+  - .sample: 13
+  - .vue: 11
+  - .yml: 8
+  - .png: 7
+  - .js: 4
+  - .txt: 3
+📄 README.md found (33326 bytes)
+📖 README preview: <div align="center">
+  <a href="https://repomix.com">
+    <img src="website/client/src/public/images/repomix-title.png" alt="Repomix" width="500" height="auto" />
+  </a>
+  <p align="center">
+    <b>Pa...
+📁 Downloaded repository available at: /tmp/dualipa_download_l8m3x6iz
+
+📋 Stage 1 Results Summary
+================================================================================
+✅ Project Setup: SUCCESS
+✅ Smoke Tests: SUCCESS
+✅ Repo Download: SUCCESS
+
+🎉 Stage 1 completed successfully!

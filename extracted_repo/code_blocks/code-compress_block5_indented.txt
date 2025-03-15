@@ -1,0 +1,1 @@
+total += item.price * item.quantity;

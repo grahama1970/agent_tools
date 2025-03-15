@@ -1,0 +1,5 @@
+# 构建镜像
+docker build -t repomix .
+
+# 运行容器
+docker run -v ./:/app -it --rm repomix

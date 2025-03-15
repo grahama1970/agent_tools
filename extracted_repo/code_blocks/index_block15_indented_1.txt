@@ -1,0 +1,2 @@
+title: Git 感知
+details: 自动识别并尊重您的 .gitignore 文件。

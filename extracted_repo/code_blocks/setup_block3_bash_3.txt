@@ -1,0 +1,5 @@
+# 运行 CLI
+pnpm run repomix
+
+# 启动文档网站开发服务器
+pnpm run website:dev

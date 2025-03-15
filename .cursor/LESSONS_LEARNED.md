@@ -297,6 +297,43 @@ async def process_document(doc_id):
 - arangodb AQL query reference: https://docs.arangodb.com/stable/aql/
 - asyncio: https://docs.python.org/3/library/asyncio.html
 
+## Script Initialization and Testing
+
+### 1. Every Script Needs a Usage Example
+- **CRITICAL**: Every script must include a simple usage function and an `if __name__ == "__main__"` block
+- This allows for initial testing before formal tests are written
+- Provides a clear example of how the script should be used
+- Serves as documentation for new developers
+- Example:
+  ```python
+  def demo_format_dataset():
+      """Demonstrate the dataset formatting functionality with examples."""
+      # Simple demonstration code here
+      
+  if __name__ == "__main__":
+      # Run the demonstration when the module is executed directly
+      demo_format_dataset()
+      
+      # Process command line arguments if provided
+      if len(sys.argv) > 1:
+          # Handle command line arguments
+  ```
+
+### 2. Benefits of Main Block Implementation
+- Allows for quick verification of functionality
+- Provides a starting point for debugging
+- Demonstrates the intended usage pattern
+- Creates a working MVP at every stage of development
+- Supports the "Focus on Real-World Usage First" principle
+- Ensures the script can be run directly for testing
+
+### 3. Integration with Documentation-First Testing
+- The usage example should reference official documentation
+- It should demonstrate the core functionality in a minimal way
+- The example should be updated as features are added
+- This approach supports iterative development with working MVPs
+- Aligns with the principle of ensuring a working system at each development step
+
 ## Better Approaches for the Simplified Version
 
 ### 1. Start with a Minimal Viable Product (MVP)
@@ -400,162 +437,4 @@ async def process_document(doc_id):
 - Documentation links serve as the source of truth for expected behavior
 - When documentation is unclear or incomplete, create clarifying tests to validate assumptions
 - Never proceed with implementation without first consulting the official documentation
-- Documentation links should be versioned to match the package version being used
-
-### 4. Common Pitfalls to Avoid
-- Using HTML sanitizers before testing HTML parsing functionality
-- Applying text normalization before testing text extraction features
-- Running content through multiple processing steps before testing a specific component
-- Assuming that package behaviors are independent when they may actually interfere
-- Attributing bugs to one package when they're actually caused by interactions between packages
-
-### 5. Real-World Example: BeautifulSoup and Bleach
-- When testing BeautifulSoup's list detection, use raw HTML without Bleach sanitization
-- Bleach may remove list elements or attributes that BeautifulSoup would otherwise detect
-- This can lead to incorrect conclusions about BeautifulSoup's capabilities
-- The correct approach is to test BeautifulSoup's list detection with raw HTML first
-- Only after understanding BeautifulSoup's behavior should Bleach be integrated, with clear documentation of how it affects the HTML structure
-
-## Maintaining Module and Directory Structure Consistency
-
-### 1. Directory Structure is Part of the Design
-- Directory names and structure are critical to proper module imports
-- Changing directory names breaks import paths and dependencies
-- Renaming directories or files should be treated as a major refactoring task
-- **CRITICAL ERROR: Renaming directories or modules without updating all imports and references**
-- **CRITICAL ERROR: Making assumptions about module locations without verifying actual paths**
-
-### 2. Testing Directory Changes Immediately
-- Any change to directory structure or file names must be immediately tested
-- Run all tests after changing any directory or file name
-- Verify that import paths remain valid throughout the codebase
-- Make directory structure changes as isolated commits to easily identify potential issues
-- Directory refactoring should never be mixed with functional changes
-
-### 3. Import Path Validation
-- Always use absolute imports when importing across module boundaries
-- Relative imports should be used sparingly and with caution
-- Test imports directly in simple scripts before implementing in the main codebase
-- Use assertions to verify module availability at startup for critical dependencies
-- Document import assumptions in the code with comments referencing actual file paths
-
-### 4. Version Control Best Practices for Structure Changes
-- Create a separate branch for directory structure changes
-- Use renaming functions in version control instead of deleting and recreating files
-- After directory changes, verify that all tests pass before merging
-- Provide detailed commit messages explaining directory structure changes
-- Tag major directory restructuring for easy reference later
-
-### 5. Documentation Updates for Structure Changes
-- Update READMEs and documentation to reflect new directory structures
-- Include a directory map in project documentation for reference
-- Document import patterns for common use cases
-- Ensure examples in documentation use correct import paths
-- **ALWAYS run all tests after any structural changes, no matter how minor they seem**
-
-## Phase Completion and Test Validation
-
-### 1. Complete Testing of Current Phase is Required
-- All tests for the current phase must pass before moving to the next phase
-- **CRITICAL ERROR: Moving to a new phase while tests in the current phase are failing**
-- Tests serve as validation that the phase's requirements have been met
-- Current phase features serve as the foundation for the next phase
-- Failing tests indicate incomplete or incorrect implementation
-
-### 2. Test-Driven Phase Transitions
-- Create and run comprehensive tests for each phase
-- Document the phase's completion status using test results, not assumptions
-- Verify edge cases and integration points between components
-- Perform manual validation of key features if automated tests pass
-- Create a formal "phase completion checklist" that includes all test validations
-
-### 3. Addressing Test Failures
-- Test failures must be fixed immediately, not deferred to later phases
-- Understand root causes rather than implementing workarounds
-- Document any test adjustments with clear explanations
-- Maintain test coverage during bug fixes to prevent regressions
-- Each test should have a clear connection to a functional requirement
-
-### 4. Phase Boundary Enforcement
-- Each phase builds upon the stability of the previous phase
-- Do not implement features from the next phase until current phase is stable
-- Fix failures in the current phase's tests before writing new code
-- Avoid mixing implementation across phase boundaries
-- Create clean phase transitions in version control (tags, branches)
-
-### 5. Documentation of Phase Completion
-- Document the passing of all tests as part of phase completion
-- Include test output logs in phase completion reports
-- Note any deviations from the original plan and their justification
-- Document any additional tests added during the phase
-- **ALWAYS ensure 100% of tests pass before declaring a phase complete**
-
-## Lessons from Phase 1: Basic CLI Creation
-
-1. **Maintain consistent directory and module naming structures.**
-   - The initial confusion between `cursor_rules` and `cursor_rules_simple` created import problems.
-   - Always keep module names aligned with directory structures to avoid complex import paths.
-
-2. **Ensure all tests in a phase pass before moving to the next phase.**
-   - We discovered test failures after partially implementing Phase 2.
-   - Taking time to fix test issues early prevents compounding problems later.
-
-3. **Maintain Framework Consistency in CLI Development**
-   - When a framework choice is made (e.g., typer vs click), stick with it consistently
-   - Even if alternatives seem viable, consistency within the project is more important
-   - Document framework choices and rationale to prevent accidental mixing
-
-4. **CLI Testing Best Practices**
-   - Mock external dependencies (e.g., virtual environment paths, analyzers) in CLI tests
-   - Use the actual command structure from the implementation in tests
-   - Test both success and failure paths with appropriate exit codes
-   - When testing CLI output, verify both the exit code and the expected content
-   - Keep test mock data realistic but minimal
-
-## Phase 2 Status: Enhanced Search Completed
-
-All Phase 2 functionality has been successfully implemented and tested:
-
-1. **Search Capabilities:**
-   - BM25 keyword search - ✅ Working
-   - Semantic vector search - ✅ Working
-   - Hybrid search - ✅ Working
-
-2. **CLI Integration:**
-   - All search types can be called via the CLI interface
-   - Tests are now passing for all search functions
-
-3. **Lessons from Phase 2:**
-   - Import paths must be kept consistent between implementation and tests
-   - Properly handle database connections and collections for reliable search
-   - Setting up appropriate ArangoDB views is essential for efficient search
-
-The project is now ready to proceed to Phase 3 implementation with a solid foundation.
-
-By applying these lessons, we aim to create a more maintainable, practical, and effective tool that prioritizes usability and simplicity over theoretical "completeness."
-
-## Recent Troubleshooting Experience
-
-### Environment Configuration
-- **Lesson:** Ensure that environment variables like `PYTHONPATH` are correctly set and loaded, especially when using non-standard directory structures.
-- **Action:** Document the importance of setting `PYTHONPATH` in `.env` files and ensure that these files are loaded correctly in development environments.
-
-### Package Discovery and Installation
-- **Lesson:** Properly configure package discovery in `pyproject.toml` to avoid import errors.
-- **Action:** Include a section on verifying package discovery settings and the importance of using tools like `hatch` or `uv` correctly.
-
-### Consistent Development Practices
-- **Lesson:** Consistency in development practices, such as using the same tool for package management (`uv` in your case), helps prevent configuration issues.
-- **Action:** Document the chosen tools and practices for package management and environment setup.
-
-### Troubleshooting and Debugging
-- **Lesson:** Systematic troubleshooting can help identify and resolve issues more efficiently.
-- **Action:** Create a checklist or guide for common troubleshooting steps, such as verifying environment variables, checking package installations, and ensuring correct directory structures.
-
-### Documentation and Communication
-- **Lesson:** Clear documentation of setup and configuration processes can prevent similar issues in the future.
-- **Action:** Update `LESSONS_LEARNED.md` with detailed steps on how the issue was resolved and any changes made to the project setup.
-
-### Version Control and Backups
-- **Lesson:** Regular commits and backups can help revert to a known good state when issues arise.
-- **Action:** Emphasize the importance of using version control effectively and maintaining backups of critical configuration files. 
+- Documentation links should be versioned to

@@ -1,0 +1,2 @@
+repomix --version
+repomix --help

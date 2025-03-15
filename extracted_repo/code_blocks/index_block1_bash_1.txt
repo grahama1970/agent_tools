@@ -1,0 +1,9 @@
+# 运行 CLI
+npm run repomix
+
+# 运行测试
+npm run test
+npm run test-coverage
+
+# 代码检查
+npm run lint

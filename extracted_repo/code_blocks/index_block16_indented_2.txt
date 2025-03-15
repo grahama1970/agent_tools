@@ -1,0 +1,2 @@
+title: 注重安全
+details: 集成 Secretlint 进行强大的安全检查，检测并防止敏感信息的泄露。

@@ -1,0 +1,1 @@
+// Use deps.defaultFunction1() instead of direct call

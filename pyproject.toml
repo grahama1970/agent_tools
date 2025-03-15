@@ -3,7 +3,7 @@ name = "agent-tools"
 version = "0.1.0"
 description = "AI Agent's tool for Python package method analysis and API discovery"
 authors = [{ name = "Graham Anderson", email = "graham@grahama.co" }]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
@@ -38,6 +38,13 @@ dependencies = [
     "tenacity>=9.0.0",
     "pillow>=10.4.0",
     "redis>=5.2.1",
+    "gitpython>=3.1.44",
+    "pygithub>=2.6.1",
+    "unsloth>=2025.3.14",
+    "mistune>=3.1.2",
+    "pako>=0.3.1",
+    "tree-sitter>=0.24.0",
+    "tree-sitter-python>=0.23.6",
 ]
 
 [project.optional-dependencies]
@@ -97,7 +104,7 @@ src = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-n auto --dist loadfile"
+addopts = ["-n", "auto", "--dist", "loadfile"]
 testpaths = ["tests", "src/agent_tools"]
 pythonpath = ["src"]
 python_files = ["test_*.py"]
@@ -107,8 +114,6 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning",
 ]
-asyncio_mode = "strict"
-asyncio_default_fixture_loop_scope = "function"
 
 [project.scripts]
 method-validator = "agent_tools.method_validator.cli:main"

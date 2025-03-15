@@ -1,0 +1,6 @@
+# Prerequisites: Docker must be installed on your system
+
+# Start the website development server
+npm run website
+
+# Access the website at http://localhost:5173/

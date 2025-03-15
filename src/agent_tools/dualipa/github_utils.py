@@ -50,34 +50,87 @@ def parse_github_url(url: str) -> Dict[str, str]:
     """Parse a GitHub URL into components.
     
     Args:
-        url: GitHub repository URL
+        url: The GitHub URL to parse
         
     Returns:
-        Dictionary with owner, repo, ref (branch/tag), and path components
-        
-    Raises:
-        ValueError: If the URL is not a valid GitHub repository URL
-    """
-    # Pattern for GitHub URLs
-    patterns = [
-        # Standard GitHub URL
-        r'https?://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)(?:/tree/(?P<ref>[^/]+))?(?:/(?P<path>.*))?',
-        # Git URL
-        r'git@github\.com:(?P<owner>[^/]+)/(?P<repo>[^/]+)(?:.git)?(?:/tree/(?P<ref>[^/]+))?(?:/(?P<path>.*))?'
-    ]
+        Dictionary with extracted components (owner, repo, path, branch)
     
-    for pattern in patterns:
-        match = re.match(pattern, url)
-        if match:
-            result = match.groupdict()
-            return {
-                'owner': result.get('owner', ''),
-                'repo': result.get('repo', '').replace('.git', ''),
-                'ref': result.get('ref', 'main'),  # Default to 'main' if not specified
-                'path': result.get('path', '')
-            }
-            
-    raise ValueError(f"Invalid GitHub URL: {url}")
+    Examples:
+        >>> parse_github_url("https://github.com/username/repo")
+        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': ''}
+        
+        >>> parse_github_url("https://github.com/username/repo/tree/main/src")
+        {'owner': 'username', 'repo': 'repo', 'path': 'src', 'branch': 'main'}
+    """
+    result = {
+        "owner": "",
+        "repo": "",
+        "path": "",
+        "branch": ""
+    }
+    
+    if not url:
+        return result
+    
+    # Parse URL
+    parsed_url = urlparse(url)
+    
+    # Skip if not a GitHub URL
+    if not parsed_url.netloc.endswith("github.com"):
+        return result
+    
+    # Extract owner and repo from path
+    path_parts = [p for p in parsed_url.path.split("/") if p]
+    if len(path_parts) >= 2:
+        result["owner"] = path_parts[0]
+        result["repo"] = path_parts[1]
+    
+    # Extract branch and path if available
+    if len(path_parts) >= 4 and path_parts[2] in ["tree", "blob"]:
+        result["branch"] = path_parts[3]
+        if len(path_parts) >= 5:
+            result["path"] = "/".join(path_parts[4:])
+    
+    return result
+
+
+def is_github_url(url: str) -> bool:
+    """Check if a URL is a GitHub repository URL.
+    
+    Args:
+        url: The URL to check
+        
+    Returns:
+        True if the URL is a GitHub repository URL, False otherwise
+        
+    Examples:
+        >>> is_github_url("https://github.com/username/repo")
+        True
+        >>> is_github_url("https://gitlab.com/username/repo")
+        False
+    """
+    if not url:
+        return False
+    
+    parsed_url = urlparse(url)
+    return parsed_url.netloc.endswith("github.com") and len([p for p in parsed_url.path.split("/") if p]) >= 2
+
+
+def get_clone_url(owner: str, repo: str) -> str:
+    """Generate a clone URL for a GitHub repository.
+    
+    Args:
+        owner: GitHub repository owner/username
+        repo: GitHub repository name
+        
+    Returns:
+        HTTPS clone URL for the repository
+        
+    Examples:
+        >>> get_clone_url("username", "repo")
+        'https://github.com/username/repo.git'
+    """
+    return f"https://github.com/{owner}/{repo}.git"
 
 
 def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
@@ -115,14 +168,14 @@ def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
     # Clone the repository
     try:
         # Construct full clone URL
-        clone_url = f"https://github.com/{repo_info['owner']}/{repo_info['repo']}.git"
+        clone_url = get_clone_url(repo_info['owner'], repo_info['repo'])
         
         # Clone the repository to the temporary directory
         repo = git.Repo.clone_from(clone_url, temp_dir)
         
         # Checkout the specified reference if not the default
-        if repo_info['ref'] != 'main':
-            repo.git.checkout(repo_info['ref'])
+        if repo_info['branch'] != 'main':
+            repo.git.checkout(repo_info['branch'])
         
         logger.info(f"Repository cloned successfully to {temp_dir}")
         
@@ -324,7 +377,7 @@ def demo_github_utils() -> None:
         
         # 3. Create a clone URL
         logger.info("\n3. Creating clone URL:")
-        clone_url = get_clone_url("huggingface", "transformers")
+        clone_url = get_clone_url(owner, repo)
         logger.info(f"  Clone URL: {clone_url}")
         
         # 4. Access repository info (if PyGithub is available)
@@ -349,6 +402,126 @@ def demo_github_utils() -> None:
         logger.error(f"Error in GitHub utils demo: {e}")
 
 
+def download_github_repo(url: str, output_dir: Optional[str] = None) -> str:
+    """Download a GitHub repository to a local directory.
+    
+    This is a simplified wrapper for clone_github_repo that handles edge cases like
+    empty branch names safely.
+    
+    Args:
+        url: GitHub repository URL
+        output_dir: Directory to clone into (creates a temp dir if None)
+        
+    Returns:
+        Path to the cloned repository
+        
+    Examples:
+        >>> download_github_repo("https://github.com/username/repo")
+        '/path/to/cloned/repo'
+    """
+    if not GIT_AVAILABLE:
+        raise ValueError("GitPython is required to clone repositories")
+    
+    # Create output directory if not provided
+    if output_dir is None:
+        output_dir = tempfile.mkdtemp(prefix="dualipa_repo_")
+    else:
+        os.makedirs(output_dir, exist_ok=True)
+    
+    # Parse the GitHub URL
+    repo_info = parse_github_url(url)
+    logger.info(f"Downloading repository {repo_info['owner']}/{repo_info['repo']} to {output_dir}")
+    
+    # Construct clone URL
+    clone_url = get_clone_url(repo_info['owner'], repo_info['repo'])
+    
+    try:
+        # Clone the repository
+        repo = git.Repo.clone_from(clone_url, output_dir)
+        
+        # Only checkout branch if it's explicitly specified and not empty
+        if repo_info['branch'] and repo_info['branch'] != 'main':
+            logger.info(f"Checking out branch: {repo_info['branch']}")
+            repo.git.checkout(repo_info['branch'])
+        
+        logger.info(f"Repository downloaded successfully to {output_dir}")
+        return output_dir
+    except git.GitCommandError as e:
+        logger.error(f"Git command error: {e}")
+        shutil.rmtree(output_dir, ignore_errors=True)
+        raise
+
+
+def extract_repository(
+    source: str, 
+    output_path: str,
+    max_files: int = 1000,
+    include_patterns: Optional[List[str]] = None,
+    exclude_patterns: Optional[List[str]] = None,
+    extract_documentation: bool = True,
+    extract_code: bool = True
+) -> Dict[str, Any]:
+    """
+    Extract code and documentation from a repository.
+    
+    Args:
+        source: Repository URL or local path
+        output_path: Path to save the extracted data
+        max_files: Maximum number of files to extract
+        include_patterns: List of glob patterns to include
+        exclude_patterns: List of glob patterns to exclude
+        extract_documentation: Whether to extract documentation files
+        extract_code: Whether to extract code files
+        
+    Returns:
+        Dictionary with statistics about the extraction process
+    """
+    stats = {
+        "total_files": 0,
+        "code_files": 0,
+        "documentation_files": 0,
+        "code_blocks": 0,
+        "languages": {},
+        "file_types": {},
+        "errors": []
+    }
+    
+    # Create output directory if it doesn't exist
+    output_dir = Path(output_path)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Handle GitHub repository URL
+    if is_github_url(source):
+        logger.info(f"Cloning GitHub repository: {source}")
+        try:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                # Use download_github_repo instead of parse + clone functions
+                repo_dir = download_github_repo(source, temp_dir)
+                
+                if not repo_dir or not os.path.exists(repo_dir):
+                    error_msg = f"Failed to clone repository: {source}"
+                    logger.error(error_msg)
+                    stats["errors"].append(error_msg)
+                    return stats
+                
+                # Process the repository
+                return _process_repository(
+                    repo_dir, 
+                    output_dir, 
+                    stats, 
+                    max_files,
+                    include_patterns,
+                    exclude_patterns,
+                    extract_documentation,
+                    extract_code
+                )
+        except Exception as e:
+            error_msg = f"Error processing GitHub repository: {str(e)}"
+            logger.error(error_msg)
+            stats["errors"].append(error_msg)
+            return stats
+
+
 if __name__ == "__main__":
     # Run the demonstration when the module is executed directly
     demo_github_utils()
@@ -363,8 +536,8 @@ if __name__ == "__main__":
                 logger.error(f"Not a valid GitHub URL: {repo_url}")
                 sys.exit(1)
                 
-            owner, repo, path, branch = parse_github_url(repo_url)
-            logger.info(f"Owner: {owner}, Repo: {repo}, Path: {path}, Branch: {branch}")
+            repo_info = parse_github_url(repo_url)
+            logger.info(f"Owner: {repo_info['owner']}, Repo: {repo_info['repo']}, Path: {repo_info['path']}, Branch: {repo_info['branch']}")
             
             # Clone to temporary directory if requested
             if "--clone" in sys.argv:
@@ -372,32 +545,31 @@ if __name__ == "__main__":
                     logger.info(f"Cloning repository to {temp_dir}")
                     
                     if GIT_AVAILABLE:
-                        clone_url = get_clone_url(owner, repo)
-                        result = clone_repository(clone_url, temp_dir)
-                        
-                        if result:
-                            logger.info(f"Successfully cloned repository to {temp_dir}")
+                        # Use the download_github_repo function
+                        try:
+                            repo_path = download_github_repo(repo_url, temp_dir)
+                            logger.info(f"Successfully cloned repository to {repo_path}")
                             
                             # Count files
-                            file_count = sum(1 for _ in Path(temp_dir).rglob('*') if _.is_file())
+                            file_count = sum(1 for _ in Path(repo_path).rglob('*') if _.is_file())
                             logger.info(f"Repository contains {file_count} files")
-                        else:
-                            logger.error("Failed to clone repository")
+                        except Exception as e:
+                            logger.error(f"Failed to clone repository: {e}")
                     else:
                         logger.error("GitPython not available for cloning")
             
             # Get file contents if path is provided and --content is specified
-            if path and "--content" in sys.argv:
+            if repo_info['path'] and "--content" in sys.argv:
                 if GITHUB_API_AVAILABLE:
-                    content, error = get_file_contents_from_github(f"https://github.com/{owner}/{repo}", path, branch)
+                    content, error = get_file_contents_from_github(f"https://github.com/{repo_info['owner']}/{repo_info['repo']}", repo_info['path'], repo_info['branch'])
                     
                     if content:
-                        logger.info(f"Content of {path}:")
+                        logger.info(f"Content of {repo_info['path']}:")
                         print(content[:500] + "..." if len(content) > 500 else content)
                         
                         # Save to file if requested
                         if "--save" in sys.argv:
-                            output_file = Path(path).name
+                            output_file = Path(repo_info['path']).name
                             with open(output_file, 'w', encoding='utf-8') as f:
                                 f.write(content)
                             logger.info(f"Saved content to {output_file}")

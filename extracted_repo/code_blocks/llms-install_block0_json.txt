@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "repomix": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "repomix",
+        "--mcp"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

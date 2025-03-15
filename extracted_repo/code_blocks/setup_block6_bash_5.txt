@@ -1,0 +1,8 @@
+# 运行所有测试
+pnpm run test
+
+# 生成测试覆盖率报告
+pnpm run test:coverage
+
+# 运行特定测试
+pnpm run test -- tests/cli

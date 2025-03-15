@@ -1,0 +1,41 @@
+  npm run lint  # Ensure code style compliance
+  npm run test  # Verify all tests pass
+  ```
+
+## Dependencies and Testing
+- Inject dependencies through a deps object parameter for testability
+- Example:
+  ```typescript
+  export const functionName = async (
+    param1: Type1,
+    param2: Type2,
+    deps = {
+      defaultFunction1,
+      defaultFunction2,
+    }
+  ) => {
+    // Use deps.defaultFunction1() instead of direct call
+  };
+  ```
+- Mock dependencies by passing test doubles through deps object
+- Use vi.mock() only when dependency injection is not feasible
+
+## Generate Comprehensive Output
+- Include all content without abbreviation, unless specified otherwise
+- Optimize for handling large codebases while maintaining output quality
+
+----------------------------------------------------------------
+
+# GitHub Release Note Guidelines
+When writing release notes, please follow these guidelines:
+
+- When referencing issues or PRs, use the gh command to verify the content:
+  ```bash
+  gh issue view <issue-number>  # For checking issue content
+  gh pr view <pr-number>        # For checking PR content
+  ```
+  This helps ensure accuracy in release note descriptions.
+
+Here are some examples of release notes that follow the guidelines:
+
+v0.2.25

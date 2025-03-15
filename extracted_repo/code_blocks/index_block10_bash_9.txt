@@ -1,0 +1,1 @@
+docker run -v .:/app -it --rm ghcr.io/yamadashy/repomix path/to/directory

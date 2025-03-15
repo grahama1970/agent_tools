@@ -1,0 +1,1 @@
+repomix --include "src/**/*.ts,**/*.md"

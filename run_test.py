@@ -1,64 +1,28 @@
-import subprocess
+import os
 import sys
-import re
 
-def run_test():
-    test_path = "src/agent_tools/cursor_rules/tests/memory/test_memory_decay.py::test_domain_preservation_search"
-    
-    try:
-        # Set environment variables to reduce embedding output
-        env = {
-            "PYTHONUNBUFFERED": "1",
-            "LOG_LEVEL": "INFO",  # Reduce logging level
-            "PYTEST_ADDOPTS": "--no-header --no-summary",  # Reduce pytest output
-        }
-        
-        # Run pytest with verbose flag and capture output
-        result = subprocess.run(
-            ["python", "-m", "pytest", test_path, "-v"],
-            capture_output=True,
-            text=True,
-            check=False,
-            env=env
-        )
-        
-        # Clean up the output by truncating embedding vectors
-        cleaned_stdout = truncate_embedding_vectors(result.stdout)
-        cleaned_stderr = truncate_embedding_vectors(result.stderr)
-        
-        # Print output
-        print("STDOUT:")
-        print(cleaned_stdout)
-        
-        print("\nSTDERR:")
-        print(cleaned_stderr)
-        
-        # Return exit code
-        print(f"\nExit code: {result.returncode}")
-        return result.returncode
-        
-    except Exception as e:
-        print(f"Error running test: {e}")
-        return 1
+# Add the project root to the Python path
+sys.path.insert(0, os.path.abspath('.'))
 
-def truncate_embedding_vectors(text):
-    """Truncate long embedding vector outputs in the text."""
-    # Pattern to match embedding vectors (long sequences of numbers)
-    pattern = r'(-?\d+\.\d+,\s*){10,}'
-    
-    # Replace with a placeholder
-    truncated = re.sub(pattern, "[EMBEDDING_VECTOR_TRUNCATED], ", text)
-    
-    # Also truncate any remaining very long lines
-    lines = truncated.split('\n')
-    truncated_lines = []
-    for line in lines:
-        if len(line) > 120:  # If line is longer than 120 chars
-            truncated_lines.append(line[:100] + "... [truncated]")
-        else:
-            truncated_lines.append(line)
-    
-    return '\n'.join(truncated_lines)
+# Import and run the test module
+from src.agent_tools.dualipa.tests.test_smoke_compliance import *
 
 if __name__ == "__main__":
-    sys.exit(run_test()) 
+    print("Running smoke tests for DuaLipa...")
+    
+    # Run tests
+    test_version()
+    test_module_imports()
+    test_modules_have_demo_functions()
+    test_modules_have_main_block()
+    test_modules_have_docstrings()
+    test_modules_have_required_functions()
+    test_code_extractor_basic_functionality()
+    test_language_detection_basic_functionality()
+    test_github_utils_basic_functionality()
+    test_markdown_parser_basic_functionality()
+    test_validate_and_enhance_qa_pairs()
+    test_llm_generator_config()
+    test_format_dataset_basic_functionality()
+    
+    print("All smoke tests passed!") 

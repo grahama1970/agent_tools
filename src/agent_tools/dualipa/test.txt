@@ -1,0 +1,306 @@
+"""
+Block Extractor Pipeline
+
+This script processes files extracted from a cloned GitHub repository.
+It produces small blocks from each file to later convert into Q&A pairs for
+training a language model with a LoRa adapter.
+
+For Markdown files, it uses Mistune and regex splitting to break content
+into sections based on top-level headers (lines starting with "#").
+
+For code files:
+  - Python files are parsed with Python's AST to extract functions and classes,
+    including their docstrings and parameter lists.
+  - JavaScript/TypeScript files attempt to use Tree-sitter (if available) to
+    extract function/class blocks. If Tree-sitter is not available or fails,
+    the file is split by double newlines.
+  - Other code files are simply split by double newlines.
+
+Installation Instructions for Tree-sitter:
+  - Install the Python bindings with:
+      pip install tree-sitter
+  - For language grammars (e.g., JavaScript), it is recommended to install the
+    Tree-sitter CLI globally using npm:
+      npm install -g tree-sitter-cli
+    This allows you to build or download the required shared libraries (such as
+    a "my-languages.so" file for JavaScript). Installing the CLI globally is
+    advised if you will use Tree-sitter frequently.
+
+Official Documentation References:
+  - Mistune: https://mistune.readthedocs.io/en/latest/
+  - AST: https://docs.python.org/3/library/ast.html
+  - Tree-sitter: https://tree-sitter.github.io/tree-sitter/
+  - pathlib: https://docs.python.org/3/library/pathlib.html
+"""
+
+import ast
+import re
+import sys
+from pathlib import Path
+
+try:
+    import mistune
+except ImportError:
+    print("Mistune is not installed. Please install it with 'pip install mistune'")
+    sys.exit(1)
+
+
+# ---------- Markdown Processing ----------
+
+def process_markdown_file(file_path: Path, output_dir: Path) -> None:
+    """
+    Splits a markdown file into sections based on top-level headers ("# ")
+    and writes each section to a separate file.
+
+    Args:
+        file_path (Path): The path to the markdown file.
+        output_dir (Path): The directory where the output section files will be stored.
+    """
+    try:
+        content = file_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        print(f"Error reading markdown file {file_path}: {e}")
+        return
+
+    sections = re.split(r"(?m)(?=^# )", content)
+    if not sections:
+        print(f"No sections found in {file_path}")
+        return
+
+    section_counter = 0
+    for sec in sections:
+        sec = sec.strip()
+        if not sec:
+            continue
+
+        header_match = re.match(r"^(# .+)", sec)
+        if header_match:
+            header_line = header_match.group(1)
+            section_title = re.sub(r"\W+", "_", header_line.strip("# ").strip()).strip("_")
+        else:
+            section_title = f"section{section_counter}"
+        section_counter += 1
+
+        new_content = f"Original file: {file_path}\n\n{sec}"
+        output_filename = f"{file_path.stem}_{section_title}.md"
+        out_file = output_dir / output_filename
+        try:
+            out_file.write_text(new_content, encoding="utf-8")
+            print(f"Markdown section saved: {out_file}")
+        except Exception as e:
+            print(f"Error writing file {out_file}: {e}")
+
+
+# ---------- Python Code Processing ----------
+
+def process_python_file(file_path: Path, output_dir: Path) -> None:
+    """
+    Uses the AST to extract functions and classes from a Python file.
+    Each extracted block is prepended with its docstring and parameter info.
+
+    Args:
+        file_path (Path): The path to the Python file.
+        output_dir (Path): The directory where the output blocks will be stored.
+    """
+    try:
+        content = file_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        print(f"Error reading Python file {file_path}: {e}")
+        return
+
+    try:
+        tree = ast.parse(content)
+    except Exception as e:
+        print(f"Error parsing Python file {file_path}: {e}")
+        return
+
+    lines = content.splitlines()
+    block_counter = 0
+
+    for node in ast.iter_child_nodes(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            block_counter += 1
+            start = node.lineno - 1
+            end = getattr(node, "end_lineno", None)
+            if end is None:
+                end = start + 1
+            block_lines = lines[start:end]
+            block_code = "\n".join(block_lines)
+
+            docstring = ast.get_docstring(node) or "No docstring available."
+            param_info = ""
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                params = [arg.arg for arg in node.args.args]
+                param_info = f"Parameters: {', '.join(params)}" if params else "No parameters."
+            header = f"# Block from: {file_path}\n"
+            header += f"Block Type: {'Class' if isinstance(node, ast.ClassDef) else 'Function'}\n"
+            header += f"Name: {node.name}\n"
+            header += f"Docstring: {docstring}\n"
+            if param_info:
+                header += f"{param_info}\n"
+            header += "\n"
+
+            new_content = header + block_code
+            output_filename = f"{file_path.stem}_{node.name}_{block_counter}.py"
+            out_file = output_dir / output_filename
+            try:
+                out_file.write_text(new_content, encoding="utf-8")
+                print(f"Extracted Python block saved: {out_file}")
+            except Exception as e:
+                print(f"Error writing file {out_file}: {e}")
+
+
+# ---------- JavaScript/TypeScript Processing ----------
+
+def process_js_ts_file(file_path: Path, output_dir: Path) -> None:
+    """
+    Processes JavaScript/TypeScript files. If Tree-sitter is available and a
+    pre-built JavaScript parser is provided, it extracts top-level function or
+    class blocks. Otherwise, it splits the file by double newlines.
+
+    Args:
+        file_path (Path): The path to the JS/TS file.
+        output_dir (Path): The directory where the output blocks will be stored.
+    """
+    try:
+        content = file_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
+        return
+
+    blocks = []
+    try:
+        from tree_sitter import Language, Parser
+        TREE_SITTER_AVAILABLE = True
+    except ImportError:
+        TREE_SITTER_AVAILABLE = False
+
+    if TREE_SITTER_AVAILABLE:
+        try:
+            js_language = Language("./my-languages.so", "javascript")
+            parser = Parser()
+            parser.set_language(js_language)
+            tree = parser.parse(content.encode("utf8"))
+            for child in tree.root_node.children:
+                if child.type in ["function_declaration", "class_declaration"]:
+                    start_byte = child.start_byte
+                    end_byte = child.end_byte
+                    block_text = content.encode("utf8")[start_byte:end_byte].decode("utf8")
+                    blocks.append(block_text)
+            if not blocks:
+                blocks = content.split("\n\n")
+        except Exception as e:
+            print(f"Error using Tree-sitter for {file_path}: {e}")
+            blocks = content.split("\n\n")
+    else:
+        blocks = content.split("\n\n")
+
+    for i, block in enumerate(blocks):
+        block = block.strip()
+        if not block:
+            continue
+        header = f"Original file: {file_path}\nBlock index: {i}\n\n"
+        new_content = header + block
+        output_filename = f"{file_path.stem}_block_{i}{file_path.suffix}"
+        out_file = output_dir / output_filename
+        try:
+            out_file.write_text(new_content, encoding="utf-8")
+            print(f"JS/TS block saved: {out_file}")
+        except Exception as e:
+            print(f"Error writing file {out_file}: {e}")
+
+
+# ---------- Generic Code Processing ----------
+
+def process_generic_code_file(file_path: Path, output_dir: Path) -> None:
+    """
+    Processes code files for languages without specialized parsers.
+    Splits the file into chunks using double newlines as the delimiter.
+
+    Args:
+        file_path (Path): The path to the code file.
+        output_dir (Path): The directory where the output chunks will be stored.
+    """
+    try:
+        content = file_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
+        return
+
+    blocks = content.split("\n\n")
+    for i, block in enumerate(blocks):
+        block = block.strip()
+        if not block:
+            continue
+        header = f"Original file: {file_path}\nBlock index: {i}\n\n"
+        new_content = header + block
+        output_filename = f"{file_path.stem}_chunk_{i}{file_path.suffix}"
+        out_file = output_dir / output_filename
+        try:
+            out_file.write_text(new_content, encoding="utf-8")
+            print(f"Generic code block saved: {out_file}")
+        except Exception as e:
+            print(f"Error writing file {out_file}: {e}")
+
+
+# ---------- Main Code Processing Dispatcher ----------
+
+def process_code_file(file_path: Path, output_dir: Path) -> None:
+    """
+    Processes a code file according to its type.
+
+    - Python files are processed with the AST.
+    - JS/TS files are processed with Tree-sitter (if available) or by splitting.
+    - Other languages are processed by splitting on double newlines.
+
+    Args:
+        file_path (Path): The path to the code file.
+        output_dir (Path): The directory where processed blocks will be stored.
+    """
+    suffix = file_path.suffix.lower()
+    if suffix == ".py":
+        process_python_file(file_path, output_dir)
+    elif suffix in {".js", ".jsx", ".ts", ".tsx"}:
+        process_js_ts_file(file_path, output_dir)
+    else:
+        process_generic_code_file(file_path, output_dir)
+
+
+# ---------- File Processing Dispatcher ----------
+
+def process_files(input_dir: Path, output_dir: Path) -> None:
+    """
+    Iterates over each file in the input directory and processes them based
+    on file type (Markdown or code).
+
+    Args:
+        input_dir (Path): The directory containing files from the repo extraction.
+        output_dir (Path): The directory where the processed blocks will be stored.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for file_path in input_dir.iterdir():
+        if file_path.is_file():
+            suffix = file_path.suffix.lower()
+            if suffix in {".md", ".markdown"}:
+                process_markdown_file(file_path, output_dir)
+            elif suffix in {".py", ".js", ".jsx", ".ts", ".tsx", ".java", ".c", ".cpp",
+                            ".h", ".hpp", ".go", ".rs", ".rb", ".php", ".cs", ".swift", ".kt", ".scala"}:
+                process_code_file(file_path, output_dir)
+            else:
+                print(f"Skipping unsupported file type: {file_path}")
+
+
+# ---------- Main ----------
+
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: python pipeline_parser.py <input_directory> <output_directory>")
+        sys.exit(1)
+    input_dir = Path(sys.argv[1])
+    output_dir = Path(sys.argv[2])
+    process_files(input_dir, output_dir)
+    print("Processing completed.")
+
+
+if __name__ == "__main__":
+    main()

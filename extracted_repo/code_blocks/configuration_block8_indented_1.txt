@@ -1,0 +1,3 @@
+"useGitignore": true,
+"useDefaultPatterns": true,
+"customPatterns": ["tmp/", "*.log"]

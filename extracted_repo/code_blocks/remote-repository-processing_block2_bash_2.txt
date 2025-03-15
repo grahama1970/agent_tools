@@ -1,0 +1,8 @@
+# 自定义输出位置
+repomix --remote user/repo -o custom-output.xml
+
+# 使用 XML 格式
+repomix --remote user/repo --style xml
+
+# 移除注释
+repomix --remote user/repo --remove-comments
