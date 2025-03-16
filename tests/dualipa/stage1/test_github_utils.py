@@ -30,6 +30,7 @@ try:
         parse_github_url,
         clone_github_repo,
         fetch_repo_contents_async,
+        is_github_url,
         GIT_AVAILABLE,
         REQUESTS_AVAILABLE
     )
@@ -82,11 +83,77 @@ def test_parse_github_url():
         parse_github_url("invalid_url")
 
 
+def test_arangodb_url_parsing():
+    """
+    Blind test that verifies parsing of ArangoDB repository URL.
+    This test ensures we correctly handle a real-world repository URL.
+    """
+    # ArangoDB main repository URL
+    url = "https://github.com/arangodb/arangodb"
+    result = parse_github_url(url)
+    
+    # Verify specific expected values for ArangoDB
+    assert result["owner"] == "arangodb"
+    assert result["repo"] == "arangodb"
+    assert result["protocol"] == "https"
+    assert result["branch"] == "main"  # Default branch
+    assert "path" in result
+    assert result["path"] == ""  # No specific path
+    
+    # Test with specific file in ArangoDB repo
+    url = "https://github.com/arangodb/arangodb/blob/devel/utils/gantt.py"
+    result = parse_github_url(url)
+    
+    assert result["owner"] == "arangodb"
+    assert result["repo"] == "arangodb"
+    assert result["branch"] == "devel"
+    assert result["path"] == "utils/gantt.py"
+    
+    # Test with a specific directory in ArangoDB repo
+    url = "https://github.com/arangodb/arangodb/tree/devel/js/apps/system/_admin/aardvark/APP/react/src"
+    result = parse_github_url(url)
+    
+    assert result["owner"] == "arangodb"
+    assert result["repo"] == "arangodb"
+    assert result["branch"] == "devel"
+    assert result["path"] == "js/apps/system/_admin/aardvark/APP/react/src"
+
+
+def test_url_parsing_structure():
+    """
+    Test that the parse_github_url function returns a dictionary with the expected structure.
+    This ensures the output structure is consistent for downstream functions.
+    """
+    # Example URL with all components
+    url = "https://github.com/arangodb/arangodb/blob/devel/utils/gantt.py"
+    result = parse_github_url(url)
+    
+    # Check the result is a dictionary with the expected keys
+    expected_keys = ["owner", "repo", "branch", "path", "protocol"]
+    for key in expected_keys:
+        assert key in result, f"Expected key '{key}' not found in result"
+    
+    # Check the types of values
+    assert isinstance(result["owner"], str)
+    assert isinstance(result["repo"], str)
+    assert isinstance(result["branch"], str)
+    assert isinstance(result["path"], str)
+    assert isinstance(result["protocol"], str)
+    
+    # Verify URL detection works for this URL
+    assert is_github_url(url) is True
+    
+    # Check that non-GitHub URLs are correctly identified
+    assert is_github_url("https://gitlab.com/user/repo") is False
+    assert is_github_url("https://example.com") is False
+    assert is_github_url("not a url") is False
+
+
 @pytest.mark.skipif(not GIT_AVAILABLE, reason="GitPython not installed")
 def test_clone_github_repo():
     """Test that GitHub repositories can be cloned."""
     # We'll use a mock for git.Repo.clone_from to avoid actual cloning
-    with patch('github_utils.git.Repo.clone_from') as mock_clone:
+    with patch('agent_tools.dualipa.github_utils.git.Repo.clone_from') as mock_clone:
         # Set up a temporary directory
         temp_dir = tempfile.mkdtemp()
         try:
@@ -130,7 +197,7 @@ def test_fetch_repo_contents_async():
         }
     ]
     
-    with patch('github_utils.requests.get', return_value=mock_response):
+    with patch('agent_tools.dualipa.github_utils.requests.get', return_value=mock_response):
         import asyncio
         
         # Run the async function

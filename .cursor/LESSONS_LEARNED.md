@@ -438,3 +438,155 @@ async def process_document(doc_id):
 - When documentation is unclear or incomplete, create clarifying tests to validate assumptions
 - Never proceed with implementation without first consulting the official documentation
 - Documentation links should be versioned to
+
+## Code Extractor Testing Lessons
+
+### 1. Test Against Actual Implementation, Not Specifications
+
+- **Verify Function Existence**: Before writing complex tests, verify that all functions actually exist and are importable
+- **Check Function Signatures**: Directly examine function signatures in the source code before writing tests
+- **Read Function Implementations**: Understand implementation details before designing tests
+- Example:
+  ```python
+  # BAD: Writing tests assuming function signature without checking
+  def test_extract_function(file_path, output_dir, stats):
+      result = extract_function(file_path, output_dir, stats)
+      assert result > 0
+  
+  # GOOD: Check actual signature first
+  # From source: def extract_function(file_path, content, output_dir, stats):
+  def test_extract_function(file_path, temp_dir):
+      with open(file_path, "r") as f:
+          content = f.read()
+      output_dir = os.path.join(temp_dir, "output")
+      stats = {"blocks": 0, "errors": []}
+      result = extract_function(file_path, content, output_dir, stats)
+      assert result > 0
+  ```
+
+### 2. Always Create Direct Verification Tests
+
+- **Single-Function Verification**: Create standalone scripts that test just one function
+- **Outside Test Framework**: Test critical functions outside the main test framework first
+- **Minimal Dependencies**: Minimize dependencies to isolate the exact functionality being tested
+- **Clear Output**: Design tests to print clear, unambiguous results
+- Example:
+  ```python
+  #!/usr/bin/env python3
+  """Test a single function directly."""
+  import sys
+  from pathlib import Path
+  
+  # Add src to path
+  sys.path.insert(0, str(Path(__file__).parent / "src"))
+  
+  from my_package.module import critical_function
+  
+  # Test with basic inputs
+  result = critical_function("input")
+  print(f"Result: {result}")
+  print(f"Expected: 'processed input'")
+  print(f"Passed: {result == 'processed input'}")
+  ```
+
+### 3. Start with the Simplest Working Example
+
+- **Simplify Test Cases**: Begin with the absolute minimum test case that should work
+- **Example-Driven Testing**: Base initial tests on examples from documentation
+- **Baseline First**: Establish a working baseline before testing edge cases
+- **Real File Tests**: When testing file operations, start with real files not mocks
+- Example:
+  ```python
+  def test_basic_language_detection():
+      """Test the most basic language detection case first."""
+      assert detect_language(".py") == "python"
+      
+  def test_complex_language_detection():
+      """Only test complex cases after basic case works."""
+      # More complex cases...
+  ```
+
+### 4. Python Path Management Principles
+
+- **Explicit Path Setup**: Always set up Python path explicitly in conftest.py or test scripts
+- **Print Path Debugging**: Include path debugging to diagnose import issues
+- **Package Structure Awareness**: Ensure package structure supports imports correctly
+- **Module-Level Initialization**: Use __init__.py files appropriately
+- Example conftest.py:
+  ```python
+  import sys
+  from pathlib import Path
+  
+  # Add project root and src to Python path
+  project_root = Path(__file__).parent.parent
+  sys.path.insert(0, str(project_root))
+  sys.path.insert(0, str(project_root / "src"))
+  
+  # Print configuration for debugging
+  print(f"Python path: {sys.path}")
+  ```
+
+### 5. Type Consistency and Validation
+
+- **Path vs. String Objects**: Be consistent with Path objects vs. strings
+- **Type Hints as Documentation**: Use type hints to document expected types
+- **Runtime Type Checking**: Validate input types at runtime for critical functions
+- **Type-Aware Testing**: Write tests with awareness of expected types
+- Example:
+  ```python
+  from pathlib import Path
+  
+  # Function with clear type hints
+  def process_file(file_path: Path, output_dir: Path) -> int:
+      """Process a file and return number of items processed."""
+      # Type validation at runtime
+      if not isinstance(file_path, Path):
+          file_path = Path(file_path)  # Coerce to Path if string
+      
+      # Processing logic...
+      return items_processed
+  
+  # Test with correct types
+  def test_process_file(temp_dir):
+      input_file = Path(temp_dir) / "input.txt"
+      output_dir = Path(temp_dir) / "output"
+      # Correct usage with Path objects
+      result = process_file(input_file, output_dir)
+  ```
+
+### 6. Progressive Test Execution
+
+- **Start Small**: Begin testing with the simplest component
+- **Build Up**: Gradually add complexity only after basics work
+- **Isolate Issues**: Run specific tests to pinpoint problems
+- **Document Command Patterns**: Record working pytest commands for reference
+- Example test progression:
+  ```
+  # 1. Test utility functions directly
+  python -m my_package.utils.test_util
+  
+  # 2. Test specific component with pytest
+  pytest tests/unit/test_component.py::test_basic_functionality -v
+  
+  # 3. Test full workflow with real files
+  pytest tests/integration/test_workflow.py
+  ```
+
+### 7. Avoid Module-Level Test Skipping
+
+- **Function-Level Skips**: Use conditional skips at the function level, not module level
+- **Informative Skip Messages**: Include detailed messages explaining why tests are skipped
+- **Optional Dependencies**: Handle optional dependencies with clear error messages
+- **Alternative Test Paths**: Provide alternative test paths when dependencies are missing
+- Example:
+  ```python
+  @pytest.mark.skipif(not TREE_SITTER_AVAILABLE, 
+                      reason="Tree-sitter is not available")
+  def test_with_tree_sitter():
+      """Test functionality that requires tree-sitter."""
+      # Test logic...
+  
+  def test_alternative_approach():
+      """Test alternative functionality that doesn't require tree-sitter."""
+      # Alternative test logic...
+  ```

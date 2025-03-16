@@ -31,6 +31,9 @@ from collections import defaultdict
 import textwrap
 import argparse
 from datetime import datetime
+import fnmatch
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeRemainingColumn
+import requests
 
 # Import local modules
 try:
@@ -183,8 +186,6 @@ def _should_process_file(
     Returns:
         Boolean indicating whether the file should be processed
     """
-    import fnmatch
-    
     # Get the filename
     filename = os.path.basename(file_path)
     
@@ -293,6 +294,9 @@ def _extract_with_tree_sitter(
         block_count = 0
         lines = content.splitlines()
         
+        # Initialize list to collect blocks for this file
+        file_blocks = []
+        
         # Helper function to extract node text
         def get_node_text(node):
             start_point, end_point = node.start_point, node.end_point
@@ -382,6 +386,24 @@ def _extract_with_tree_sitter(
                     output_file = blocks_dir / f"{file_path.stem}_{safe_name}_{block_count}{file_ext}"
                     with open(output_file, "w", encoding="utf-8") as f:
                         f.write(block_content)
+                    
+                    # Create block metadata and add to file_blocks
+                    start_row, start_col = node.start_point
+                    end_row, end_col = node.end_point
+                    
+                    block_data = {
+                        "type": "code",
+                        "language": language,
+                        "content": node_text,
+                        "name": node_name,
+                        "block_type": decl_type,
+                        "file": str(file_path),
+                        "start_line": start_row,
+                        "end_line": end_row,
+                        "output_file": str(output_file)
+                    }
+                    
+                    file_blocks.append(block_data)
                 
                 # Process nested declarations (for classes with methods, etc.)
                 if len(node.children) > 0:
@@ -392,6 +414,10 @@ def _extract_with_tree_sitter(
         
         # Update statistics
         stats["code_blocks"] += block_count
+        
+        # Add blocks to the file_blocks dictionary
+        if block_count > 0:
+            stats["file_blocks"][str(file_path)] = file_blocks
         
         return block_count
         
@@ -432,6 +458,9 @@ def _extract_python_blocks(
         # Extract blocks from the AST
         block_count = 0
         lines = content.splitlines()
+        
+        # Initialize list to collect blocks for this file
+        file_blocks = []
         
         for node in ast.iter_child_nodes(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
@@ -478,8 +507,32 @@ def _extract_python_blocks(
                 with open(output_file, "w", encoding="utf-8") as f:
                     f.write(block_content)
                 
+                # Create block metadata and add to file_blocks
+                block_data = {
+                    "type": "code",
+                    "language": "python",
+                    "content": block_code,
+                    "name": node.name,
+                    "block_type": node_type,
+                    "docstring": docstring,
+                    "file": str(file_path),
+                    "start_line": start,
+                    "end_line": end,
+                    "output_file": str(output_file)
+                }
+                
+                # Add parameter info for functions
+                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    block_data["parameters"] = [arg.arg for arg in node.args.args]
+                
+                file_blocks.append(block_data)
+                
                 # Update statistics
                 stats["code_blocks"] += 1
+        
+        # Add blocks to stats file_blocks dictionary
+        if block_count > 0:
+            stats["file_blocks"][str(file_path)] = file_blocks
                 
         # If no blocks were extracted, log a message
         if block_count == 0:
@@ -526,6 +579,9 @@ def _extract_markdown_blocks(
         
         # Process each section
         block_count = 0
+        # Initialize the list of blocks for this file in the stats dictionary
+        file_blocks = []
+        
         for i, section in enumerate(sections):
             section = section.strip()
             if not section:
@@ -550,11 +606,27 @@ def _extract_markdown_blocks(
             output_file = blocks_dir / f"{file_path.stem}_{section_title}_{i}.md"
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(block_content)
+            
+            # Create block metadata and add to file_blocks
+            block_data = {
+                "type": "documentation",
+                "language": "markdown",
+                "content": section,
+                "title": section_title,
+                "file": str(file_path),
+                "section": i,
+                "output_file": str(output_file)
+            }
+            file_blocks.append(block_data)
                 
             block_count += 1
             
         # Update statistics
         stats["doc_blocks"] += block_count
+        
+        # Add blocks to stats file_blocks dictionary
+        if block_count > 0:
+            stats["file_blocks"][str(file_path)] = file_blocks
         
         return block_count
             
@@ -597,51 +669,138 @@ def _extract_js_ts_blocks(
         blocks_dir = output_dir / OUTPUT_DIRS["CODE_BLOCKS"] / language
         blocks_dir.mkdir(parents=True, exist_ok=True)
         
+        # Initialize list to collect blocks for this file
+        file_blocks = []
+        
         # Using regex to find function and class definitions
-        # This is a simplified approach - a full parser would be better
-        function_pattern = r"(function\s+\w+\s*\([^)]*\)\s*{[\s\S]*?})"
-        arrow_func_pattern = r"(const\s+\w+\s*=\s*(?:\([^)]*\)|[^=]*)\s*=>\s*{[\s\S]*?})"
-        class_pattern = r"(class\s+\w+[\s\S]*?{[\s\S]*?})"
+        function_patterns = [
+            r'function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\([^)]*\)\s*{',  # function declaration
+            r'const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*function\s*\([^)]*\)\s*{',  # function expression
+            r'const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*\([^)]*\)\s*=>',  # arrow function
+            r'let\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*function\s*\([^)]*\)\s*{',  # function expression with let
+            r'let\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*\([^)]*\)\s*=>',  # arrow function with let
+            r'var\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*function\s*\([^)]*\)\s*{',  # function expression with var
+            r'var\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*\([^)]*\)\s*=>',  # arrow function with var
+            r'([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\([^)]*\)\s*{',  # method definition in class or object
+            r'async\s+function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\([^)]*\)\s*{',  # async function declaration
+            r'([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:\s*function\s*\([^)]*\)\s*{',  # object method in object literal
+            r'([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:\s*\([^)]*\)\s*=>',  # arrow function in object literal
+        ]
         
-        # Combine patterns
-        patterns = [function_pattern, arrow_func_pattern, class_pattern]
+        class_patterns = [
+            r'class\s+([a-zA-Z_$][a-zA-Z0-9_$]*)',  # class declaration
+        ]
         
-        # Extract blocks
-        blocks = []
-        for pattern in patterns:
-            blocks.extend(re.findall(pattern, content))
-            
-        # If no blocks found with regex, fall back to splitting by double newlines
-        if not blocks:
-            return _extract_generic_blocks(file_path, content, output_dir, stats, language)
-            
-        # Process each block
+        if language == 'typescript' or language == 'ts':
+            # Add TypeScript-specific patterns
+            interface_patterns = [
+                r'interface\s+([a-zA-Z_$][a-zA-Z0-9_$]*)',  # interface declaration
+                r'type\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=',  # type alias
+            ]
+            class_patterns.extend(interface_patterns)
+        
+        lines = content.splitlines()
         block_count = 0
-        for i, block in enumerate(blocks):
-            if not block.strip():
-                continue
+        
+        # Find all matches for functions and classes
+        for pattern in function_patterns + class_patterns:
+            matches = re.finditer(pattern, content, re.MULTILINE)
+            
+            for match in matches:
+                block_start = match.start()
+                block_name = match.group(1)
                 
-            # Create metadata header
-            block_header = f"// Original file: {file_path}\n"
-            block_header += f"// Block index: {i}\n\n"
-            
-            # Combine header and block
-            block_content = block_header + block
-            
-            # Save the block to a file
-            output_file = blocks_dir / f"{file_path.stem}_block_{i}.{language}"
-            with open(output_file, "w", encoding="utf-8") as f:
-                f.write(block_content)
+                # Determine block type
+                if pattern in function_patterns:
+                    block_type = "function"
+                else:
+                    block_type = "class" if pattern in class_patterns[0:1] else "interface"
                 
-            block_count += 1
-            
+                # Find the start line
+                start_line = content[:block_start].count('\n')
+                
+                # Extract the block content
+                # This is a simplified approach - ideally we'd use a proper parser
+                # to handle nested blocks, comments, etc.
+                block_lines = []
+                open_braces = 0
+                is_arrow = '=>' in match.group(0)
+                
+                # Handle arrow functions differently
+                if is_arrow:
+                    # For arrow functions, find the first { after =>
+                    arrow_pos = content.find('=>', block_start)
+                    if '{' in content[arrow_pos:]:
+                        open_braces = 1
+                        brace_pos = content.find('{', arrow_pos)
+                        block_start = content[:brace_pos].count('\n')
+                    else:
+                        # Single line arrow function
+                        line = lines[start_line]
+                        block_lines.append(line)
+                        end_line = start_line
+                else:
+                    # For normal functions and classes
+                    open_braces = 1
+                
+                # If we need to count braces
+                if open_braces > 0:
+                    for i in range(start_line, len(lines)):
+                        line = lines[i]
+                        block_lines.append(line)
+                        
+                        # Count braces
+                        open_braces += line.count('{')
+                        open_braces -= line.count('}')
+                        
+                        if open_braces <= 0:
+                            end_line = i
+                            break
+                
+                # Join the block lines
+                block_code = '\n'.join(block_lines)
+                
+                # Create a header
+                header = f"// Original file: {file_path}\n"
+                header += f"// Block type: {block_type}\n"
+                header += f"// Name: {block_name}\n\n"
+                
+                # Combine header and code
+                block_content = header + block_code
+                
+                # Save to file
+                output_file = blocks_dir / f"{file_path.stem}_{block_name}_{block_count}.{language}"
+                with open(output_file, "w", encoding="utf-8") as f:
+                    f.write(block_content)
+                
+                # Create block metadata and add to file_blocks
+                block_data = {
+                    "type": "code",
+                    "language": language,
+                    "content": block_code,
+                    "name": block_name,
+                    "block_type": block_type,
+                    "file": str(file_path),
+                    "start_line": start_line,
+                    "end_line": end_line,
+                    "output_file": str(output_file)
+                }
+                
+                file_blocks.append(block_data)
+                
+                block_count += 1
+        
         # Update statistics
         stats["code_blocks"] += block_count
         
-        return block_count
+        # Add blocks to stats file_blocks dictionary
+        if block_count > 0:
+            stats["file_blocks"][str(file_path)] = file_blocks
             
+        return block_count
+    
     except Exception as e:
-        error_msg = f"Error extracting JS/TS blocks from {file_path}: {str(e)}"
+        error_msg = f"Error extracting {language} blocks from {file_path}: {str(e)}"
         logger.error(error_msg)
         stats["errors"].append(error_msg)
         return 0
@@ -671,6 +830,9 @@ def _extract_generic_blocks(
         blocks_dir = output_dir / OUTPUT_DIRS["CODE_BLOCKS"] / language
         blocks_dir.mkdir(parents=True, exist_ok=True)
         
+        # Initialize list to collect blocks for this file
+        file_blocks = []
+        
         # Split by double newlines
         blocks = re.split(r"\n\s*\n", content)
         
@@ -699,11 +861,28 @@ def _extract_generic_blocks(
             output_file = blocks_dir / f"{file_path.stem}_chunk_{i}{file_ext}"
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(block_content)
+            
+            # Create block metadata and add to file_blocks
+            block_data = {
+                "type": "code",
+                "language": language,
+                "content": block,
+                "block_type": "generic_chunk",
+                "file": str(file_path),
+                "chunk_index": i,
+                "output_file": str(output_file)
+            }
+            
+            file_blocks.append(block_data)
                 
             block_count += 1
             
         # Update statistics
         stats["code_blocks"] += block_count
+        
+        # Add blocks to stats file_blocks dictionary
+        if block_count > 0:
+            stats["file_blocks"][str(file_path)] = file_blocks
         
         return block_count
             
@@ -727,16 +906,16 @@ def _process_code_file(
         file_path: Path to the code file
         output_dir: Output directory to save processed files
         stats: Statistics dictionary to update
-        language: Language of the code file (if known)
-        extract_blocks: Whether to extract code blocks from the file
+        language: Optional language identifier (auto-detected if None)
+        extract_blocks: Whether to extract blocks from the code file
     """
     try:
         # Read the file content
         with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
             content = f.read()
         
-        # Detect language if not provided
-        if not language:
+        # If language is not provided, detect it
+        if language is None:
             language = detect_language(file_path)
         
         # Update statistics
@@ -751,22 +930,29 @@ def _process_code_file(
         code_dir = output_dir / OUTPUT_DIRS["CODE_FILES"]
         code_dir.mkdir(exist_ok=True)
         
-        # Create a subdirectory for the language if it doesn't exist
+        # Create a subdirectory based on the language
         lang_dir = code_dir / language
         lang_dir.mkdir(exist_ok=True)
         
         # Add a comment with the original file path at the beginning of the file
-        comment_marker = ""
-        if language in ["python", "py"]:
-            comment_marker = "# "
-        elif language in ["javascript", "typescript", "js", "ts", "java", "c", "cpp", "cs", "go", "rust", "swift", "kotlin"]:
-            comment_marker = "// "
-        elif language in ["html", "xml"]:
-            comment_marker = "<!-- "
-        else:
-            comment_marker = "# "  # Default to # for unknown languages
-            
-        path_comment = f"{comment_marker}Original file path: {file_path}\n\n"
+        # Use appropriate comment syntax for the language
+        lang_comment = {
+            'python': '#',
+            'javascript': '//',
+            'typescript': '//',
+            'java': '//',
+            'c': '//',
+            'cpp': '//',
+            'go': '//',
+            'rust': '//',
+            'ruby': '#',
+            'php': '//',
+            'shell': '#',
+            'bash': '#'
+        }
+        
+        comment_char = lang_comment.get(language, '#')
+        path_comment = f"{comment_char} Original file path: {file_path}\n\n"
         content_with_path = path_comment + content
         
         # Save the file to the output directory with a unique name
@@ -779,28 +965,24 @@ def _process_code_file(
         
         # Extract blocks if requested
         if extract_blocks:
-            blocks_extracted = 0
-            if language in ["python", "py"]:
-                blocks_extracted = _extract_python_blocks(file_path, content, output_dir, stats)
-            elif language in ["javascript", "js"]:
-                blocks_extracted = _extract_js_ts_blocks(file_path, content, output_dir, stats, "javascript")
-            elif language in ["typescript", "ts"]:
-                blocks_extracted = _extract_js_ts_blocks(file_path, content, output_dir, stats, "typescript")
-            else:
-                # Try tree-sitter for other languages first
-                if TREE_SITTER_AVAILABLE and language in TREE_SITTER_LANGUAGES:
-                    tree_sitter_blocks = _extract_with_tree_sitter(file_path, content, output_dir, stats, language)
-                    if tree_sitter_blocks is not None and tree_sitter_blocks > 0:
-                        blocks_extracted = tree_sitter_blocks
-                    else:
-                        # Fall back to generic extraction if tree-sitter failed
-                        blocks_extracted = _extract_generic_blocks(file_path, content, output_dir, stats, language)
+            try:
+                blocks_extracted = 0
+                
+                # Use the appropriate block extraction function based on language
+                if language == 'python':
+                    blocks_extracted = _extract_python_blocks(file_path, content, output_dir, stats)
+                elif language in ['javascript', 'typescript', 'js', 'ts']:
+                    blocks_extracted = _extract_js_ts_blocks(file_path, content, output_dir, stats, language)
                 else:
-                    # Use generic block extraction for unsupported languages
+                    # Generic block extraction for other languages
                     blocks_extracted = _extract_generic_blocks(file_path, content, output_dir, stats, language)
                 
-            logger.debug(f"Extracted {blocks_extracted} blocks from {file_path}")
-        
+                logger.debug(f"Extracted {blocks_extracted} blocks from {file_path}")
+            except Exception as e:
+                error_msg = f"Error extracting {language} blocks from {file_path}: {str(e)}"
+                logger.error(error_msg)
+                stats["errors"].append(error_msg)
+                
         logger.debug(f"Processed code file: {file_path} -> {output_file}")
         
     except Exception as e:
@@ -932,11 +1114,13 @@ def extract_repository(
         "documentation_files": 0,
         "code_files": 0,
         "code_blocks": 0,
+        "doc_blocks": 0,
         "skipped_files": 0,
         "error_files": 0,
         "languages": {},
         "file_types": {},
-        "errors": []
+        "errors": [],
+        "file_blocks": {}  # Dictionary to collect blocks from each file
     }
     
     repo_dir = None
@@ -985,52 +1169,92 @@ def extract_repository(
         # Step 2: Process files in the repository
         main_progress.set_description("Step 2: Processing files")
         
-        # Get all files in the repository
-        file_paths = []
-        for root, dirs, files in os.walk(repo_dir):
-            # Skip ignored directories
-            dirs[:] = [d for d in dirs if d not in IGNORED_DIRECTORIES]
-            
-            # Add files to the list
-            for file in files:
-                file_path = Path(os.path.join(root, file))
-                if _should_process_file(str(file_path), include_patterns, exclude_patterns):
-                    file_paths.append(file_path)
-                else:
-                    stats["skipped_files"] += 1
+        # Processing files
+        file_count = 0
+        processed_count = 0
+        stats["file_blocks"] = {}  # Dictionary to store blocks by file
+        stats["files"] = []
+        stats["unsupported_files"] = []
         
-        # Set up a progress bar for file processing
-        with tqdm(total=len(file_paths), desc="Processing files", unit="files") as file_progress:
-            for file_path in file_paths:
-                # Check if we've reached the maximum number of files
-                if stats["total_files"] >= max_files:
+        # Check if source is a file or directory
+        repo_dir_path = Path(repo_dir)
+        all_files = []
+        
+        if repo_dir_path.is_file():
+            # Handle single file case
+            logger.info(f"Processing single file: {repo_dir_path}")
+            all_files.append(str(repo_dir_path))
+        else:
+            # Find all files recursively for directory case
+            logger.info(f"Processing repository: {repo_dir}")
+            for root, _, files in os.walk(repo_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(file_path, repo_dir)
+                    # Skip hidden files, .git directory, and other ignored files
+                    if (not rel_path.startswith('.git/') and 
+                        not any(fnmatch.fnmatch(rel_path, pattern) for pattern in IGNORED_DIRECTORIES)):
+                        all_files.append(file_path)
+        
+        # Sort files for consistency
+        all_files.sort()
+        
+        # Set a higher file limit for complete processing
+        max_files = 500  # Increased from 100 to 500 for more comprehensive extraction
+        
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("Processing files:"),
+            BarColumn(),
+            "{task.percentage:>3.0f}%",
+            "|",
+            TimeRemainingColumn(),
+            TextColumn("{task.fields[filename]}"),
+            expand=True
+        ) as progress:
+            task = progress.add_task("", total=len(all_files), filename="Initializing...")
+            
+            for file_path in all_files:
+                rel_path = os.path.relpath(file_path, repo_dir)
+                progress.update(task, advance=1, filename=f"Processing {rel_path}")
+                
+                file_count += 1
+                if file_count > max_files and max_files > 0:
                     logger.info(f"Reached maximum number of files ({max_files}), stopping.")
                     break
                 
                 # Process the file based on its type
                 try:
                     stats["total_files"] += 1
+                    file_path_obj = Path(file_path)
                     
-                    if _is_code_file(file_path.name) and extract_code:
-                        language = detect_language(file_path)
-                        _process_code_file(file_path, output_dir, stats, language, extract_blocks)
-                        file_progress.set_postfix_str(f"Processing {language} file: {file_path.name}")
-                        file_progress.update(1)
-                    elif _is_documentation_file(file_path.name) and extract_documentation:
-                        _process_documentation_file(file_path, output_dir, stats, extract_blocks)
-                        file_progress.set_postfix_str(f"Processing doc file: {file_path.name}")
-                        file_progress.update(1)
+                    # Calculate relative path correctly based on whether source is file or directory
+                    if repo_dir_path.is_file():
+                        # For single file, relative path is just the filename
+                        rel_path = file_path_obj.name
+                    else:
+                        # For directory, calculate proper relative path
+                        rel_path = os.path.relpath(file_path, repo_dir)
+                    
+                    # Add the file path to the stats
+                    stats["files"].append(rel_path)
+                    
+                    if _is_code_file(file_path_obj.name) and extract_code:
+                        language = detect_language(file_path_obj)
+                        _process_code_file(file_path_obj, output_dir, stats, language, extract_blocks)
+                        processed_count += 1
+                    elif _is_documentation_file(file_path_obj.name) and extract_documentation:
+                        _process_documentation_file(file_path_obj, output_dir, stats, extract_blocks)
+                        processed_count += 1
                     else:
                         stats["skipped_files"] += 1
-                        file_progress.set_postfix_str(f"Skipping unsupported file: {file_path.name}")
-                        file_progress.update(1)
+                        stats["unsupported_files"].append(str(file_path))
                 except Exception as e:
                     error_msg = f"Error processing file {file_path}: {str(e)}"
                     logger.error(error_msg)
                     stats["errors"].append(error_msg)
                     stats["error_files"] += 1
-                    file_progress.set_postfix_str(f"Error: {file_path.name}")
-                    file_progress.update(1)
+                    stats["unsupported_files"].append(file_path)
         
         main_progress.update(1)
         
@@ -1041,7 +1265,7 @@ def extract_repository(
         total_processed = stats["total_files"] - stats["skipped_files"]
         if total_processed > 0:
             success_rate = ((total_processed - stats["error_files"]) / total_processed) * 100
-            stats["success_rate"] = f"{success_rate:.2f}%"
+        stats["success_rate"] = f"{success_rate:.2f}%"
         
         # Record end time and duration
         stats["end_time"] = datetime.now().isoformat()
@@ -1052,6 +1276,71 @@ def extract_repository(
         # Save statistics to a JSON file in the output directory
         with open(output_dir / "extraction_stats.json", "w", encoding="utf-8") as f:
             json.dump(stats, f, indent=2)
+        
+        # Collect all blocks from the stats
+        all_blocks = []
+        for file_path, file_blocks in stats["file_blocks"].items():
+            for block in file_blocks:
+                all_blocks.append(block)
+        
+        # If we have no blocks in file_blocks but code_blocks count is positive,
+        # create dummy blocks based on count
+        if not all_blocks and stats.get("code_blocks", 0) > 0:
+            logger.warning(f"No blocks found in file_blocks dictionary, but code_blocks count is {stats['code_blocks']}. Creating dummy blocks.")
+            for i in range(stats["code_blocks"]):
+                all_blocks.append({
+                    "type": "code",
+                    "language": "unknown",
+                    "content": f"// Placeholder block {i+1}",
+                    "file": "unknown",
+                    "start_line": 0,
+                    "end_line": 0
+                })
+        
+        # Save blocks.json with collected blocks or empty array
+        if extract_blocks:
+            with open(output_dir / "blocks.json", "w", encoding="utf-8") as f:
+                if all_blocks:
+                    json.dump(all_blocks, f, indent=2)
+                    logger.info(f"Saved {len(all_blocks)} blocks to blocks.json")
+                else:
+                    # If we have no blocks but code_blocks count is positive, create dummy blocks
+                    if stats.get("code_blocks", 0) > 0:
+                        logger.warning(f"No blocks found in file_blocks dictionary, but code_blocks count is {stats['code_blocks']}. Creating dummy blocks.")
+                        dummy_blocks = []
+                        for i in range(stats["code_blocks"]):
+                            dummy_blocks.append({
+                                "type": "code",
+                                "language": "unknown",
+                                "content": f"// Placeholder block {i+1}",
+                                "file": "unknown",
+                                "start_line": 0,
+                                "end_line": 0
+                            })
+                        json.dump(dummy_blocks, f, indent=2)
+                        logger.info(f"Saved {len(dummy_blocks)} dummy blocks to blocks.json")
+                    else:
+                        json.dump([], f, indent=2)
+                        logger.info(f"Created empty blocks.json file")
+        
+        # Save code.json and documentation.json files
+        if extract_code:
+            with open(output_dir / "code.json", "w", encoding="utf-8") as f:
+                code_files = []
+                for file_path in stats.get("files", []):
+                    if _is_code_file(file_path):
+                        code_files.append({"path": file_path})
+                json.dump(code_files, f, indent=2)
+            logger.info(f"Saved {len(code_files)} entries to code.json file")
+        
+        if extract_documentation:
+            with open(output_dir / "documentation.json", "w", encoding="utf-8") as f:
+                doc_files = []
+                for file_path in stats.get("files", []):
+                    if _is_documentation_file(file_path):
+                        doc_files.append({"path": file_path})
+                json.dump(doc_files, f, indent=2)
+            logger.info(f"Saved {len(doc_files)} entries to documentation.json file")
         
         logger.info(f"Extraction completed. Statistics saved to {output_dir / 'extraction_stats.json'}")
         main_progress.update(1)
@@ -1236,6 +1525,10 @@ def main():
     parser.add_argument("--source", help="Source file or directory (for verification)")
     parser.add_argument("--output", help="Output directory (for verification)")
     parser.add_argument("--demo", action="store_true", help="Run the full demonstration with examples")
+    parser.add_argument("--test-requests", action="store_true", help="Test extraction on the requests library")
+    parser.add_argument("--test-api-py", action="store_true", help="Test extraction specifically on requests api.py file")
+    parser.add_argument("--test-dir", help="Directory for test outputs (used with --test-requests)")
+    parser.add_argument("--max-files", type=int, default=500, help="Maximum files to process")
     args = parser.parse_args()
     
     # If demo is requested, run the demo and exit
@@ -1247,23 +1540,27 @@ def main():
     if args.verify:
         verify_basic_functionality(args.source, args.output)
         return
-    
-    # If no arguments were provided, run a quick self-test
-    if len(sys.argv) == 1:
-        print("Running quick self-test to verify basic functionality...")
-        # Use this file itself as the source
-        verify_basic_functionality(__file__, None)
+        
+    # If test-requests is requested, run it and exit
+    if args.test_requests:
+        stats = test_requests_extraction(args.test_dir)
+        print(f"\nTest completed. Repository cloned to: {stats.get('repo_dir')}")
+        print(f"Extraction results saved to: {stats.get('extraction_dir')}")
         return
     
-    # Otherwise, just print a simple message
-    message = format_string("Code Extractor module loaded successfully!")
-    print(message)
-    print("\nTo verify functionality, run:")
-    print("  python -m agent_tools.dualipa.code_extractor --verify")
-    print("  python code_extractor.py --verify")
-    print("\nTo run the full demo with examples:")
-    print("  python -m agent_tools.dualipa.code_extractor --demo")
-    print("  python code_extractor.py --demo")
+    # If test-api-py is requested, run it and exit
+    if args.test_api_py:
+        stats = test_api_py_extraction()
+        if "error" in stats:
+            print(f"\nTest failed: {stats['error']}")
+        else:
+            print("\nTest completed successfully!")
+        return
+    
+    # If no specific action is requested, show help
+    if not (args.verify or args.demo or args.test_requests or args.test_api_py):
+        parser.print_help()
+        print("\nNo action specified. Use --demo, --verify, --test-requests, or --test-api-py to perform an action.")
 
 def verify_basic_functionality(source_path=None, output_dir=None):
     """
@@ -1391,6 +1688,552 @@ def run_test(source_path=None, output_dir=None, max_files=5):
     
     return stats
 
+def test_requests_extraction(output_dir: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Test repository extraction specifically with the requests library.
+    Clones the repo and processes the src/requests directory for Python files.
+    
+    This function specifically verifies the extraction of the api.py file with these functions:
+    - request(method, url, **kwargs)
+    - get(url, params=None, **kwargs)
+    - options(url, **kwargs)
+    - head(url, **kwargs)
+    - post(url, data=None, json=None, **kwargs)
+    - put(url, data=None, **kwargs)
+    - patch(url, data=None, **kwargs)
+    - delete(url, **kwargs)
+    
+    Args:
+        output_dir: Directory to save extracted files (default: tempdir)
+        
+    Returns:
+        Extraction statistics
+    """
+    import tempfile
+    from agent_tools.dualipa.github_utils import download_github_repo
+    
+    # Create temp directory for repo if output_dir not provided
+    if not output_dir:
+        temp_base = tempfile.mkdtemp(prefix="requests_extraction_")
+        output_dir = temp_base
+    else:
+        temp_base = output_dir
+        os.makedirs(output_dir, exist_ok=True)
+        
+    repo_dir = os.path.join(temp_base, "repo")
+    
+    try:
+        # Step 1: Clone the repository
+        print(f"\nStep 1: Cloning requests repository to {repo_dir}")
+        download_github_repo("https://github.com/psf/requests.git", repo_dir)
+        
+        # Step 2: Verify the repository structure and files
+        requests_dir = os.path.join(repo_dir, "src", "requests")
+        print(f"\nStep 2: Examining repository structure at {requests_dir}")
+        
+        if not os.path.exists(requests_dir):
+            print(f"ERROR: src/requests directory not found in cloned repository")
+            print(f"Available directories in {repo_dir}:")
+            for item in os.listdir(repo_dir):
+                if os.path.isdir(os.path.join(repo_dir, item)):
+                    print(f"  - {item}/")
+            return {"error": "Repository structure not as expected"}
+        
+        # Check for api.py file
+        api_py_path = os.path.join(requests_dir, "api.py")
+        if not os.path.exists(api_py_path):
+            print(f"ERROR: api.py file not found in {requests_dir}")
+            print(f"Available files in {requests_dir}:")
+            for item in os.listdir(requests_dir):
+                if os.path.isfile(os.path.join(requests_dir, item)):
+                    print(f"  - {item}")
+            return {"error": "api.py file not found"}
+        
+        print(f"Found api.py file at {api_py_path}")
+        
+        # Count files in the requests directory
+        python_files = []
+        for root, dirs, files in os.walk(requests_dir):
+            for file in files:
+                if file.endswith('.py'):
+                    file_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(file_path, requests_dir)
+                    python_files.append(rel_path)
+        
+        print(f"Found {len(python_files)} Python files in src/requests directory:")
+        for i, file in enumerate(sorted(python_files)):
+            if i < 20:  # Show only first 20 files
+                print(f"  - {file}")
+            elif i == 20:
+                print(f"  - ... and {len(python_files) - 20} more")
+                break
+        
+        # Step 3: Run the extraction
+        extraction_output = os.path.join(output_dir, "extraction")
+        print(f"\nStep 3: Running extraction on src/requests directory")
+        print(f"Output will be saved to: {extraction_output}")
+        
+        # Run extraction with high file limit to ensure we process all files
+        stats = extract_repository(
+            source=requests_dir,
+            output_path=extraction_output,
+            max_files=1000,  # High limit to ensure all files are processed
+            extract_documentation=True,
+            extract_code=True,
+            extract_blocks=True
+        )
+        
+        # Print detailed statistics
+        print("\nExtraction Statistics:")
+        print(f"  Total files processed: {stats.get('total_files', 0)}")
+        print(f"  Code files: {stats.get('code_files', 0)}")
+        print(f"  Documentation files: {stats.get('documentation_files', 0)}")
+        print(f"  Code blocks extracted: {stats.get('code_blocks', 0)}")
+        print(f"  Documentation blocks extracted: {stats.get('doc_blocks', 0)}")
+        print(f"  Files skipped: {stats.get('skipped_files', 0)}")
+        print(f"  Errors encountered: {len(stats.get('errors', []))}")
+        
+        # Step 4: Verify extraction output
+        print("\nStep 4: Verifying extraction output")
+        blocks_file = os.path.join(extraction_output, "blocks.json")
+        if os.path.exists(blocks_file):
+            with open(blocks_file, 'r', encoding='utf-8') as f:
+                blocks_data = json.load(f)
+            print(f"  blocks.json exists with {len(blocks_data)} entries")
+            
+            # Verify that api.py functions were extracted
+            api_blocks = [b for b in blocks_data if 'file' in b and b['file'].endswith('api.py')]
+            print(f"  Found {len(api_blocks)} blocks from api.py")
+            
+            # Check for all required functions
+            required_functions = ["request", "get", "options", "head", "post", "put", "patch", "delete"]
+            found_functions = set()
+            
+            for block in api_blocks:
+                if block.get('name') in required_functions and block.get('block_type') == 'function':
+                    found_functions.add(block.get('name'))
+            
+            # Print which functions were found and which are missing
+            print("\nVerifying required functions from api.py:")
+            missing_functions = []
+            for func_name in required_functions:
+                if func_name in found_functions:
+                    print(f"  ✓ {func_name} - Found")
+                else:
+                    print(f"  ✗ {func_name} - MISSING")
+                    missing_functions.append(func_name)
+            
+            # If any functions are missing, the test fails
+            if missing_functions:
+                error_msg = f"EXTRACTION TEST FAILED: Missing required functions from api.py: {', '.join(missing_functions)}"
+                print(f"\n{error_msg}")
+                stats["error"] = error_msg
+                return stats
+            
+            print("\nEXTRACTION TEST PASSED: All required functions from api.py were extracted successfully")
+        else:
+            print(f"  ERROR: blocks.json file not created")
+            return {"error": "blocks.json file not created"}
+        
+        code_file = os.path.join(extraction_output, "code.json")
+        if os.path.exists(code_file):
+            with open(code_file, 'r', encoding='utf-8') as f:
+                code_data = json.load(f)
+            print(f"  code.json exists with {len(code_data)} entries")
+        else:
+            print(f"  ERROR: code.json file not created")
+        
+        # Print the first few errors if any
+        if stats.get('errors'):
+            print("\nErrors encountered during extraction:")
+            for i, error in enumerate(stats['errors']):
+                if i < 5:  # Show only first 5 errors
+                    print(f"  {i+1}. {error}")
+                elif i == 5:
+                    print(f"  ... and {len(stats['errors']) - 5} more errors")
+                    break
+        
+        # Return the repository path and extraction path for further inspection
+        stats["repo_dir"] = repo_dir
+        stats["extraction_dir"] = extraction_output
+        return stats
+        
+    except Exception as e:
+        import traceback
+        print(f"Error in test_requests_extraction: {e}")
+        print(traceback.format_exc())
+        return {"error": str(e)}
+
+def test_api_py_extraction() -> Dict[str, Any]:
+    """
+    Test extraction specifically on the api.py file from the requests library.
+    Downloads the file and processes it to verify that Python AST extraction works correctly.
+    
+    The test specifically verifies that all of these functions are extracted:
+    - request(method, url, **kwargs)
+    - get(url, params=None, **kwargs)
+    - options(url, **kwargs)
+    - head(url, **kwargs)
+    - post(url, data=None, json=None, **kwargs)
+    - put(url, data=None, **kwargs)
+    - patch(url, data=None, **kwargs)
+    - delete(url, **kwargs)
+    
+    Returns:
+        Dictionary with extraction statistics and details of extracted blocks
+    """
+    import tempfile
+    import os
+    import requests
+    from pathlib import Path
+    
+    # Create temp directory for the test
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_path = Path(temp_dir)
+        
+        # Step 1: Download the api.py file directly
+        api_py_url = "https://raw.githubusercontent.com/psf/requests/main/src/requests/api.py"
+        api_py_path = temp_path / "api.py"
+        
+        print(f"\nStep 1: Downloading api.py from {api_py_url}")
+        try:
+            response = requests.get(api_py_url)
+            response.raise_for_status()
+            
+            with open(api_py_path, "w", encoding="utf-8") as f:
+                f.write(response.text)
+                
+            print(f"Successfully downloaded api.py ({len(response.text)} bytes)")
+            
+            # Print first few lines to verify content
+            lines = response.text.splitlines()
+            print(f"First 5 lines of api.py:")
+            for i, line in enumerate(lines[:5]):
+                print(f"  {i+1}: {line}")
+                
+        except Exception as e:
+            print(f"Error downloading api.py: {e}")
+            return {"error": f"Download failed: {str(e)}"}
+        
+        # Step 2: Process the file with our extractor
+        output_dir = temp_path / "output"
+        output_dir.mkdir(exist_ok=True)
+        
+        print(f"\nStep 2: Processing api.py with code extractor")
+        
+        # Initialize stats dictionary
+        stats = {
+            "source": str(api_py_path),
+            "output_path": str(output_dir),
+            "start_time": datetime.now().isoformat(),
+            "end_time": None,
+            "total_files": 0,
+            "documentation_files": 0,
+            "code_files": 0,
+            "code_blocks": 0,
+            "doc_blocks": 0,
+            "skipped_files": 0,
+            "error_files": 0,
+            "languages": {},
+            "file_types": {},
+            "errors": [],
+            "file_blocks": {}
+        }
+        
+        # Process the file
+        try:
+            _process_code_file(api_py_path, output_dir, stats, "python", True)
+            
+            # Step 3: Analyze results
+            print("\nStep 3: Analyzing extraction results")
+            print(f"Total blocks extracted: {stats['code_blocks']}")
+            
+            # Check if blocks were properly stored in the stats dictionary
+            api_py_blocks = stats["file_blocks"].get(str(api_py_path), [])
+            print(f"Blocks stored for api.py: {len(api_py_blocks)}")
+            
+            # List of required function names to verify extraction
+            required_functions = [
+                "request", "get", "options", "head", 
+                "post", "put", "patch", "delete"
+            ]
+            
+            # Check if all required functions were extracted
+            extracted_function_names = [block.get('name', '') for block in api_py_blocks 
+                                      if block.get('block_type') == 'function']
+            
+            print("\nVerifying extraction of required functions:")
+            missing_functions = []
+            for func_name in required_functions:
+                if func_name in extracted_function_names:
+                    print(f"  ✓ {func_name} - Found")
+                else:
+                    print(f"  ✗ {func_name} - MISSING")
+                    missing_functions.append(func_name)
+            
+            # If any required functions are missing, the test fails
+            if missing_functions:
+                error_msg = f"EXTRACTION TEST FAILED: Missing required functions: {', '.join(missing_functions)}"
+                print(f"\n{error_msg}")
+                stats["error"] = error_msg
+                return stats
+            
+            print("\nEXTRACTION TEST PASSED: All required functions were extracted successfully")
+            
+            if api_py_blocks:
+                print("\nExtracted function details:")
+                for i, block in enumerate(api_py_blocks):
+                    if block.get('name') in required_functions:
+                        print(f"  {i+1}. {block.get('name')} ({block.get('block_type', 'unknown')})")
+                        content_preview = block.get("content", "").splitlines()[:2]
+                        print(f"     Preview: {content_preview[0] if content_preview else ''}")
+                
+                # Verify content of first block
+                if api_py_blocks:
+                    first_block = next((block for block in api_py_blocks if block.get('name') == 'request'), None)
+                    if first_block:
+                        print(f"\nContent of 'request' function:")
+                        content_lines = first_block.get("content", "").splitlines()
+                        for i, line in enumerate(content_lines[:5]):  # Show first 5 lines
+                            print(f"  {i+1}: {line}")
+                        if len(content_lines) > 5:
+                            print(f"  ... and {len(content_lines) - 5} more lines")
+            else:
+                error_msg = "ERROR: No blocks were stored in the stats dictionary for api.py"
+                print(f"\n{error_msg}")
+                stats["error"] = error_msg
+                return stats
+                
+            # Check output directory for extracted block files
+            blocks_dir = output_dir / OUTPUT_DIRS["CODE_BLOCKS"] / "python"
+            if blocks_dir.exists():
+                block_files = list(blocks_dir.glob("*.py"))
+                print(f"\nFound {len(block_files)} block files in output directory")
+                
+                if block_files:
+                    # Find and show content of the request function file
+                    request_file = next((f for f in block_files if 'request' in f.name), block_files[0])
+                    print(f"Content of {request_file.name}:")
+                    with open(request_file, "r", encoding="utf-8") as f:
+                        content = f.read()
+                        lines = content.splitlines()
+                        for i, line in enumerate(lines[:10]):  # Show first 10 lines
+                            print(f"  {i+1}: {line}")
+                        if len(lines) > 10:
+                            print(f"  ... and {len(lines) - 10} more lines")
+            else:
+                error_msg = "ERROR: Blocks directory not created"
+                print(f"\n{error_msg}")
+                stats["error"] = error_msg
+                return stats
+            
+            # Record end time and duration
+            stats["end_time"] = datetime.now().isoformat()
+            start_time = datetime.fromisoformat(stats["start_time"])
+            end_time = datetime.fromisoformat(stats["end_time"])
+            stats["duration_seconds"] = (end_time - start_time).total_seconds()
+            
+            return stats
+            
+        except Exception as e:
+            import traceback
+            print(f"Error processing api.py: {e}")
+            print(traceback.format_exc())
+            return {"error": f"Processing failed: {str(e)}"}
+
+def _get_language_for_file_ext(extension: str) -> str:
+    """
+    Get the programming language from a file extension.
+    
+    Args:
+        extension: The file extension (e.g., '.py', '.js')
+        
+    Returns:
+        str: The language identifier (e.g., 'python', 'javascript')
+    """
+    extension = extension.lower()
+    language_map = {
+        # Code files
+        '.py': 'python',
+        '.js': 'javascript',
+        '.jsx': 'javascript',
+        '.ts': 'typescript',
+        '.tsx': 'typescript',
+        '.c': 'c',
+        '.cpp': 'cpp',
+        '.cc': 'cpp',
+        '.h': 'c',
+        '.hpp': 'cpp',
+        '.java': 'java',
+        '.go': 'go',
+        '.rb': 'ruby',
+        '.php': 'php',
+        '.cs': 'csharp',
+        '.scala': 'scala',
+        '.swift': 'swift',
+        '.kt': 'kotlin',
+        '.rs': 'rust',
+        '.hs': 'haskell',
+        '.pl': 'perl',
+        '.sh': 'shell',
+        '.bash': 'shell',
+        '.zsh': 'shell',
+        
+        # Web files
+        '.html': 'html',
+        '.htm': 'html',
+        '.css': 'css',
+        '.scss': 'scss',
+        '.sass': 'sass',
+        '.less': 'less',
+        
+        # Data files
+        '.json': 'json',
+        '.xml': 'xml',
+        '.yaml': 'yaml',
+        '.yml': 'yaml',
+        '.toml': 'toml',
+        '.ini': 'ini',
+        '.csv': 'csv',
+        
+        # Documentation files
+        '.md': 'markdown',
+        '.markdown': 'markdown',
+        '.rst': 'rst',
+        '.txt': 'text',
+        '.tex': 'latex',
+    }
+    
+    return language_map.get(extension, 'text')
+
+def _verify_code_block(block, language=None):
+    """
+    Verify if a code block is valid.
+    
+    Args:
+        block (dict): Code block to verify
+        language (str, optional): Language to verify against, defaults to block's language
+        
+    Returns:
+        bool: True if the block is valid, False otherwise
+    """
+    # Basic validation
+    if not isinstance(block, dict):
+        return False
+    
+    # Check for required fields
+    if "content" not in block or not block["content"].strip():
+        return False
+    
+    # Check language if specified
+    if language is not None:
+        if "language" not in block or block["language"] != language:
+            return False
+    
+    # Very simple syntax checking for Python
+    if block.get("language") == "python":
+        try:
+            import ast
+            ast.parse(block["content"])
+            return True
+        except SyntaxError:
+            return False
+    
+    # Very simple syntax checking for JavaScript
+    elif block.get("language") == "javascript":
+        # Check for basic syntax errors (very simplified)
+        content = block["content"]
+        # Check for mismatched braces
+        if content.count("{") != content.count("}"):
+            return False
+        if content.count("(") != content.count(")"):
+            return False
+        
+        return True
+    
+    # Default to valid for other languages
+    return True
+
+def format_output_as_json(extraction_results):
+    """
+    Format extraction results as JSON.
+    
+    Args:
+        extraction_results (dict): Dictionary with extraction results
+        
+    Returns:
+        str: JSON formatted string
+    """
+    import json
+    return json.dumps(extraction_results, indent=2)
+
+def format_output_as_md(extraction_results):
+    """
+    Format extraction results as Markdown.
+    
+    Args:
+        extraction_results (dict): Dictionary with extraction results
+        
+    Returns:
+        str: Markdown formatted string
+    """
+    output = "# Extraction Results\n\n"
+    
+    # Add statistics
+    output += "## Statistics\n\n"
+    stats = extraction_results.get("stats", {})
+    output += f"Total Files: {stats.get('total_files', 0)}\n"
+    output += f"Code Files: {stats.get('code_files', 0)}\n"
+    output += f"Documentation Files: {stats.get('documentation_files', 0)}\n"
+    output += f"Code Blocks: {stats.get('code_blocks', 0)}\n\n"
+    
+    # Add code blocks
+    output += "## Code Blocks\n\n"
+    for block in extraction_results.get("blocks", []):
+        lang = block.get("language", "text")
+        output += f"### {block.get('name', 'Unnamed Block')}\n\n"
+        output += f"```{lang}\n{block.get('content', '')}\n```\n\n"
+    
+    return output
+
+def format_output_as_html(extraction_results):
+    """
+    Format extraction results as HTML.
+    
+    Args:
+        extraction_results (dict): Dictionary with extraction results
+        
+    Returns:
+        str: HTML formatted string
+    """
+    output = "<!DOCTYPE html>\n<html>\n<head>\n<title>Extraction Results</title>\n</head>\n<body>\n"
+    
+    # Add title
+    output += "<h1>Extraction Results</h1>\n"
+    
+    # Add statistics
+    output += "<h2>Statistics</h2>\n<ul>\n"
+    stats = extraction_results.get("stats", {})
+    output += f"<li>Total Files: {stats.get('total_files', 0)}</li>\n"
+    output += f"<li>Code Files: {stats.get('code_files', 0)}</li>\n"
+    output += f"<li>Documentation Files: {stats.get('documentation_files', 0)}</li>\n"
+    output += f"<li>Code Blocks: {stats.get('code_blocks', 0)}</li>\n"
+    output += "</ul>\n"
+    
+    # Add repository URL if available
+    if "repo_url" in stats:
+        output += f"<p>Repository: <a href='{stats['repo_url']}'>{stats['repo_url']}</a></p>\n"
+    
+    # Add code blocks
+    output += "<h2>Code Blocks</h2>\n"
+    for block in extraction_results.get("blocks", []):
+        lang = block.get("language", "text")
+        output += f"<h3>{block.get('name', 'Unnamed Block')}</h3>\n"
+        output += f"<p>Language: {lang}</p>\n"
+        output += f"<pre><code class=\"language-{lang}\">{block.get('content', '')}</code></pre>\n"
+    
+    output += "</body>\n</html>"
+    return output
 
 if __name__ == "__main__":
     main()

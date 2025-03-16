@@ -605,6 +605,41 @@ def extract_repository(
         return stats
 
 
+def fetch_file_content(repo_url, file_path):
+    """
+    Fetch content from a specific file in a GitHub repository.
+    
+    Args:
+        repo_url (str): URL of the GitHub repository
+        file_path (str): Path to the file within the repository
+        
+    Returns:
+        str: Content of the file, or None if it couldn't be fetched
+    """
+    try:
+        import requests
+        
+        # Convert GitHub URL to raw content URL
+        raw_url = repo_url.replace('github.com', 'raw.githubusercontent.com')
+        if not raw_url.endswith('/'):
+            raw_url += '/'
+        
+        # Try both main and master branches
+        for branch in ['main', 'master']:
+            try:
+                url = f"{raw_url}{branch}/{file_path}"
+                response = requests.get(url, timeout=5)
+                if response.status_code == 200:
+                    return response.text
+            except Exception as e:
+                print(f"Error fetching {url}: {e}")
+        
+        return None
+    except Exception as e:
+        print(f"Error in fetch_file_content: {e}")
+        return None
+
+
 if __name__ == "__main__":
     # Run the demonstration when the module is executed directly
     demo_github_utils()

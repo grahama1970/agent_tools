@@ -1,0 +1,48 @@
+[
+    {
+        "file": "/path/to/tests/sample_data/arangodb_aql/fundamentals_syntax.html",
+        "sections": [
+            {
+                "header": "AQL Syntax Fundamentals",
+                "level": 1,
+                "content": "AQL (ArangoDB Query Language) is a declarative language designed to query, manipulate, and transform data in ArangoDB. It supports filtering, sorting, aggregating, and joining data from multiple collections...",
+                "token_count": 150,
+                "file_meta": {
+                    "file_path": "/path/to/tests/sample_data/arangodb_aql/fundamentals_syntax.html",
+                    "file_name": "fundamentals_syntax"
+                },
+                "header_hierarchy": [
+                    "# AQL Syntax Fundamentals"
+                ]
+            },
+            {
+                "header": "Basic Syntax",
+                "level": 2,
+                "content": "The basic syntax of AQL includes simple query constructs that allow you to retrieve data from collections. A typical query might look like this: FOR doc IN collection RETURN doc...",
+                "token_count": 100,
+                "file_meta": {
+                    "file_path": "/path/to/tests/sample_data/arangodb_aql/fundamentals_syntax.html",
+                    "file_name": "fundamentals_syntax"
+                },
+                "header_hierarchy": [
+                    "# AQL Syntax Fundamentals",
+                    "## Basic Syntax"
+                ]
+            },
+            {
+                "header": "Advanced Syntax",
+                "level": 2,
+                "content": "Beyond the basics, AQL supports advanced constructs such as subqueries, aggregations, and joins. These features allow complex data transformations and are essential for working with large datasets in ArangoDB...",
+                "token_count": 120,
+                "file_meta": {
+                    "file_path": "/path/to/tests/sample_data/arangodb_aql/fundamentals_syntax.html",
+                    "file_name": "fundamentals_syntax"
+                },
+                "header_hierarchy": [
+                    "# AQL Syntax Fundamentals",
+                    "## Advanced Syntax"
+                ]
+            }
+        ]
+    }
+]

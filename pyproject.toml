@@ -45,6 +45,7 @@ dependencies = [
     "pako>=0.3.1",
     "tree-sitter>=0.24.0",
     "tree-sitter-python>=0.23.6",
+    "playwright>=1.50.0",
 ]
 
 [project.optional-dependencies]
@@ -111,6 +112,7 @@ python_functions = ["test_*"]
 filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning",
+    "ignore::PytestConfigWarning",
 ]
 
 [project.scripts]
