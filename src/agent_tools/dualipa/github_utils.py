@@ -66,7 +66,7 @@ def parse_github_url(url: str) -> Dict[str, str]:
         "owner": "",
         "repo": "",
         "path": "",
-        "branch": ""
+        "branch": "main"
     }
     
     if not url:
@@ -84,6 +84,10 @@ def parse_github_url(url: str) -> Dict[str, str]:
     if len(path_parts) >= 2:
         result["owner"] = path_parts[0]
         result["repo"] = path_parts[1]
+        
+        # Remove .git suffix if present
+        if result["repo"].endswith(".git"):
+            result["repo"] = result["repo"][:-4]
     
     # Extract branch and path if available
     if len(path_parts) >= 4 and path_parts[2] in ["tree", "blob"]:
@@ -106,14 +110,32 @@ def is_github_url(url: str) -> bool:
     Examples:
         >>> is_github_url("https://github.com/username/repo")
         True
+        >>> is_github_url("https://github.com/username/repo.git")
+        True
+        >>> is_github_url("git@github.com:username/repo.git")
+        True
         >>> is_github_url("https://gitlab.com/username/repo")
         False
     """
-    if not url:
+    if not url or not isinstance(url, str):
         return False
     
+    # Handle SSH format directly
+    if url.startswith('git@github.com:'):
+        # Check if there's at least a username/repo part after the colon
+        parts = url[15:].strip('/').split('/')
+        return len(parts) > 0 and '.' in parts[0]  # Expecting at least one part with a .git extension
+    
+    # Handle HTTP/HTTPS formats
     parsed_url = urlparse(url)
-    return parsed_url.netloc.endswith("github.com") and len([p for p in parsed_url.path.split("/") if p]) >= 2
+    
+    # Check if the domain is github.com
+    if not parsed_url.netloc.endswith("github.com"):
+        return False
+    
+    # Check if there are at least owner/repo in the path
+    path_parts = [p for p in parsed_url.path.strip('/').split("/") if p]
+    return len(path_parts) >= 2
 
 
 def get_clone_url(owner: str, repo: str) -> str:
@@ -173,8 +195,9 @@ def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
         # Clone the repository to the temporary directory
         repo = git.Repo.clone_from(clone_url, temp_dir)
         
-        # Checkout the specified reference if not the default
-        if repo_info['branch'] != 'main':
+        # Checkout the specified reference if provided and not empty
+        if repo_info['branch'] and repo_info['branch'] != 'main':
+            logger.info(f"Checking out branch: {repo_info['branch']}")
             repo.git.checkout(repo_info['branch'])
         
         logger.info(f"Repository cloned successfully to {temp_dir}")
@@ -495,31 +518,91 @@ def extract_repository(
         logger.info(f"Cloning GitHub repository: {source}")
         try:
             with tempfile.TemporaryDirectory() as temp_dir:
-                # Use download_github_repo instead of parse + clone functions
-                repo_dir = download_github_repo(source, temp_dir)
-                
-                if not repo_dir or not os.path.exists(repo_dir):
-                    error_msg = f"Failed to clone repository: {source}"
+                # Use download_github_repo which has better error handling
+                try:
+                    repo_dir = download_github_repo(source, temp_dir)
+                    
+                    if not repo_dir or not os.path.exists(repo_dir):
+                        error_msg = f"Failed to clone repository: {source}"
+                        logger.error(error_msg)
+                        stats["errors"].append(error_msg)
+                        return stats
+                    
+                    # If a specific path in the repo was provided, use it
+                    repo_info = parse_github_url(source)
+                    repo_path = os.path.join(repo_dir, repo_info.get('path', '')) if repo_info.get('path') else repo_dir
+                    
+                    # Process the repository
+                    return _process_repository(
+                        repo_path, 
+                        output_dir, 
+                        stats, 
+                        max_files,
+                        include_patterns,
+                        exclude_patterns,
+                        extract_documentation,
+                        extract_code,
+                        extract_blocks=True  # Enable block extraction by default
+                    )
+                except ValueError as e:
+                    error_msg = f"Error with GitHub repository: {str(e)}"
                     logger.error(error_msg)
                     stats["errors"].append(error_msg)
                     return stats
-                
-                # Process the repository
-                return _process_repository(
-                    repo_dir, 
-                    output_dir, 
-                    stats, 
-                    max_files,
-                    include_patterns,
-                    exclude_patterns,
-                    extract_documentation,
-                    extract_code
-                )
+                except Exception as e:
+                    error_msg = f"Unexpected error processing GitHub repository: {str(e)}"
+                    logger.error(error_msg)
+                    stats["errors"].append(error_msg)
+                    return stats
         except Exception as e:
-            error_msg = f"Error processing GitHub repository: {str(e)}"
+            error_msg = f"Error creating temporary directory: {str(e)}"
             logger.error(error_msg)
             stats["errors"].append(error_msg)
             return stats
+    
+    # Handle local directory
+    elif os.path.isdir(source):
+        logger.info(f"Processing local directory: {source}")
+        return _process_repository(
+            source, 
+            output_dir, 
+            stats, 
+            max_files,
+            include_patterns,
+            exclude_patterns,
+            extract_documentation,
+            extract_code,
+            extract_blocks=True  # Enable block extraction by default
+        )
+    
+    # Handle local file
+    elif os.path.isfile(source):
+        logger.info(f"Processing single file: {source}")
+        try:
+            file_path = Path(source)
+            language = detect_language(file_path)
+            
+            # Process the file based on its type
+            if _is_code_file(file_path.name) and extract_code:
+                _process_code_file(file_path, output_dir, stats, language, extract_blocks=True)
+            elif _is_documentation_file(file_path.name) and extract_documentation:
+                _process_documentation_file(file_path, output_dir, stats, extract_blocks=True)
+            else:
+                logger.warning(f"Skipping unsupported file: {file_path}")
+                
+            return stats
+        except Exception as e:
+            error_msg = f"Error processing file {source}: {str(e)}"
+            logger.error(error_msg)
+            stats["errors"].append(error_msg)
+            return stats
+    
+    # Invalid source
+    else:
+        error_msg = f"Invalid source: {source}. Must be a GitHub URL, local directory, or file."
+        logger.error(error_msg)
+        stats["errors"].append(error_msg)
+        return stats
 
 
 if __name__ == "__main__":
