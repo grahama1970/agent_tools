@@ -1,0 +1,9 @@
+// Original file: temp_sample.rust
+// Block type: function
+// Name: main
+
+fn main() {
+    let mut calc = Calculator::new(0.0);
+    println!("{}", calc.add(5.0));
+    println!("{}", calc.multiply(2.0));
+}

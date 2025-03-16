@@ -137,6 +137,33 @@ merge_and_push_model(adapter_path, "base-model-name", "my-updated-model", push_t
 - [x] Create resources/templates directory for sample code files
 - [x] Create utils.py module with format_string and other utility functions
 - [x] Update imports across the codebase to use the utils module
+- [x] Move functions from __init__.py to cli.py following best practices
+- [x] Implement flexible import structure in code_extractor.py to support both package and standalone execution
+- [x] Create helper scripts (__main__.py and run_extractor.py) to facilitate different execution modes
+- [x] Update pyproject.toml with proper package discovery and entry points
+- [ ] Create comprehensive non-mocked tests for code_extractor.py
+  - [x] Test Python code block extraction using AST with enhanced metadata (decorators, type hints, imports)
+  - [x] Test Markdown section extraction and code block identification
+  - [x] Test JavaScript/TypeScript block extraction
+  - [x] Test generic code splitting by double newlines
+  - [x] Verify no empty chunks are generated
+  - [x] Test with resources/templates for expected results
+- [x] Enhance code extraction with more advanced parsing
+  - [x] Implement tree-sitter for JavaScript/TypeScript extraction
+  - [x] Add support for more programming languages with tree-sitter:
+    - [x] Python - fully functional
+    - [x] JavaScript - fully functional
+    - [x] TypeScript - fully functional
+    - [x] Go - fully functional
+    - [x] Rust - fully functional
+    - [x] C++ - fully functional
+    - [x] Java - fully functional
+    - [x] Ruby - fully functional
+    - [x] Bash - fully functional
+    - [x] C - grammar version incompatibility (using regex fallback)
+    - [x] PHP - grammar available but missing language attribute
+  - [ ] Improve language detection for better handling of edge cases
+  - [x] Implement proper fallback mechanisms for unsupported languages
 - [ ] Generate QA pairs from extracted blocks (Stage 3)
 - [ ] Implement model fine-tuning with Unsloth integration
 - [ ] Create adapter merging utilities

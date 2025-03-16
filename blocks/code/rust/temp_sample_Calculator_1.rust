@@ -1,0 +1,7 @@
+// Original file: temp_sample.rust
+// Block type: class
+// Name: Calculator
+
+struct Calculator {
+    value: f64,
+}

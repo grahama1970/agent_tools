@@ -1,0 +1,11 @@
+// Original file: temp_sample.rust
+// Block type: function
+// Name: divide
+
+fn divide(&mut self, x: f64) -> Result<f64, &'static str> {
+        if x == 0.0 {
+            return Err("Division by zero");
+        }
+        self.value /= x;
+        Ok(self.value)
+    }

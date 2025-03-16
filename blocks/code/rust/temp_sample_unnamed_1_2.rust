@@ -1,0 +1,32 @@
+// Original file: temp_sample.rust
+// Block type: class
+// Name: unnamed_1
+
+impl Calculator {
+    fn new(initial_value: f64) -> Self {
+        Calculator { value: initial_value }
+    }
+
+    fn add(&mut self, x: f64) -> f64 {
+        self.value += x;
+        self.value
+    }
+
+    fn subtract(&mut self, x: f64) -> f64 {
+        self.value -= x;
+        self.value
+    }
+
+    fn multiply(&mut self, x: f64) -> f64 {
+        self.value *= x;
+        self.value
+    }
+
+    fn divide(&mut self, x: f64) -> Result<f64, &'static str> {
+        if x == 0.0 {
+            return Err("Division by zero");
+        }
+        self.value /= x;
+        Ok(self.value)
+    }
+}

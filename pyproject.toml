@@ -65,17 +65,15 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-#packages = ["find:src/agent_tools"]
-packages = ["find:src"]
-
+packages = ["src"]
 
 [tool.hatch.build.targets.wheel]
-#packages = ["find:src/agent_tools"]
-packages = ["find:src"]
+packages = ["src"]
 
-
+# Add this for proper package discovery when running as a script
 [tool.hatch.metadata]
 allow-direct-references = true
+package-data = { "agent_tools.dualipa" = ["resources/templates/**/*"] }
 
 [tool.black]
 line-length = 100
@@ -104,7 +102,7 @@ src = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = ["-n", "auto", "--dist", "loadfile"]
+addopts = []
 testpaths = ["tests", "src/agent_tools"]
 pythonpath = ["src"]
 python_files = ["test_*.py"]
@@ -118,6 +116,7 @@ filterwarnings = [
 [project.scripts]
 method-validator = "agent_tools.method_validator.cli:main"
 cursor-rules = "agent_tools.cursor_rules.cli:cli"
+dualipa = "agent_tools.dualipa.cli:main"  # Add CLI entry point for dualipa
 
 [tool.cursor.patterns]
 pattern_directories = [".cursor/rules"]

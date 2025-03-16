@@ -1,0 +1,8 @@
+// Original file: temp_sample.rust
+// Block type: function
+// Name: multiply
+
+fn multiply(&mut self, x: f64) -> f64 {
+        self.value *= x;
+        self.value
+    }

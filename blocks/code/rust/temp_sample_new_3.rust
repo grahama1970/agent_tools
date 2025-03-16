@@ -1,0 +1,7 @@
+// Original file: temp_sample.rust
+// Block type: function
+// Name: new
+
+fn new(initial_value: f64) -> Self {
+        Calculator { value: initial_value }
+    }

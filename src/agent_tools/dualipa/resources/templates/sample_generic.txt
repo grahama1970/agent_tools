@@ -1,0 +1,23 @@
+This is a generic text file with multiple sections separated by double newlines.
+This first section has multiple lines.
+It should be extracted as a single block.
+
+This is the second section.
+Another multi-line section.
+Testing block extraction.
+
+This is the third section.
+It has three lines.
+Line number three.
+
+
+This is the fourth section, separated by more than two newlines.
+It should still be recognized as a separate block.
+
+This is the fifth section.
+# With some markdown-like syntax
+- But in a generic file
+
+Single line section that should be its own block.
+
+Very short. 

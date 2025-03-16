@@ -10,14 +10,53 @@ Official Documentation References:
 """
 
 import os
-import torch
-import unsloth
 import argparse
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
-from peft import LoraConfig, get_peft_model
-from datasets import load_dataset
 from loguru import logger
 import json
+from importlib import import_module
+from typing import Optional
+
+# Lazy imports that will be loaded only when train_lora is called
+_TORCH = None
+_UNSLOTH = None
+_TRANSFORMERS_AUTO_MODEL = None
+_TRANSFORMERS_AUTO_TOKENIZER = None
+_TRANSFORMERS_TRAINING_ARGS = None
+_TRANSFORMERS_TRAINER = None
+_PEFT_LORA_CONFIG = None
+_PEFT_GET_PEFT_MODEL = None
+_DATASETS_LOAD_DATASET = None
+
+def _lazy_import():
+    """Lazily import the required modules for training when needed."""
+    global _TORCH, _UNSLOTH, _TRANSFORMERS_AUTO_MODEL, _TRANSFORMERS_AUTO_TOKENIZER
+    global _TRANSFORMERS_TRAINING_ARGS, _TRANSFORMERS_TRAINER, _PEFT_LORA_CONFIG
+    global _PEFT_GET_PEFT_MODEL, _DATASETS_LOAD_DATASET
+    
+    logger.info("Lazy-loading training dependencies...")
+    
+    _TORCH = import_module("torch")
+    
+    # Only import unsloth when actually training
+    _UNSLOTH = import_module("unsloth")
+    
+    # Import from transformers
+    transformers = import_module("transformers")
+    _TRANSFORMERS_AUTO_MODEL = transformers.AutoModelForCausalLM
+    _TRANSFORMERS_AUTO_TOKENIZER = transformers.AutoTokenizer
+    _TRANSFORMERS_TRAINING_ARGS = transformers.TrainingArguments
+    _TRANSFORMERS_TRAINER = transformers.Trainer
+    
+    # Import from peft
+    peft = import_module("peft")
+    _PEFT_LORA_CONFIG = peft.LoraConfig
+    _PEFT_GET_PEFT_MODEL = peft.get_peft_model
+    
+    # Import from datasets
+    datasets = import_module("datasets")
+    _DATASETS_LOAD_DATASET = datasets.load_dataset
+    
+    logger.info("All training dependencies loaded")
 
 def train_lora(dataset_path: str, 
                output_dir: str = "./models", 
@@ -47,6 +86,9 @@ def train_lora(dataset_path: str,
         FileNotFoundError: If the dataset file doesn't exist
         RuntimeError: If CUDA is requested but not available
     """
+    # Lazy load all required modules only when this function is called
+    _lazy_import()
+    
     try:
         # Validate dataset path
         if not os.path.exists(dataset_path):
@@ -54,14 +96,14 @@ def train_lora(dataset_path: str,
             
         logger.info(f"Loading dataset from {dataset_path}")
         # Load dataset
-        dataset = load_dataset("json", data_files=dataset_path, split="train")
+        dataset = _DATASETS_LOAD_DATASET("json", data_files=dataset_path, split="train")
         logger.info(f"Loaded dataset with {len(dataset)} examples")
         
         # Create output directory
         os.makedirs(output_dir, exist_ok=True)
         
         # Check if CUDA is available when using PyTorch
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = "cuda" if _TORCH.cuda.is_available() else "cpu"
         logger.info(f"Using device: {device}")
         
         if device == "cpu":
@@ -69,16 +111,16 @@ def train_lora(dataset_path: str,
 
         # Load tokenizer and model
         logger.info(f"Loading tokenizer and model: {model_name}")
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(
+        tokenizer = _TRANSFORMERS_AUTO_TOKENIZER.from_pretrained(model_name)
+        model = _TRANSFORMERS_AUTO_MODEL.from_pretrained(
             model_name, 
-            torch_dtype=torch.float16 if device == "cuda" else torch.float32
+            torch_dtype=_TORCH.float16 if device == "cuda" else _TORCH.float32
         )
 
         # Configure LoRA
         logger.info(f"Configuring LoRA with r={r}, alpha={lora_alpha}, dropout={lora_dropout}")
         target_modules = ["q_proj", "v_proj"]
-        lora_config = LoraConfig(
+        lora_config = _PEFT_LORA_CONFIG(
             r=r,
             lora_alpha=lora_alpha,
             lora_dropout=lora_dropout,
@@ -86,7 +128,7 @@ def train_lora(dataset_path: str,
         )
 
         # Apply LoRA to the model
-        peft_model = get_peft_model(model, lora_config)
+        peft_model = _PEFT_GET_PEFT_MODEL(model, lora_config)
         peft_model.print_trainable_parameters()
 
         # Tokenize the dataset
@@ -106,7 +148,7 @@ def train_lora(dataset_path: str,
         tokenized_dataset = dataset.map(tokenize_function, batched=True)
         
         # Setup training arguments
-        training_args = TrainingArguments(
+        training_args = _TRANSFORMERS_TRAINING_ARGS(
             output_dir=output_dir,
             learning_rate=learning_rate,
             num_train_epochs=num_train_epochs,
@@ -120,7 +162,7 @@ def train_lora(dataset_path: str,
         )
 
         # Create Trainer
-        trainer = Trainer(
+        trainer = _TRANSFORMERS_TRAINER(
             model=peft_model,
             args=training_args,
             train_dataset=tokenized_dataset,
