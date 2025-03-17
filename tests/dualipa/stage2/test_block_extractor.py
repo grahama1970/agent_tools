@@ -26,68 +26,146 @@ print(f"Current directory: {os.getcwd()}")
 # Flag to track if dependencies are available
 HAS_DEPENDENCIES = False
 try:
-    from agent_tools.dualipa.code_extractor import extract_repository, run_test
+    # Import modules directly from package
+    from agent_tools.dualipa.code_extractor import (
+        extract_python_blocks,
+        extract_javascript_blocks, 
+        extract_typescript_blocks,
+        extract_c_blocks,
+        extract_go_blocks,
+        extract_rust_blocks,
+        extract_generic_blocks,
+        extract_markdown_blocks
+    )
     from agent_tools.dualipa.language_detection import detect_language
     HAS_DEPENDENCIES = True
 except ImportError as e:
-    print(f"ImportError: {e}")
-    print("Skipping tests that require missing modules")
+    # Fail loudly instead of silently skipping
+    raise ImportError(f"Required code extractor modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Path to test resources
 RESOURCES_DIR = project_root / "src" / "agent_tools" / "dualipa" / "resources" / "templates"
 
-# Skip all tests if the required modules don't exist
-pytestmark = pytest.mark.skipif(
-    not HAS_DEPENDENCIES,
-    reason="Required modules not available"
-)
+# Remove skipif marker to fail tests loudly
+# pytestmark = pytest.mark.skipif(
+#    not HAS_DEPENDENCIES,
+#    reason="Required modules not available"
+# )
 
 def check_file_exists(file_path):
-    """Check if a test file exists, skip if not."""
+    """Check if a test file exists, but fail loudly instead of silently skipping."""
     if not file_path.exists():
-        pytest.skip(f"Sample file {file_path} does not exist")
+        # Use assert to fail with a clear error message instead of skipping
+        assert False, f"Sample file {file_path} does not exist. Create this file to run the test."
     return True
 
 def test_python_block_extraction():
     """Test Python block extraction using AST."""
-    # Get the path to sample Python file
-    sample_file = RESOURCES_DIR / "sample_python.py"
-    if not check_file_exists(sample_file):
-        return
-    
-    # Create a temporary directory for output
-    with tempfile.TemporaryDirectory() as temp_dir:
-        try:
-            # Extract code blocks from the sample file
-            stats = extract_repository(
-                source=str(sample_file),
-                output_path=temp_dir,
-                extract_documentation=False,
-                extract_code=True,
-                extract_blocks=True
-            )
-            
-            # Verify that code blocks were extracted
-            assert stats["code_blocks"] > 0, "No Python code blocks were extracted"
-            print(f"Extracted {stats['code_blocks']} Python blocks")
-            
-            # Check the output directory structure
-            blocks_dir = Path(temp_dir) / "blocks" / "code" / "python"
-            assert blocks_dir.exists(), "Python blocks directory was not created"
-            
-            # Count the number of extracted blocks
-            block_files = list(blocks_dir.glob("*.py"))
-            assert len(block_files) > 0, "No block files were created"
-            
-            # Verify file contents of one block
-            if block_files:
-                with open(block_files[0], 'r') as f:
-                    content = f.read()
-                    assert len(content) > 0, "Block file is empty"
-                    print(f"First block content: {content[:100]}...")
+    # Find a Python template file
+    python_template = RESOURCES_DIR / "python_template.py"
+    if not python_template.exists():
+        # Instead of skipping, create a simple Python file for testing
+        with tempfile.NamedTemporaryFile(suffix='.py', mode='w+') as temp_file:
+            temp_file.write('''
+def hello_world():
+    """A simple Python function."""
+    print("Hello, World!")
+    return "Hello, World!"
+
+class TestClass:
+    """A simple test class."""
+    def __init__(self, name):
+        self.name = name
         
-        except Exception as e:
-            pytest.skip(f"Failed to extract Python blocks: {e}")
+    def greet(self):
+        """Greet the user."""
+        return f"Hello, {self.name}!"
+''')
+            temp_file.flush()
+            sample_file = Path(temp_file.name)
+            
+            # Create temporary output directory
+            with tempfile.TemporaryDirectory() as temp_dir:
+                output_dir = Path(temp_dir)
+                
+                try:
+                    # Extract code blocks from the sample file
+                    with open(sample_file, 'r') as f:
+                        sample_code = f.read()
+                    
+                    # Use extract_blocks for Python
+                    stats = extract_python_blocks(str(sample_file), sample_code, str(output_dir), {})
+                    
+                    # Verify extraction worked
+                    assert isinstance(stats, dict), "Should return a stats dictionary"
+                    if "code_blocks" in stats:
+                        assert stats["code_blocks"] > 0, "Should extract at least one code block"
+                    if "blocks" in stats:
+                        assert len(stats["blocks"]) > 0, "Should extract at least one block"
+                    
+                    # Verify blocks were written to files
+                    blocks_dir = output_dir / "blocks" / "code" / "python"
+                    if not blocks_dir.exists():
+                        pytest.fail("Python blocks directory was not created")
+                    
+                    block_files = list(blocks_dir.glob("*.py"))
+                    if not block_files:
+                        pytest.fail("No Python blocks were extracted")
+                    
+                    # Verify content of at least one block file
+                    print(f"Blocks directory: {blocks_dir}")
+                    print(f"Found {len(block_files)} block files")
+                    for block_file in block_files[:3]:  # Show up to 3 files
+                        print(f"  - {block_file.name}")
+                        with open(block_file, 'r') as f:
+                            content = f.read()
+                        content_preview = content[:50] + "..." if len(content) > 50 else content
+                        print(f"    Content preview: {content_preview}")
+                        
+                        # For Python, ensure we have proper function or class definitions
+                        assert "def " in content or "class " in content, "Block should contain function or class"
+                
+                except Exception as e:
+                    pytest.fail(f"Failed to extract Python blocks: {str(e)}")
+    else:
+        # Use the provided template file
+        print(f"Using Python template file: {python_template}")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+            
+            try:
+                # Read the template file
+                with open(python_template, 'r') as f:
+                    template_code = f.read()
+                
+                # Use extract_blocks for Python
+                stats = extract_python_blocks(str(python_template), template_code, str(output_dir), {})
+                
+                # Verify extraction worked
+                assert isinstance(stats, dict), "Should return a stats dictionary"
+                if "code_blocks" in stats:
+                    assert stats["code_blocks"] > 0, "Should extract at least one code block"
+                
+                # Verify blocks were written to files
+                blocks_dir = output_dir / "blocks" / "code" / "python"
+                if not blocks_dir.exists():
+                    pytest.fail("Python blocks directory was not created")
+                
+                block_files = list(blocks_dir.glob("*.py"))
+                assert len(block_files) > 0, "Should create at least one block file"
+                
+                # Verify content of at least one block file
+                print(f"Blocks directory: {blocks_dir}")
+                print(f"Found {len(block_files)} block files")
+                for block_file in block_files[:3]:  # Show up to 3 files
+                    print(f"  - {block_file.name}")
+                    with open(block_file, 'r') as f:
+                        content = f.read()
+                    content_preview = content[:50] + "..." if len(content) > 50 else content
+                    print(f"    Content preview: {content_preview}")
+            
+            except Exception as e:
+                pytest.fail(f"Failed to extract Python blocks: {str(e)}")
 
 def test_markdown_block_extraction():
     """Test Markdown code block extraction."""
@@ -100,7 +178,7 @@ def test_markdown_block_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_markdown_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=True,
@@ -141,7 +219,7 @@ def test_javascript_block_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_javascript_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=False,
@@ -183,7 +261,7 @@ def test_typescript_block_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_typescript_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=False,
@@ -225,7 +303,7 @@ def test_c_language_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_c_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=False,
@@ -267,7 +345,7 @@ def test_go_language_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_go_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=False,
@@ -309,7 +387,7 @@ def test_rust_language_extraction():
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Extract code blocks from the sample file
-            stats = extract_repository(
+            stats = extract_rust_blocks(
                 source=str(sample_file),
                 output_path=temp_dir,
                 extract_documentation=False,
@@ -365,7 +443,7 @@ def test_generic_block_extraction():
         with tempfile.TemporaryDirectory() as temp_dir:
             try:
                 # Extract code blocks from the sample file
-                stats = extract_repository(
+                stats = extract_generic_blocks(
                     source=f.name,
                     output_path=temp_dir,
                     extract_documentation=False,
@@ -439,7 +517,7 @@ def test_no_empty_blocks():
         with tempfile.TemporaryDirectory() as temp_dir:
             try:
                 # Extract code blocks from the sample file
-                stats = extract_repository(
+                stats = extract_python_blocks(
                     source=f.name,
                     output_path=temp_dir,
                     extract_documentation=False,

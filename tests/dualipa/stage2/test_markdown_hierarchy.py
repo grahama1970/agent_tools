@@ -455,13 +455,21 @@ Content for section 3.
         
         # Check if Section 2 is found
         section2_found = False
-        for section in sections:
-            if section["title"] == "Section 2":
-                section2_found = True
-                # Verify it has minimal content (at least its own header)
-                assert "Section 2" in section["content"], "Empty section should at least contain its header"
-                break
         
+        def find_section2(section_list):
+            for section in section_list:
+                if section["title"] == "Section 2":
+                    # Verify it has minimal content (at least its own header)
+                    assert "Section 2" in section["content"], "Empty section should at least contain its header"
+                    return True
+                
+                # Check subsections recursively
+                if 'subsections' in section and section['subsections']:
+                    if find_section2(section['subsections']):
+                        return True
+            return False
+        
+        section2_found = find_section2(sections)
         assert section2_found, "Should extract empty sections"
 
 def test_malformed_markdown_handling():
@@ -519,8 +527,42 @@ def test_section_hierarchy_relationships(real_changelog_content):
 
 def test_variety_of_markdown_syntax(real_contributing_content):
     """Test handling of various markdown syntax elements."""
+    # Create markdown with various formatting elements
+    markdown_with_elements = """# Document with Formatting
+
+## Bold Section
+
+This section has **bold text** and __also bold__.
+
+## Italic Section
+
+This section has *italic text* and _also italic_.
+
+## Links Section
+
+This section has [links](https://example.com) and [more links](https://example.org).
+
+## Code Section
+
+This section has `inline code` and also:
+
+```python
+def hello():
+    print("Hello world")
+```
+
+## Blockquote Section
+
+> This is a blockquote.
+> Multiple lines.
+
+## Mixed Section
+
+**Bold**, *italic*, `code`, [link](https://example.com), and > quote.
+"""
+    
     with tempfile.NamedTemporaryFile(suffix='.md', mode='w+') as f:
-        f.write(real_contributing_content)
+        f.write(markdown_with_elements)
         f.flush()
         
         # Extract sections
@@ -646,11 +688,21 @@ Content without table.
         
         # Look for the table
         table_found = False
-        for section in sections:
-            if "Table Section" in section["title"]:
-                if "|" in section["content"] and "---" in section["content"]:
-                    table_found = True
-                    break
+        
+        def check_sections_for_table(section_list):
+            nonlocal table_found
+            for section in section_list:
+                if "Table Section" in section["title"]:
+                    if "|" in section["content"] and "---" in section["content"]:
+                        return True
+                
+                # Check subsections recursively
+                if 'subsections' in section and section['subsections']:
+                    if check_sections_for_table(section['subsections']):
+                        return True
+            return False
+        
+        table_found = check_sections_for_table(sections)
         
         assert table_found, "Should preserve tables in section content"
 
@@ -727,10 +779,19 @@ Another image with just alt text:
         
         # Look for image references
         image_found = False
-        for section in sections:
-            if "![" in section["content"] and "](" in section["content"]:
-                image_found = True
-                break
+        
+        def check_sections_for_images(section_list):
+            for section in section_list:
+                if "![" in section["content"] and "](" in section["content"]:
+                    return True
+                
+                # Check subsections recursively
+                if 'subsections' in section and section['subsections']:
+                    if check_sections_for_images(section['subsections']):
+                        return True
+            return False
+        
+        image_found = check_sections_for_images(sections)
         
         assert image_found, "Should preserve image references in section content"
 
@@ -765,13 +826,21 @@ Just regular content.
         note_found = False
         warning_found = False
         
-        for section in sections:
-            if "Note Section" in section["title"]:
-                if "**Note**" in section["content"]:
-                    note_found = True
-            elif "Warning Section" in section["title"]:
-                if "**Warning**" in section["content"]:
-                    warning_found = True
+        def check_sections_for_admonitions(section_list):
+            nonlocal note_found, warning_found
+            for section in section_list:
+                if "Note Section" in section["title"]:
+                    if "**Note**" in section["content"]:
+                        note_found = True
+                elif "Warning Section" in section["title"]:
+                    if "**Warning**" in section["content"]:
+                        warning_found = True
+                
+                # Check subsections recursively
+                if 'subsections' in section and section['subsections']:
+                    check_sections_for_admonitions(section['subsections'])
+        
+        check_sections_for_admonitions(sections)
         
         assert note_found, "Should preserve note admonition in section content"
         assert warning_found, "Should preserve warning admonition in section content" 

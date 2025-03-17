@@ -60,18 +60,18 @@ try:
         TREE_SITTER_AVAILABLE,
         TREE_SITTER_LANGUAGES
     )
+    from agent_tools.dualipa.format_dataset import (
+        format_extraction_results,
+        format_as_markdown,
+        format_as_json,
+        format_as_html,
+        generate_structured_code_blocks
+    )
     HAS_DEPENDENCIES = True
     print("Successfully imported formatting modules")
 except ImportError as e:
-    print(f"Import error: {e}")
-    print("Required dependencies not available, tests will be skipped")
-    HAS_DEPENDENCIES = False
-
-# Skip all tests if dependencies are not available
-pytestmark = pytest.mark.skipif(
-    not HAS_DEPENDENCIES, 
-    reason="Required modules not available"
-)
+    # Instead of silently skipping, fail loudly with descriptive errors
+    raise ImportError(f"Required formatting modules not available: {e}. Fix the dependencies to run these tests.")
 
 @pytest.fixture
 def real_extraction_results():
@@ -183,7 +183,7 @@ def test_json_output_format(real_extraction_results):
         # Print the first few characters of the output for inspection
         print(f"JSON output preview: {json_output[:200]}...")
     except Exception as e:
-        pytest.skip(f"Error in JSON output test: {e}")
+        pytest.fail(f"Error in JSON output test: {e}")
 
 def test_markdown_output_format(real_extraction_results):
     """Test Markdown output formatting with real extraction results."""
@@ -214,7 +214,7 @@ def test_markdown_output_format(real_extraction_results):
         for line in preview_lines:
             print(f"  {line}")
     except Exception as e:
-        pytest.skip(f"Error in Markdown output test: {e}")
+        pytest.fail(f"Error in Markdown output test: {e}")
 
 def test_html_output_format(real_extraction_results):
     """Test HTML output formatting with real extraction results."""
@@ -245,7 +245,7 @@ def test_html_output_format(real_extraction_results):
         if "repo_url" in real_extraction_results.get("stats", {}):
             assert real_extraction_results["stats"]["repo_url"] in html_output, "Should include repository URL"
     except Exception as e:
-        pytest.skip(f"Error in HTML output test: {e}")
+        pytest.fail(f"Error in HTML output test: {e}")
 
 def test_output_format_from_real_extraction():
     """Smoke test for output formatting with extraction results."""
@@ -363,7 +363,7 @@ class TestClass:
                             blocks = blocks_data
                     
                     if not blocks:
-                        pytest.skip("No blocks were extracted for formatting test")
+                        pytest.fail("No blocks were extracted for formatting test")
                 
                 # Create minimal result data
                 extraction_data = {
@@ -385,9 +385,9 @@ class TestClass:
                 
             except Exception as e:
                 print(f"Extraction failed: {e}")
-                pytest.skip(f"Extraction failed: {e}")
+                pytest.fail(f"Extraction failed: {e}")
     except Exception as e:
-        pytest.skip(f"Error in output format test: {e}")
+        pytest.fail(f"Error in output format test: {e}")
 
 def test_large_extraction_formatting():
     """Smoke test for formatting of large extraction results."""
@@ -430,7 +430,7 @@ def test_large_extraction_formatting():
         
         print("Large extraction formatting smoke test passed")
     except Exception as e:
-        pytest.skip(f"Error in large extraction formatting test: {e}")
+        pytest.fail(f"Error in large extraction formatting test: {e}")
 
 def test_script_level_extraction():
     """Test extraction of script-level code from Python files like setup.py."""
@@ -547,10 +547,10 @@ setup(
                 
             except Exception as e:
                 print(f"Extraction failed: {e}")
-                pytest.skip(f"Extraction failed: {e}")
+                pytest.fail(f"Extraction failed: {e}")
                 
     except Exception as e:
-        pytest.skip(f"Error in script level extraction test: {e}")
+        pytest.fail(f"Error in script level extraction test: {e}")
 
 def test_multilang_script_extraction():
     """Test extraction of script-level code from multiple languages supported by tree-sitter."""
@@ -652,10 +652,10 @@ echo "Setup complete!"
                         print(f"Extraction failed for {lang}: {e}")
                         pytest.fail(f"Extraction failed for {lang}: {e}")
                 else:
-                    pytest.skip("JavaScript test file not available")
+                    pytest.fail("JavaScript test file not available")
     
     except Exception as e:
-        pytest.skip(f"Error in multilang script extraction test: {e}")
+        pytest.fail(f"Error in multilang script extraction test: {e}")
 
 if __name__ == "__main__":
     pytest.main(["-xvs", __file__]) 

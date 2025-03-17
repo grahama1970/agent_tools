@@ -27,11 +27,8 @@ try:
     )
     HAS_DEPENDENCIES = True
 except ImportError as e:
-    print(f"Error importing required modules: {e}")
-    HAS_DEPENDENCIES = False
-
-# Skip tests if dependencies are not available
-pytestmark = pytest.mark.skipif(not HAS_DEPENDENCIES, reason="Required imports not available")
+    # Instead of silently skipping, fail loudly with a clear error message
+    raise ImportError(f"Required code hierarchy modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Real repository URLs and files to test
 REAL_REPOS = {

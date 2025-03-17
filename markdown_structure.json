@@ -1,0 +1,152 @@
+{
+  "document": {
+    "hierarchy": [
+      {
+        "title": "Server Operations",
+        "level": 1,
+        "depth": 1,
+        "start_line": 2,
+        "end_line": 12,
+        "content": "# Server Operations\n\nChannels for controlling and monitoring the WireGuard server:\n\n| Channel | Type | Description | Parameters | Returns |\n| --- | --- | --- | --- | --- |\n| SERVER_START | Request-Response | Starts the WireGuard server | None | boolean (success) |\n| SERVER_STOP | Request-Response | Stops the WireGuard server | None | boolean (success) |\n| SERVER_STATUS | Request-Response | Gets the current server status | None | ServerStatus object |\n| SERVER_STATUS_CHANGED | Event | Notifies of server status changes | N/A | ServerStatus object |\n",
+        "is_empty": false,
+        "special_content": {
+          "has_table": true,
+          "has_image": false,
+          "has_code_block": false,
+          "has_admonition": false,
+          "has_bold": false,
+          "has_italic": true,
+          "has_links": false,
+          "has_code_span": false,
+          "has_blockquote": false
+        },
+        "subsections": [
+          {
+            "title": "Configuration Operations",
+            "level": 2,
+            "depth": 2,
+            "start_line": 13,
+            "end_line": 21,
+            "content": "## Configuration Operations\n\nChannels for managing WireGuard configurations:\n\n| Channel | Type | Description | Parameters | Returns |\n| --- | --- | --- | --- | --- |\n| CONFIG_GET_SERVER | Request-Response | Gets the current server configuration | None | WireGuardConfig object |\n| CONFIG_UPDATE_SERVER | Request-Response | Updates the server configuration | WireGuardConfig object | boolean (success) |\n",
+            "is_empty": false,
+            "special_content": {
+              "has_table": true,
+              "has_image": false,
+              "has_code_block": false,
+              "has_admonition": false,
+              "has_bold": false,
+              "has_italic": true,
+              "has_links": false,
+              "has_code_span": false,
+              "has_blockquote": false
+            },
+            "subsections": [],
+            "path": [
+              "Server Operations"
+            ],
+            "file_paths": [
+              "configuration-operations.md",
+              "server-operations/configuration-operations.md"
+            ],
+            "content_blocks": [
+              {
+                "type": "paragraph",
+                "content": "Channels for managing WireGuard configurations:"
+              },
+              {
+                "type": "table",
+                "header": [
+                  "Channel",
+                  "Type",
+                  "Description",
+                  "Parameters",
+                  "Returns"
+                ],
+                "rows": [
+                  [
+                    "CONFIG_GET_SERVER",
+                    "Request-Response",
+                    "Gets the current server configuration",
+                    "None",
+                    "WireGuardConfig object"
+                  ],
+                  [
+                    "CONFIG_UPDATE_SERVER",
+                    "Request-Response",
+                    "Updates the server configuration",
+                    "WireGuardConfig object",
+                    "boolean (success)"
+                  ]
+                ],
+                "alignment": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              }
+            ]
+          }
+        ],
+        "path": [],
+        "file_paths": [
+          "server-operations.md"
+        ],
+        "content_blocks": [
+          {
+            "type": "paragraph",
+            "content": "Channels for controlling and monitoring the WireGuard server:"
+          },
+          {
+            "type": "table",
+            "header": [
+              "Channel",
+              "Type",
+              "Description",
+              "Parameters",
+              "Returns"
+            ],
+            "rows": [
+              [
+                "SERVER_START",
+                "Request-Response",
+                "Starts the WireGuard server",
+                "None",
+                "boolean (success)"
+              ],
+              [
+                "SERVER_STOP",
+                "Request-Response",
+                "Stops the WireGuard server",
+                "None",
+                "boolean (success)"
+              ],
+              [
+                "SERVER_STATUS",
+                "Request-Response",
+                "Gets the current server status",
+                "None",
+                "ServerStatus object"
+              ],
+              [
+                "SERVER_STATUS_CHANGED",
+                "Event",
+                "Notifies of server status changes",
+                "N/A",
+                "ServerStatus object"
+              ]
+            ],
+            "alignment": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

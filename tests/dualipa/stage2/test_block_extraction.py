@@ -15,8 +15,24 @@ import json
 project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-print(f"Python path: {sys.path}")
-print(f"Current directory: {os.getcwd()}")
+# Import required modules, fail loudly if they're not available
+try:
+    from agent_tools.dualipa.code_extractor import (
+        extract_python_blocks,
+        extract_javascript_blocks,
+        extract_typescript_blocks,
+        extract_go_blocks,
+        extract_rust_blocks,
+        extract_c_blocks,
+        extract_blocks_generic,
+        extract_markdown_blocks
+    )
+    from agent_tools.dualipa.utils import (
+        clone_repository_if_not_exists,
+        find_files_by_extension
+    )
+except ImportError as e:
+    raise ImportError(f"Required dependencies for block extraction tests not available: {e}")
 
 # Local test repository paths
 RUST_ANALYZER_PATH = project_root / "test_repos" / "rust-analyzer"
@@ -28,7 +44,18 @@ PYTHON_REPO_PATH = project_root / "test_repos" / "python-sample"  # Fallback sam
 HAS_RUST_REPO = RUST_ANALYZER_PATH.exists()
 HAS_REACT_REPO = REACT_PATH.exists()
 HAS_REQUESTS_REPO = REQUESTS_PATH.exists() 
-HAS_PYTHON_REPO = PYTHON_REPO_PATH.exists()  # Fallback sample
+
+# Clone repositories if they don't exist
+try:
+    if not HAS_REQUESTS_REPO:
+        REQUESTS_PATH = clone_repository_if_not_exists(
+            "https://github.com/psf/requests.git",
+            project_root / "test_repos",
+            depth=1
+        )
+        HAS_REQUESTS_REPO = REQUESTS_PATH.exists()
+except Exception as e:
+    pytest.skip(f"Failed to clone requests repository: {e}")
 
 # Print repository status
 print(f"Repository status:")
@@ -37,156 +64,53 @@ print(f"- React: {'Available' if HAS_REACT_REPO else 'Not found'}")
 print(f"- Requests: {'Available' if HAS_REQUESTS_REPO else 'Not found'}")
 print(f"- Python sample: {'Available' if HAS_PYTHON_REPO else 'Not found'}")
 
-# Import the required modules
-try:
-    from agent_tools.dualipa.code_extractor import (
-        extract_repository,
-        _extract_python_blocks,
-        _extract_js_ts_blocks
-    )
-    from agent_tools.dualipa.github_utils import fetch_file_content, clone_github_repo
-    HAS_DEPENDENCIES = True
-    print("Successfully imported extraction modules")
-    
-    # Try to clone the requests repository if it doesn't exist
-    if not HAS_REQUESTS_REPO:
-        print("Attempting to clone requests repository...")
-        try:
-            os.makedirs(project_root / "test_repos", exist_ok=True)
-            clone_github_repo(
-                "https://github.com/psf/requests.git",
-                str(REQUESTS_PATH),
-                single_branch=True,
-                depth=1
-            )
-            HAS_REQUESTS_REPO = REQUESTS_PATH.exists()
-            print(f"Requests repository {'cloned successfully' if HAS_REQUESTS_REPO else 'clone failed'}")
-        except Exception as e:
-            print(f"Failed to clone requests repository: {e}")
-            
-except ImportError as e:
-    print(f"Import error: {e}")
-    print("Required dependencies not available, tests will be skipped")
-    HAS_DEPENDENCIES = False
-
-# Skip all tests if dependencies are not available
-pytestmark = pytest.mark.skipif(
-    not HAS_DEPENDENCIES, 
-    reason="Required modules not available"
-)
-
 def test_extract_python_code_blocks():
     """Test extraction of Python code blocks from real-world Python files."""
-    try:
-        # Try to find Python files in the requests repository first
-        python_files = []
-        if HAS_REQUESTS_REPO:
-            python_files = list(REQUESTS_PATH.glob("**/*.py"))
-            if python_files:
-                print(f"Found {len(python_files)} Python files in requests repository")
-                # Sort by file size to find substantial files
-                python_files.sort(key=lambda f: f.stat().st_size, reverse=True)
-                for file in python_files[:5]:  # Print top 5 files
-                    print(f"- {file.relative_to(REQUESTS_PATH)} ({file.stat().st_size} bytes)")
+    if not HAS_REQUESTS_REPO:
+        pytest.skip("Requests repository not available")
+    
+    # Find some Python files
+    python_files = find_files_by_extension(REQUESTS_PATH, ".py", limit=5)
+    assert len(python_files) > 0, "No Python files found in the requests repository"
+    
+    # Use an existing Python file from the repository
+    python_file = python_files[0]
+    print(f"Testing with Python file: {python_file}")
+    
+    # Set up output directory
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir)
         
-        # Fallback to Python sample if no files found in requests
-        if not python_files and HAS_PYTHON_REPO:
-            python_files = list(PYTHON_REPO_PATH.glob("**/*.py"))
-            if python_files:
-                print(f"Found {len(python_files)} Python files in sample directory")
+        # Extract blocks
+        with open(python_file, 'r') as file:
+            content = file.read()
         
-        # Look for Python files elsewhere if needed
-        if not python_files:
-            print("Looking for Python files in project root...")
-            python_files = list(Path(project_root).glob("**/*.py"))
-            if python_files:
-                print(f"Found {len(python_files)} Python files in project")
-            
-        if not python_files:
-            # Create a sample Python file if none exist in the repo
-            with tempfile.NamedTemporaryFile(suffix='.py', mode='w') as f:
-                f.write("""
-def hello_world():
-    print("Hello, World!")
-
-class TestClass:
-    def __init__(self):
-        self.value = 42
+        stats = {
+            "code_blocks": 0, 
+            "errors": [],
+            "file_blocks": {}
+        }
         
-    def get_value(self):
-        return self.value
-""")
-                f.flush()
-                
-                # Set up output directory
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    output_dir = Path(temp_dir)
-                    
-                    # Extract blocks
-                    with open(f.name, 'r') as file:
-                        content = file.read()
-                    
-                    stats = {
-                        "code_blocks": 0, 
-                        "errors": [],
-                        "file_blocks": {}
-                    }
-                    
-                    _extract_python_blocks(Path(f.name), content, output_dir, stats)
-                    
-                    # Verify extraction worked
-                    assert stats["code_blocks"] > 0, "Should extract at least one code block"
-                    print(f"Extracted {stats['code_blocks']} blocks from {f.name}")
-                    
-                    # Check if blocks were written to files
-                    blocks_dir = output_dir / "blocks" / "code" / "python"
-                    assert blocks_dir.exists(), "Should create blocks directory"
-                    
-                    block_files = list(blocks_dir.glob("*.py"))
-                    assert len(block_files) > 0, "Should create at least one block file"
-                    print(f"Found {len(block_files)} block files")
-        else:
-            # Use an existing Python file from the repository
-            python_file = python_files[0]
-            print(f"Testing with Python file: {python_file}")
-            
-            # Set up output directory
-            with tempfile.TemporaryDirectory() as temp_dir:
-                output_dir = Path(temp_dir)
-                
-                # Extract blocks
-                with open(python_file, 'r') as file:
-                    content = file.read()
-                
-                stats = {
-                    "code_blocks": 0, 
-                    "errors": [],
-                    "file_blocks": {}
-                }
-                
-                _extract_python_blocks(python_file, content, output_dir, stats)
-                
-                # Verify extraction worked
-                assert stats["code_blocks"] > 0, "Should extract at least one code block"
-                print(f"Extracted {stats['code_blocks']} blocks from {python_file}")
-                
-                # Check if blocks were written to files
-                blocks_dir = output_dir / "blocks" / "code" / "python"
-                assert blocks_dir.exists(), "Should create blocks directory"
-                
-                block_files = list(blocks_dir.glob("*.py"))
-                assert len(block_files) > 0, "Should create at least one block file"
-                print(f"Found {len(block_files)} block files")
-                
-                # Check content of first block file
-                if block_files:
-                    with open(block_files[0], 'r') as f:
-                        block_content = f.read()
-                    print(f"First block preview: {block_content[:100]}...")
-                    assert len(block_content) > 0, "Block file should contain content"
+        extract_python_blocks(python_file, content, output_dir, stats)
         
-    except Exception as e:
-        pytest.skip(f"Error in extract_python_code_blocks test: {e}")
+        # Verify extraction worked
+        assert stats["code_blocks"] > 0, "Should extract at least one code block"
+        print(f"Extracted {stats['code_blocks']} blocks from {python_file}")
+        
+        # Check if blocks were written to files
+        blocks_dir = output_dir / "blocks" / "code" / "python"
+        assert blocks_dir.exists(), "Should create blocks directory"
+        
+        block_files = list(blocks_dir.glob("*.py"))
+        assert len(block_files) > 0, "Should create at least one block file"
+        print(f"Found {len(block_files)} block files")
+        
+        # Check content of first block file
+        if block_files:
+            with open(block_files[0], 'r') as f:
+                block_content = f.read()
+            print(f"First block preview: {block_content[:100]}...")
+            assert len(block_content) > 0, "Block file should contain content"
 
 def test_extract_javascript_code_blocks():
     """Test extraction of JavaScript code blocks from real-world JS files."""
@@ -219,8 +143,7 @@ def test_extract_javascript_code_blocks():
             "file_blocks": {}
         }
         
-        # Call the extraction function directly
-        _extract_js_ts_blocks(js_file, content, output_dir, stats, "javascript")
+        extract_javascript_blocks(js_file, content, output_dir, stats)
         
         # Print any errors for debugging
         if stats["errors"]:
@@ -296,13 +219,11 @@ def test_cross_language_extraction():
             
             # Call the appropriate extraction function based on language
             if lang == "python":
-                _extract_python_blocks(file_path, content, output_dir, stats)
+                extract_python_blocks(file_path, content, output_dir, stats)
             elif lang == "javascript":
-                _extract_js_ts_blocks(file_path, content, output_dir, stats, "javascript")
+                extract_javascript_blocks(file_path, content, output_dir, stats)
             elif lang == "rust":
-                # For Rust, use generic extraction since we don't have a specialized function
-                from agent_tools.dualipa.code_extractor import _extract_generic_blocks
-                _extract_generic_blocks(file_path, content, output_dir, stats, "rust")
+                extract_rust_blocks(file_path, content, output_dir, stats)
                 
             # Print any errors for debugging
             if stats["errors"]:

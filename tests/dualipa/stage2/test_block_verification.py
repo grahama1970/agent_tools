@@ -31,33 +31,19 @@ if not HAS_TEST_REPOS:
 
 # Import the required modules
 try:
-    from agent_tools.dualipa.code_extractor import _verify_code_block, _extract_python_blocks, _extract_js_ts_blocks
+    # Try to import the module
+    from agent_tools.dualipa import code_extractor
+    from agent_tools.dualipa.verification import verify_code_block as _verify_code_block
     HAS_DEPENDENCIES = True
-    print("Successfully imported verification modules")
 except ImportError as e:
-    print(f"Import error: {e}")
-    print("Required dependencies not available, tests will be skipped")
-    HAS_DEPENDENCIES = False
-
-# Define stub function for verification if real one is not available
-if not HAS_DEPENDENCIES:
-    def _verify_code_block(block):
-        """Stub verify_code_block function for when the real one is missing."""
-        # Check if block is valid by checking if it's a dict with content
-        if not isinstance(block, dict):
-            return False
-        
-        content = block.get("content", "")
-        language = block.get("language", "")
-        
-        # Check for non-empty content and matching language
-        return bool(content) and bool(language)
+    # Instead of silently skipping, fail loudly with a clear error message
+    raise ImportError(f"Required verification modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Skip all tests if dependencies are not available
-pytestmark = pytest.mark.skipif(
-    not HAS_DEPENDENCIES, 
-    reason="Required modules not available"
-)
+# pytestmark = pytest.mark.skipif(
+#     not HAS_DEPENDENCIES, 
+#     reason="Required modules not available"
+# )
 
 def create_test_block(language, content=None, valid=True):
     """Create a test code block for verification."""

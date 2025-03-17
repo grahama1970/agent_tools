@@ -66,13 +66,19 @@ def markdown_file():
 
 def test_markdown_it_availability():
     """Test if markdown-it is available."""
-    assert MARKDOWN_IT_AVAILABLE, "markdown-it is required for tests"
+    try:
+        import markdown_it
+        assert True, "markdown-it-py is available"
+    except ImportError:
+        pytest.fail("markdown-it-py is not installed - this test requires it to run")
 
 
 def test_extract_code_blocks():
     """Test extraction of code blocks from markdown."""
-    if not MARKDOWN_IT_AVAILABLE:
-        pytest.skip("markdown-it not available")
+    try:
+        import markdown_it
+    except ImportError:
+        pytest.fail("markdown-it-py not available - install it to run this test")
     
     # Process markdown
     result = markdown_to_hierarchical_json(SAMPLE_MARKDOWN)
@@ -94,8 +100,10 @@ def test_extract_code_blocks():
 
 def test_extract_images():
     """Test extraction of images from markdown."""
-    if not MARKDOWN_IT_AVAILABLE:
-        pytest.skip("markdown-it not available")
+    try:
+        import markdown_it
+    except ImportError:
+        pytest.fail("markdown-it-py not available - install it to run this test")
     
     # Process markdown
     result = markdown_to_hierarchical_json(SAMPLE_MARKDOWN)

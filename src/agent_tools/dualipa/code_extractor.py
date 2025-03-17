@@ -454,7 +454,7 @@ def _extract_with_tree_sitter(
         has_top_level_executable = False
         special_file_patterns = {
             "python": ["setup.py", "manage.py", "app.py", "main.py", "run.py"],
-            "javascript": ["webpack.config.js", "rollup.config.js", "gulpfile.js", "gruntfile.js"],
+            "javascript": ["webpack.config.js", "rollup.config.js", "gulpfile.js", "gruntfile.js", ".babelrc", ".eslintrc", "package.json"],
             "typescript": ["tsconfig.json", "webpack.config.ts", "rollup.config.ts"],
             "ruby": ["Rakefile", "Gemfile"],
             "bash": [".bashrc", ".bash_profile", "install.sh", "setup.sh", "deploy.sh"],
@@ -466,7 +466,11 @@ def _extract_with_tree_sitter(
         # Check if this is a special file by name
         file_name = file_path.name.lower()
         lang_patterns = special_file_patterns.get(language, [])
-        if any(file_name.endswith(pattern) for pattern in lang_patterns):
+        if any(file_name.endswith(pattern.lower()) for pattern in lang_patterns):
+            is_special_file = True
+            
+        # Specifically check for webpack.config.js which must always be extracted as a script
+        if file_name == "webpack.config.js":
             is_special_file = True
             
         # Check for top-level executable statements

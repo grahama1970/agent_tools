@@ -722,6 +722,25 @@ def build_code_hierarchy(code_or_entities: Union[str, List[Dict[str, Any]]], lan
                 elif 'name' in entity and 'type' in entity and 'name' in potential_parent and 'type' in potential_parent:
                     if potential_parent['name'] == entity['name'] and potential_parent['type'] == entity['type']:
                         continue
+                
+                # Check if the entity is contained within the potential parent's line range
+                if ('start_line' in entity and 'end_line' in entity and 
+                    'start_line' in potential_parent and 'end_line' in potential_parent):
+                    # Entity is within parent if its start line is >= parent's start line
+                    # and its end line is <= parent's end line
+                    if (entity['start_line'] >= potential_parent['start_line'] and 
+                        entity['end_line'] <= potential_parent['end_line'] and
+                        # Ensure it's not the exact same line range (which would be self)
+                        (entity['start_line'] != potential_parent['start_line'] or 
+                         entity['end_line'] != potential_parent['end_line'])):
+                        # Found a potential parent - use its ID
+                        potential_parent_id = potential_parent.get('id')
+                        if not potential_parent_id and 'name' in potential_parent and 'type' in potential_parent:
+                            potential_parent_id = f"{potential_parent['type']}:{potential_parent['name']}"
+                        
+                        # If this is the first parent or has a tighter scope than previous parent
+                        if parent_id is None or potential_parent['start_line'] > entity_map[parent_id]['start_line']:
+                            parent_id = potential_parent_id
             
             # Build hierarchy by adding children to parents
             if parent_id and parent_id in entity_map:

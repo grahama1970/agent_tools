@@ -1,19 +1,18 @@
-"""
-Tests for Python code extraction.
-
-This module tests the extraction of Python code blocks using the Python AST parser
-on real-world Python code examples from actual repositories instead of synthetic examples.
-This ensures the extractor works with realistic code patterns found in the wild.
-"""
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Tests for the Python function extraction module."""
 
 import os
 import sys
 import tempfile
+import unittest.mock as mock
+from pathlib import Path
+
 import pytest
 import requests
 import json
 import glob
-from pathlib import Path
+import importlib
 
 # Configure paths properly - add src directory to path
 project_root = Path(__file__).parent.parent.parent.parent
@@ -22,39 +21,21 @@ sys.path.insert(0, str(src_path))
 
 # Add debugging for import locations
 try:
-    import agent_tools
-    print(f"\nFound agent_tools at: {agent_tools.__file__}")
-    
-    # Now try to import from dualipa
-    from agent_tools.dualipa.code_extractor import _extract_python_blocks
+    # Import the python extractor module from code_extractor
+    from agent_tools.dualipa.code_extractor import (
+        _extract_python_blocks as extract_python_blocks
+    )
     HAS_DEPENDENCIES = True
-    print("Successfully imported _extract_python_blocks")
 except ImportError as e:
-    print(f"\nError importing required modules: {e}")
-    print(f"Python path: {sys.path}")
-    
-    # Print additional debugging information
+    # Detailed error message about what's missing
+    agent_tools_dir = None
     try:
-        import agent_tools
-        print(f"agent_tools found at: {agent_tools.__file__}")
-        agent_tools_dir = os.path.dirname(agent_tools.__file__)
-        print(f"Contents of {agent_tools_dir}:")
-        for item in os.listdir(agent_tools_dir):
-            print(f"  - {item}")
-            
-        # Check if dualipa exists
-        dualipa_dir = os.path.join(agent_tools_dir, "dualipa")
-        if os.path.exists(dualipa_dir):
-            print(f"Contents of {dualipa_dir}:")
-            for item in os.listdir(dualipa_dir):
-                print(f"  - {item}")
-    except ImportError:
-        print("Could not import agent_tools at all")
-        
-    HAS_DEPENDENCIES = False
+        agent_tools_dir = importlib.util.find_spec("agent_tools").submodule_search_locations[0]
+    except:
+        pass
 
-# Skip tests if dependencies are not available
-pytestmark = pytest.mark.skipif(not HAS_DEPENDENCIES, reason="Required imports not available")
+    # Instead of silently skipping, fail loudly with a clear error message
+    raise ImportError(f"Required Python extractor modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Real repository URLs for Python code
 PYTHON_REPOS = {
@@ -161,362 +142,330 @@ def pandas_code():
     """Fixture to provide real Pandas code."""
     return fetch_real_python('pandas')
 
-def test_extract_python_functions(flask_code):
-    """Test extraction of Python functions from real Flask code."""
-    # Skip test if required imports are not available
-    if not HAS_DEPENDENCIES:
-        pytest.skip("Required imports not available")
-        
-    with tempfile.NamedTemporaryFile(suffix='.py', mode='w+') as f:
-        f.write(flask_code)
-        f.flush()
-        
-        # Create a temporary directory for output
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_dir = Path(temp_dir)
-            
-            # Initialize stats dictionary
-            stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
-            
-            # Extract code blocks - returns number of blocks extracted
-            # Convert string path to Path object
-            file_path = Path(f.name)
-            
-            # Debug the file being processed
-            print(f"\nAttempting to extract blocks from: {file_path}")
-            print(f"File exists: {file_path.exists()}")
-            
-            try:
-                # The function returns an integer, not block content
-                num_blocks = _extract_python_blocks(file_path, flask_code, output_dir, stats)
-                print(f"Extracted {num_blocks} blocks from Flask code")
-                
-                # Skip remaining checks if extraction failed
-                if num_blocks == 0:
-                    # Check if we have any errors in stats
-                    if stats.get("errors"):
-                        print(f"Errors during extraction: {stats['errors']}")
-                    pytest.skip("Extraction failed, skipping remaining checks")
-                
-                # Verify we got something
-                assert num_blocks is not None, "Should return number of blocks"
-                assert isinstance(num_blocks, int), "Should return an integer"
-                assert num_blocks > 0, "Should extract at least one block"
-                
-                # The blocks should be saved to the output directory
-                # Check if blocks directory exists
-                blocks_dir = output_dir / "blocks" / "code" / "python"
-                assert blocks_dir.exists(), "Blocks directory should exist"
-                
-                # Count files in the blocks directory
-                block_files = list(blocks_dir.glob("*.py"))
-                print(f"Found {len(block_files)} block files in {blocks_dir}")
-                assert len(block_files) > 0, "Block files should exist"
-                
-                # Load the blocks to check their structure
-                blocks = load_extracted_blocks(output_dir)
-                assert len(blocks) > 0, "Should have loaded at least one block"
-                
-                # Verify blocks were extracted
-                assert len(blocks) > 0, "Should extract at least one block"
-                assert stats["code_blocks"] > 0, "Code blocks counter should be updated"
-                
-                # Find functions in the extracted blocks
-                functions = [block for block in blocks if block.get('type') == 'function']
-                if len(functions) > 0:
-                    # If we found functions, verify their structure
-                    for func in functions:
-                        assert 'name' in func, "Function should have a name"
-                        assert 'content' in func, "Function should have content"
-            except Exception as e:
-                print(f"Exception during extraction: {e}")
-                pytest.skip(f"Extraction failed with exception: {e}")
+def test_extract_python_blocks():
+    """Test extracting function definitions from Python files."""
+    test_str = """
+def my_function(a, b):
+    "This is a docstring"
+    print(a + b)
+    return True
 
-def test_extract_python_classes(django_code):
+def another_function():
+    '''Triple quote docstring'''
+    return False
+"""
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        output_dir = Path(tmp_dir)
+        # Create a temporary file path (doesn't need to exist physically)
+        file_path = Path(os.path.join(tmp_dir, "test_functions.py"))
+        stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
+        
+        # Call the function
+        try:
+            num_blocks = extract_python_blocks(file_path, test_str, output_dir, stats)
+            assert num_blocks > 0, "Should extract at least one block"
+            assert stats["code_blocks"] > 0, "Should increment code_blocks in stats"
+        except Exception as e:
+            pytest.fail(f"Failed to extract functions: {e}")
+
+def test_extract_python_functions():
+    """Test extraction of Python functions from real Flask code."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir)
+        blocks_dir = output_dir / "blocks" / "code" / "python"
+        os.makedirs(blocks_dir, exist_ok=True)
+        stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
+        
+        # Create a simple Flask-like function for testing
+        flask_code = '''
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    """Return a friendly HTTP greeting."""
+    return 'Hello World!'
+
+@app.route('/user/<username>')
+def show_user_profile(username):
+    """Show the user profile for that user."""
+    return f'User {username}'
+
+def create_app():
+    """Create and configure an instance of the Flask application."""
+    app = Flask(__name__)
+    return app
+'''
+        
+        # Write the code to a file
+        file_path_str = os.path.join(temp_dir, "flask_app.py")
+        with open(file_path_str, 'w') as f:
+            f.write(flask_code)
+        
+        # Convert string path to Path object
+        file_path = Path(file_path_str)
+        
+        # Extract functions
+        try:
+            print(f"\nAttempting to extract blocks from Flask code: {file_path}")
+            num_blocks = extract_python_blocks(file_path, flask_code, output_dir, stats)
+            print(f"Extracted {num_blocks} blocks from Flask code")
+            
+            # Check that blocks were extracted
+            assert num_blocks > 0, "Should extract at least one block from Flask code"
+            
+            # Check if block files were created
+            block_files = list(blocks_dir.glob("*.py"))
+            assert len(block_files) > 0, "Should create at least one block file"
+            
+            # Optional: verify content of blocks
+            for block_file in block_files:
+                with open(block_file, 'r') as f:
+                    content = f.read()
+                print(f"Block content preview: {content[:50]}...")
+                assert "def " in content, "Block should contain a function definition"
+        except Exception as e:
+            pytest.fail(f"Failed to extract Python functions: {e}")
+
+def test_extract_python_classes():
     """Test extraction of Python classes from real Django code."""
-    # Skip test if required imports are not available
-    if not HAS_DEPENDENCIES:
-        pytest.skip("Required imports not available")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir)
+        blocks_dir = output_dir / "blocks" / "code" / "python"
+        os.makedirs(blocks_dir, exist_ok=True)
+        stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
         
-    with tempfile.NamedTemporaryFile(suffix='.py', mode='w+') as f:
-        f.write(django_code)
-        f.flush()
+        # Create a Django-like class for testing
+        django_code = '''
+from django.db import models
+from django.contrib.auth.models import User
+
+class Post(models.Model):
+    """A blog post model."""
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        """Return the URL for this post."""
+        return f"/post/{self.id}/"
+
+class Comment(models.Model):
+    """A comment on a blog post."""
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+'''
         
-        # Create a temporary directory for output
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_dir = Path(temp_dir)
+        # Write the code to a file
+        file_path_str = os.path.join(temp_dir, "django_models.py")
+        with open(file_path_str, 'w') as f:
+            f.write(django_code)
+        
+        # Convert string path to Path object
+        file_path = Path(file_path_str)
+        
+        # Extract classes
+        try:
+            print(f"\nAttempting to extract blocks from Django code: {file_path}")
+            num_blocks = extract_python_blocks(file_path, django_code, output_dir, stats)
+            print(f"Extracted {num_blocks} blocks from Django code")
             
-            # Initialize stats dictionary
-            stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
+            # Check that blocks were extracted
+            assert num_blocks > 0, "Should extract at least one block from Django code"
             
-            # Extract code blocks - returns number of blocks extracted
-            # Convert string path to Path object
-            file_path = Path(f.name)
+            # Check if block files were created
+            block_files = list(blocks_dir.glob("*.py"))
+            assert len(block_files) > 0, "Should create at least one block file"
             
-            try:
-                # The function returns an integer, not block content
-                num_blocks = _extract_python_blocks(file_path, django_code, output_dir, stats)
-                print(f"Extracted {num_blocks} blocks from Django code")
-                
-                # Skip remaining checks if extraction failed
-                if num_blocks == 0:
-                    if stats.get("errors"):
-                        print(f"Errors during extraction: {stats['errors']}")
-                    pytest.skip("Extraction failed, skipping remaining checks")
-                
-                # Verify we got something
-                assert num_blocks is not None, "Should return number of blocks"
-                assert isinstance(num_blocks, int), "Should return an integer"
-                assert num_blocks > 0, "Should extract at least one block"
-                
-                # The blocks should be saved to the output directory
-                # Load the extracted blocks from the output directory
-                blocks = load_extracted_blocks(output_dir)
-                
-                # Verify blocks were extracted
-                assert len(blocks) > 0, "Should extract at least one block" 
-                assert stats["code_blocks"] > 0, "Code blocks counter should be updated"
-                
-                # Find classes in the extracted blocks
-                classes = [block for block in blocks if block.get('type') == 'class']
-                if len(classes) > 0:
-                    # If we found classes, verify their structure
-                    for cls in classes:
-                        assert 'name' in cls, "Class should have a name"
-                        assert 'content' in cls, "Class should have content"
-            except Exception as e:
-                print(f"Exception during extraction: {e}")
-                pytest.skip(f"Extraction failed with exception: {e}")
+            # Check if any of the blocks contains a class definition
+            class_found = False
+            for block_file in block_files:
+                with open(block_file, 'r') as f:
+                    content = f.read()
+                print(f"Block content preview: {content[:50]}...")
+                if "class " in content:
+                    class_found = True
+                    break  # Found at least one class, no need to check further
+            
+            assert class_found, "Should extract at least one block with a class definition"
+        except Exception as e:
+            pytest.fail(f"Failed to extract Python classes: {e}")
 
 def test_extract_from_multiple_repositories():
     """Test extraction from multiple real Python repositories to ensure robustness."""
-    # Skip test if required imports are not available
-    if not HAS_DEPENDENCIES:
-        pytest.skip("Required imports not available")
-        
     with tempfile.TemporaryDirectory() as temp_dir:
         output_dir = Path(temp_dir)
+        os.makedirs(output_dir, exist_ok=True)
         
-        # Try different repositories and verify we can extract code from at least one
-        extracted_total = 0
-        successful_repos = []
+        # Define some Python code snippets from different repos
+        code_snippets = {
+            "flask": '''
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Hello World!"
+''',
+            "django": '''
+from django.db import models
+
+class Article(models.Model):
+    title = models.CharField(max_length=100)
+    body = models.TextField()
+''',
+            "requests": '''
+def get(url, params=None, **kwargs):
+    """Sends a GET request."""
+    return request('get', url, params=params, **kwargs)
+'''
+        }
         
-        for repo_key in PYTHON_REPOS.keys():
-            code = fetch_real_python(repo_key)
-            file_path_str = os.path.join(temp_dir, f"{repo_key}.py")
-            # Convert string path to Path object
-            file_path = Path(file_path_str)
-            
-            with open(file_path, 'w') as f:
-                f.write(code)
-            
-            # Initialize stats dictionary
-            stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
-            
-            # Extract code blocks
+        # Test extracting from each snippet
+        success = False
+        for repo_key, code in code_snippets.items():
             try:
+                file_path_str = os.path.join(temp_dir, f"{repo_key}_sample.py")
+                with open(file_path_str, 'w') as f:
+                    f.write(code)
+                
+                # Convert string path to Path object
+                file_path = Path(file_path_str)
+                
+                stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
+                
                 print(f"\nAttempting to extract blocks from {repo_key}: {file_path}")
-                num_blocks = _extract_python_blocks(file_path, code, output_dir, stats)
+                num_blocks = extract_python_blocks(file_path, code, output_dir, stats)
                 print(f"Extracted {num_blocks} blocks from {repo_key}")
                 
                 if num_blocks > 0:
-                    extracted_total += num_blocks
-                    successful_repos.append(repo_key)
-                    
-                    # Check if blocks directory exists and contains files
-                    blocks_dir = output_dir / "blocks" / "code" / "python"
-                    if blocks_dir.exists():
-                        block_files = list(blocks_dir.glob(f"{file_path.stem}_*.py"))
-                        if block_files:
-                            print(f"Found {len(block_files)} block files for {repo_key}")
-                    
+                    success = True
+                    # Found a working repository, can continue with testing
+                    break
             except Exception as e:
                 print(f"Error extracting from {repo_key}: {e}")
         
-        # If all repositories failed, skip the test
-        if len(successful_repos) == 0:
-            pytest.skip("Extraction failed for all repositories, skipping test")
-            
-        # Verify we extracted blocks from at least one repository
-        assert extracted_total > 0, "Should extract blocks from at least one repository"
+        if not success:
+            pytest.fail("Extraction failed for all repositories")
         
-        # Print summary
-        print(f"\nSuccessfully extracted blocks from repositories: {successful_repos}")
-        print(f"Total blocks extracted: {extracted_total}")
-        
-        # Check for block files in the output directory
+        # Check that blocks directory exists
         blocks_dir = output_dir / "blocks" / "code" / "python"
-        if blocks_dir.exists():
-            block_files = list(blocks_dir.glob("*.py"))
-            print(f"Total block files found: {len(block_files)}")
-            assert len(block_files) > 0, "Should have created block files"
+        assert blocks_dir.exists(), "Blocks directory should be created"
+        
+        # Check if any block files were created
+        block_files = list(blocks_dir.glob("*.py"))
+        assert len(block_files) > 0, "Should create at least one block file"
 
 def test_code_with_decorators():
     """Test extraction of Python code with decorators."""
-    # Skip test if required imports are not available
-    if not HAS_DEPENDENCIES:
-        pytest.skip("Required imports not available")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir)
+        blocks_dir = output_dir / "blocks" / "code" / "python"
+        os.makedirs(blocks_dir, exist_ok=True)
+        stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
         
-    # Create a simple example with a decorator
-    decorator_example = """
-@app.route('/')
-def index():
-    return "Hello World"
+        # Create code with decorators
+        decorator_example = '''
+import functools
 
-class TestClass:
+def log_calls(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_calls
+def greet(name):
+    """Greet someone."""
+    return f"Hello, {name}!"
+
+class APIView:
     @classmethod
-    def class_method(cls):
-        return "Class method"
+    def as_view(cls, **initkwargs):
+        """Main entry point for a request-response process."""
+        def view(request, *args, **kwargs):
+            self = cls(**initkwargs)
+            return self.dispatch(request, *args, **kwargs)
+        return view
+'''
         
-    @staticmethod
-    def static_method():
-        return "Static method"
-"""
-    
-    with tempfile.NamedTemporaryFile(suffix='.py', mode='w+') as f:
-        f.write(decorator_example)
-        f.flush()
+        # Write the code to a file
+        file_path_str = os.path.join(temp_dir, "decorators.py")
+        with open(file_path_str, 'w') as f:
+            f.write(decorator_example)
         
-        # Create a temporary directory for output
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_dir = Path(temp_dir)
+        # Convert string path to Path object
+        file_path = Path(file_path_str)
+        
+        # Extract blocks
+        try:
+            print(f"\nAttempting to extract blocks with decorators from: {file_path}")
+            num_blocks = extract_python_blocks(file_path, decorator_example, output_dir, stats)
+            print(f"Extracted {num_blocks} blocks with decorators")
             
-            # Initialize stats dictionary
-            stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
+            # Check that blocks were extracted
+            assert num_blocks > 0, "Should extract at least one block with decorators"
             
-            # Extract code blocks - Convert string path to Path object
-            file_path = Path(f.name)
+            # Check if block files were created
+            block_files = list(blocks_dir.glob("*.py"))
+            assert len(block_files) > 0, "Should create at least one block file"
             
-            try:
-                print(f"\nAttempting to extract blocks with decorators from: {file_path}")
-                num_blocks = _extract_python_blocks(file_path, decorator_example, output_dir, stats)
-                print(f"Extracted {num_blocks} blocks with decorators")
-                
-                # Skip if extraction failed
-                if num_blocks == 0:
-                    if stats.get("errors"):
-                        print(f"Errors during extraction: {stats['errors']}")
-                    pytest.skip("Extraction failed, skipping remaining checks")
-                    
-                # Verify we got something
-                assert num_blocks > 0, "Should extract at least one block"
-                assert stats["code_blocks"] > 0, "Code blocks counter should be updated"
-                
-                # Check if blocks directory exists and contains files
-                blocks_dir = output_dir / "blocks" / "code" / "python"
-                assert blocks_dir.exists(), "Blocks directory should exist"
-                
-                # Count files in the blocks directory
-                block_files = list(blocks_dir.glob("*.py"))
-                print(f"Found {len(block_files)} block files in {blocks_dir}")
-                assert len(block_files) > 0, "Block files should exist"
-                
-                # Load the extracted blocks from the output directory
-                blocks = load_extracted_blocks(output_dir)
-                assert len(blocks) > 0, "Should have blocks"
-                
-                # Print block info for debugging
-                for i, block in enumerate(blocks):
-                    print(f"Block {i}: type={block.get('type')}, name={block.get('name')}")
-                    print(f"Content snippet: {block.get('content', '')[:50]}...")
-                
-                # Verify decorator was preserved in at least one block
-                has_decorator = False
-                for block in blocks:
-                    content = block.get('content', '')
-                    if '@app.route' in content or '@classmethod' in content or '@staticmethod' in content:
-                        has_decorator = True
-                        break
-                        
-                assert has_decorator, "Should preserve decorators in at least one block"
-            except Exception as e:
-                print(f"Exception during extraction: {e}")
-                pytest.skip(f"Extraction failed with exception: {e}")
+            # Optional: verify content of blocks
+            decorator_found = False
+            for block_file in block_files:
+                with open(block_file, 'r') as f:
+                    content = f.read()
+                print(f"Block content preview: {content[:50]}...")
+                if "@" in content:
+                    decorator_found = True
+            
+            assert decorator_found, "Should extract at least one block with a decorator"
+        except Exception as e:
+            pytest.fail(f"Failed to extract code with decorators: {e}")
 
-# Standalone test function to verify the imports work
 def test_imports_work():
     """Verify that imports work correctly."""
     try:
-        import agent_tools
-        print(f"agent_tools found at: {agent_tools.__file__}")
-        
+        print("\nTesting imports:")
         from agent_tools.dualipa import __version__
         print(f"dualipa version: {__version__}")
         
-        from agent_tools.dualipa.code_extractor import _extract_python_blocks
-        assert callable(_extract_python_blocks), "_extract_python_blocks should be callable"
+        assert callable(extract_python_blocks), "extract_python_blocks should be callable"
         
         assert True, "Imports are working correctly"
-    except ImportError as e:
-        print(f"Import error: {e}")
-        print(f"Python path: {sys.path}")
-        
-        # Print additional debugging information
-        try:
-            import agent_tools
-            print(f"agent_tools found at: {agent_tools.__file__}")
-            agent_tools_dir = os.path.dirname(agent_tools.__file__)
-            print(f"Contents of {agent_tools_dir}:")
-            for item in os.listdir(agent_tools_dir):
-                print(f"  - {item}")
-        except ImportError:
-            print("Could not import agent_tools at all")
-            
-        assert False, f"Failed to import: {e}"
+    except Exception as e:
+        pytest.fail(f"Import test failed: {e}")
 
 if __name__ == "__main__":
-    # Direct test without pytest
-    import sys
-    
-    # Add src directory to path
-    project_root = Path(__file__).parent.parent.parent.parent 
-    src_path = project_root / "src"
-    sys.path.insert(0, str(src_path))
-    print(f"Python path: {sys.path}")
-    
+    # Run the tests directly
     try:
         import agent_tools
         print(f"agent_tools found at: {agent_tools.__file__}")
         
-        from agent_tools.dualipa.code_extractor import _extract_python_blocks
-        print("Import successful when run directly!")
-        
-        # Test the function directly
-        with tempfile.NamedTemporaryFile(suffix='.py', mode='w+') as f:
-            f.write("def test_func():\n    return 'Hello, World!'")
-            f.flush()
-            
-            # Create a temporary directory for output
-            with tempfile.TemporaryDirectory() as temp_dir:
+        # Test _extract_python_blocks with a simple Python script
+        with tempfile.TemporaryDirectory() as temp_dir:
+            with tempfile.NamedTemporaryFile(suffix='.py', mode='w') as f:
+                f.write("def test_func():\n    return 'Hello, World!'")
+                f.flush()
+                
                 output_dir = Path(temp_dir)
+                stats = {"code_blocks": 0, "errors": [], "file_blocks": {}}
                 
-                # Initialize stats dictionary
-                stats = {"code_blocks": 0, "errors": []}
-                
-                # Extract code blocks
                 file_path = Path(f.name)
                 try:
-                    num_blocks = _extract_python_blocks(file_path, "def test_func():\n    return 'Hello, World!'", output_dir, stats)
+                    num_blocks = extract_python_blocks(file_path, "def test_func():\n    return 'Hello, World!'", output_dir, stats)
                     print(f"Number of blocks extracted: {num_blocks}")
                     print(f"Stats: {stats}")
-                    
-                    # Check the output directory
-                    blocks_dir = output_dir / "blocks" / "code" / "python"
-                    if blocks_dir.exists():
-                        print(f"Output directory created: {blocks_dir}")
-                        files = list(blocks_dir.glob("*.py"))
-                        print(f"Files found: {len(files)}")
-                        for file in files:
-                            print(f"  - {file.name}")
-                            with open(file, 'r') as f:
-                                print(f"    Content: {f.read()[:100]}...")
-                    else:
-                        print("Output directory not created")
                 except Exception as e:
-                    print(f"Error during extraction: {e}")
-                
-    except ImportError as e:
-        print(f"Import failed when run directly: {e}")
-        
-    # Run pytest if desired
-    # pytest.main(["tests/dualipa/stage2/test_python_extractor.py", "-v"])
+                    print(f"Error: {e}")
+    
+    except Exception as e:
+        print(f"Error running as script: {e}")

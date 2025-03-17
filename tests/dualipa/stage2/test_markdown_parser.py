@@ -27,24 +27,29 @@ HAS_DEPENDENCIES = False
 
 # Import directly from the package
 try:
+    # Import the markdown parser module
+    from agent_tools.dualipa.markdown_parser import (
+        extract_sections_from_markdown,
+        extract_code_blocks as extract_blocks_mistune,
+        process_markdown_file,
+        get_markdown_files,
+        extract_code_blocks_from_documentation,
+        markdown_to_html
+    )
+    
+    # Try to import markdown-it parser too
     from agent_tools.dualipa.markdown_it_parser import (
         MARKDOWN_IT_AVAILABLE,
         markdown_to_hierarchical_json,
-        extract_code_blocks,
-        process_markdown_file,
-        get_markdown_files,
+        extract_code_blocks as extract_blocks_markdown_it,
+        process_markdown_file as process_markdown_file_it,
+        get_markdown_files as get_markdown_files_it,
         get_flattened_markdown_content
     )
     HAS_DEPENDENCIES = True
 except ImportError as e:
-    print(f"Import error: {e}")
-    print("Markdown parser dependencies not available, tests will be skipped")
-
-# Skip all tests if the required modules don't exist
-pytestmark = pytest.mark.skipif(
-    not HAS_DEPENDENCIES,
-    reason="Required markdown parser modules not available"
-)
+    # Instead of silently skipping, we'll fail loudly
+    raise ImportError(f"Markdown parser dependencies not available: {e}. Fix the dependencies to run these tests.")
 
 # Local markdown samples from cloned repositories
 REPO_ROOT = project_root / "test_repos"
@@ -154,77 +159,108 @@ def markdown_with_code_blocks():
     ```
     """
 
-def test_extract_sections_from_markdown(real_markdown_content):
+def test_extract_sections_from_markdown():
     """Test extracting sections from real markdown content."""
-    if not MARKDOWN_IT_AVAILABLE:
-        pytest.skip("markdown-it-py not available")
-        
+    # Create a simple markdown document with sections
+    markdown_content = """# Test Markdown Document
+    
+## Introduction
+
+This is the introduction.
+
+## Section 1
+
+This is section 1.
+
+### Subsection 1.1
+
+This is subsection 1.1.
+
+## Section 2
+
+This is section 2.
+"""
+    
     try:
-        # Parse the markdown content with markdown-it
-        result = markdown_to_hierarchical_json(real_markdown_content)
-        
-        # Get sections from hierarchy
-        hierarchy = result["document"]["hierarchy"]
+        # Extract sections
+        sections = extract_sections_from_markdown(markdown_content)
         
         # Verify that sections were extracted
-        assert isinstance(hierarchy, dict), "Hierarchy should be a dictionary"
-        assert len(hierarchy) > 0, "At least one section should be extracted"
+        assert len(sections) > 0, "No sections were extracted"
         
-        # Check the structure of the first section
-        first_section_title = next(iter(hierarchy))
-        first_section = hierarchy[first_section_title]
-        assert isinstance(first_section, dict), "Section should be a dictionary"
-        assert "level" in first_section, "Section should have a level"
-        assert "title" in first_section, "Section should have a title"
-        assert "content" in first_section, "Section should have content"
-        assert "metadata" in first_section, "Section should have metadata"
+        # Verify section structure
+        for section in sections:
+            assert "level" in section, "Section should have a level"
+            assert "title" in section, "Section should have a title"
+            assert "content" in section, "Section should have content"
         
-        # Print some information about the extracted sections
-        print(f"Extracted {len(hierarchy)} sections from markdown content")
-        for i, (title, section) in enumerate(list(hierarchy.items())[:3]):  # Print details of first 3 sections
-            print(f"Section {i+1}: Level {section['level']}, Title: {title}")
-            print(f"Content blocks: {len(section['content'])} elements")
-    
+        # Check specific sections
+        assert any(section["title"] == "Introduction" for section in sections), "Should extract Introduction section"
+        assert any(section["title"] == "Section 1" for section in sections), "Should extract Section 1"
+        
+        # Print sections for debugging
+        print(f"Extracted {len(sections)} sections:")
+        for i, section in enumerate(sections):
+            print(f"Section {i+1}: {section['title']} (level {section['level']})")
+            content_preview = section["content"][:50] + "..." if len(section["content"]) > 50 else section["content"]
+            print(f"  Content: {content_preview}")
     except Exception as e:
-        pytest.skip(f"Error extracting sections: {e}")
+        pytest.fail(f"Error extracting sections: {e}")
 
-def test_extract_code_blocks(markdown_with_code_blocks):
+def test_extract_code_blocks():
     """Test extracting code blocks from markdown with multiple languages."""
-    if not MARKDOWN_IT_AVAILABLE:
-        pytest.skip("markdown-it-py not available")
-        
+    # Create a sample markdown with code blocks
+    markdown_text = """# Sample Code Blocks
+
+## Python
+
+```python
+def hello_world():
+    return "Hello, World!"
+```
+
+## JavaScript
+
+```javascript
+function greet() {
+    console.log("Hello, World!");
+}
+```
+
+## No Language Specified
+
+```
+Generic code block
+```
+"""
+    
     try:
-        # Extract code blocks from the markdown content
-        result = markdown_to_hierarchical_json(markdown_with_code_blocks)
-        blocks = result["code_blocks"]
+        # Extract code blocks with the correct parameter name
+        blocks = extract_blocks_mistune(markdown_text)
         
-        # Verify that blocks were extracted
-        assert isinstance(blocks, list), "Blocks should be a list"
-        assert len(blocks) > 0, "At least one block should be extracted"
+        # Verify that code blocks were extracted
+        assert len(blocks) > 0, "No code blocks were extracted"
         
-        # Check the structure of each block
+        # Verify block structure
         for block in blocks:
-            assert isinstance(block, dict), "Block should be a dictionary"
             assert "language" in block, "Block should have a language"
             assert "content" in block, "Block should have content"
-            assert "token_count" in block, "Block should have token count"
         
-        # Verify specific languages were extracted
-        languages = [block["language"] for block in blocks]
-        print(f"Extracted languages: {languages}")
+        # Check specific languages
+        python_blocks = [b for b in blocks if b["language"] == "python"]
+        js_blocks = [b for b in blocks if b["language"] == "javascript"]
         
-        # Check for Python blocks
-        python_blocks = [block for block in blocks if block["language"] == "python"]
-        if python_blocks:
-            assert "def hello_world" in python_blocks[0]["content"], "Python content mismatch"
+        assert len(python_blocks) > 0, "Should extract Python code blocks"
+        assert len(js_blocks) > 0, "Should extract JavaScript code blocks"
         
-        # Check for JavaScript blocks
-        js_blocks = [block for block in blocks if block["language"] == "javascript"]
-        if js_blocks:
-            assert "function greet" in js_blocks[0]["content"], "JavaScript content mismatch"
-    
+        # Print blocks for debugging
+        print(f"Extracted {len(blocks)} code blocks:")
+        for i, block in enumerate(blocks):
+            print(f"Block {i+1}: {block['language']}")
+            content_preview = block["content"][:50] + "..." if len(block["content"]) > 50 else block["content"]
+            print(f"  Content: {content_preview}")
     except Exception as e:
-        pytest.skip(f"Error extracting code blocks: {e}")
+        pytest.fail(f"Error extracting code blocks: {e}")
 
 def test_process_markdown_file(real_markdown_content):
     """Test processing a markdown file to extract code blocks and sections."""
@@ -238,7 +274,7 @@ def test_process_markdown_file(real_markdown_content):
             f.flush()
             
             # Process the markdown file
-            result = process_markdown_file(f.name)
+            result = process_markdown_file_it(f.name)
             
             # Verify the result structure
             assert isinstance(result, dict), "Result should be a dictionary"
@@ -273,7 +309,7 @@ def test_get_markdown_files():
         # Find markdown files in the rust-analyzer repo
         rust_repo = REPO_ROOT / "rust-analyzer"
         if os.path.exists(rust_repo):
-            md_files = get_markdown_files(rust_repo)
+            md_files = get_markdown_files_it(rust_repo)
             
             # Verify that files were found
             assert isinstance(md_files, list), "Result should be a list"
@@ -286,7 +322,7 @@ def test_get_markdown_files():
             print(f"Found {len(md_files)} markdown files in {rust_repo}")
             
             # Try non-recursive mode
-            md_files_nonrecursive = get_markdown_files(rust_repo, recursive=False)
+            md_files_nonrecursive = get_markdown_files_it(rust_repo, recursive=False)
             print(f"Found {len(md_files_nonrecursive)} markdown files in {rust_repo} (non-recursive)")
         else:
             pytest.skip("Rust-analyzer repository not found")
@@ -322,7 +358,7 @@ def test_process_readme_files():
             print(f"Processing README.md from {repo_name}")
             
             # Process the file
-            result = process_markdown_file(readme_path)
+            result = process_markdown_file_it(readme_path)
             
             # Verify basic structure
             assert "document" in result
@@ -380,7 +416,7 @@ def test_extract_code_blocks_from_documentation():
         print(f"Processing documentation file: {doc_file}")
         
         # Process the markdown file
-        result = process_markdown_file(doc_file)
+        result = process_markdown_file_it(doc_file)
         
         # Get code blocks
         code_blocks = result["code_blocks"]
@@ -403,6 +439,6 @@ def test_extract_code_blocks_from_documentation():
 
 if __name__ == "__main__":
     # Run tests directly
-    test_extract_sections_from_markdown(real_markdown_content())
-    test_extract_code_blocks(markdown_with_code_blocks())
+    test_extract_sections_from_markdown()
+    test_extract_code_blocks()
     test_process_markdown_file(real_markdown_content()) 

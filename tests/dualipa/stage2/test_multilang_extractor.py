@@ -38,29 +38,29 @@ try:
         extract_code_blocks,
         get_language_for_file,
         get_available_languages,
+        extract_blocks_from_repository
     )
     HAS_DEPENDENCIES = True
     print("Successfully imported multilang_extractor")
 except ImportError as e:
-    print(f"Import error: {e}")
-    print("Required dependencies not available, tests will be skipped")
-    HAS_DEPENDENCIES = False
+    # Instead of silently skipping, fail loudly with a clear error message
+    raise ImportError(f"Required multilang_extractor modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Check if tree-sitter is available
 try:
     import tree_sitter
     TREE_SITTER_AVAILABLE = True
     print("tree-sitter is available")
-except ImportError:
-    TREE_SITTER_AVAILABLE = False
-    print("tree-sitter is NOT available")
+except ImportError as e:
+    # Instead of silently skipping, fail loudly
+    raise ImportError(f"tree-sitter is not available: {e}. Install tree-sitter to run these tests.")
 
 # Skip tests if required modules are not available
-if not HAS_DEPENDENCIES:
-    pytestmark = pytest.mark.skipif(
-        True,
-        reason="Required modules not available"
-    )
+# if not HAS_DEPENDENCIES:
+#     pytestmark = pytest.mark.skipif(
+#         True,
+#         reason="Required modules not available"
+#     )
 
 # Define paths to test repositories
 REPOS_DIR = Path(__file__).parent.parent.parent.parent / "test_repos"
@@ -77,26 +77,23 @@ print(f"- Requests: {'Available' if HAS_REQUESTS else 'Not found'}")
 print(f"- React: {'Available' if HAS_REACT else 'Not found'}")
 print(f"- Rust Analyzer: {'Available' if HAS_RUST_ANALYZER else 'Not found'}")
 
-# Skip tests if repositories are not available
-pytestmark = pytest.mark.skipif(not TREE_SITTER_AVAILABLE, reason="Tree-sitter not available")
+# Remove the tree-sitter skipif marker
+# pytestmark = pytest.mark.skipif(not TREE_SITTER_AVAILABLE, reason="Tree-sitter not available")
 
 def test_get_available_languages():
     """Test that we can get a list of supported languages."""
-    try:
-        languages = get_available_languages()
-        
-        # Check we have at least some common languages
-        assert len(languages) > 0, "Should return at least one language"
-        
-        expected_languages = {"python", "javascript", "typescript"}
-        for lang in expected_languages:
-            if lang in languages:
-                print(f"Found supported language: {lang}")
-        
-        # Print all available languages
-        print(f"Available languages: {languages}")
-    except Exception as e:
-        pytest.skip(f"Error in get_available_languages: {e}")
+    languages = get_available_languages()
+    
+    # Check we have at least some common languages
+    assert len(languages) > 0, "Should return at least one language"
+    
+    expected_languages = {"python", "javascript", "typescript"}
+    for lang in expected_languages:
+        if lang in languages:
+            print(f"Found supported language: {lang}")
+    
+    # Print all available languages
+    print(f"Available languages: {languages}")
 
 def test_get_language_for_file():
     """Test that we can detect the language from file extensions."""
