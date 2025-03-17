@@ -26,115 +26,129 @@ def slugify(title: str) -> str:
     slug = slug.strip('-')
     return slug
 
-def extract_hierarchical_sections(markdown: str) -> List[Dict[str, Any]]:
+def extract_hierarchical_sections(markdown_or_path: str) -> List[Dict[str, Any]]:
     """
-    Extract hierarchical sections from markdown content.
+    Extract hierarchical sections from markdown content or a file path.
     
     Args:
-        markdown: Markdown content to extract sections from
+        markdown_or_path: Either markdown content as a string, or a path to a markdown file
         
     Returns:
         List of section objects with title, content, depth, and path information
     """
-    sections = []
+    # Check if this is a file path
+    if os.path.exists(markdown_or_path) and (
+        markdown_or_path.lower().endswith('.md') or 
+        markdown_or_path.lower().endswith('.markdown') or 
+        markdown_or_path.lower().endswith('.mdown')
+    ):
+        # It's a file path, read the content
+        try:
+            with open(markdown_or_path, 'r', encoding='utf-8', errors='replace') as f:
+                markdown = f.read()
+        except Exception as e:
+            print(f"Error reading markdown file {markdown_or_path}: {e}")
+            return []
+    else:
+        # Assume it's markdown content
+        markdown = markdown_or_path
+    
+    # Split the content into lines for processing
     lines = markdown.split('\n')
-    current_section = None
-    current_content = []
     
-    # Track the current path at each depth
-    current_titles = {}
-    
-    # Track file paths at each depth
-    current_file_paths = {}
-    
-    for line in lines:
-        # Check if the line is a header
+    # Extract all headers first
+    headers = []
+    for i, line in enumerate(lines):
         header_match = re.match(r'^(#+)\s+(.+)$', line)
-        
         if header_match:
-            # If we were building a section, finalize it
-            if current_section is not None:
-                current_section['content'] = '\n'.join(current_content)
-                sections.append(current_section)
-                
-            # Extract header depth and title
             depth = len(header_match.group(1))
             title = header_match.group(2).strip()
-            
-            # Update the current path
-            # Clear any deeper titles from the path
-            for d in list(current_titles.keys()):
-                if d >= depth:
-                    del current_titles[d]
-            
-            # Set current title at this depth
-            current_titles[depth] = title
-            
-            # Build the path (titles of parent sections)
-            path = []
-            for d in sorted(current_titles.keys()):
-                if d < depth:
-                    path.append(current_titles[d])
-            
-            # Create new section
-            current_section = {
+            headers.append({
                 'title': title,
-                'depth': depth,
-                'path': path,
-            }
-            
-            # Generate file paths
-            file_name = f"{slugify(title)}.md"
-            file_paths = [file_name]  # Base filename
-            
-            # Clear any deeper file paths
-            for d in list(current_file_paths.keys()):
-                if d >= depth:
-                    del current_file_paths[d]
-            
-            # Set the file path at this depth
-            if depth == 1:
-                # Top-level sections get just the filename
-                current_file_paths[depth] = file_name
-            else:
-                # Find closest parent depth
-                parent_depth = None
-                for d in sorted(current_file_paths.keys(), reverse=True):
-                    if d < depth:
-                        parent_depth = d
-                        break
-                
-                if parent_depth is not None:
-                    # Get the parent directory name (without .md extension)
-                    parent_dir = current_file_paths[parent_depth]
-                    if parent_dir.endswith('.md'):
-                        parent_dir = parent_dir[:-3]
-                    
-                    # Create path with the parent directory
-                    current_file_paths[depth] = os.path.join(parent_dir, file_name)
-                else:
-                    # If no parent found, treat as top-level
-                    current_file_paths[depth] = file_name
-            
-            # Generate all file paths (for all levels)
-            file_paths = []
-            for d in sorted(current_file_paths.keys()):
-                if d <= depth:
-                    file_paths.append(current_file_paths[d])
-            
-            current_section['file_paths'] = file_paths
-            current_content = [line]  # Start with the header line
+                'level': depth,  # Using 'level' as the tests expect
+                'depth': depth,  # Keep 'depth' for backward compatibility
+                'line_index': i,
+                'start_line': i + 1,  # Convert to 1-indexed line number
+                'content_lines': []
+            })
+    
+    # If no headers found, return empty list
+    if not headers:
+        return []
+    
+    # Assign content to each header
+    for i, header in enumerate(headers):
+        start_idx = header['line_index']
+        if i < len(headers) - 1:
+            end_idx = headers[i + 1]['line_index']
         else:
-            # Add to current content
-            if current_section is not None:
-                current_content.append(line)
+            end_idx = len(lines)
+        
+        # Include the header line itself in the content
+        header['content_lines'] = lines[start_idx:end_idx]
+        header['end_line'] = start_idx + len(header['content_lines'])  # Convert to 1-indexed
     
-    # Add the final section
-    if current_section is not None:
-        current_section['content'] = '\n'.join(current_content)
-        sections.append(current_section)
+    # Build the path for each header
+    for i, header in enumerate(headers):
+        path = []
+        for prev_header in headers[:i]:
+            if prev_header['level'] < header['level']:
+                path.append(prev_header['title'])
+        header['path'] = path
     
-    return sections
+    # Create file_paths for each header
+    for header in headers:
+        title_slug = slugify(header['title'])
+        file_name = f"{title_slug}.md"
+        header['file_paths'] = [file_name]
+        
+        # Add parent paths
+        if header['path']:
+            parent_path = '/'.join([slugify(p) for p in header['path']])
+            header['file_paths'].append(f"{parent_path}/{file_name}")
+    
+    # Create the final section objects
+    sections = []
+    for header in headers:
+        section = {
+            'title': header['title'],
+            'level': header['level'],
+            'depth': header['depth'],
+            'path': header['path'],
+            'start_line': header['start_line'],
+            'end_line': header['end_line'],
+            'content': '\n'.join(header['content_lines']),
+            'file_paths': header['file_paths'],
+            'subsections': []
+        }
+        sections.append(section)
+    
+    # Build the hierarchy by nesting subsections under their parent sections
+    top_level_sections = []
+    section_map = {}  # Map from (level, title) to section object
+    
+    # First pass: create a mapping of all sections
+    for section in sections:
+        key = (section['level'], section['title'])
+        section_map[key] = section
+    
+    # Second pass: build the hierarchy
+    for section in sections:
+        # Check if this section has a parent
+        if section['path']:
+            parent_title = section['path'][-1]
+            parent_level = section['level'] - 1
+            parent_key = (parent_level, parent_title)
+            
+            # Find parent section and add this section as a subsection
+            if parent_key in section_map:
+                parent = section_map[parent_key]
+                parent['subsections'].append(section)
+        else:
+            # This is a top-level section
+            top_level_sections.append(section)
+    
+    return top_level_sections
 
 def build_repository_hierarchy(repo_path: str) -> List[Dict[str, Any]]:
     """

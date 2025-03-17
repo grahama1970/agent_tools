@@ -32,8 +32,9 @@ except ImportError as e:
 
 # Skip all tests in this file - the extract_hierarchical_sections function 
 # is either missing or not working properly
-pytestmark = pytest.mark.skip(
-    reason="extract_hierarchical_sections functionality not available or not properly implemented"
+pytestmark = pytest.mark.skipif(
+    not HAS_DEPENDENCIES,
+    reason="Required markdown hierarchy modules not available"
 )
 
 # Real repository markdown files to test

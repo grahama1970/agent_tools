@@ -64,12 +64,14 @@ def setup_parsers():
         JS_LANGUAGE = Language(tree_sitter_javascript.language())
         TS_LANGUAGE = Language(tree_sitter_typescript.language())
         
-        # Create parsers
+        # Initialize parsers
         js_parser = Parser()
-        js_parser.set_language(JS_LANGUAGE)
-        
         ts_parser = Parser()
-        ts_parser.set_language(TS_LANGUAGE)
+        
+        # Set languages
+        # Updated for tree-sitter 0.24.0: use property assignment instead of set_language
+        js_parser.language = JS_LANGUAGE
+        ts_parser.language = TS_LANGUAGE
         
         return js_parser, ts_parser
     except Exception as e:

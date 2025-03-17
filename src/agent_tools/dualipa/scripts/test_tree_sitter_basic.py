@@ -94,9 +94,8 @@ try:
                 if Path(lang_path).exists():
                     print(f"  Language file exists at: {lang_path}")
                     # Try to load from this path
-                    js_lang = Language(lang_path, 'javascript')
-                    print("  Successfully loaded JavaScript language")
-                    parser.set_language(js_lang)
+                    js_lang = Language(tree_sitter_javascript.language())
+                    parser.language = js_lang
                     tree = parser.parse(js_code)
                     print(f"  Parse successful. Root node type: {tree.root_node.type}")
                 else:

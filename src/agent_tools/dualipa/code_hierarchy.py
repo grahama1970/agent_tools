@@ -10,7 +10,7 @@ import os
 import re
 import ast
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Tuple
+from typing import Dict, List, Any, Optional, Set, Tuple, Union
 import tree_sitter
 from tree_sitter import Language, Parser
 
@@ -250,6 +250,13 @@ def extract_code_structure(code: str, filename: str = "") -> List[Dict[str, Any]
     # Sort entities by line number to preserve order
     entities.sort(key=lambda e: e.get('lineno', 0))
     
+    # Fix field name mismatches
+    for entity in entities:
+        if 'lineno' in entity and 'start_line' not in entity:
+            entity['start_line'] = entity['lineno']
+        if 'end_lineno' in entity and 'end_line' not in entity:
+            entity['end_line'] = entity['end_lineno']
+    
     return entities
 
 
@@ -388,7 +395,7 @@ def write_code_entities(entities: List[Dict[str, Any]], output_dir: str) -> Dict
     return output_files
 
 
-def extract_code_structure_tree_sitter(code: str, language: str, filename: str = "") -> List[Dict[str, Any]]:
+def _extract_hierarchical_structure_treesitter(code: str, language: str, filename: Optional[str] = None) -> List[Dict[str, Any]]:
     """
     Extract hierarchical code structure using tree-sitter for non-Python languages.
     
@@ -407,15 +414,35 @@ def extract_code_structure_tree_sitter(code: str, language: str, filename: str =
         # Import the code_extractor module to get the TREE_SITTER_LANGUAGES
         from agent_tools.dualipa.code_extractor import TREE_SITTER_LANGUAGES
         
-        # Initialize tree-sitter parser
-        parser = Parser()
+        # Initialize tree-sitter parser - using explicit import
+        import tree_sitter
+        parser = tree_sitter.Parser()
         
         # Get the language from the TREE_SITTER_LANGUAGES dict
         if language not in TREE_SITTER_LANGUAGES:
             raise ValueError(f"Language {language} not supported by tree-sitter")
             
-        # Set the language
-        parser.set_language(TREE_SITTER_LANGUAGES[language])
+        # Set the language - create the Language object first, then set it
+        lang_module = TREE_SITTER_LANGUAGES[language]
+        try:
+            # Updated for tree-sitter 0.24.0: use property assignment instead of set_language
+            # Special case for TypeScript which has language_typescript instead of language
+            if language == 'typescript' and hasattr(lang_module, 'language_typescript'):
+                ts_language = tree_sitter.Language(lang_module.language_typescript())
+            else:
+                ts_language = tree_sitter.Language(lang_module.language())
+            parser.language = ts_language  # Use property assignment instead of set_language method
+        except Exception as e:
+            print(f"Could not load tree-sitter language for {language}: {e}")
+            error_entity = {
+                "type": "error",
+                "name": f"Error in {os.path.basename(filename or 'unknown')}",
+                "content": f"Parsing error: {str(e)}",
+                "error": str(e),
+                "file_paths": [f"error_{os.path.basename(filename or 'unknown')}.{language}"],
+                "depth": 0
+            }
+            return [error_entity]
         
         # Parse the code
         tree = parser.parse(bytes(code, 'utf8'))
@@ -456,7 +483,9 @@ def extract_code_structure_tree_sitter(code: str, language: str, filename: str =
             
             if node_type == 'class_declaration':
                 return 'class'
-            elif node_type == 'method_definition':
+            elif node_type == 'interface_declaration':
+                return 'interface'
+            elif node_type == 'method_definition' or node_type == 'method_declaration':
                 return 'method'
             elif node_type == 'function_declaration':
                 # Check if this is inside a class
@@ -568,6 +597,13 @@ def extract_code_structure_tree_sitter(code: str, language: str, filename: str =
     # Sort entities by line number
     entities.sort(key=lambda e: e.get('lineno', 0))
     
+    # Fix field name mismatches
+    for entity in entities:
+        if 'lineno' in entity and 'start_line' not in entity:
+            entity['start_line'] = entity['lineno']
+        if 'end_lineno' in entity and 'end_line' not in entity:
+            entity['end_line'] = entity['end_lineno']
+    
     return entities
 
 
@@ -612,7 +648,7 @@ def process_code_repository(repo_path: str, output_dir: str, extensions: List[st
             if language == 'python':
                 entities = extract_code_structure(content, file_info['path'])
             elif language:
-                entities = extract_code_structure_tree_sitter(content, language, file_info['path'])
+                entities = _extract_hierarchical_structure_treesitter(content, language, file_info['path'])
             else:
                 # Skip unsupported file types
                 continue
@@ -632,6 +668,210 @@ def process_code_repository(repo_path: str, output_dir: str, extensions: List[st
         'hierarchy': hierarchy,
         'output_files': output_files
     }
+
+
+def build_code_hierarchy(code_or_entities: Union[str, List[Dict[str, Any]]], language: str = "python", filename: str = "") -> List[Dict[str, Any]]:
+    """
+    Build a hierarchical representation of code entities.
+    
+    This function can handle either raw code as a string or a list of pre-extracted entities.
+    
+    Args:
+        code_or_entities: Either source code as a string, or a list of pre-extracted entities
+        language: Programming language of the code (only used if code_or_entities is a string)
+        filename: Optional filename for context (only used if code_or_entities is a string)
+        
+    Returns:
+        List of code entity objects with hierarchy information
+    """
+    # Check if we're working with a string (raw code) or a list of entities
+    if isinstance(code_or_entities, str):
+        # Process raw code
+        if language.lower() == "python":
+            return extract_code_structure(code_or_entities, filename)
+        else:
+            return _extract_hierarchical_structure_treesitter(code_or_entities, language, filename)
+    elif isinstance(code_or_entities, list):
+        # We already have entities, just build the hierarchy
+        entities = code_or_entities
+        hierarchy = []
+        
+        # Create a map of all entities by ID or name+type
+        entity_map = {}
+        for entity in entities:
+            # Try to use id if available, otherwise use name+type as a unique identifier
+            entity_id = entity.get('id')
+            if not entity_id and 'name' in entity and 'type' in entity:
+                entity_id = f"{entity['type']}:{entity['name']}"
+            
+            if entity_id:
+                entity_map[entity_id] = entity
+        
+        # First pass: identify parent-child relationships
+        for entity in entities:
+            # Initialize children array if not present
+            if 'children' not in entity:
+                entity['children'] = []
+            
+            # Find parent based on line numbers
+            parent_id = None
+            for potential_parent in entities:
+                # Skip self - compare by id if available, otherwise by name+type
+                if 'id' in entity and 'id' in potential_parent and potential_parent['id'] == entity['id']:
+                    continue
+                elif 'name' in entity and 'type' in entity and 'name' in potential_parent and 'type' in potential_parent:
+                    if potential_parent['name'] == entity['name'] and potential_parent['type'] == entity['type']:
+                        continue
+            
+            # Build hierarchy by adding children to parents
+            if parent_id and parent_id in entity_map:
+                parent = entity_map[parent_id]
+                if 'children' not in parent:
+                    parent['children'] = []
+                parent['children'].append(entity)
+            else:
+                # This is a top-level entity
+                hierarchy.append(entity)
+        
+        return hierarchy
+    else:
+        # Invalid input
+        return []
+
+
+def extract_code_hierarchy(repo_path: str, language: str = None) -> List[Dict[str, Any]]:
+    """
+    Extract code hierarchy from a repository, file path, or raw code string.
+    
+    This function determines if repo_path is a directory, file, or raw code,
+    and processes it accordingly.
+    
+    Args:
+        repo_path: Path to repository, file, or raw code string
+        language: Optional language identifier
+        
+    Returns:
+        List of code entity objects with hierarchy information
+    """
+    extensions = []
+    if language:
+        if language.lower() == "python":
+            extensions = ['.py']
+        elif language.lower() == "javascript":
+            extensions = ['.js']
+        elif language.lower() == "typescript":
+            extensions = ['.ts', '.tsx']
+        elif language.lower() == "java":
+            extensions = ['.java']
+    
+    # Detect if this is a directory, file, or raw code
+    if os.path.isdir(repo_path):
+        # It's a directory
+        return build_code_repository_hierarchy(repo_path, extensions)
+    elif os.path.isfile(repo_path):
+        # It's a file path
+        try:
+            with open(repo_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            ext = os.path.splitext(repo_path)[1].lower()
+            if ext == '.py' or (not ext and language and language.lower() == 'python'):
+                return extract_code_structure(content, os.path.basename(repo_path))
+            else:
+                lang = language or ('javascript' if ext == '.js' else 
+                                    'typescript' if ext in ('.ts', '.tsx') else 
+                                    'java' if ext == '.java' else 'unknown')
+                return _extract_hierarchical_structure_treesitter(content, lang, os.path.basename(repo_path))
+        except Exception as e:
+            print(f"Error extracting code from file {repo_path}: {str(e)}")
+            return []
+    else:
+        # Assume it's raw code
+        try:
+            if not language:
+                # Try to guess language
+                if "def " in repo_path and ":" in repo_path:
+                    language = "python"
+                elif "function" in repo_path and "{" in repo_path:
+                    language = "javascript"
+                elif "class" in repo_path and "extends" in repo_path:
+                    language = "java"
+                else:
+                    language = "python"  # Default
+            
+            if language.lower() == "python":
+                return extract_code_structure(repo_path, "code_snippet.py")
+            else:
+                return _extract_hierarchical_structure_treesitter(repo_path, language.lower(), "code_snippet." + language.lower())
+        except Exception as e:
+            print(f"Error extracting code from raw string: {str(e)}")
+            return []
+
+
+def get_children(entity: Dict[str, Any], hierarchy: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Get children of an entity in the hierarchy.
+    
+    Args:
+        entity: Entity to find children for
+        hierarchy: Complete hierarchy to search in
+        
+    Returns:
+        List of child entities
+    """
+    children = []
+    entity_name = entity.get('name')
+    entity_type = entity.get('type')
+    entity_depth = entity.get('depth', 0)
+    
+    if not entity_name or not entity_type:
+        return children
+    
+    # Find all entities that have this entity in their path
+    for item in hierarchy:
+        item_path = item.get('path', [])
+        item_depth = item.get('depth', 0)
+        
+        # Child is one level deeper
+        if item_depth == entity_depth + 1:
+            # Check if the entity is in the path
+            for path_item in item_path:
+                if path_item.get('name') == entity_name and path_item.get('type') == entity_type:
+                    children.append(item)
+                    break
+    
+    return children
+
+
+def get_parent(entity: Dict[str, Any], hierarchy: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """
+    Get parent of an entity in the hierarchy.
+    
+    Args:
+        entity: Entity to find parent for
+        hierarchy: Complete hierarchy to search in
+        
+    Returns:
+        Parent entity or None if no parent found
+    """
+    entity_path = entity.get('path', [])
+    
+    if not entity_path:
+        return None
+    
+    # Get the last item in the path - that's the direct parent
+    parent_info = entity_path[-1]
+    parent_name = parent_info.get('name')
+    parent_type = parent_info.get('type')
+    
+    if not parent_name or not parent_type:
+        return None
+    
+    # Find the parent entity in the hierarchy
+    for item in hierarchy:
+        if item.get('name') == parent_name and item.get('type') == parent_type:
+            return item
+    
+    return None
 
 
 # Example usage

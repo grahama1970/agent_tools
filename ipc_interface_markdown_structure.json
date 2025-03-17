@@ -1,0 +1,1352 @@
+{
+  "document": {
+    "hierarchy": {
+      "Inter-Process Communication (IPC) Interface": {
+        "title": "Inter-Process Communication (IPC) Interface",
+        "level": 1,
+        "content": [],
+        "subsections": {
+          "Introduction": {
+            "title": "Introduction",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "This document provides comprehensive documentation for the Inter-Process Communication (IPC) interface used in the WireGuard Server Desktop Application. The IPC interface enables communication between the Electron renderer process (UI) and main process, allowing the UI to interact with the native backend functionality that implements the WireGuard VPN server."
+              }
+            ],
+            "subsections": {
+              "Purpose and Scope": {
+                "title": "Purpose and Scope",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The IPC interface is designed to provide a secure and efficient communication channel between the isolated renderer process and the privileged main process. This separation is essential for security and stability, as it prevents the UI from directly accessing system resources while still allowing it to request operations from the backend."
+                  }
+                ],
+                "subsections": {}
+              },
+              "Architecture Overview": {
+                "title": "Architecture Overview",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The IPC interface follows Electron's message-passing architecture with the following components:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "**Channel Names**: Defined constants used to identify different message types",
+                      "**Request/Response Format**: Standardized format for all IPC messages",
+                      "**Main Process Handlers**: Functions that process requests from the renderer",
+                      "**Renderer Process API**: Functions that send requests to the main process",
+                      "**Event System**: Mechanism for asynchronous notifications from main to renderer"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "IPC Communication Patterns": {
+            "title": "IPC Communication Patterns",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "The application uses several communication patterns through the IPC interface:"
+              }
+            ],
+            "subsections": {
+              "Request-Response Pattern": {
+                "title": "Request-Response Pattern",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The primary pattern used for most operations is request-response, where the renderer sends a request to the main process and waits for a response. This is implemented using Electron's `ipcRenderer.invoke()` and `ipcMain.handle()` methods, which provide a Promise-based API."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Renderer process\nconst result = await ipcRenderer.invoke('channel-name', data);\n\n// Main process\nipcMain.handle('channel-name', async (event, data) => {\n  // Process the request\n  return result;\n});\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "One-way Messaging": {
+                "title": "One-way Messaging",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "For operations that don't require a response, the application uses one-way messaging. This is implemented using Electron's `ipcRenderer.send()` and `ipcMain.on()` methods."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Renderer process\nipcRenderer.send('channel-name', data);\n\n// Main process\nipcMain.on('channel-name', (event, data) => {\n  // Process the message\n});\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Event Broadcasting": {
+                "title": "Event Broadcasting",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "For notifications and updates from the main process to the renderer, the application uses event broadcasting. This is implemented using the `webContents.send()` method to send messages to all renderer processes."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Main process\nBrowserWindow.getAllWindows().forEach(window => {\n  window.webContents.send('channel-name', data);\n});\n\n// Renderer process\nipcRenderer.on('channel-name', (event, data) => {\n  // Handle the event\n});\n"
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Message Format": {
+            "title": "Message Format",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "All IPC messages follow a standardized format to ensure consistency and proper error handling."
+              }
+            ],
+            "subsections": {
+              "Request Format": {
+                "title": "Request Format",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Requests from the renderer to the main process use the following format:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "interface IPCRequest {\n  id: string;        // Unique identifier for the request\n  channel: string;   // IPC channel name\n  data: any;         // Request payload\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Response Format": {
+                "title": "Response Format",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Responses from the main process to the renderer use the following format:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "interface IPCResponse {\n  id: string;        // Matching the request ID\n  success: boolean;  // Whether the operation was successful\n  data: any;         // Response payload (if success is true)\n  error: ErrorInfo | null; // Error information (if success is false)\n}\n\ninterface ErrorInfo {\n  code: string;      // Error code\n  message: string;   // Human-readable error message\n  details?: any;     // Additional error details\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Event Format": {
+                "title": "Event Format",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Events from the main process to the renderer use a simpler format as they don't require responses:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "interface IPCEvent {\n  type: string;      // Event type\n  data: any;         // Event payload\n  timestamp: number; // Event timestamp\n}\n"
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "IPC Channels": {
+            "title": "IPC Channels",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "The application uses a set of predefined channel names for all IPC communication. These are defined in the `channel-names.ts` file and exported as the `IPC_CHANNELS` object."
+              }
+            ],
+            "subsections": {
+              "Server Operations": {
+                "title": "Server Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for controlling and monitoring the WireGuard server:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "SERVER_START",
+                        "Request-Response",
+                        "Starts the WireGuard server",
+                        "None",
+                        "boolean (success)"
+                      ],
+                      [
+                        "SERVER_STOP",
+                        "Request-Response",
+                        "Stops the WireGuard server",
+                        "None",
+                        "boolean (success)"
+                      ],
+                      [
+                        "SERVER_STATUS",
+                        "Request-Response",
+                        "Gets the current server status",
+                        "None",
+                        "ServerStatus object"
+                      ],
+                      [
+                        "SERVER_STATUS_CHANGED",
+                        "Event",
+                        "Notifies of server status changes",
+                        "N/A",
+                        "ServerStatus object"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Configuration Operations": {
+                "title": "Configuration Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for managing WireGuard configurations:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "CONFIG_GET_SERVER",
+                        "Request-Response",
+                        "Gets the current server configuration",
+                        "None",
+                        "WireGuardConfig object"
+                      ],
+                      [
+                        "CONFIG_UPDATE_SERVER",
+                        "Request-Response",
+                        "Updates the server configuration",
+                        "WireGuardConfig object",
+                        "boolean (success)"
+                      ],
+                      [
+                        "CONFIG_GENERATE_SERVER",
+                        "Request-Response",
+                        "Generates a new server configuration",
+                        "ServerConfigParams object",
+                        "WireGuardConfig object"
+                      ],
+                      [
+                        "CONFIG_GET_CLIENT",
+                        "Request-Response",
+                        "Gets a client configuration by ID",
+                        "string (client ID)",
+                        "WireGuardConfig object"
+                      ],
+                      [
+                        "CONFIG_GET_ALL_CLIENTS",
+                        "Request-Response",
+                        "Gets all client configurations",
+                        "None",
+                        "WireGuardConfig[] array"
+                      ],
+                      [
+                        "CONFIG_GENERATE_CLIENT",
+                        "Request-Response",
+                        "Generates a new client configuration",
+                        "{ name: string, params: ClientConfigParams }",
+                        "WireGuardConfig object"
+                      ],
+                      [
+                        "CONFIG_UPDATE_CLIENT",
+                        "Request-Response",
+                        "Updates a client configuration",
+                        "WireGuardConfig object",
+                        "boolean (success)"
+                      ],
+                      [
+                        "CONFIG_DELETE_CLIENT",
+                        "Request-Response",
+                        "Deletes a client configuration",
+                        "string (client ID)",
+                        "boolean (success)"
+                      ],
+                      [
+                        "CONFIG_GENERATE_QR",
+                        "Request-Response",
+                        "Generates a QR code for a client configuration",
+                        "string (config ID)",
+                        "string (QR code data)"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Connection Operations": {
+                "title": "Connection Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for managing and monitoring client connections:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "CONNECTION_GET_ACTIVE",
+                        "Request-Response",
+                        "Gets all active client connections",
+                        "None",
+                        "ClientConnection[] array"
+                      ],
+                      [
+                        "CONNECTION_DISCONNECT_CLIENT",
+                        "Request-Response",
+                        "Disconnects a specific client",
+                        "string (client ID)",
+                        "boolean (success)"
+                      ],
+                      [
+                        "CONNECTION_CLIENT_CONNECTED",
+                        "Event",
+                        "Notifies when a client connects",
+                        "N/A",
+                        "ClientConnection object"
+                      ],
+                      [
+                        "CONNECTION_CLIENT_DISCONNECTED",
+                        "Event",
+                        "Notifies when a client disconnects",
+                        "N/A",
+                        "{ id: string, reason: string }"
+                      ],
+                      [
+                        "CONNECTION_STATS_UPDATE",
+                        "Event",
+                        "Notifies of connection statistics updates",
+                        "N/A",
+                        "{ connections: ClientConnection[], serverStats: NetworkStats }"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Network Operations": {
+                "title": "Network Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for network-related operations:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "NETWORK_GET_INTERFACES",
+                        "Request-Response",
+                        "Gets all available network interfaces",
+                        "None",
+                        "NetworkInterface[] array"
+                      ],
+                      [
+                        "NETWORK_DETECT_IP",
+                        "Request-Response",
+                        "Detects the external IP address",
+                        "None",
+                        "string (IP address)"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Settings Operations": {
+                "title": "Settings Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for managing application settings:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "SETTINGS_GET",
+                        "Request-Response",
+                        "Gets the application settings",
+                        "None",
+                        "AppSettings object"
+                      ],
+                      [
+                        "SETTINGS_UPDATE",
+                        "Request-Response",
+                        "Updates the application settings",
+                        "AppSettings object",
+                        "AppSettings object (updated)"
+                      ],
+                      [
+                        "SETTINGS_RESET",
+                        "Request-Response",
+                        "Resets the application settings to defaults",
+                        "None",
+                        "AppSettings object (defaults)"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "System Operations": {
+                "title": "System Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for system-related operations:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "SYSTEM_AUTO_START",
+                        "Request-Response",
+                        "Checks if auto-start is enabled",
+                        "None",
+                        "boolean"
+                      ],
+                      [
+                        "SYSTEM_SET_AUTO_START",
+                        "Request-Response",
+                        "Enables or disables auto-start",
+                        "boolean",
+                        "boolean (success)"
+                      ],
+                      [
+                        "SYSTEM_SHOW_IN_FOLDER",
+                        "Request-Response",
+                        "Shows a file in the system file explorer",
+                        "string (file path)",
+                        "boolean (success)"
+                      ],
+                      [
+                        "SYSTEM_OPEN_EXTERNAL",
+                        "Request-Response",
+                        "Opens a URL in the default system browser",
+                        "string (URL)",
+                        "boolean (success)"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Diagnostics and Logs": {
+                "title": "Diagnostics and Logs",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for diagnostics and log management:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "DIAGNOSTICS_RUN",
+                        "Request-Response",
+                        "Runs system diagnostics",
+                        "None",
+                        "DiagnosticReport object"
+                      ],
+                      [
+                        "LOGS_GET",
+                        "Request-Response",
+                        "Gets application logs",
+                        "{ level?: string, limit?: number, since?: Date }",
+                        "LogEntry[] array"
+                      ],
+                      [
+                        "LOGS_CLEAR",
+                        "Request-Response",
+                        "Clears application logs",
+                        "None",
+                        "boolean (success)"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Application Operations": {
+                "title": "Application Operations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Channels for application control:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Channel",
+                      "Type",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "APP_QUIT",
+                        "Request-Response",
+                        "Quits the application",
+                        "None",
+                        "void"
+                      ],
+                      [
+                        "APP_CHECK_UPDATES",
+                        "Request-Response",
+                        "Checks for application updates",
+                        "None",
+                        "{ available: boolean, version?: string }"
+                      ],
+                      [
+                        "APP_INSTALL_UPDATE",
+                        "Request-Response",
+                        "Installs an available update",
+                        "None",
+                        "boolean (success)"
+                      ],
+                      [
+                        "APP_UPDATE_AVAILABLE",
+                        "Event",
+                        "Notifies when an update is available",
+                        "N/A",
+                        "{ version: string, notes: string }"
+                      ],
+                      [
+                        "APP_MINIMIZE",
+                        "One-way",
+                        "Minimizes the application window",
+                        "None",
+                        "N/A"
+                      ],
+                      [
+                        "APP_MAXIMIZE",
+                        "One-way",
+                        "Maximizes the application window",
+                        "None",
+                        "N/A"
+                      ],
+                      [
+                        "APP_UNMAXIMIZE",
+                        "One-way",
+                        "Unmaximizes the application window",
+                        "None",
+                        "N/A"
+                      ],
+                      [
+                        "APP_CLOSE",
+                        "One-way",
+                        "Closes the application window",
+                        "None",
+                        "N/A"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Implementation Details": {
+            "title": "Implementation Details",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "This section provides details on how the IPC interface is implemented in the application."
+              }
+            ],
+            "subsections": {
+              "Main Process Implementation": {
+                "title": "Main Process Implementation",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "In the main process, the IPC interface is implemented in the following files:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "unordered",
+                    "items": [
+                      "`src/main/ipc/channel-names.ts`: Defines the channel name constants",
+                      "`src/main/ipc/ipc-main.ts`: Sets up the IPC handlers",
+                      "`src/main/backend/api-bridge.ts`: Bridges between IPC and backend services"
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": "The main process sets up handlers for each channel using Electron's `ipcMain.handle()` method, which processes requests from the renderer and returns responses."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Example from src/main/ipc/ipc-main.ts\nimport { ipcMain } from 'electron';\nimport { IPC_CHANNELS } from './channel-names';\nimport BackendService from '../backend/backend-service';\n\nexport async function initializeIpcHandlers(): Promise<void> {\n  const backendService = BackendService.getInstance();\n  \n  // Server operations\n  ipcMain.handle(IPC_CHANNELS.SERVER_START, async () => {\n    try {\n      const result = await backendService.startServer();\n      return { success: true, data: result, error: null };\n    } catch (error) {\n      return { success: false, data: null, error: formatError(error) };\n    }\n  });\n  \n  // More handlers...\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Renderer Process Implementation": {
+                "title": "Renderer Process Implementation",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "In the renderer process, the IPC interface is implemented in the following files:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "unordered",
+                    "items": [
+                      "`src/renderer/ipc/ipc-renderer.ts`: Provides wrapper functions for Electron's IPC methods",
+                      "`src/renderer/ipc/api-client.ts`: Provides a typed API for the backend services"
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": "The renderer process uses Electron's `ipcRenderer.invoke()` method to send requests to the main process and receive responses."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Example from src/renderer/ipc/ipc-renderer.ts\nimport { ipcRenderer } from 'electron';\n\nexport function invoke(channel: string, ...args: any[]): Promise<any> {\n  return ipcRenderer.invoke(channel, ...args);\n}\n\nexport function send(channel: string, ...args: any[]): void {\n  ipcRenderer.send(channel, ...args);\n}\n\nexport function on(channel: string, listener: Function): () => void {\n  const wrappedListener = (_event: any, ...args: any[]) => listener(...args);\n  ipcRenderer.on(channel, wrappedListener);\n  return () => ipcRenderer.removeListener(channel, wrappedListener);\n}\n"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Example from src/renderer/ipc/api-client.ts\nimport { invoke, on } from './ipc-renderer';\nimport { IPC_CHANNELS } from '../../main/ipc/channel-names';\n\nexport async function startServer(): Promise<boolean> {\n  const response = await invoke(IPC_CHANNELS.SERVER_START);\n  return response.success ? response.data : false;\n}\n\nexport async function getServerStatus(): Promise<ServerStatus> {\n  const response = await invoke(IPC_CHANNELS.SERVER_STATUS);\n  return response.success ? response.data : null;\n}\n\nexport function onServerStatusChanged(callback: (status: ServerStatus) => void): () => void {\n  return on(IPC_CHANNELS.SERVER_STATUS_CHANGED, callback);\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Error Handling": {
+                "title": "Error Handling",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The IPC interface includes comprehensive error handling to ensure that errors in the main process are properly communicated to the renderer process. All errors are formatted into a standard structure with a code, message, and optional details."
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Example error handling in the main process\nfunction handleIpcError(error: Error, channelName: string): IPCResponse {\n  console.error(`Error in IPC channel ${channelName}:`, error);\n  return {\n    id: 'error',\n    success: false,\n    data: null,\n    error: {\n      code: error.code || ERROR_CODES.UNKNOWN_ERROR,\n      message: error.message || 'An unknown error occurred',\n      details: error.stack\n    }\n  };\n}\n"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// Example error handling in the renderer process\nasync function safeInvoke(channel: string, data?: any): Promise<any> {\n  try {\n    const response = await invoke(channel, data);\n    if (response.success) {\n      return response.data;\n    } else {\n      throw new Error(`${response.error.code}: ${response.error.message}`);\n    }\n  } catch (error) {\n    console.error(`Error invoking ${channel}:`, error);\n    throw error;\n  }\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Security Considerations": {
+                "title": "Security Considerations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The IPC interface is designed with security in mind, following these principles:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "**Principle of Least Privilege**: The renderer process can only perform operations explicitly exposed through IPC channels",
+                      "**Input Validation**: All input from the renderer process is validated before use",
+                      "**Error Sanitization**: Error messages are sanitized to prevent information leakage",
+                      "**Context Isolation**: Electron's context isolation is enabled to prevent prototype pollution",
+                      "**No Remote Module**: The remote module is not used to prevent direct access to Node.js APIs"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Usage Examples": {
+            "title": "Usage Examples",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "This section provides examples of how to use the IPC interface in the application."
+              }
+            ],
+            "subsections": {
+              "Server Control": {
+                "title": "Server Control",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Example of starting and stopping the WireGuard server:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// In a React component\nimport React, { useState, useEffect } from 'react';\nimport { startServer, stopServer, getServerStatus, onServerStatusChanged } from '../ipc/api-client';\n\nfunction ServerControl() {\n  const [status, setStatus] = useState({ isRunning: false });\n  const [isLoading, setIsLoading] = useState(false);\n  \n  useEffect(() => {\n    // Get initial status\n    getServerStatus().then(setStatus);\n    \n    // Subscribe to status changes\n    const cleanup = onServerStatusChanged(setStatus);\n    return cleanup;\n  }, []);\n  \n  const handleStartServer = async () => {\n    setIsLoading(true);\n    try {\n      await startServer();\n    } catch (error) {\n      console.error('Failed to start server:', error);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n  \n  const handleStopServer = async () => {\n    setIsLoading(true);\n    try {\n      await stopServer();\n    } catch (error) {\n      console.error('Failed to stop server:', error);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n  \n  return (\n    <div>\n      <h2>Server Status: {status.isRunning ? 'Running' : 'Stopped'}</h2>\n      {status.isRunning ? (\n        <button onClick={handleStopServer} disabled={isLoading}>Stop Server</button>\n      ) : (\n        <button onClick={handleStartServer} disabled={isLoading}>Start Server</button>\n      )}\n    </div>\n  );\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Client Configuration": {
+                "title": "Client Configuration",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Example of generating a client configuration and QR code:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// In a React component\nimport React, { useState } from 'react';\nimport { generateClientConfig, generateQRCode } from '../ipc/api-client';\nimport QRCode from '../components/QRCode';\n\nfunction ClientConfigGenerator() {\n  const [clientName, setClientName] = useState('');\n  const [config, setConfig] = useState(null);\n  const [qrCode, setQRCode] = useState(null);\n  const [isLoading, setIsLoading] = useState(false);\n  \n  const handleGenerateConfig = async () => {\n    if (!clientName) return;\n    \n    setIsLoading(true);\n    try {\n      // Generate client configuration\n      const newConfig = await generateClientConfig(clientName, {\n        allowedIPs: ['0.0.0.0/0', '::/0'],\n        persistentKeepalive: 25\n      });\n      setConfig(newConfig);\n      \n      // Generate QR code\n      const qrData = await generateQRCode(newConfig.id);\n      setQRCode(qrData);\n    } catch (error) {\n      console.error('Failed to generate configuration:', error);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n  \n  return (\n    <div>\n      <h2>Generate Client Configuration</h2>\n      <div>\n        <label>\n          Client Name:\n          <input \n            type=\"text\" \n            value={clientName} \n            onChange={(e) => setClientName(e.target.value)} \n          />\n        </label>\n        <button onClick={handleGenerateConfig} disabled={!clientName || isLoading}>\n          Generate\n        </button>\n      </div>\n      \n      {qrCode && (\n        <div>\n          <h3>Scan this QR code with the WireGuard iOS app</h3>\n          <QRCode data={qrCode} />\n        </div>\n      )}\n    </div>\n  );\n}\n"
+                  }
+                ],
+                "subsections": {}
+              },
+              "Connection Monitoring": {
+                "title": "Connection Monitoring",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Example of monitoring client connections:"
+                  },
+                  {
+                    "type": "code",
+                    "language": "typescript",
+                    "content": "// In a React component\nimport React, { useState, useEffect } from 'react';\nimport { getActiveConnections, disconnectClient, onClientConnected, onClientDisconnected, onConnectionStatsUpdate } from '../ipc/api-client';\n\nfunction ConnectionMonitor() {\n  const [connections, setConnections] = useState([]);\n  \n  useEffect(() => {\n    // Get initial connections\n    getActiveConnections().then(setConnections);\n    \n    // Subscribe to connection events\n    const connectedCleanup = onClientConnected((client) => {\n      setConnections(prev => [...prev, client]);\n    });\n    \n    const disconnectedCleanup = onClientDisconnected(({ id }) => {\n      setConnections(prev => prev.filter(client => client.id !== id));\n    });\n    \n    const statsCleanup = onConnectionStatsUpdate(({ connections }) => {\n      setConnections(connections);\n    });\n    \n    return () => {\n      connectedCleanup();\n      disconnectedCleanup();\n      statsCleanup();\n    };\n  }, []);\n  \n  const handleDisconnect = async (clientId) => {\n    try {\n      await disconnectClient(clientId);\n    } catch (error) {\n      console.error('Failed to disconnect client:', error);\n    }\n  };\n  \n  return (\n    <div>\n      <h2>Connected Clients ({connections.length})</h2>\n      <table>\n        <thead>\n          <tr>\n            <th>Name</th>\n            <th>IP Address</th>\n            <th>Connected Since</th>\n            <th>Data Transfer</th>\n            <th>Actions</th>\n          </tr>\n        </thead>\n        <tbody>\n          {connections.map(client => (\n            <tr key={client.id}>\n              <td>{client.name}</td>\n              <td>{client.assignedIP}</td>\n              <td>{new Date(client.connectedAt).toLocaleString()}</td>\n              <td>\n                \u2191 {formatBytes(client.stats.bytesSent)}<br />\n                \u2193 {formatBytes(client.stats.bytesReceived)}\n              </td>\n              <td>\n                <button onClick={() => handleDisconnect(client.id)}>\n                  Disconnect\n                </button>\n              </td>\n            </tr>\n          ))}\n        </tbody>\n      </table>\n    </div>\n  );\n}\n\nfunction formatBytes(bytes) {\n  if (bytes === 0) return '0 B';\n  const k = 1024;\n  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];\n  const i = Math.floor(Math.log(bytes) / Math.log(k));\n  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];\n}\n"
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Best Practices": {
+            "title": "Best Practices",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "This section provides best practices for using the IPC interface in the application."
+              }
+            ],
+            "subsections": {
+              "Error Handling": {
+                "title": "Error Handling",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Always handle errors from IPC calls properly:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "Use try/catch blocks around all IPC calls",
+                      "Check the `success` property of responses",
+                      "Provide user-friendly error messages",
+                      "Log detailed error information for debugging",
+                      "Implement retry logic for transient errors"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Performance Considerations": {
+                "title": "Performance Considerations",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Optimize IPC usage for performance:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "Minimize the number of IPC calls",
+                      "Batch operations when possible",
+                      "Avoid sending large data structures",
+                      "Use events for real-time updates instead of polling",
+                      "Implement debouncing for frequent updates"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Security Guidelines": {
+                "title": "Security Guidelines",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Follow these security guidelines when using the IPC interface:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "Validate all input from the renderer process",
+                      "Don't expose sensitive operations without proper authorization",
+                      "Sanitize error messages to prevent information leakage",
+                      "Use the principle of least privilege",
+                      "Don't use the remote module"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Testing": {
+                "title": "Testing",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "Properly test IPC communication:"
+                  },
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "Mock IPC calls in unit tests",
+                      "Test error handling paths",
+                      "Verify event subscriptions and cleanup",
+                      "Test with realistic data payloads",
+                      "Include integration tests for end-to-end flows"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Troubleshooting": {
+            "title": "Troubleshooting",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "Common issues and solutions when working with the IPC interface."
+              }
+            ],
+            "subsections": {
+              "Common Issues": {
+                "title": "Common Issues",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "**IPC Channel Not Found**: Ensure the channel name is correctly defined in `channel-names.ts` and imported properly",
+                      "**Unhandled Promise Rejection**: Always use try/catch with async/await when making IPC calls",
+                      "**Object Serialization Errors**: Ensure all data passed through IPC is serializable (no circular references, functions, etc.)",
+                      "**Memory Leaks**: Always clean up event listeners when components unmount",
+                      "**Permissions Issues**: Some operations require elevated privileges, which may cause errors if not granted"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Debugging Tips": {
+                "title": "Debugging Tips",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "list",
+                    "list_type": "ordered",
+                    "items": [
+                      "**Enable IPC Logging**: Set the environment variable `ELECTRON_ENABLE_LOGGING=1` to see IPC messages in the console",
+                      "**Inspect IPC Traffic**: Use Electron's `ipcMain.on` and `ipcRenderer.on` to log all IPC traffic",
+                      "**Check Response Format**: Verify that responses follow the expected format",
+                      "**Test in Isolation**: Test IPC calls in isolation to identify issues",
+                      "**Check Main Process Logs**: Look for errors in the main process console output"
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "API Reference": {
+            "title": "API Reference",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "Complete reference for the IPC interface API."
+              }
+            ],
+            "subsections": {
+              "Renderer Process API": {
+                "title": "Renderer Process API",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The renderer process API is provided by the `src/renderer/ipc/api-client.ts` file and includes the following functions:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Function",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "startServer()",
+                        "Starts the WireGuard server",
+                        "None",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "stopServer()",
+                        "Stops the WireGuard server",
+                        "None",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "getServerStatus()",
+                        "Gets the current server status",
+                        "None",
+                        "Promise<ServerStatus>"
+                      ],
+                      [
+                        "onServerStatusChanged(callback)",
+                        "Registers a callback for server status changes",
+                        "callback: (status: ServerStatus) => void",
+                        "() => void (cleanup function)"
+                      ],
+                      [
+                        "getServerConfig()",
+                        "Gets the current server configuration",
+                        "None",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "updateServerConfig(config)",
+                        "Updates the server configuration",
+                        "config: WireGuardConfig",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "generateServerConfig(params)",
+                        "Generates a new server configuration",
+                        "params: ServerConfigParams",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "getClientConfig(id)",
+                        "Gets a client configuration by ID",
+                        "id: string",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "getAllClientConfigs()",
+                        "Gets all client configurations",
+                        "None",
+                        "Promise<WireGuardConfig[]>"
+                      ],
+                      [
+                        "generateClientConfig(name, params)",
+                        "Generates a new client configuration",
+                        "name: string, params: ClientConfigParams",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "updateClientConfig(config)",
+                        "Updates a client configuration",
+                        "config: WireGuardConfig",
+                        "Promise<WireGuardConfig>"
+                      ],
+                      [
+                        "deleteClientConfig(id)",
+                        "Deletes a client configuration",
+                        "id: string",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "generateQRCode(configId)",
+                        "Generates a QR code for a client configuration",
+                        "configId: string",
+                        "Promise<string>"
+                      ],
+                      [
+                        "getActiveConnections()",
+                        "Gets all active client connections",
+                        "None",
+                        "Promise<ClientConnection[]>"
+                      ],
+                      [
+                        "disconnectClient(clientId)",
+                        "Disconnects a specific client",
+                        "clientId: string",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "onClientConnected(callback)",
+                        "Registers a callback for client connection events",
+                        "callback: (client: ClientConnection) => void",
+                        "() => void (cleanup function)"
+                      ],
+                      [
+                        "onClientDisconnected(callback)",
+                        "Registers a callback for client disconnection events",
+                        "callback: ({ id, reason }) => void",
+                        "() => void (cleanup function)"
+                      ],
+                      [
+                        "onConnectionStatsUpdate(callback)",
+                        "Registers a callback for connection statistics updates",
+                        "callback: (stats) => void",
+                        "() => void (cleanup function)"
+                      ],
+                      [
+                        "getNetworkInterfaces()",
+                        "Gets all available network interfaces",
+                        "None",
+                        "Promise<NetworkInterface[]>"
+                      ],
+                      [
+                        "detectExternalIP()",
+                        "Detects the external IP address",
+                        "None",
+                        "Promise<string>"
+                      ],
+                      [
+                        "getSettings()",
+                        "Gets the application settings",
+                        "None",
+                        "Promise<AppSettings>"
+                      ],
+                      [
+                        "updateSettings(settings)",
+                        "Updates the application settings",
+                        "settings: AppSettings",
+                        "Promise<AppSettings>"
+                      ],
+                      [
+                        "resetSettings()",
+                        "Resets the application settings to defaults",
+                        "None",
+                        "Promise<AppSettings>"
+                      ],
+                      [
+                        "isAutoStartEnabled()",
+                        "Checks if auto-start is enabled",
+                        "None",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "setAutoStart(enable)",
+                        "Enables or disables auto-start",
+                        "enable: boolean",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "showInFolder(path)",
+                        "Shows a file in the system file explorer",
+                        "path: string",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "openExternal(url)",
+                        "Opens a URL in the default system browser",
+                        "url: string",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "runDiagnostics()",
+                        "Runs system diagnostics",
+                        "None",
+                        "Promise<DiagnosticReport>"
+                      ],
+                      [
+                        "getLogs(options)",
+                        "Gets application logs",
+                        "options: { level?: string, limit?: number, since?: Date }",
+                        "Promise<LogEntry[]>"
+                      ],
+                      [
+                        "clearLogs()",
+                        "Clears application logs",
+                        "None",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "quitApp()",
+                        "Quits the application",
+                        "None",
+                        "Promise<void>"
+                      ],
+                      [
+                        "checkForUpdates()",
+                        "Checks for application updates",
+                        "None",
+                        "Promise<{ available: boolean, version?: string }>"
+                      ],
+                      [
+                        "installUpdate()",
+                        "Installs an available update",
+                        "None",
+                        "Promise<boolean>"
+                      ],
+                      [
+                        "onUpdateAvailable(callback)",
+                        "Registers a callback for update availability events",
+                        "callback: (update: { version: string, notes: string }) => void",
+                        "() => void (cleanup function)"
+                      ],
+                      [
+                        "minimizeWindow()",
+                        "Minimizes the application window",
+                        "None",
+                        "Promise<void>"
+                      ],
+                      [
+                        "maximizeWindow()",
+                        "Maximizes the application window",
+                        "None",
+                        "Promise<void>"
+                      ],
+                      [
+                        "unmaximizeWindow()",
+                        "Unmaximizes the application window",
+                        "None",
+                        "Promise<void>"
+                      ],
+                      [
+                        "closeWindow()",
+                        "Closes the application window",
+                        "None",
+                        "Promise<void>"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              },
+              "Main Process API": {
+                "title": "Main Process API",
+                "level": 3,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": "The main process API is provided by the `src/main/ipc/ipc-main.ts` file and includes the following functions:"
+                  },
+                  {
+                    "type": "table",
+                    "header": [
+                      "Function",
+                      "Description",
+                      "Parameters",
+                      "Returns"
+                    ],
+                    "rows": [
+                      [
+                        "initializeIpcHandlers()",
+                        "Initializes all IPC handlers",
+                        "None",
+                        "Promise<void>"
+                      ],
+                      [
+                        "setupWindowIpcHandlers()",
+                        "Sets up IPC handlers for window management",
+                        "None",
+                        "void"
+                      ],
+                      [
+                        "handleIpcError(error, channelName)",
+                        "Handles errors that occur during IPC operations",
+                        "error: Error, channelName: string",
+                        "IPCResponse"
+                      ],
+                      [
+                        "createIpcResponse(id, success, data, error)",
+                        "Creates a standardized IPC response object",
+                        "id: string, success: boolean, data: any, error: Error | null",
+                        "IPCResponse"
+                      ]
+                    ],
+                    "alignment": [
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                ],
+                "subsections": {}
+              }
+            }
+          },
+          "Conclusion": {
+            "title": "Conclusion",
+            "level": 2,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": "The IPC interface is a critical component of the WireGuard Server Desktop Application, enabling secure and efficient communication between the UI and the backend. By following the patterns and best practices outlined in this document, developers can effectively use the IPC interface to build new features and maintain existing functionality."
+              }
+            ],
+            "subsections": {}
+          }
+        }
+      }
+    }
+  }
+}

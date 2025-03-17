@@ -2,10 +2,9 @@
 Markdown parser for DuaLipa.
 
 Provides functionality to parse and extract content from markdown files,
-using either markdown-it-py or mistune as the parser backend.
+using mistune as the primary parser backend with a robust regex fallback.
 
 Official Documentation References:
-- markdown-it-py: https://markdown-it-py.readthedocs.io/en/latest/
 - mistune: https://mistune.readthedocs.io/en/latest/
 - loguru: https://loguru.readthedocs.io/en/stable/
 """
@@ -18,33 +17,24 @@ from pathlib import Path
 import json
 from loguru import logger
 
-# Try importing markdown parsers - we support multiple options
-try:
-    import markdown_it
-    MARKDOWN_IT_AVAILABLE = True
-    logger.info("markdown-it-py is available for markdown parsing")
-except ImportError:
-    MARKDOWN_IT_AVAILABLE = False
-    logger.warning("markdown-it-py not available, will try alternative parsers")
-
+# Try importing mistune for markdown parsing
 try:
     import mistune
     MISTUNE_AVAILABLE = True
     logger.info("mistune is available for markdown parsing")
 except ImportError:
     MISTUNE_AVAILABLE = False
-    logger.warning("mistune not available")
+    logger.warning("mistune not available, will use regex-based fallback")
+
+# Set MARKDOWN_IT_AVAILABLE to False for backward compatibility with tests
+MARKDOWN_IT_AVAILABLE = False
 
 # Configure logger
 logger.remove()
 logger.add(sys.stderr, level="INFO")
 
-# Check if any parser is available
-if not (MARKDOWN_IT_AVAILABLE or MISTUNE_AVAILABLE):
-    logger.error("No markdown parser available. Install markdown-it-py or mistune.")
 
-
-def extract_sections_from_markdown(content: str) -> Dict[str, str]:
+def extract_sections_from_markdown(content: str) -> List[Dict[str, Any]]:
     """
     Extract sections from markdown content using headers as delimiters.
     
@@ -52,7 +42,7 @@ def extract_sections_from_markdown(content: str) -> Dict[str, str]:
         content: The markdown content string
         
     Returns:
-        Dictionary mapping section titles to their content
+        List of dictionaries with keys: level, title, content
     """
     try:
         # Add a newline to ensure proper header detection
@@ -64,8 +54,9 @@ def extract_sections_from_markdown(content: str) -> Dict[str, str]:
         
         # Split content by headers
         lines = content.split('\n')
-        sections = {}
-        current_section = "Overview"
+        sections = []
+        current_level = 0
+        current_title = "Overview"
         current_content = []
         
         for line in lines:
@@ -73,124 +64,219 @@ def extract_sections_from_markdown(content: str) -> Dict[str, str]:
             if header_match:
                 # Save previous section
                 if current_content:
-                    sections[current_section] = '\n'.join(current_content).strip()
+                    sections.append({
+                        "level": current_level,
+                        "title": current_title,
+                        "content": '\n'.join(current_content).strip()
+                    })
                 
                 # Start new section
-                level = len(header_match.group(1))  # Number of # characters
-                title = header_match.group(2).strip()
-                current_section = title
+                current_level = len(header_match.group(1))  # Number of # characters
+                current_title = header_match.group(2).strip()
                 current_content = []
             else:
                 current_content.append(line)
         
         # Save the last section
         if current_content:
-            sections[current_section] = '\n'.join(current_content).strip()
+            sections.append({
+                "level": current_level,
+                "title": current_title,
+                "content": '\n'.join(current_content).strip()
+            })
         
         return sections
     except Exception as e:
         logger.error(f"Error extracting sections from markdown: {e}")
-        return {"Error": str(e)}
+        raise
 
 
-def extract_code_blocks(markdown_content: str) -> Dict[str, str]:
+def extract_code_blocks(markdown_content: str) -> List[Dict[str, Any]]:
     """Extract code blocks from markdown content.
     
     Args:
         markdown_content: Raw markdown content
         
     Returns:
-        Dictionary of code blocks with language as key and code content as value
+        List of dictionaries with keys: language, content
     """
-    code_blocks = {}
+    # Normalize line endings
+    markdown_content = markdown_content.replace('\r\n', '\n')
     
-    # Pattern for backtick code blocks: ```language\ncode\n```
-    backtick_pattern = r'```(\w*)\n([\s\S]*?)\n```'
-    backtick_matches = re.finditer(backtick_pattern, markdown_content)
+    # Use mistune if available (preferred method)
+    if MISTUNE_AVAILABLE:
+        try:
+            blocks = _extract_blocks_with_mistune(markdown_content)
+            if blocks:
+                logger.info(f"Successfully extracted {len(blocks)} code blocks using mistune")
+                return blocks
+        except Exception as e:
+            logger.warning(f"Error using mistune: {e}")
     
-    for match in backtick_matches:
-        language = match.group(1) or "text"
-        code = match.group(2)
-        # Use a unique key if language already exists
-        key = language
-        counter = 1
-        while key in code_blocks:
-            key = f"{language}_{counter}"
-            counter += 1
-        code_blocks[key] = code
-    
-    # Pattern for indented code blocks - 4+ spaces at beginning of lines
-    # First, split content into lines and find indented blocks
-    lines = markdown_content.split('\n')
-    in_indented_block = False
-    current_block = []
-    
-    for i, line in enumerate(lines):
-        # Check if line starts with 4+ spaces or a tab
-        if re.match(r'^( {4,}|\t)', line):
-            if not in_indented_block:
-                in_indented_block = True
-                current_block = []
-            # Remove the first 4 spaces (or tab) from the line
-            dedented_line = re.sub(r'^( {4}|\t)', '', line, 1)
-            current_block.append(dedented_line)
-        else:
-            # If we were in a block and now we're not, save the block
-            if in_indented_block and current_block:
-                # Try to detect language from first line comment or keep as "indented"
-                language = "indented"
-                if current_block and current_block[0].strip().startswith('#'):
-                    language = "python"  # Assume Python for # comments
-                elif current_block and current_block[0].strip().startswith('//'):
-                    language = "javascript"  # Assume JS for // comments
-                
-                # Use a unique key
-                key = language
-                counter = 1
-                while key in code_blocks:
-                    key = f"{language}_{counter}"
-                    counter += 1
-                
-                # Join the block lines and add to code blocks
-                code_blocks[key] = '\n'.join(current_block)
-                in_indented_block = False
-                current_block = []
-    
-    # Don't forget the last block if file ends with an indented block
-    if in_indented_block and current_block:
-        language = "indented"
-        if current_block and current_block[0].strip().startswith('#'):
-            language = "python"
-        elif current_block and current_block[0].strip().startswith('//'):
-            language = "javascript"
-        
-        key = language
-        counter = 1
-        while key in code_blocks:
-            key = f"{language}_{counter}"
-            counter += 1
-        
-        code_blocks[key] = '\n'.join(current_block)
-    
-    return code_blocks
+    # Fall back to regex-based approach
+    logger.info("Using regex fallback for code block extraction")
+    return _extract_blocks_with_regex(markdown_content)
 
 
-def get_markdown_files(repo_path: str) -> List[str]:
+def _extract_blocks_with_mistune(content: str) -> List[Dict[str, Any]]:
+    """Extract code blocks using mistune.
+    
+    This implementation uses a custom renderer to capture code blocks 
+    during the markdown parsing process.
+    
+    Args:
+        content: Markdown content
+        
+    Returns:
+        List of dictionaries with language and content
+    """
+    blocks = []
+    
+    # Create a custom renderer to capture code blocks
+    class CodeBlockRenderer(mistune.HTMLRenderer):
+        def block_code(self, code, info=None):
+            # Extract language from info string
+            if info:
+                language = info.strip().split(None, 1)[0]
+            else:
+                language = 'text'
+            
+            # Add the block to our collection
+            blocks.append({
+                "language": language,
+                "content": code.strip()
+            })
+            
+            # Return empty string as we don't need the HTML output
+            return ""
+    
+    # Create markdown parser with our custom renderer
+    markdown = mistune.create_markdown(renderer=CodeBlockRenderer())
+    
+    # Parse the markdown content
+    markdown(content)
+    
+    # Log extraction details for debugging
+    logger.debug(f"Extracted {len(blocks)} code blocks with mistune")
+    for i, block in enumerate(blocks):
+        logger.debug(f"Block {i+1}: language={block['language']}, content preview: {block['content'][:50]}...")
+    
+    return blocks
+
+
+def _extract_blocks_with_regex(content: str) -> List[Dict[str, Any]]:
+    """Extract code blocks using regular expressions.
+    
+    This implementation handles both fenced code blocks (```language)
+    and indented code blocks (4 spaces or tab).
+    
+    Args:
+        content: Markdown content
+        
+    Returns:
+        List of dictionaries with language and content
+    """
+    blocks = []
+    
+    # Extract fenced code blocks: ```language\ncode\n```
+    # This pattern is more robust and handles various markdown code block formats
+    fenced_pattern = r'```([\w\-]*)\s*\n([\s\S]*?)\n\s*```'
+    
+    for match in re.finditer(fenced_pattern, content):
+        language = match.group(1).strip() or 'text'
+        code = match.group(2).strip()
+        
+        if code:  # Only add non-empty blocks
+            blocks.append({
+                "language": language,
+                "content": code
+            })
+    
+    # If no fenced blocks found, try to extract indented code blocks
+    if not blocks:
+        # Pattern for indented code blocks (4 spaces or 1 tab)
+        indented_lines = []
+        in_code_block = False
+        
+        for line in content.split('\n'):
+            if line.startswith('    ') or line.startswith('\t'):
+                # This is a code line (indented with 4 spaces or tab)
+                if not in_code_block:
+                    in_code_block = True
+                indented_lines.append(line.removeprefix('    ').removeprefix('\t'))
+            else:
+                # This is not a code line
+                if in_code_block and indented_lines:
+                    # End of a code block - join the lines and add to blocks
+                    code_content = '\n'.join(indented_lines).strip()
+                    if code_content:
+                        blocks.append({
+                            "language": "text",  # Indented blocks don't specify language
+                            "content": code_content
+                        })
+                    indented_lines = []
+                    in_code_block = False
+        
+        # Don't forget to add the last block if we ended inside a code block
+        if in_code_block and indented_lines:
+            code_content = '\n'.join(indented_lines).strip()
+            if code_content:
+                blocks.append({
+                    "language": "text",
+                    "content": code_content
+                })
+    
+    # Log extraction details for debugging
+    logger.debug(f"Extracted {len(blocks)} code blocks using regex")
+    for i, block in enumerate(blocks):
+        logger.debug(f"Block {i+1}: language={block['language']}, content preview: {block['content'][:50]}...")
+    
+    return blocks
+
+
+def get_markdown_files(repo_path: str, pattern: Optional[str] = None) -> List[str]:
     """Get all markdown files from a repository.
     
     Args:
         repo_path: Path to the repository
+        pattern: Optional glob pattern to filter files (e.g., "**/docs/*.md")
         
     Returns:
         List of paths to markdown files
     """
     markdown_files = []
     
-    for root, _, files in os.walk(repo_path):
-        for file in files:
-            if file.lower().endswith(('.md', '.markdown')):
-                file_path = os.path.join(root, file)
-                markdown_files.append(file_path)
+    try:
+        repo_path = Path(repo_path)
+        if not repo_path.exists():
+            logger.warning(f"Repository path does not exist: {repo_path}")
+            return markdown_files
+        
+        # Walk through the repository and find markdown files
+        if pattern:
+            # Use the provided pattern to find files
+            logger.debug(f"Using pattern '{pattern}' to find markdown files")
+            
+            # If pattern already specifies extensions, use it directly
+            if any(ext in pattern for ext in ['.md', '.markdown', '.mdown', '.mkd']):
+                for file_path in repo_path.glob(pattern):
+                    if file_path.is_file():
+                        markdown_files.append(str(file_path))
+            else:
+                # Otherwise, still filter by markdown extensions
+                for file_path in repo_path.glob(pattern):
+                    if file_path.is_file() and file_path.suffix.lower() in ['.md', '.markdown', '.mdown', '.mkd']:
+                        markdown_files.append(str(file_path))
+        else:
+            # Find all markdown files in the repository
+            for file_path in repo_path.glob("**/*.*"):
+                # Check if it's a markdown file
+                if file_path.is_file() and file_path.suffix.lower() in ['.md', '.markdown', '.mdown', '.mkd']:
+                    markdown_files.append(str(file_path))
+        
+        logger.info(f"Found {len(markdown_files)} markdown files in {repo_path}")
+    except Exception as e:
+        logger.error(f"Error finding markdown files: {e}")
     
     return markdown_files
 
@@ -210,34 +296,94 @@ def process_markdown_file(file_path: str) -> Dict[str, Any]:
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
     
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        relative_path = os.path.basename(file_path)
+        
+        # Extract sections and code blocks
+        sections = extract_sections_from_markdown(content)
+        code_blocks = extract_code_blocks(content)
+        
+        return {
+            "path": relative_path,
+            "content": content,
+            "sections": sections,
+            "code_blocks": code_blocks
+        }
+    except Exception as e:
+        logger.error(f"Error processing markdown file {file_path}: {e}")
+        raise
+
+
+def extract_code_blocks_from_documentation(repo_path: str) -> Dict[str, Any]:
+    """Extract code blocks from documentation files in a repository.
     
-    relative_path = os.path.basename(file_path)
+    Args:
+        repo_path: Path to the repository
+        
+    Returns:
+        Dictionary with stats and extracted code blocks
+    """
+    markdown_files = get_markdown_files(repo_path)
     
-    # Extract sections and code blocks
-    sections = extract_sections_from_markdown(content)
-    code_blocks = extract_code_blocks(content)
-    
-    return {
-        "path": relative_path,
-        "content": content,
-        "sections": sections,
-        "code_blocks": code_blocks
+    results = {
+        "total_files": len(markdown_files),
+        "processed_files": 0,
+        "code_blocks": [],
+        "languages": {},
+        "errors": []
     }
+    
+    for file_path in markdown_files:
+        try:
+            file_result = process_markdown_file(file_path)
+            results["processed_files"] += 1
+            
+            # Add code blocks to the results
+            for block in file_result["code_blocks"]:
+                block["file"] = file_path
+                results["code_blocks"].append(block)
+                
+                # Count languages
+                lang = block.get("language", "unknown")
+                results["languages"][lang] = results["languages"].get(lang, 0) + 1
+                
+        except Exception as e:
+            results["errors"].append({
+                "file": file_path,
+                "error": str(e)
+            })
+    
+    return results
+
+
+def markdown_to_html(markdown_content: str) -> str:
+    """Convert markdown content to HTML.
+    
+    Args:
+        markdown_content: Markdown content
+        
+    Returns:
+        HTML content
+    """
+    if MISTUNE_AVAILABLE:
+        try:
+            # Create standard HTML renderer
+            renderer = mistune.HTMLRenderer()
+            markdown = mistune.create_markdown(renderer=renderer)
+            return markdown(markdown_content)
+        except Exception as e:
+            logger.error(f"Error converting markdown to HTML: {e}")
+    
+    # If mistune not available or error occurred
+    logger.warning("Could not convert markdown to HTML, returning raw content")
+    return f"<pre>{markdown_content}</pre>"
 
 
 def demo_markdown_parser() -> None:
-    """Demonstrate the markdown parser functionality with examples.
-    
-    This function shows how to use the main components of the markdown parser:
-    1. Extracting code blocks from markdown
-    2. Parsing and extracting sections from markdown
-    3. Converting markdown to HTML
-    
-    Returns:
-        None - prints results to the console
-    """
+    """Demonstrate the markdown parser functionality with examples."""
     try:
         logger.info("Markdown Parser Demo")
         logger.info("====================")
@@ -251,18 +397,21 @@ This is an example of markdown content with various elements.
 
 Here's a Python code block:
 
-    # Python code
-    def hello_world():
-        print("Hello, World!")
-        return True
+```python
+def hello_world():
+    print("Hello, World!")
+    return True
+```
 
 And here's a JSON block:
 
-    {
-        "name": "DuaLipa",
-        "version": "0.1.0",
-        "description": "Dual Language Integration for Python AI"
-    }
+```json
+{
+    "name": "DuaLipa",
+    "version": "0.1.0",
+    "description": "Dual Language Integration for Python AI"
+}
+```
 
 ## Lists and Formatting
 
@@ -284,17 +433,17 @@ Check out [Python](https://python.org) for more information.
         code_blocks = extract_code_blocks(example_markdown)
         logger.info(f"  Found {len(code_blocks)} code blocks")
         
-        for language, content in code_blocks.items():
-            logger.info(f"  Block: Language: {language}, Length: {len(content)} chars")
-            logger.info(f"  Example content:\n{content.strip()}")
+        for block in code_blocks:
+            logger.info(f"  Block: Language: {block['language']}, Length: {len(block['content'])} chars")
+            logger.info(f"  Example content:\n{block['content']}")
         
         # 2. Extract sections
         logger.info("\n2. Extracting sections:")
         sections = extract_sections_from_markdown(example_markdown)
         logger.info(f"  Found {len(sections)} sections")
         
-        for title, content in sections.items():
-            logger.info(f"  Section: '{title}', Length: {len(content)} chars")
+        for section in sections:
+            logger.info(f"  Section: '{section['title']}', Level: {section['level']}, Length: {len(section['content'])} chars")
         
         # 3. Convert to HTML
         logger.info("\n3. Converting to HTML:")
@@ -336,7 +485,7 @@ if __name__ == "__main__":
             output_file = Path(input_file).with_suffix('.json')
             result = {
                 "code_blocks": blocks,
-                "sections": {k: v for k, v in sections.items()}
+                "sections": sections
             }
             
             with open(output_file, 'w', encoding='utf-8') as f:

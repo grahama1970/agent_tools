@@ -84,7 +84,7 @@ def parse_code(language_module, code):
         # Load from the module directly
         language = Language(language_module.language())
         parser = tree_sitter.Parser()
-        parser.set_language(language)
+        parser.language = language
         
         # Parse the code
         tree = parser.parse(bytes(code, "utf8"))

@@ -46,6 +46,11 @@ dependencies = [
     "tree-sitter>=0.24.0",
     "tree-sitter-python>=0.23.6",
     "playwright>=1.50.0",
+    "markdown-to-json>=2.1.2",
+    "markdown-it-py[plugins]>=3.0.0",
+    "tree-sitter-javascript>=0.23.1",
+    "tree-sitter-typescript>=0.23.2",
+    "tree-sitter-java>=0.23.5",
 ]
 
 [project.optional-dependencies]

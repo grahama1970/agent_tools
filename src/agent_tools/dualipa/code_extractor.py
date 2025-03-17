@@ -42,13 +42,34 @@ try:
     from .language_detection import detect_language
     from .markdown_parser import extract_code_blocks
     from .utils import format_string
+    # Add import for token counting
+    from ..utils.spacy_utils import count_tokens
 except ImportError:
     # Handle case where this module is run standalone
     logger.warning("Running in standalone mode, using direct imports")
-    from github_utils import clone_github_repo, is_github_url, parse_github_url, get_clone_url, download_github_repo
-    from language_detection import detect_language
-    from markdown_parser import extract_code_blocks
-    from utils import format_string
+    from agent_tools.dualipa.github_utils import clone_github_repo, is_github_url, parse_github_url, get_clone_url, download_github_repo
+    from agent_tools.dualipa.language_detection import detect_language
+    from agent_tools.dualipa.markdown_parser import extract_code_blocks
+    try:
+        # Directly import format_string from utils.py
+        from agent_tools.dualipa.utils import format_string
+    except ImportError:
+        # Fallback simple format function
+        def format_string(text: str, **kwargs: Any) -> str:
+            """Simple fallback formatter."""
+            try:
+                return text.format(**kwargs)
+            except (KeyError, ValueError) as e:
+                return text
+    try:
+        # Try to import from utils package
+        from agent_tools.utils.spacy_utils import count_tokens
+    except ImportError:
+        # Fallback token counter if spacy is not available
+        logger.warning("spacy_utils not available. Using simple whitespace token counter.")
+        def count_tokens(text: str) -> int:
+            """Simple fallback token counter that splits on whitespace."""
+            return len(text.split())
 
 # Try to import tree-sitter for advanced code extraction
 TREE_SITTER_AVAILABLE = False
@@ -222,6 +243,7 @@ def _extract_with_tree_sitter(
 ) -> Optional[int]:
     """
     Extract code blocks using tree-sitter parser.
+    Also extracts script-level code for files that function as a cohesive unit.
     
     Args:
         file_path: Path to the code file
@@ -243,8 +265,14 @@ def _extract_with_tree_sitter(
         # Load language
         lang_module = TREE_SITTER_LANGUAGES[language]
         try:
-            ts_language = tree_sitter.Language(lang_module.language())
-            parser.language = ts_language
+            # Create the language object and set it on the parser
+            # Special case for TypeScript which has language_typescript instead of language
+            if language == 'typescript' and hasattr(lang_module, 'language_typescript'):
+                ts_language = tree_sitter.Language(lang_module.language_typescript())
+            else:
+                ts_language = tree_sitter.Language(lang_module.language())
+            # Updated for tree-sitter 0.24.0: use property assignment instead of set_language
+            parser.language = ts_language  # Use property assignment instead of set_language method
         except Exception as e:
             logger.debug(f"Could not load tree-sitter language for {language}: {e}")
             return None
@@ -387,6 +415,9 @@ def _extract_with_tree_sitter(
                     with open(output_file, "w", encoding="utf-8") as f:
                         f.write(block_content)
                     
+                    # Count tokens
+                    token_count = count_tokens(node_text)
+                    
                     # Create block metadata and add to file_blocks
                     start_row, start_col = node.start_point
                     end_row, end_col = node.end_point
@@ -400,7 +431,13 @@ def _extract_with_tree_sitter(
                         "file": str(file_path),
                         "start_line": start_row,
                         "end_line": end_row,
-                        "output_file": str(output_file)
+                        "output_file": str(output_file),
+                        "token_count": token_count,
+                        "metadata": {
+                            "token_count": token_count,
+                            "language": language,
+                            "block_type": decl_type
+                        }
                     }
                     
                     file_blocks.append(block_data)
@@ -411,6 +448,111 @@ def _extract_with_tree_sitter(
         
         # Process all nodes
         process_nodes(root)
+        
+        # Check if we should extract the entire file as a script/unit
+        is_special_file = False
+        has_top_level_executable = False
+        special_file_patterns = {
+            "python": ["setup.py", "manage.py", "app.py", "main.py", "run.py"],
+            "javascript": ["webpack.config.js", "rollup.config.js", "gulpfile.js", "gruntfile.js"],
+            "typescript": ["tsconfig.json", "webpack.config.ts", "rollup.config.ts"],
+            "ruby": ["Rakefile", "Gemfile"],
+            "bash": [".bashrc", ".bash_profile", "install.sh", "setup.sh", "deploy.sh"],
+            "java": ["pom.xml", "build.gradle"],
+            "rust": ["Cargo.toml", "build.rs"],
+            "go": ["go.mod", "main.go"]
+        }
+        
+        # Check if this is a special file by name
+        file_name = file_path.name.lower()
+        lang_patterns = special_file_patterns.get(language, [])
+        if any(file_name.endswith(pattern) for pattern in lang_patterns):
+            is_special_file = True
+            
+        # Check for top-level executable statements
+        for node in root.children:
+            node_type = node.type
+            # Different languages have different executable statements
+            if language in ["python", "py"]:
+                if node_type in ["if_statement", "for_statement", "while_statement", "expression_statement", "call"]:
+                    has_top_level_executable = True
+                    break
+            elif language in ["javascript", "js", "typescript", "ts"]:
+                if node_type in ["if_statement", "for_statement", "while_statement", "expression_statement", "call_expression"]:
+                    has_top_level_executable = True
+                    break
+            elif language == "go":
+                if node_type in ["if_statement", "for_statement", "expression_statement", "call_expression"]:
+                    has_top_level_executable = True
+                    break
+            elif language == "rust":
+                if node_type in ["if_expression", "for_expression", "while_expression", "call_expression"]:
+                    has_top_level_executable = True
+                    break
+            elif language in ["bash", "sh"]:
+                # Almost all bash scripts have top-level executable statements
+                has_top_level_executable = True
+                break
+            else:
+                # Generic check for most languages
+                if node_type and ("statement" in node_type or "expression" in node_type):
+                    has_top_level_executable = True
+                    break
+                    
+        # Extract the entire file as a script block if:
+        # 1. It's a special file by name, or
+        # 2. It has top-level executable statements and few or no function/class definitions
+        if is_special_file or (has_top_level_executable and block_count <= 2):
+            block_count += 1
+            
+            # Create a special script block
+            script_name = file_path.stem
+            block_code = content
+            
+            # Create block header with metadata based on language
+            if language in ["python", "py", "ruby", "bash", "sh"]:
+                header = f"# Original file: {file_path}\n"
+                header += f"# Block type: script\n"
+                header += f"# Name: {script_name}\n"
+                header += f"# Description: Full script file with top-level executable code\n\n"
+            else:
+                header = f"// Original file: {file_path}\n"
+                header += f"// Block type: script\n"
+                header += f"// Name: {script_name}\n"
+                header += f"// Description: Full script file with top-level executable code\n\n"
+                
+            # Combine header and code
+            block_content = header + block_code
+            
+            # Save the block to a file
+            file_ext = file_path.suffix if file_path.suffix else f".{language}"
+            output_file = blocks_dir / f"{file_path.stem}_script_{block_count}{file_ext}"
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write(block_content)
+            
+            # Create block metadata and add to file_blocks
+            block_data = {
+                "type": "code",
+                "language": language,
+                "content": block_code,
+                "name": script_name,
+                "block_type": "script",
+                "file": str(file_path),
+                "start_line": 0,
+                "end_line": len(lines) - 1,
+                "output_file": str(output_file),
+                "token_count": count_tokens(block_code),
+                "metadata": {
+                    "token_count": count_tokens(block_code)
+                }
+            }
+            
+            file_blocks.append(block_data)
+            
+            # Update statistics
+            stats["code_blocks"] += 1
+            
+            logger.debug(f"Extracted script block from {file_path}")
         
         # Update statistics
         stats["code_blocks"] += block_count
@@ -433,6 +575,7 @@ def _extract_python_blocks(
 ) -> None:
     """
     Extract functions and classes from Python code using AST.
+    Also extracts script-level code for executable Python files.
     
     Args:
         file_path: Path to the Python file
@@ -462,8 +605,11 @@ def _extract_python_blocks(
         # Initialize list to collect blocks for this file
         file_blocks = []
         
+        # Extract functions and classes
+        has_top_level_definitions = False
         for node in ast.iter_child_nodes(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                has_top_level_definitions = True
                 block_count += 1
                 
                 # Get line numbers
@@ -480,6 +626,9 @@ def _extract_python_blocks(
                 # Extract the block code
                 block_lines = lines[start:end]
                 block_code = "\n".join(block_lines)
+                
+                # Count tokens
+                token_count = count_tokens(block_code)
                 
                 # Get block metadata
                 docstring = ast.get_docstring(node) or "No docstring available."
@@ -518,17 +667,90 @@ def _extract_python_blocks(
                     "file": str(file_path),
                     "start_line": start,
                     "end_line": end,
-                    "output_file": str(output_file)
+                    "output_file": str(output_file),
+                    "token_count": token_count,
+                    "metadata": {
+                        "token_count": token_count,
+                        "language": "python",
+                        "block_type": node_type,
+                        "docstring": docstring
+                    }
                 }
                 
                 # Add parameter info for functions
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     block_data["parameters"] = [arg.arg for arg in node.args.args]
+                    block_data["metadata"]["parameters"] = block_data["parameters"]
                 
                 file_blocks.append(block_data)
                 
                 # Update statistics
                 stats["code_blocks"] += 1
+        
+        # Check if we should extract script-level code
+        is_special_file = False
+        special_file_patterns = ["setup.py", "manage.py", "app.py", "main.py", "run.py"]
+        
+        # Check if this is a special file by name
+        file_name = file_path.name.lower()
+        if any(file_name.endswith(pattern) for pattern in special_file_patterns):
+            is_special_file = True
+        
+        # Check for top-level executable statements
+        has_top_level_executable = False
+        for node in ast.iter_child_nodes(tree):
+            if isinstance(node, (ast.Expr, ast.Assign, ast.If, ast.For, ast.While)):
+                has_top_level_executable = True
+                break
+        
+        # If this is a script file or has top-level executable statements, extract the whole file
+        if is_special_file or has_top_level_executable:
+            # Extract the whole file as a script-level block
+            script_header = ""
+            if language in ["python", "py"]:
+                script_header = f"# Original file: {file_path}\n# Block type: script\n\n"
+            elif language in ["javascript", "typescript", "js", "ts", "java", "c", "cpp", "go", "rust"]:
+                script_header = f"// Original file: {file_path}\n// Block type: script\n\n"
+            elif language in ["ruby"]:
+                script_header = f"# Original file: {file_path}\n# Block type: script\n\n"
+            elif language in ["bash", "sh"]:
+                script_header = f"# Original file: {file_path}\n# Block type: script\n\n"
+            else:
+                script_header = f"# Original file: {file_path}\n# Block type: script\n\n"
+            
+            # Combine header and content
+            script_content = script_header + content
+            
+            # Save to file
+            file_ext = file_path.suffix if file_path.suffix else f".{language}"
+            output_file = blocks_dir / f"{file_path.stem}_script_all{file_ext}"
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write(script_content)
+            
+            # Count tokens
+            token_count = count_tokens(content)
+            
+            # Create block metadata and add to file_blocks
+            block_data = {
+                "type": "code",
+                "language": language,
+                "content": content,
+                "name": file_path.stem,
+                "block_type": "script",
+                "file": str(file_path),
+                "start_line": 0,
+                "end_line": len(content.splitlines()),
+                "output_file": str(output_file),
+                "token_count": token_count,
+                "metadata": {
+                    "token_count": token_count,
+                    "language": language,
+                    "block_type": "script"
+                }
+            }
+            
+            file_blocks.append(block_data)
+            block_count += 1
         
         # Add blocks to stats file_blocks dictionary
         if block_count > 0:
@@ -607,6 +829,9 @@ def _extract_markdown_blocks(
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(block_content)
             
+            # Count tokens
+            token_count = count_tokens(section)
+            
             # Create block metadata and add to file_blocks
             block_data = {
                 "type": "documentation",
@@ -615,7 +840,13 @@ def _extract_markdown_blocks(
                 "title": section_title,
                 "file": str(file_path),
                 "section": i,
-                "output_file": str(output_file)
+                "output_file": str(output_file),
+                "token_count": token_count,
+                "metadata": {
+                    "token_count": token_count,
+                    "language": "markdown",
+                    "section_title": section_title
+                }
             }
             file_blocks.append(block_data)
                 
@@ -645,6 +876,7 @@ def _extract_js_ts_blocks(
 ) -> int:
     """
     Extract functions and classes from JavaScript/TypeScript.
+    Also extracts entire files as script blocks when appropriate.
     Tries tree-sitter first, then falls back to regex approach.
     
     Args:
@@ -726,6 +958,9 @@ def _extract_js_ts_blocks(
                 open_braces = 0
                 is_arrow = '=>' in match.group(0)
                 
+                # Initialize end_line to handle all cases
+                end_line = start_line
+                
                 # Handle arrow functions differently
                 if is_arrow:
                     # For arrow functions, find the first { after =>
@@ -783,12 +1018,84 @@ def _extract_js_ts_blocks(
                     "file": str(file_path),
                     "start_line": start_line,
                     "end_line": end_line,
-                    "output_file": str(output_file)
+                    "output_file": str(output_file),
+                    "token_count": count_tokens(block_code),
+                    "metadata": {
+                        "token_count": count_tokens(block_code)
+                    }
                 }
                 
                 file_blocks.append(block_data)
                 
                 block_count += 1
+        
+        # Check if we should extract the entire file as a script block
+        # Determine if this is a special file by name
+        special_file_patterns = {
+            "javascript": ["webpack.config.js", "rollup.config.js", "gulpfile.js", "gruntfile.js", ".babelrc", ".eslintrc", "package.json"],
+            "typescript": ["tsconfig.json", "webpack.config.ts", "rollup.config.ts"]
+        }
+        
+        file_name = file_path.name.lower()
+        is_special_file = False
+        
+        # Check if the file matches any special patterns
+        lang_patterns = special_file_patterns.get(language, [])
+        if any(file_name.endswith(pattern.lower()) for pattern in lang_patterns):
+            is_special_file = True
+            
+        # Check for module.exports or export default patterns which indicate a configuration file
+        has_exports = False
+        if "module.exports" in content or "export default" in content:
+            has_exports = True
+            
+        # Extract entire file as a script block if:
+        # 1. No blocks were found but it's a special file, or
+        # 2. Few blocks were found but it has exports
+        if (block_count == 0 and is_special_file) or (block_count <= 2 and has_exports):
+            block_count += 1
+            
+            # Create a special script block
+            script_name = file_path.stem
+            block_code = content
+            
+            # Create block header with metadata
+            header = f"// Original file: {file_path}\n"
+            header += f"// Block type: script\n"
+            header += f"// Name: {script_name}\n"
+            header += f"// Description: Full script file with configuration or top-level code\n\n"
+            
+            # Combine header and code
+            block_content = header + block_code
+            
+            # Save to file
+            output_file = blocks_dir / f"{file_path.stem}_script_{block_count}.{language}"
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write(block_content)
+            
+            # Create block metadata and add to file_blocks
+            block_data = {
+                "type": "code",
+                "language": language,
+                "content": block_code,
+                "name": script_name,
+                "block_type": "script",
+                "file": str(file_path),
+                "start_line": 0,
+                "end_line": len(lines) - 1,
+                "output_file": str(output_file),
+                "token_count": count_tokens(block_code),
+                "metadata": {
+                    "token_count": count_tokens(block_code)
+                }
+            }
+            
+            file_blocks.append(block_data)
+            
+            # Update statistics
+            stats["code_blocks"] += 1
+            
+            logger.debug(f"Extracted script block from {file_path}")
         
         # Update statistics
         stats["code_blocks"] += block_count
@@ -2165,7 +2472,29 @@ def format_output_as_json(extraction_results):
         str: JSON formatted string
     """
     import json
-    return json.dumps(extraction_results, indent=2)
+    
+    # Create a copy of the results to avoid modifying the original
+    formatted_results = {
+        "blocks": [],
+        "stats": extraction_results.get("stats", {})
+    }
+    
+    # Process blocks to ensure they can be serialized
+    for block in extraction_results.get("blocks", []):
+        formatted_block = {
+            "id": block.get("id", ""),
+            "language": block.get("language", "text"),
+            "content": block.get("content", ""),
+            "path": str(block.get("path", "")),
+            "start_line": block.get("start_line", 0),
+            "end_line": block.get("end_line", 0),
+            "type": block.get("type", "unknown"),
+            "name": block.get("name", "Unnamed Block")
+        }
+        formatted_results["blocks"].append(formatted_block)
+    
+    # Convert to JSON with indentation for readability
+    return json.dumps(formatted_results, indent=2)
 
 def format_output_as_md(extraction_results):
     """
@@ -2206,34 +2535,63 @@ def format_output_as_html(extraction_results):
     Returns:
         str: HTML formatted string
     """
-    output = "<!DOCTYPE html>\n<html>\n<head>\n<title>Extraction Results</title>\n</head>\n<body>\n"
-    
-    # Add title
-    output += "<h1>Extraction Results</h1>\n"
-    
+    html = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Extraction Results</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; }
+h1 { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+h2 { color: #3498db; margin-top: 30px; }
+h3 { color: #2980b9; }
+pre { background-color: #f8f8f8; border: 1px solid #ddd; border-radius: 3px; padding: 10px; overflow: auto; }
+code { font-family: Consolas, Monaco, 'Andale Mono', monospace; }
+.stats { background-color: #f0f7fb; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+.file { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #ddd; }
+.language-tag { display: inline-block; background-color: #e74c3c; color: white; font-size: 12px; padding: 3px 8px; border-radius: 3px; margin-left: 10px; }
+</style>
+</head>
+<body>
+<h1>Extraction Results</h1>
+"""
+
     # Add statistics
-    output += "<h2>Statistics</h2>\n<ul>\n"
     stats = extraction_results.get("stats", {})
-    output += f"<li>Total Files: {stats.get('total_files', 0)}</li>\n"
-    output += f"<li>Code Files: {stats.get('code_files', 0)}</li>\n"
-    output += f"<li>Documentation Files: {stats.get('documentation_files', 0)}</li>\n"
-    output += f"<li>Code Blocks: {stats.get('code_blocks', 0)}</li>\n"
-    output += "</ul>\n"
+    html += """<div class="stats">
+<h2>Statistics</h2>
+<ul>
+"""
+    html += f"<li><strong>Total Files:</strong> {stats.get('total_files', 0)}</li>\n"
+    html += f"<li><strong>Code Files:</strong> {stats.get('code_files', 0)}</li>\n"
+    html += f"<li><strong>Documentation Files:</strong> {stats.get('documentation_files', 0)}</li>\n"
+    html += f"<li><strong>Code Blocks:</strong> {stats.get('code_blocks', 0)}</li>\n"
+    html += "</ul>\n"
     
     # Add repository URL if available
     if "repo_url" in stats:
-        output += f"<p>Repository: <a href='{stats['repo_url']}'>{stats['repo_url']}</a></p>\n"
-    
+        html += f"<p>Repository: <a href='{stats['repo_url']}'>{stats['repo_url']}</a></p>\n"
+        
+    html += "</div>\n"
+
     # Add code blocks
-    output += "<h2>Code Blocks</h2>\n"
+    html += "<h2>Code Blocks</h2>\n"
     for block in extraction_results.get("blocks", []):
         lang = block.get("language", "text")
-        output += f"<h3>{block.get('name', 'Unnamed Block')}</h3>\n"
-        output += f"<p>Language: {lang}</p>\n"
-        output += f"<pre><code class=\"language-{lang}\">{block.get('content', '')}</code></pre>\n"
+        name = block.get("name", "Unnamed Block")
+        content = block.get("content", "").replace("<", "&lt;").replace(">", "&gt;")
+        
+        html += f'<div class="file">\n'
+        html += f'<h3>{name}</h3>\n'
+        html += f'<p>Language: {lang}</p>\n'
+        html += f'<pre><code class="language-{lang}">{content}</code></pre>\n'
+        html += f'</div>\n'
     
-    output += "</body>\n</html>"
-    return output
+    html += """
+</body>
+</html>
+"""
+    return html
 
 if __name__ == "__main__":
     main()
