@@ -65,10 +65,10 @@ def parse_github_url(url: str) -> Dict[str, str]:
     
     Examples:
         >>> parse_github_url("https://github.com/username/repo")
-        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': 'main', 'protocol': 'https', 'subdir': ''}
+        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': 'main', 'protocol': 'https'}
         
-        >>> parse_github_url("git@github.com:username/repo.git")
-        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': 'main', 'protocol': 'ssh', 'subdir': ''}
+        >>> parse_github_url("https://github.com/username/repo/tree/main/src")
+        {'owner': 'username', 'repo': 'repo', 'path': 'src', 'branch': 'main', 'protocol': 'https', 'subdir': 'src'}
         
     Raises:
         ValueError: If the URL is not a valid GitHub URL
@@ -77,44 +77,48 @@ def parse_github_url(url: str) -> Dict[str, str]:
         "owner": "",
         "repo": "",
         "path": "",
-        "branch": "main",
+        "branch": "main",  # Default to main branch
         "protocol": "https",  # Default to HTTPS
-        "subdir": ""  # Add subdir field
+        "subdir": ""  # Default to empty subdir
     }
     
-    if not url:
-        raise ValueError("Empty URL provided")
+    if not url or not isinstance(url, str):
+        raise ValueError("Empty or invalid URL provided")
     
     # Handle SSH format
     if url.startswith('git@'):
-        result["protocol"] = "ssh"
-        # Extract owner/repo from git@github.com:owner/repo.git format
+        if not url.startswith('git@github.com:'):
+            raise ValueError("Invalid GitHub SSH URL")
+            
         try:
-            if 'github.com' not in url:
-                raise ValueError(f"Invalid GitHub SSH URL: {url}")
-                
             path = url.split(':', 1)[1]
             parts = path.strip('/').split('/')
             if len(parts) >= 2:
                 result["owner"] = parts[0]
                 result["repo"] = parts[1].replace('.git', '')
+                result["protocol"] = "ssh"
                 
-                # Handle subdirectory if present (parts beyond owner/repo)
+                # Handle subdirectory if present
                 if len(parts) > 2:
-                    result["subdir"] = '/'.join(parts[2:])
-                    result["path"] = result["subdir"]  # For backward compatibility
+                    result["path"] = '/'.join(parts[2:])
+                    result["subdir"] = result["path"]
             else:
-                raise ValueError(f"Invalid GitHub repository path in SSH URL: {url}")
+                raise ValueError("Invalid GitHub repository path")
         except IndexError:
-            raise ValueError(f"Invalid GitHub SSH URL format: {url}")
+            raise ValueError("Invalid GitHub repository path")
         return result
     
     # Parse URL for HTTPS format
-    parsed_url = urlparse(url)
+    try:
+        parsed_url = urlparse(url)
+    except Exception:
+        raise ValueError("Not a GitHub URL")
     
     # Validate that it's a GitHub URL
-    if not parsed_url.netloc or 'github.com' not in parsed_url.netloc:
-        raise ValueError(f"Not a GitHub URL: {url}")
+    if not parsed_url.scheme or not parsed_url.scheme in ['http', 'https']:
+        raise ValueError("Not a GitHub URL")
+    if not parsed_url.netloc or parsed_url.netloc != 'github.com':
+        raise ValueError("Not a GitHub URL")
     
     # Extract components from path
     path_parts = parsed_url.path.strip('/').split('/')
@@ -122,24 +126,22 @@ def parse_github_url(url: str) -> Dict[str, str]:
     if len(path_parts) >= 2:
         result["owner"] = path_parts[0]
         result["repo"] = path_parts[1].replace('.git', '')
+        result["protocol"] = parsed_url.scheme
         
-        # Handle subdirectory if present (path beyond owner/repo)
+        # Handle subdirectory if present
         if len(path_parts) > 2:
-            result["subdir"] = '/'.join(path_parts[2:])
-            result["path"] = result["subdir"]  # For backward compatibility
+            # Check for tree/blob paths
+            if path_parts[2] in ["tree", "blob"]:
+                if len(path_parts) > 3:
+                    result["branch"] = path_parts[3]
+                    if len(path_parts) > 4:
+                        result["path"] = '/'.join(path_parts[4:])
+                        result["subdir"] = result["path"]
+            else:
+                result["path"] = '/'.join(path_parts[2:])
+                result["subdir"] = result["path"]
     else:
-        raise ValueError(f"Invalid GitHub repository path: {url}")
-    
-    # Extract branch from ref query parameter or tree/ or blob/ paths
-    tree_match = re.search(r'/(tree|blob)/([^/]+)', parsed_url.path)
-    if tree_match:
-        result["branch"] = tree_match.group(2)
-        
-        # Adjust path to not include the tree/branch part
-        remaining_path = parsed_url.path.split(f'/{tree_match.group(1)}/{tree_match.group(2)}/', 1)
-        if len(remaining_path) > 1:
-            result["subdir"] = remaining_path[1]
-            result["path"] = result["subdir"]  # For backward compatibility
+        raise ValueError("Invalid GitHub repository path")
     
     return result
 
@@ -167,16 +169,22 @@ def is_github_url(url: str) -> bool:
         return False
     
     # Handle SSH format directly
-    if url.startswith('git@github.com:'):
-        # Check if there's at least a username/repo part after the colon
-        parts = url[15:].strip('/').split('/')
-        return len(parts) > 0 and '.' in parts[0]  # Expecting at least one part with a .git extension
+    if url.startswith('git@'):
+        if not url.startswith('git@github.com:'):
+            return False
+        # Split on : to get the repo path part
+        parts = url.split(':', 1)
+        if len(parts) != 2:
+            return False
+        # Check if we have owner/repo format
+        repo_parts = parts[1].strip('/').split('/')
+        return len(repo_parts) >= 2
     
     # Handle HTTP/HTTPS formats
     parsed_url = urlparse(url)
     
     # Check if the domain is github.com
-    if not parsed_url.netloc.endswith("github.com"):
+    if not parsed_url.scheme or not parsed_url.netloc or not parsed_url.netloc.endswith("github.com"):
         return False
     
     # Check if there are at least owner/repo in the path
@@ -206,93 +214,120 @@ def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
     
     Args:
         url: GitHub repository URL
-        temp_dir: Optional temporary directory to use, creates one if not provided
+        temp_dir: Optional temporary directory path. If not provided, one will be created.
         
     Returns:
         Path to the cloned repository
         
     Raises:
-        ValueError: If GitPython is not available
-        git.GitCommandError: If the clone operation fails
+        ValueError: If the URL is not a valid GitHub URL
+        GitCommandError: If there is an error cloning the repository
     """
-    if not GIT_AVAILABLE:
-        raise ValueError("GitPython is required to clone repositories")
+    # Validate URL first
+    if not is_github_url(url):
+        raise ValueError("Not a GitHub URL")
     
-    # Parse the GitHub URL
     try:
-        repo_info = parse_github_url(url)
+        parsed = parse_github_url(url)
     except ValueError as e:
-        logger.error(f"Failed to parse GitHub URL: {e}")
+        logger.error(f"Invalid GitHub URL: {e}")
         raise
     
-    # Create a temporary directory if not provided
-    if temp_dir is None:
+    # Create temp directory if not provided
+    if not temp_dir:
         temp_dir = tempfile.mkdtemp(prefix="dualipa_repo_")
+    
+    # Construct clone URL
+    if url.startswith('git@'):
+        clone_url = url
     else:
-        os.makedirs(temp_dir, exist_ok=True)
+        clone_url = f"https://github.com/{parsed['owner']}/{parsed['repo']}"
+        if parsed['path']:
+            clone_url = f"{clone_url}/tree/{parsed['branch']}/{parsed['path']}"
     
-    logger.info(f"Cloning repository {repo_info['owner']}/{repo_info['repo']} to {temp_dir}")
+    logger.info(f"Cloning repository {parsed['owner']}/{parsed['repo']} to {temp_dir}")
     
-    # Clone the repository
     try:
-        # Construct full clone URL
-        clone_url = get_clone_url(repo_info['owner'], repo_info['repo'])
-        
-        # Clone the repository to the temporary directory
         repo = git.Repo.clone_from(clone_url, temp_dir)
-        
-        # Checkout the specified reference if provided and not empty
-        if repo_info['branch'] and repo_info['branch'] != 'main':
-            logger.info(f"Checking out branch: {repo_info['branch']}")
-            repo.git.checkout(repo_info['branch'])
-        
-        logger.info(f"Repository cloned successfully to {temp_dir}")
-        
         return temp_dir
     except git.GitCommandError as e:
         logger.error(f"Git command error: {e}")
-        shutil.rmtree(temp_dir, ignore_errors=True)
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+        # Check if it's an authentication error
+        if "Authentication failed" in str(e) or "could not read Username" in str(e):
+            raise git.GitCommandError(e.command, e.status, "Authentication failed")
+        raise
+    except Exception as e:
+        logger.error(f"Error cloning repository: {e}")
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
         raise
 
 
-async def fetch_repo_contents_async(owner: str, repo: str, path: str = '', ref: str = 'main') -> Dict[str, Any]:
-    """Fetch repository contents asynchronously using GitHub API.
+async def fetch_repo_contents_async(owner: str, repo: str, path: str = "") -> List[Dict[str, str]]:
+    """Fetch repository contents asynchronously.
     
     Args:
-        owner: Repository owner
-        repo: Repository name
-        path: Path within the repository
-        ref: Branch or tag reference
+        owner: Repository owner or 'local' for local repositories
+        repo: Repository name or path for local repositories
+        path: Optional path within the repository
         
     Returns:
-        Repository contents from GitHub API
+        List of dictionaries containing file information
         
     Raises:
-        ValueError: If aiohttp is not available
-        RuntimeError: If the API request fails
+        ValueError: If PyGithub is not available or parameters are invalid
+        github.GithubException: If there is an error accessing the repository
     """
     if not GITHUB_API_AVAILABLE:
-        raise ValueError("PyGithub is required for API access")
+        raise ValueError("PyGithub is required to fetch repository contents")
     
-    url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
-    params = {"ref": ref}
+    logger.info(f"Fetching repository contents from {owner}/{repo}/{path}")
     
-    logger.info(f"Fetching repository contents from {url}")
-    
-    g = Github()
-    repo = g.get_repo(f"{owner}/{repo}")
-    
-    try:
-        contents = repo.get_contents(path, ref=ref)
-        if isinstance(contents, list):
-            return {"error": "Path is a directory, not a file"}
+    # Handle local repositories
+    if owner == "local":
+        repo_path = Path(repo)
+        if not repo_path.exists():
+            raise ValueError(f"Local repository path does not exist: {repo}")
+            
+        contents = []
+        target_path = repo_path / path if path else repo_path
         
-        content = contents.decoded_content.decode('utf-8')
-        return {"content": content}
+        if not target_path.exists():
+            raise ValueError(f"Path does not exist in repository: {path}")
+            
+        for item in target_path.rglob("*"):
+            if item.is_file():
+                rel_path = str(item.relative_to(repo_path))
+                contents.append({
+                    "name": item.name,
+                    "path": rel_path,
+                    "type": "file"
+                })
+        return contents
+    
+    # Handle GitHub repositories
+    g = Github()
+    try:
+        repo = g.get_repo(f"{owner}/{repo}")
+        if path:
+            contents = repo.get_contents(path)
+        else:
+            contents = repo.get_contents("")
+            
+        # Convert contents to list of dictionaries
+        if isinstance(contents, list):
+            return [
+                {"name": item.name, "path": item.path, "type": item.type}
+                for item in contents
+            ]
+        else:
+            return [{"name": contents.name, "path": contents.path, "type": contents.type}]
+            
     except Exception as e:
-        error_msg = f"Error getting file from GitHub: {str(e)}"
-        logger.error(error_msg)
-        return {"error": error_msg}
+        logger.error(f"Error fetching repository contents: {e}")
+        raise
 
 
 def get_file_contents_from_github(

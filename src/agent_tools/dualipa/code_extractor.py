@@ -34,7 +34,7 @@ from datetime import datetime
 from typing import Dict, List, Set, Tuple, Optional, Any, Union, Callable
 from loguru import logger
 
-from .language_detection import detect_language
+    from .language_detection import detect_language
 
 # Configure logger
 logger.remove()
@@ -476,7 +476,7 @@ def _extract_python_blocks(
     # Initialize file_blocks for this file if not already present
     if str(file_path) not in stats["file_blocks"]:
         stats["file_blocks"][str(file_path)] = []
-    
+        
     # Update language statistics
     stats["languages"]["python"] = stats["languages"].get("python", 0) + 1
     
@@ -493,8 +493,8 @@ def _extract_python_blocks(
     
     try:
         # Parse the Python code using AST
-        tree = ast.parse(content)
-        
+            tree = ast.parse(content)
+            
         # Extract all top-level blocks (functions and classes)
         for node in tree.body:
             try:
@@ -595,8 +595,8 @@ def _find_func_end(content: str, start_line: int, indent_level: int = 0) -> int:
         # Skip empty lines and comments
         if not lines[line_idx].strip() or lines[line_idx].strip().startswith("#"):
             line_idx += 1
-            continue
-        
+                continue
+                
         # If we find a line with indentation <= function definition indentation, we've reached the end
         curr_indent = len(lines[line_idx]) - len(lines[line_idx].lstrip())
         if curr_indent <= indent_level:
@@ -658,8 +658,8 @@ def _save_python_block(
     # Write block to file
     with open(block_file, "w", encoding="utf-8") as f:
         f.write(block_content)
-    
-    # Create block metadata
+            
+            # Create block metadata
     block_info = {
         "type": block_type,
         "name": block_name,
@@ -707,7 +707,7 @@ def _extract_js_ts_blocks(
     # Initialize file_blocks for this file if not already present
     if str(file_path) not in stats["file_blocks"]:
         stats["file_blocks"][str(file_path)] = []
-    
+        
     # Update language statistics
     stats["languages"][language] = stats["languages"].get(language, 0) + 1
     
@@ -804,7 +804,7 @@ def _extract_js_ts_blocks(
         stats["code_files"] += 1
         
         return blocks_extracted
-    
+        
     except Exception as e:
         error_msg = f"Error extracting {language} blocks from {file_path}: {str(e)}"
         logger.error(error_msg)
@@ -815,8 +815,8 @@ def _extract_js_ts_blocks(
 def _extract_blocks_with_pattern(
     content: str,
     pattern: str,
-    file_path: Path,
-    output_dir: Path,
+    file_path: Path, 
+    output_dir: Path, 
     stats: Dict[str, Any],
     block_type: str,
     language: str
@@ -898,8 +898,8 @@ def _extract_blocks_with_pattern(
             # Add to stats
             stats["file_blocks"][str(file_path)].append(block_info)
             blocks_extracted += 1
-            
-        except Exception as e:
+        
+    except Exception as e:
             logger.error(f"Error extracting {block_type} '{match.group(1)}': {str(e)}")
     
     return blocks_extracted

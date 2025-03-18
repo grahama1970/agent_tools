@@ -142,21 +142,142 @@ def verify_code_block(
 
 ## github_utils.py
 
-### download_github_repo
+### parse_github_url
 ```python
-def download_github_repo(
-    repo_url: str,               # URL to GitHub repository
-    target_dir: Optional[Union[str, Path]] = None,  # Target directory (optional)
-    branch: Optional[str] = None # Branch to checkout (optional)
-) -> Path:                       # Returns path to downloaded repository
+def parse_github_url(url: str) -> Dict[str, str]:
+    """Parse a GitHub URL into components.
+    
+    Args:
+        url: The GitHub URL to parse
+        
+    Returns:
+        Dictionary with components:
+            - owner: Repository owner/organization
+            - repo: Repository name
+            - path: Path within repository (empty if none)
+            - branch: Branch name (defaults to 'main')
+            - protocol: Protocol ('https' or 'ssh')
+            - subdir: Subdirectory path (same as path)
+            
+    Raises:
+        ValueError: With specific messages for different validation failures:
+            - "Empty or invalid URL provided"
+            - "Not a GitHub URL"
+            - "Invalid GitHub SSH URL"
+            - "Invalid GitHub repository path"
+    """
 ```
 
-**Purpose**: Download a GitHub repository to a local directory
+**Critical Requirements**:
+- URL must be a valid GitHub URL (HTTPS or SSH format)
+- Returns consistent fields regardless of URL format
+- Handles both repository root URLs and specific paths
+- Validates URL format before parsing
+- MUST include 'protocol' and 'subdir' fields in return value
+- Error messages must match test expectations exactly
+
+### clone_github_repo
+```python
+def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
+    """Clone a GitHub repository to a temporary directory.
+    
+    Args:
+        url: GitHub repository URL (HTTPS or SSH)
+        temp_dir: Optional directory for cloning (creates temp dir if None)
+        
+    Returns:
+        Path to the cloned repository
+        
+    Raises:
+        ValueError: If URL is not a valid GitHub URL
+        GitCommandError: For repository errors with specific messages:
+            - "Repository not found" for non-existent or private repos
+            - Original git error message for other failures
+    """
+```
 
 **Critical Requirements**:
-- `repo_url` must be a valid GitHub repository URL
-- `target_dir` will be created if it doesn't exist
-- Returns a Path object pointing to the downloaded repository
+- Validates URL with is_github_url() before attempting to clone
+- Creates and manages temporary directory if none provided
+- Cleans up temporary directory on any failure
+- Handles both HTTPS and SSH URLs
+- Preserves original git error messages for debugging
+- For private repositories, preserves "Repository not found" message
+
+### is_github_url
+```python
+def is_github_url(url: str) -> bool:
+    """Check if a URL is a GitHub repository URL.
+    
+    Args:
+        url: URL to check
+        
+    Returns:
+        True if URL is a valid GitHub repository URL
+    """
+```
+
+**Critical Requirements**:
+- Handles both HTTPS and SSH formats
+- Validates domain is exactly 'github.com'
+- Checks for owner/repo path structure
+- Returns False for non-GitHub URLs
+- Must be used before attempting any repository operations
+
+### Testing Requirements
+- Use real repositories from test_repos/ for validation
+- Test both HTTPS and SSH URL formats
+- Test error cases with specific error messages:
+  - "Not a GitHub URL" for invalid URLs
+  - "Repository not found" for non-existent/private repos
+  - "Invalid GitHub repository path" for malformed paths
+- Verify repository structure after cloning
+- Clean up temporary directories in all cases
+- Handle network errors gracefully
+- Test URL parsing with various formats:
+  - Root repository URLs
+  - Branch-specific URLs
+  - Subdirectory URLs
+  - SSH URLs with and without .git suffix
+
+### Error Handling Best Practices
+1. Validate URLs before any operations
+2. Use consistent error messages that match test expectations
+3. Clean up resources on any failure
+4. Preserve git error messages for debugging
+5. Handle private repositories as "Repository not found"
+6. Log errors with appropriate context
+
+### fetch_repo_contents_async
+```python
+async def fetch_repo_contents_async(
+    owner: str,
+    repo: str,
+    path: str = ""
+) -> List[Dict[str, str]]:
+    """Fetch repository contents asynchronously.
+    
+    Args:
+        owner: Repository owner or 'local' for local repos
+        repo: Repository name or path for local repos
+        path: Optional path within repository
+        
+    Returns:
+        List of dictionaries with file information:
+            - name: File name
+            - path: File path relative to repo root
+            - type: File type ('file' or 'dir')
+            
+    Raises:
+        ValueError: If PyGithub not available or invalid parameters
+    """
+```
+
+**Critical Requirements**:
+- Handles both remote and local repositories
+- Validates paths before access
+- Returns consistent structure for both remote/local
+- Requires PyGithub for remote repositories
 
 ## pipeline.py
 
@@ -208,3 +329,96 @@ def format_for_lora(
 - **Script-Level Extraction**: Several special files (e.g., `setup.py`, `webpack.config.js`) don't contain traditional blocks but are extracted as entire script blocks. Ensure these are properly counted in statistics.
 - **Stats Consistency**: Always increment the appropriate counters (`stats["code_blocks"]`, `stats["doc_blocks"]`) when adding blocks to maintain accurate statistics.
 - **Defensive Programming**: Use `setdefault()` to ensure required dictionary keys exist before incrementing them. 
+
+## Stats Dictionary Requirements
+
+All extraction functions require a properly initialized stats dictionary with:
+
+```python
+stats = {
+    # Core counters
+    "code_blocks": 0,      # Required for all code extractors
+    "doc_blocks": 0,       # Required for markdown extraction
+    "errors": [],         # Required for all extractors
+    "file_blocks": {},    # Required for all extractors
+    
+    # Language tracking
+    "languages": {},      # Required for language statistics
+    "file_types": {},     # Required for file type tracking
+    
+    # Metadata
+    "source": str,        # Source path/URL
+    "output_path": str,   # Output directory path
+    "start_time": str,    # ISO format timestamp
+    "end_time": None,     # Set when extraction completes
+    "duration_seconds": 0 # Updated when extraction completes
+}
+```
+
+### Critical Stats Update Points
+
+1. **Language Statistics Updates**
+   - Must be updated when processing ANY file
+   - Update in language-specific extractors
+   - Example:
+     ```python
+     stats["languages"][language] = stats["languages"].get(language, 0) + 1
+     ```
+
+2. **File Type Statistics Updates**
+   - Must be updated when processing ANY file
+   - Update after determining file extension
+   - Example:
+     ```python
+     ext = file_path.suffix.lower()
+     stats["file_types"][ext] = stats["file_types"].get(ext, 0) + 1
+     ```
+
+3. **Block Counter Updates**
+   - Must be updated when extracting ANY block
+   - Different counters for code vs documentation
+   - Example:
+     ```python
+     stats["code_blocks"] += 1  # For code blocks
+     stats["doc_blocks"] += 1   # For documentation blocks
+     ```
+
+4. **Error Handling**
+   - Must capture errors for ALL failure cases
+   - Preserve existing stats when errors occur
+   - Example:
+     ```python
+     try:
+         # extraction code
+     except Exception as e:
+         stats["errors"].append(str(e))
+     ```
+
+### Stats Verification Requirements
+
+1. **Structure Verification**
+   - All required fields must exist
+   - Fields must have correct types
+   - Example:
+     ```python
+     assert isinstance(stats["languages"], dict)
+     assert isinstance(stats["code_blocks"], int)
+     ```
+
+2. **Value Verification**
+   - Counters must be non-negative
+   - Lists and dicts must be initialized
+   - Example:
+     ```python
+     assert stats["code_blocks"] >= 0
+     assert isinstance(stats["errors"], list)
+     ```
+
+3. **Cross-Language Consistency**
+   - All extractors must maintain consistent stats
+   - Language-specific stats must be properly tracked
+   - Example:
+     ```python
+     assert "python" in stats["languages"]  # After Python extraction
+     assert ".py" in stats["file_types"]    # After Python file processing
+     ``` 

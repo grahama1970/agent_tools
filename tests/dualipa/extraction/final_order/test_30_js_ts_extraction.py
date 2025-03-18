@@ -104,9 +104,8 @@ def test_js_function_extraction():
         # Initialize stats
         stats = initialize_stats_dict(source=js_file, output_dir=output_dir)
         
-        # Test extraction
-        language = "javascript"
-        block_count = _extract_js_ts_blocks(js_file, js_content, output_dir, stats, language)
+        # Test extraction (removed extra language parameter)
+        block_count = _extract_js_ts_blocks(js_file, js_content, output_dir, stats)
         
         # Verify extraction happened
         print(f"Extracted {block_count} JavaScript blocks")
@@ -226,9 +225,8 @@ def test_ts_class_extraction():
         # Initialize stats
         stats = initialize_stats_dict(source=ts_file, output_dir=output_dir)
         
-        # Test extraction
-        language = "typescript"
-        block_count = _extract_js_ts_blocks(ts_file, ts_content, output_dir, stats, language)
+        # Test extraction (removed extra language parameter)
+        block_count = _extract_js_ts_blocks(ts_file, ts_content, output_dir, stats)
         
         # Verify extraction happened
         print(f"Extracted {block_count} TypeScript blocks")
@@ -252,14 +250,12 @@ def test_ts_class_extraction():
                     print(f"  - {block.get('name', 'unnamed')}")
                     print(f"  - Type: {block.get('block_type', 'unknown')}")
         else:
-            # If no blocks were extracted, check if there were errors
             print("No blocks were extracted from TypeScript file")
             if stats["errors"]:
                 print("Errors during extraction:")
                 for error in stats["errors"]:
                     print(f"  - {error}")
             else:
-                # Only fail if there were no blocks AND no errors
                 assert block_count > 0, "No blocks extracted and no errors reported"
 
 def test_tsx_component_extraction():
@@ -330,9 +326,8 @@ def test_tsx_component_extraction():
         # Initialize stats
         stats = initialize_stats_dict(source=tsx_file, output_dir=output_dir)
         
-        # Test extraction
-        language = "typescript"
-        block_count = _extract_js_ts_blocks(tsx_file, tsx_content, output_dir, stats, language)
+        # Test extraction (removed extra language parameter)
+        block_count = _extract_js_ts_blocks(tsx_file, tsx_content, output_dir, stats)
         
         # Verify extraction happened
         print(f"Extracted {block_count} TSX blocks")
@@ -349,21 +344,20 @@ def test_tsx_component_extraction():
         if block_count > 0:
             assert block_count > 0, "No blocks extracted"
             
-            # If we have file_blocks, print some info about them
+            # Change expected output directory for TSX components
+            blocks_dir = output_dir / "blocks" / "code" / "typescript"
             if file_blocks:
                 print("Block names found:")
                 for block in file_blocks:
                     print(f"  - {block.get('name', 'unnamed')}")
                     print(f"  - Type: {block.get('block_type', 'unknown')}")
         else:
-            # If no blocks were extracted, check if there were errors
             print("No blocks were extracted from TSX file")
             if stats["errors"]:
                 print("Errors during extraction:")
                 for error in stats["errors"]:
                     print(f"  - {error}")
             else:
-                # Only fail if there were no blocks AND no errors
                 assert block_count > 0, "No blocks extracted and no errors reported"
 
 def test_process_file_with_js():
@@ -375,7 +369,7 @@ def test_process_file_with_js():
         temp_dir_path = Path(temp_dir)
         js_file = temp_dir_path / "utility.js"
         
-        # Simple JavaScript utility file - fix invalid escape sequence by removing it
+        # Simple JavaScript utility file
         js_content = textwrap.dedent("""
         /**
          * Utility functions for common operations.
@@ -415,18 +409,14 @@ def test_process_file_with_js():
         # Initialize stats dictionary
         stats = initialize_stats_dict(source=js_file, output_dir=output_dir)
         
-        # Process the file
+        # Process the file using _process_code_file (assuming it exists)
         language = "javascript"  # Explicitly set the language
         _process_code_file(js_file, output_dir, stats, language, extract_blocks=True)
         
         # Verify successful processing - basic file processing
-        assert stats["code_files"] == 1, "File not counted in stats"
+        assert stats.get("total_files", 0) == 1, "File not counted in stats"
         assert "javascript" in stats["languages"], "Language not recorded in stats"
         assert ".js" in stats["file_types"], "File type not recorded in stats"
-        
-        # Test passes if we got this far (basic file processing worked)
-        # Some environments may not have tree-sitter or other dependencies for block extraction,
-        # so we'll check for blocks but not fail if none were extracted
         
         # Output any errors for debugging
         if stats["errors"]:
@@ -444,7 +434,6 @@ def test_process_file_with_js():
             # Look for any JSON files recursively
             block_files = list(blocks_dir.glob("**/*.json"))
             
-            # If blocks were found, check their structure
             if block_files:
                 print(f"Found {len(block_files)} block files")
                 with open(block_files[0], "r") as f:
@@ -523,4 +512,4 @@ if __name__ == "__main__":
         success = False
     
     print(f"\nOverall result: {'SUCCESS' if success else 'FAILURE'}")
-    sys.exit(0 if success else 1) 
+    sys.exit(0 if success else 1)

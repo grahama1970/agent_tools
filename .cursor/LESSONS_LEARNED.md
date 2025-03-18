@@ -590,3 +590,92 @@ async def process_document(doc_id):
       """Test alternative functionality that doesn't require tree-sitter."""
       # Alternative test logic...
   ```
+
+### 8. Stats Dictionary Testing Lessons
+
+1. **Test Stats Initialization and Updates Together**
+- Don't assume stats dictionaries are properly initialized
+- Test both initialization AND updates in the same test
+- Verify all required fields exist before testing their updates
+- Example:
+  ```python
+  # BAD: Testing updates without verifying initialization
+  def test_python_extraction():
+      stats["code_blocks"] += 1  # May fail if not initialized
+  
+  # GOOD: Test initialization and updates together
+  def test_python_extraction():
+      stats = initialize_stats_dict(...)
+      assert "code_blocks" in stats
+      assert stats["code_blocks"] == 0
+      _extract_python_blocks(..., stats)
+      assert stats["code_blocks"] > 0
+  ```
+
+2. **Test All Language Types Together**
+- Different language processors (AST, tree-sitter, regex) should maintain consistent stats
+- Test Python (AST), JavaScript (tree-sitter), and Markdown (regex) together
+- Ensures consistent behavior across different parsing approaches
+- Reveals integration issues between different extraction methods
+
+3. **Progressive Stats Verification**
+- Start with verifying stats dictionary structure
+- Then verify initial values
+- Then verify updates
+- Finally verify cross-language consistency
+- Each step builds on the previous one
+
+4. **Common Stats Dictionary Pitfalls**
+- Not initializing all required fields
+- Not updating counters consistently across different extractors
+- Assuming all extractors handle stats the same way
+- Not verifying type consistency (e.g., string vs Path objects)
+
+### 9. Why Previous TDD Attempts Failed
+
+1. **Component-First Testing**
+   - Started with individual component tests
+   - Missed integration issues between components
+   - Failed to identify cross-cutting concerns early
+
+2. **Mock-Heavy Testing**
+   - Over-reliance on mock data
+   - Didn't test with real files early enough
+   - Missed real-world edge cases
+
+3. **Incomplete State Management Testing**
+   - Didn't verify shared state (like stats dictionaries)
+   - Assumed consistency between different processors
+   - Failed to test state transitions comprehensively
+
+4. **Wrong Testing Order**
+   - Started with complex edge cases
+   - Didn't build up verification progressively
+   - Tried to test everything at once
+
+### 10. Why This TDD Attempt Succeeded
+
+1. **Cross-Cutting Concerns First**
+   - Started with stats consistency testing
+   - Identified integration issues early
+   - Established consistent patterns across components
+
+2. **Real-World Testing**
+   - Used actual Python, JavaScript, and Markdown files
+   - Tested different parsing approaches together
+   - Found issues that mock data would miss
+
+3. **Progressive Verification**
+   - Built up from basic structure tests
+   - Added complexity gradually
+   - Verified each layer before moving on
+
+4. **Comprehensive State Testing**
+   - Tested shared state management
+   - Verified consistency across different processors
+   - Ensured proper state transitions
+
+5. **Integration-Focused**
+   - Tested multiple extractors together
+   - Verified cross-language consistency
+   - Caught integration issues early
