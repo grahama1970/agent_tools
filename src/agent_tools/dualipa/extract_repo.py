@@ -23,11 +23,14 @@ import re
 try:
     from .github_utils import parse_github_url, clone_github_repo, GIT_AVAILABLE
     from .markdown_parser import get_markdown_files, process_markdown_file
+    from .code_extractor import initialize_stats_dict
     GITHUB_UTILS_AVAILABLE = True
     MARKDOWN_PARSER_AVAILABLE = True
+    STATS_IMPORT_AVAILABLE = True
 except ImportError:
     GITHUB_UTILS_AVAILABLE = False
     MARKDOWN_PARSER_AVAILABLE = False
+    STATS_IMPORT_AVAILABLE = False
     logger.warning("Some modules not available. Functionality will be limited.")
 
 
@@ -80,11 +83,19 @@ def extract_from_repo(repo_path: str, output_dir: str, file_extensions: List[str
         # Compile ignore patterns
         ignore_regexes = [re.compile(pattern) for pattern in ignore_patterns]
         
-        # Initialize data structure
-        extracted_data = {
+        # Initialize data structure with standardized dictionary
+        output_dir_path = Path(output_dir)
+        extracted_data = initialize_stats_dict(repo_path, output_dir_path) if STATS_IMPORT_AVAILABLE else {
             "repo_path": repo_path,
-            "files": []
+            "output_path": output_dir,
+            "files": [],
+            "total_files": 0,
+            "errors": []
         }
+        
+        # Add files field if not present in the standardized dict
+        if "files" not in extracted_data:
+            extracted_data["files"] = []
         
         # Extract files
         for root, dirs, files in os.walk(repo_path):
@@ -117,9 +128,14 @@ def extract_from_repo(repo_path: str, output_dir: str, file_extensions: List[str
                             "sections": md_data["sections"],
                             "code_blocks": md_data["code_blocks"]
                         })
+                        extracted_data["total_files"] += 1
+                        extracted_data["documentation_files"] = extracted_data.get("documentation_files", 0) + 1
                         logger.info(f"Processed markdown file: {relative_path}")
                     except Exception as e:
-                        logger.error(f"Error processing markdown file {relative_path}: {e}")
+                        error_msg = f"Error processing markdown file {relative_path}: {e}"
+                        logger.error(error_msg)
+                        extracted_data["errors"].append(error_msg)
+                        extracted_data["error_files"] = extracted_data.get("error_files", 0) + 1
                         # Fall back to basic extraction
                         _extract_basic_file(file_path, relative_path, extracted_data)
                 else:
@@ -162,15 +178,31 @@ def _extract_basic_file(file_path: str, relative_path: str, extracted_data: Dict
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
+        file_ext = os.path.splitext(file_path)[1].lower()
+        
         extracted_data["files"].append({
             "path": relative_path,
             "content": content
         })
+        
+        # Update stats fields if they exist
+        extracted_data["total_files"] = extracted_data.get("total_files", 0) + 1
+        
+        # Update file type counts based on extension
+        if file_ext in ['.py', '.js', '.ts', '.jsx', '.tsx', '.java', '.c', '.cpp', '.cs', '.go', '.rb']:
+            extracted_data["code_files"] = extracted_data.get("code_files", 0) + 1
+        elif file_ext in ['.md', '.rst', '.txt', '.tex']:
+            extracted_data["documentation_files"] = extracted_data.get("documentation_files", 0) + 1
+            
         logger.info(f"Extracted file: {relative_path}")
     except UnicodeDecodeError:
         logger.warning(f"Skipping binary file: {relative_path}")
+        extracted_data["skipped_files"] = extracted_data.get("skipped_files", 0) + 1
     except Exception as e:
-        logger.error(f"Error reading file {relative_path}: {e}")
+        error_msg = f"Error reading file {relative_path}: {e}"
+        logger.error(error_msg)
+        extracted_data["errors"].append(error_msg)
+        extracted_data["error_files"] = extracted_data.get("error_files", 0) + 1
 
 
 def debug_extract_repo() -> None:

@@ -30,6 +30,14 @@ except ImportError:
     logger.warning("GitPython not available, full Git functionality will be limited")
 
 try:
+    import requests
+    REQUESTS_AVAILABLE = True
+    logger.info("Requests is available for HTTP operations")
+except ImportError:
+    REQUESTS_AVAILABLE = False
+    logger.warning("Requests not available, HTTP functionality will be limited")
+
+try:
     from github import Github, Auth, Repository, ContentFile
     GITHUB_API_AVAILABLE = True
     logger.info("PyGithub is available for GitHub API access")
@@ -53,47 +61,85 @@ def parse_github_url(url: str) -> Dict[str, str]:
         url: The GitHub URL to parse
         
     Returns:
-        Dictionary with extracted components (owner, repo, path, branch)
+        Dictionary with extracted components (owner, repo, path, branch, protocol, subdir)
     
     Examples:
         >>> parse_github_url("https://github.com/username/repo")
-        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': ''}
+        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': 'main', 'protocol': 'https', 'subdir': ''}
         
-        >>> parse_github_url("https://github.com/username/repo/tree/main/src")
-        {'owner': 'username', 'repo': 'repo', 'path': 'src', 'branch': 'main'}
+        >>> parse_github_url("git@github.com:username/repo.git")
+        {'owner': 'username', 'repo': 'repo', 'path': '', 'branch': 'main', 'protocol': 'ssh', 'subdir': ''}
+        
+    Raises:
+        ValueError: If the URL is not a valid GitHub URL
     """
     result = {
         "owner": "",
         "repo": "",
         "path": "",
-        "branch": "main"
+        "branch": "main",
+        "protocol": "https",  # Default to HTTPS
+        "subdir": ""  # Add subdir field
     }
     
     if not url:
+        raise ValueError("Empty URL provided")
+    
+    # Handle SSH format
+    if url.startswith('git@'):
+        result["protocol"] = "ssh"
+        # Extract owner/repo from git@github.com:owner/repo.git format
+        try:
+            if 'github.com' not in url:
+                raise ValueError(f"Invalid GitHub SSH URL: {url}")
+                
+            path = url.split(':', 1)[1]
+            parts = path.strip('/').split('/')
+            if len(parts) >= 2:
+                result["owner"] = parts[0]
+                result["repo"] = parts[1].replace('.git', '')
+                
+                # Handle subdirectory if present (parts beyond owner/repo)
+                if len(parts) > 2:
+                    result["subdir"] = '/'.join(parts[2:])
+                    result["path"] = result["subdir"]  # For backward compatibility
+            else:
+                raise ValueError(f"Invalid GitHub repository path in SSH URL: {url}")
+        except IndexError:
+            raise ValueError(f"Invalid GitHub SSH URL format: {url}")
         return result
     
-    # Parse URL
+    # Parse URL for HTTPS format
     parsed_url = urlparse(url)
     
-    # Skip if not a GitHub URL
-    if not parsed_url.netloc.endswith("github.com"):
-        return result
+    # Validate that it's a GitHub URL
+    if not parsed_url.netloc or 'github.com' not in parsed_url.netloc:
+        raise ValueError(f"Not a GitHub URL: {url}")
     
-    # Extract owner and repo from path
-    path_parts = [p for p in parsed_url.path.split("/") if p]
+    # Extract components from path
+    path_parts = parsed_url.path.strip('/').split('/')
+    
     if len(path_parts) >= 2:
         result["owner"] = path_parts[0]
-        result["repo"] = path_parts[1]
+        result["repo"] = path_parts[1].replace('.git', '')
         
-        # Remove .git suffix if present
-        if result["repo"].endswith(".git"):
-            result["repo"] = result["repo"][:-4]
+        # Handle subdirectory if present (path beyond owner/repo)
+        if len(path_parts) > 2:
+            result["subdir"] = '/'.join(path_parts[2:])
+            result["path"] = result["subdir"]  # For backward compatibility
+    else:
+        raise ValueError(f"Invalid GitHub repository path: {url}")
     
-    # Extract branch and path if available
-    if len(path_parts) >= 4 and path_parts[2] in ["tree", "blob"]:
-        result["branch"] = path_parts[3]
-        if len(path_parts) >= 5:
-            result["path"] = "/".join(path_parts[4:])
+    # Extract branch from ref query parameter or tree/ or blob/ paths
+    tree_match = re.search(r'/(tree|blob)/([^/]+)', parsed_url.path)
+    if tree_match:
+        result["branch"] = tree_match.group(2)
+        
+        # Adjust path to not include the tree/branch part
+        remaining_path = parsed_url.path.split(f'/{tree_match.group(1)}/{tree_match.group(2)}/', 1)
+        if len(remaining_path) > 1:
+            result["subdir"] = remaining_path[1]
+            result["path"] = result["subdir"]  # For backward compatibility
     
     return result
 
@@ -150,9 +196,9 @@ def get_clone_url(owner: str, repo: str) -> str:
         
     Examples:
         >>> get_clone_url("username", "repo")
-        'https://github.com/username/repo.git'
+        'https://github.com/username/repo'
     """
-    return f"https://github.com/{owner}/{repo}.git"
+    return f"https://github.com/{owner}/{repo}"
 
 
 def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:

@@ -14,6 +14,14 @@ from typing import Dict, List, Any, Optional, Set, Tuple, Union
 import tree_sitter
 from tree_sitter import Language, Parser
 
+# Add import for standardized stats dictionary
+try:
+    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    STATS_IMPORT_AVAILABLE = True
+except ImportError:
+    STATS_IMPORT_AVAILABLE = False
+    logger.warning("Could not import stats initialization from code_extractor.py")
+
 def slugify(name: str) -> str:
     """
     Convert a code entity name to a slug for use in filenames and URLs.
@@ -631,6 +639,18 @@ def process_code_repository(repo_path: str, output_dir: str, extensions: List[st
         '.rb': 'ruby'
     }
     
+    # Initialize stats with standardized dictionary if available
+    output_dir_path = Path(output_dir)
+    stats = initialize_stats_dict(repo_path, output_dir_path) if STATS_IMPORT_AVAILABLE else {
+        "source": repo_path,
+        "output_path": output_dir,
+        "total_files": 0,
+        "code_files": 0,
+        "code_blocks": 0,
+        "errors": [],
+        "file_blocks": {}
+    }
+    
     # Build the complete repository hierarchy
     hierarchy = build_code_repository_hierarchy(repo_path, extensions)
     
@@ -658,15 +678,46 @@ def process_code_repository(repo_path: str, output_dir: str, extensions: List[st
                 entity['file_path'] = file_info['path']
                 entity['dir_hierarchy'] = file_info['dir_hierarchy']
                 all_entities.append(entity)
+                
+                # Update statistics
+                stats["code_blocks"] += 1
+                
+                # Add to file blocks
+                if file_info['path'] not in stats["file_blocks"]:
+                    stats["file_blocks"][file_info['path']] = []
+                    
+                # Create standardized block data
+                block_data = {
+                    "type": entity.get("type", "unknown"),
+                    "name": entity.get("name", "unnamed"),
+                    "language": language,
+                    "content": entity.get("content", ""),
+                    "start_line": entity.get("start_line", 0),
+                    "end_line": entity.get("end_line", 0),
+                    "path": file_info['path']
+                }
+                
+                stats["file_blocks"][file_info['path']].append(block_data)
+                
+            # Update file stats
+            stats["total_files"] += 1
+            stats["code_files"] += 1
+            
         except Exception as e:
-            print(f"Error processing {file_info['path']}: {e}")
+            error_msg = f"Error processing {file_info['path']}: {e}"
+            print(error_msg)
+            stats["errors"].append(error_msg)
     
     # Write all entities with their hierarchy
     output_files = write_code_entities(all_entities, output_dir)
     
+    # Add output files to stats
+    stats["output_files"] = output_files
+    
     return {
         'hierarchy': hierarchy,
-        'output_files': output_files
+        'output_files': output_files,
+        'stats': stats
     }
 
 

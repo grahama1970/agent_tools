@@ -37,6 +37,14 @@ except ImportError:
     GITHUB_API_AVAILABLE = False
     logger.warning("PyGithub not available, GitHub API access will be limited")
 
+# Import the standardized stats dict from code_extractor.py
+try:
+    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    STATS_IMPORT_AVAILABLE = True
+except ImportError:
+    STATS_IMPORT_AVAILABLE = False
+    logger.warning("Could not import stats initialization from code_extractor.py")
+
 # Configure logger
 logger.remove()
 logger.add(sys.stderr, level="INFO")
@@ -392,6 +400,10 @@ def download_github_repo(url: str, output_dir: Optional[str] = None) -> str:
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         raise ValueError(f"Failed to download repository: {str(e)}")
+
+
+# Note: extract_repository has been removed to avoid duplication with code_extractor.py
+# Use code_extractor.extract_repository() instead
 
 
 if __name__ == "__main__":

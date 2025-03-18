@@ -22,7 +22,7 @@ except ImportError:
 
 # Import spacy_utils for token counting
 try:
-    from ..utils.spacy_utils import count_tokens
+    from utils.spacy_utils import count_tokens
     SPACY_AVAILABLE = True
 except ImportError:
     SPACY_AVAILABLE = False

@@ -46,6 +46,20 @@ def _extract_python_blocks(
       "file_blocks": {}  # Dictionary to track blocks by file
   }
   ```
+- For defensive programming, the function will initialize missing keys:
+  ```python
+  stats.setdefault("code_blocks", 0)  # Will be added if missing
+  ```
+- Internally uses a `language = "python"` variable to handle script files that don't contain functions or classes
+
+**Script-Level Extraction**:
+- For files like `setup.py`, `manage.py`, `app.py`, etc., which often don't have traditional function/class blocks, the entire file is extracted as a script-level block
+- Script-level blocks are also created for files with top-level executable statements
+- Script-level blocks are included in the `stats["code_blocks"]` count
+- They are marked with `# Block type: script` in the output files
+
+**Known Limitations**:
+- Python's AST parser flattens nested class hierarchies. Classes defined inside other classes will be extracted as separate, top-level entities without preserving their nested relationship.
 
 ### _extract_markdown_blocks
 ```python
@@ -53,7 +67,7 @@ def _extract_markdown_blocks(
     file_path: Path,              # MUST be Path object, not string
     content: str,                 # Content of the file
     output_dir: Path,             # Output directory (Path object)
-    stats: Dict[str, Any]         # MUST contain keys: "code_blocks", "errors", "file_blocks"
+    stats: Dict[str, Any]         # MUST contain keys: "doc_blocks", "code_blocks", "errors", "file_blocks"
 ) -> int:                         # Returns number of blocks extracted
 ```
 
@@ -61,7 +75,19 @@ def _extract_markdown_blocks(
 
 **Critical Requirements**:
 - `file_path` MUST be a Path object, not a string
-- `stats` MUST be initialized with the same keys as for _extract_python_blocks
+- `stats` MUST be initialized with these keys:
+  ```python
+  stats = {
+      "code_blocks": 0,  # Counter for code blocks
+      "doc_blocks": 0,   # Counter for documentation blocks
+      "errors": [],      # List to store any errors
+      "file_blocks": {}  # Dictionary to track blocks by file
+  }
+  ```
+- For defensive programming, the function will initialize missing keys:
+  ```python
+  stats.setdefault("doc_blocks", 0)  # Will be added if missing
+  ```
 
 ### _extract_js_ts_blocks
 ```python
@@ -77,7 +103,42 @@ def _extract_js_ts_blocks(
 
 **Critical Requirements**:
 - `file_path` MUST be a Path object, not a string
-- `stats` MUST be initialized with the same keys as for _extract_python_blocks
+- `stats` MUST be initialized with these keys:
+  ```python
+  stats = {
+      "code_blocks": 0,  # Counter for code blocks
+      "errors": [],      # List to store any errors
+      "file_blocks": {}  # Dictionary to track blocks by file
+  }
+  ```
+- For defensive programming, the function will initialize missing keys:
+  ```python
+  stats.setdefault("code_blocks", 0)  # Will be added if missing
+  ```
+- Similar to Python extraction, also handles script-level extraction for files like `webpack.config.js`
+
+## verification/verify_code_blocks.py
+
+### verify_code_block
+```python
+def verify_code_block(
+    block: Dict[str, Any],        # Code block to verify (dictionary)
+    language: Optional[str] = None # Language to verify against (optional)
+) -> bool:                        # Returns whether the block is valid
+```
+
+**Purpose**: Verify if a code block is valid for the given language
+
+**Critical Requirements**:
+- `block` must be a dictionary with at least the keys:
+  ```python
+  block = {
+      "language": "python",  # Language of the code block
+      "content": "...",      # Content of the code block
+      "file": "sample.py"    # File name or path of the code block
+  }
+  ```
+- `language` is optional and will default to the block's language if not provided
 
 ## github_utils.py
 
@@ -139,3 +200,11 @@ def format_for_lora(
 - `output_dir` will be created if it doesn't exist
 - `use_llm` requires API key if True
 - Returns a dictionary with formatting statistics 
+
+## Best Practices
+
+### Testing and Implementation
+- **Fix Implementation, Not Tests**: When tests fail, fix the actual implementation code rather than modifying tests to accommodate broken code. Tests serve as specifications of intended behavior.
+- **Script-Level Extraction**: Several special files (e.g., `setup.py`, `webpack.config.js`) don't contain traditional blocks but are extracted as entire script blocks. Ensure these are properly counted in statistics.
+- **Stats Consistency**: Always increment the appropriate counters (`stats["code_blocks"]`, `stats["doc_blocks"]`) when adding blocks to maintain accurate statistics.
+- **Defensive Programming**: Use `setdefault()` to ensure required dictionary keys exist before incrementing them. 

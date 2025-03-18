@@ -1927,3 +1927,46 @@ def _similarity(str1: str, str2: str) -> float:
     total_words = len(words1.union(words2))
     
     return common_words / total_words if total_words > 0 else 0.0 
+
+# Add to imports section
+try:
+    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    STATS_IMPORT_AVAILABLE = True
+except ImportError:
+    STATS_IMPORT_AVAILABLE = False
+    logger.warning("Could not import stats initialization from code_extractor.py")
+
+# Function where a stats dictionary is created or used
+def generate_code_qa_pairs_sync(
+    code_content: str,
+    function_name: Optional[str] = None,
+    model: str = "gpt-3.5-turbo",
+    temperature: Optional[float] = None,
+    max_pairs: int = 5,
+    timeout: float = 30.0
+) -> List[Dict[str, str]]:
+    """
+    Synchronous wrapper for generating QA pairs from code.
+    
+    Args:
+        code_content: Source code to generate QA pairs from
+        function_name: Optional name of function to focus on
+        model: LLM model to use
+        temperature: Optional temperature parameter
+        max_pairs: Maximum number of QA pairs to generate
+        timeout: Timeout in seconds
+        
+    Returns:
+        List of QA pairs as dictionaries
+    """
+    # Initialize stats with standardized format if it gets used in this module
+    generator_stats = initialize_stats_dict() if STATS_IMPORT_AVAILABLE else {
+        "generated_pairs": 0,
+        "errors": [],
+        "model": model,
+        "timeout": timeout
+    }
+    
+    # Rest of the function would use generator_stats if needed
+    
+    # ... existing code ... 

@@ -23,6 +23,13 @@ from loguru import logger
 logger.remove()
 logger.add(sys.stderr, level="INFO")
 
+try:
+    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    STATS_IMPORT_AVAILABLE = True
+except ImportError:
+    STATS_IMPORT_AVAILABLE = False
+    logger.warning("Could not import stats initialization from code_extractor.py")
+
 # Common file extensions and their corresponding languages
 LANGUAGE_EXTENSIONS: Dict[str, str] = {
     # Python
@@ -263,6 +270,48 @@ def get_file_language_info(file_path: Union[str, Path]) -> Dict[str, Any]:
             "filename": str(file_path).split('/')[-1] if isinstance(file_path, str) else file_path.name,
             "error": str(e)
         }
+
+
+def update_language_stats(file_path: Union[str, Path], stats: Dict[str, Any]) -> None:
+    """
+    Update the language statistics in the stats dictionary based on the file.
+    
+    Args:
+        file_path: Path to the file
+        stats: Statistics dictionary to update
+    """
+    try:
+        info = get_file_language_info(file_path)
+        language = info["language"]
+        category = info["category"]
+        
+        # Update language count
+        if "languages" not in stats:
+            stats["languages"] = {}
+            
+        if language not in stats["languages"]:
+            stats["languages"][language] = 0
+        stats["languages"][language] += 1
+        
+        # Update file type count
+        if "file_types" not in stats:
+            stats["file_types"] = {}
+        
+        extension = info["extension"]
+        if extension not in stats["file_types"]:
+            stats["file_types"][extension] = 0
+        stats["file_types"][extension] += 1
+        
+        # Update category-specific counts
+        if category == "code":
+            stats["code_files"] = stats.get("code_files", 0) + 1
+        elif category == "documentation":
+            stats["documentation_files"] = stats.get("documentation_files", 0) + 1
+            
+    except Exception as e:
+        logger.error(f"Error updating language stats for {file_path}: {str(e)}")
+        if "errors" in stats:
+            stats["errors"].append(f"Error updating language stats for {file_path}: {str(e)}")
 
 
 def is_supported_language(file_path: Union[str, Path]) -> bool:

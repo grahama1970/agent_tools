@@ -189,6 +189,48 @@ def extract_code_blocks(filepath: Union[str, Path]) -> List[Dict[str, Any]]:
         print(f"Error extracting code blocks from {filepath}: {e}")
         return []
 
+def extract_blocks_from_repository(repo_path: Union[str, Path]) -> List[Dict[str, Any]]:
+    """
+    Extract code blocks from all supported files in a repository.
+    
+    Args:
+        repo_path: Path to the repository root directory
+        
+    Returns:
+        List[Dict[str, Any]]: List of extracted code blocks from all files
+    """
+    # Convert to Path if string
+    if isinstance(repo_path, str):
+        repo_path = Path(repo_path)
+    
+    # Check if directory exists
+    if not repo_path.exists() or not repo_path.is_dir():
+        print(f"Warning: Repository path does not exist or is not a directory: {repo_path}")
+        return []
+    
+    all_blocks = []
+    
+    # Walk through all files in the repository
+    for root, _, files in os.walk(repo_path):
+        for file in files:
+            filepath = Path(root) / file
+            
+            # Skip common non-code directories
+            if any(part.startswith('.') for part in filepath.parts) or \
+               any(part in ['node_modules', 'venv', '__pycache__', 'target', 'dist'] for part in filepath.parts):
+                continue
+            
+            # Get language for file
+            if get_language_for_file(filepath):
+                try:
+                    blocks = extract_code_blocks(filepath)
+                    all_blocks.extend(blocks)
+                except Exception as e:
+                    print(f"Error processing file {filepath}: {e}")
+                    continue
+    
+    return all_blocks
+
 if __name__ == "__main__":
     # Simple test
     import sys

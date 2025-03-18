@@ -6,38 +6,26 @@ import sys
 from pathlib import Path
 
 @lru_cache(maxsize=1)
-def get_spacy_model(model_name: str = "en_core_web_sm", model_url: str = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz"):
-    """Get cached spaCy model. Download it if not already installed."""
+def get_spacy_model(model_name: str = "en_core_web_sm") -> spacy.language.Language:
+    """Get cached spaCy model with simplified installation."""
     try:
-        # Attempt to load the model
         return spacy.load(model_name)
     except OSError:
-        # If the model is not found, download and install it
-        logger.info(f"Model '{model_name}' not found. Attempting to install...")
+        logger.info(f"Downloading spaCy model '{model_name}'...")
         try:
-            # Step 1: Install spaCy using uv
-            logger.info("Installing spaCy using uv...")
-            subprocess.run([sys.executable, "-m", "uv", "pip", "install", "spacy"], check=True)
-
-            # Step 2: Download the model using curl
-            logger.info(f"Downloading '{model_name}' model...")
-            model_file = Path(model_url.split("/")[-1])  # Extract filename from URL
-            subprocess.run(["curl", "-L", "-o", str(model_file), model_url], check=True)
-
-            # Step 3: Install the model using uv
-            logger.info(f"Installing '{model_name}' model using uv...")
-            subprocess.run([sys.executable, "-m", "uv", "pip", "install", str(model_file)], check=True)
-
-            # Clean up the downloaded file
-            model_file.unlink()  # Delete the downloaded file
-            logger.info("Cleaned up downloaded model file.")
-
-            # Try loading the model again after installation
-            logger.info(f"Model '{model_name}' installed successfully.")
+            # Use pip directly instead of uv to avoid dependency
+            subprocess.run([
+                sys.executable, 
+                "-m", "pip", 
+                "install", 
+                f"{model_name}"
+            ], check=True)
             return spacy.load(model_name)
-        
         except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to install '{model_name}': {e}")
+            logger.error(f"Failed to install {model_name}: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}")
             raise
 
 
@@ -60,3 +48,12 @@ def truncate_text_by_tokens(text: str, max_tokens: int = 50) -> str:
     end_text = ''.join(token.text_with_ws for token in doc[-half_tokens:])
     
     return f"{start_text.strip()}... {end_text.strip()}"
+
+
+if __name__ == "__main__":
+    nlp = spacy.load("en_core_web_sm")
+    print(nlp.pipe_names)
+    # print('hello')
+    # get_spacy_model()
+    # print(count_tokens("Hello, world!"))
+    # print(truncate_text_by_tokens("Hello, world! This is a test of the truncate function. It should truncate the text to 50 tokens while preserving the meaning of the text.", 50))

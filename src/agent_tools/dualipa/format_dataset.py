@@ -29,15 +29,13 @@ from loguru import logger
 from tqdm import tqdm
 import asyncio
 
-# A global stats dictionary to track processing results and errors
-stats = {
-    "total_items_processed": 0,
-    "total_qa_pairs": 0,
-    "code_items": 0,
-    "documentation_items": 0,
-    "basic_generated_pairs": 0,
-    "errors": []
-}
+# At the import section
+try:
+    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    STATS_IMPORT_AVAILABLE = True
+except ImportError:
+    STATS_IMPORT_AVAILABLE = False
+    logger.warning("Could not import stats initialization from code_extractor.py")
 
 # Attempt to import method_validator components
 try:
@@ -77,32 +75,24 @@ def check_litellm_available() -> bool:
         return False
 
 def format_for_lora(input_file: str, output_file: str, use_llm: bool = True, max_pairs_per_item: int = 5) -> Dict[str, Any]:
-    """Formats extracted data into structured question-answer pairs for LoRA fine-tuning.
-    
-    If the method_validator module is available, it uses advanced function inspection
-    to generate more detailed and varied question-answer pairs.
-    
-    If the LLM generator is available and enabled, it uses LLMs to generate
-    higher-quality and more diverse QA pairs, including reverse QA pairs.
+    """
+    Format extracted data into QA pairs for training data.
     
     Args:
-        input_file: Path to the JSON file containing extracted repository data
-        output_file: Path where the formatted dataset will be saved
-        use_llm: Whether to use LLM-based generation if available
-        max_pairs_per_item: Maximum number of QA pairs to generate per item
+        input_file: Path to input JSON file with extracted data
+        output_file: Path to output JSONL file for training data
+        use_llm: Whether to use LLM for generating QA pairs
+        max_pairs_per_item: Maximum number of QA pairs per item
         
     Returns:
-        A dictionary with statistics about the formatting process.
+        Dictionary with statistics
     """
-    # Reset global stats for each run
-    global stats
-    stats = {
-        "total_items_processed": 0,
-        "total_qa_pairs": 0,
-        "code_items": 0,
-        "documentation_items": 0,
-        "basic_generated_pairs": 0,
-        "errors": []
+    # Initialize stats with standardized format
+    stats = initialize_stats_dict() if STATS_IMPORT_AVAILABLE else {
+        "total_items": 0,
+        "qa_pairs": 0,
+        "errors": [],
+        "output_file": output_file
     }
     
     try:
@@ -124,12 +114,12 @@ def format_for_lora(input_file: str, output_file: str, use_llm: bool = True, max
                 data = json.load(f)
             
             # Count items for stats
-            stats["total_items_processed"] = len(data.get("files", []))
+            stats["total_items"] = len(data.get("files", []))
             for file in data.get("files", []):
                 if file.get("path", "").endswith(".py"):
-                    stats["code_items"] += 1
+                    stats["code_items"] = stats.get("code_items", 0) + 1
                 elif file.get("path", "").endswith((".md", ".rst", ".txt")):
-                    stats["documentation_items"] += 1
+                    stats["documentation_items"] = stats.get("documentation_items", 0) + 1
 
             formatted_data = {"qa_pairs": []}
             
@@ -146,7 +136,7 @@ def format_for_lora(input_file: str, output_file: str, use_llm: bool = True, max
                 generate_basic_qa_pairs(data, formatted_data)
             
             # Update stats
-            stats["total_qa_pairs"] = len(formatted_data["qa_pairs"])
+            stats["qa_pairs"] = len(formatted_data["qa_pairs"])
             if not (LLM_GENERATOR_AVAILABLE and use_llm):
                 stats["basic_generated_pairs"] = len(formatted_data["qa_pairs"])
             
