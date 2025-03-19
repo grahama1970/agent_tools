@@ -99,10 +99,11 @@ def _extract_js_ts_blocks(
 ) -> int:                         # Returns number of blocks extracted
 ```
 
-**Purpose**: Extract functions, classes, and components from JavaScript and TypeScript
+**Purpose**: Extract functions, classes, and components from JavaScript and TypeScript using tree-sitter
 
 **Critical Requirements**:
 - `file_path` MUST be a Path object, not a string
+- File extension determines language (.js, .jsx, .ts, .tsx)
 - `stats` MUST be initialized with these keys:
   ```python
   stats = {
@@ -115,7 +116,152 @@ def _extract_js_ts_blocks(
   ```python
   stats.setdefault("code_blocks", 0)  # Will be added if missing
   ```
-- Similar to Python extraction, also handles script-level extraction for files like `webpack.config.js`
+
+**Tree-Sitter Integration**:
+- Uses tree-sitter for accurate parsing
+- Automatically selects correct parser based on file extension
+- Extracts:
+  - Function declarations
+  - Arrow functions
+  - Class declarations
+  - React components (uppercase names)
+- Falls back to generic extraction for unsupported constructs
+
+**Example Usage**:
+```python
+# Initialize stats
+stats = initialize_stats_dict(source=file_path, output_dir=output_dir)
+
+# Extract from JavaScript
+js_file = Path("example.js")
+num_blocks = _extract_js_ts_blocks(js_file, js_content, output_dir, stats)
+
+# Extract from TypeScript
+ts_file = Path("example.ts")
+num_blocks = _extract_js_ts_blocks(ts_file, ts_content, output_dir, stats)
+
+# Extract from React component
+tsx_file = Path("Component.tsx")
+num_blocks = _extract_js_ts_blocks(tsx_file, tsx_content, output_dir, stats)
+```
+
+**Language Detection**:
+- `.js`, `.jsx` → JavaScript parser
+- `.ts`, `.tsx` → TypeScript parser
+- Updates `stats["languages"]` and `stats["file_types"]` automatically
+
+**Error Handling**:
+- Adds errors to `stats["errors"]` list
+- Continues extraction on parser errors
+- Falls back to generic extraction if tree-sitter fails
+
+### _extract_hierarchical_structure_treesitter
+```python
+def _extract_hierarchical_structure_treesitter(
+    code: str,           # Source code to parse
+    language: str,       # Language identifier
+    filename: str = None # Optional source filename
+) -> Dict[str, Any]:    # Returns hierarchical structure
+```
+
+**Purpose**: Extract hierarchical structure from code using tree-sitter
+
+**Critical Requirements**:
+- Returns a dictionary with the following structure:
+  ```python
+  {
+      "file": "path/to/file.ext",
+      "language": "language_id",
+      "blocks": [
+          {
+              "type": "interface|class|function|method",
+              "name": "string",
+              "content": "exact source code",
+              "start_line": number,
+              "end_line": number,
+              "methods": [...],  # For classes
+              "implementations": [...],  # For interfaces
+              "decorators": [...],  # For Python/TypeScript
+              "metadata": {
+                  "visibility": "public|private|protected",
+                  "static": boolean,
+                  "async": boolean
+              }
+          }
+      ],
+      "order": ["block_names_in_declaration_order"],
+      "stats": {
+          "total_blocks": number,
+          "by_type": {"class": number, ...}
+      }
+  }
+  ```
+
+**Method Counting Rules**:
+1. For interfaces:
+   - Count all method declarations
+   - Exclude constructors from method count
+   - Include getter/setter methods
+   - Include async methods
+
+2. For classes:
+   - Count all methods including constructors
+   - Count private and protected methods
+   - Count static methods
+   - Count async methods
+   - Include getter/setter methods
+
+**Stats Counting Rules**:
+- `total_blocks`: Sum of all blocks (classes, interfaces, methods)
+- `by_type`: Count of each block type:
+  - `interface`: Number of interfaces
+  - `class`: Number of classes
+  - `method`: Total number of methods (following method counting rules)
+
+**Example Usage**:
+```python
+# Extract from TypeScript interface
+result = _extract_hierarchical_structure_treesitter(
+    code='''
+    interface Repository<T> {
+        find(id: string): Promise<T>;
+        save(entity: T): Promise<T>;
+        delete(id: string): Promise<void>;
+    }
+    ''',
+    language="typescript",
+    filename="repository.ts"
+)
+
+# Result will contain:
+# - 1 interface block
+# - 3 method blocks
+# - total_blocks = 4
+# - by_type = {"interface": 1, "method": 3}
+
+# Extract from TypeScript class
+result = _extract_hierarchical_structure_treesitter(
+    code='''
+    class UserService {
+        constructor(private db: Database) {}
+        async findById(id: string): Promise<User> {
+            return this.db.findUnique({ id });
+        }
+        private validateUser(user: User): boolean {
+            return user.isValid();
+        }
+    }
+    ''',
+    language="typescript",
+    filename="user.service.ts"
+)
+
+# Result will contain:
+# - 1 class block
+# - 3 method blocks (constructor + findById + validateUser)
+# - total_blocks = 4
+# - by_type = {"class": 1, "method": 3}
+```
 
 ## verification/verify_code_blocks.py
 
@@ -422,3 +568,50 @@ stats = {
      assert "python" in stats["languages"]  # After Python extraction
      assert ".py" in stats["file_types"]    # After Python file processing
      ``` 
+
+## Linter Error Handling
+
+### When to Disable Linters
+Only disable linters when ALL of these conditions are met:
+1. The error is a proven false positive
+2. You have documentation supporting the code pattern
+3. Restructuring the code would make it less readable or maintainable
+
+### How to Disable Linters
+```python
+# For single-line disables:
+# pylint: disable=specific-error  # Justification: <documentation link>
+code_that_triggers_error()
+
+# For block disables:
+# pylint: disable=specific-error
+"""Justification:
+1. Link to documentation: <url>
+2. Explanation of why this is correct
+"""
+def block_of_code():
+    pass
+# pylint: enable=specific-error
+```
+
+### Common False Positives
+1. Try/Except Block Alignment
+   - When the linter misinterprets complex nested try/except blocks
+   - Solution: Restructure into smaller functions when possible
+   - Only disable if restructuring would harm readability
+
+2. Import Order
+   - When standard library and local imports have dependencies
+   - Solution: Group imports logically with comments explaining order
+   - Only disable if order is required for initialization
+
+3. Line Length
+   - For long strings, URLs, or formatted strings
+   - Solution: Use line continuation when possible
+   - Only disable for unbreakable items like URLs
+
+### Required Documentation
+Every linter disable MUST include:
+1. Link to official documentation supporting the pattern
+2. Clear explanation of why it's a false positive
+3. Why restructuring isn't a better solution 

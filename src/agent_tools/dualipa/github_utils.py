@@ -20,6 +20,8 @@ from typing import Dict, List, Optional, Set, Union, Tuple, Any
 from urllib.parse import urlparse
 import json
 from loguru import logger
+import subprocess
+import fnmatch
 
 try:
     import git
@@ -209,7 +211,7 @@ def get_clone_url(owner: str, repo: str) -> str:
     return f"https://github.com/{owner}/{repo}"
 
 
-def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
+def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> Path:
     """Clone a GitHub repository to a temporary directory.
     
     Args:
@@ -249,7 +251,7 @@ def clone_github_repo(url: str, temp_dir: Optional[str] = None) -> str:
     
     try:
         repo = git.Repo.clone_from(clone_url, temp_dir)
-        return temp_dir
+        return Path(temp_dir)
     except git.GitCommandError as e:
         logger.error(f"Git command error: {e}")
         if os.path.exists(temp_dir):
@@ -719,6 +721,180 @@ def fetch_file_content(repo_url, file_path):
     except Exception as e:
         print(f"Error in fetch_file_content: {e}")
         return None
+
+
+def clone_repository_if_not_exists(url: str, directory: Union[str, Path], depth: Optional[int] = None) -> Path:
+    """Clone a Git repository if it doesn't exist.
+    
+    Args:
+        url: Repository URL
+        directory: Directory to clone into
+        depth: Optional clone depth
+        
+    Returns:
+        Path to the cloned repository
+    """
+    # Convert directory to Path
+    directory = Path(directory)
+    
+    # Extract repo name from URL
+    repo_name = url.rstrip('/').split('/')[-1]
+    if repo_name.endswith('.git'):
+        repo_name = repo_name[:-4]
+    
+    # Create full repo path
+    repo_path = directory / repo_name
+    
+    # Return existing repo if it exists
+    if repo_path.exists():
+        return repo_path
+    
+    # Clone the repository
+    try:
+        # Create parent directory if it doesn't exist
+        directory.mkdir(parents=True, exist_ok=True)
+        
+        # Build clone command
+        cmd = ['git', 'clone']
+        if depth:
+            cmd.extend(['--depth', str(depth)])
+        cmd.extend([url, str(repo_path)])
+        
+        # Execute clone command
+        subprocess.run(cmd, check=True)
+        
+        return repo_path
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(f"Failed to clone repository: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Error cloning repository: {e}")
+
+
+def discover_files(
+    source_path: Union[str, Path],
+    max_files: int = 1000,
+    include_patterns: Optional[List[str]] = None,
+    exclude_patterns: Optional[List[str]] = None,
+    ignored_dirs: Optional[Set[str]] = None,
+    ignored_files: Optional[Set[str]] = None
+) -> List[Path]:
+    """
+    Discover files in a repository with filtering options.
+    
+    Args:
+        source_path: Path to the repository or file
+        max_files: Maximum number of files to discover
+        include_patterns: List of glob patterns to include files
+        exclude_patterns: List of glob patterns to exclude files
+        ignored_dirs: Set of directory names to ignore
+        ignored_files: Set of filenames to ignore
+        
+    Returns:
+        List of Path objects for discovered files
+    """
+    source_path = Path(source_path)
+    if not source_path.exists():
+        raise ValueError(f"Source path does not exist: {source_path}")
+        
+    # Use default ignore sets if not provided
+    if ignored_dirs is None:
+        ignored_dirs = {
+            '.git', '.github', '.vscode', '.idea', '__pycache__', 
+            'node_modules', 'venv', 'env', '.env', 'build', 'dist', 
+            'target', 'out', 'bin', 'obj', 'tmp', 'temp', 'tests'
+        }
+    
+    if ignored_files is None:
+        ignored_files = {
+            'LICENSE', '.gitignore', '.gitattributes', '.gitmodules',
+            'setup.py', 'requirements.txt', 'package.json', 'package-lock.json',
+            'yarn.lock', 'Pipfile', 'Pipfile.lock', 'pyproject.toml', 'poetry.lock',
+            'Cargo.toml', 'Cargo.lock', 'Gemfile', 'Gemfile.lock'
+        }
+    
+    files = []
+    
+    # Handle single file case
+    if source_path.is_file():
+        return [source_path]
+    
+    # Walk the repository
+    for root, _, filenames in os.walk(source_path):
+        root_path = Path(root)
+        
+        # Skip ignored directories
+        if any(part in ignored_dirs for part in root_path.parts):
+            continue
+        
+        for filename in filenames:
+            # Skip ignored files
+            if filename in ignored_files:
+                continue
+                
+            file_path = root_path / filename
+            
+            # Apply include/exclude patterns
+            if include_patterns and not any(fnmatch.fnmatch(str(file_path), pattern) for pattern in include_patterns):
+                continue
+            if exclude_patterns and any(fnmatch.fnmatch(str(file_path), pattern) for pattern in exclude_patterns):
+                continue
+            
+            files.append(file_path)
+            
+            if len(files) >= max_files:
+                break
+                
+        if len(files) >= max_files:
+            break
+    
+    return files
+
+
+def verify_repo_structure(repo_path: Union[str, Path], repo_type: Optional[str] = None) -> bool:
+    """Verify that a repository has a valid structure.
+    
+    Args:
+        repo_path: Path to the repository
+        repo_type: Optional type of repository (python, typescript, etc.)
+        
+    Returns:
+        bool: True if repository structure is valid
+    """
+    repo_path = Path(repo_path)
+    if not repo_path.exists():
+        return False
+        
+    # For single files, just verify they exist
+    if repo_path.is_file():
+        return True
+        
+    # For directories, check for either .git directory or files
+    if not repo_path.is_dir():
+        return False
+        
+    has_content = (repo_path / ".git").exists() or any(f.is_file() for f in repo_path.iterdir())
+    if not has_content:
+        return False
+    
+    # Language-specific checks
+    if repo_type == "python":
+        # Python repos should have either setup.py, pyproject.toml, or requirements.txt
+        has_python_files = any(
+            (repo_path / f).exists() 
+            for f in ["setup.py", "pyproject.toml", "requirements.txt"]
+        )
+        has_py_files = any(f.suffix == ".py" for f in repo_path.rglob("*.py"))
+        return has_python_files and has_py_files
+        
+    elif repo_type == "typescript":
+        # TypeScript repos should have package.json and tsconfig.json
+        has_ts_config = (repo_path / "tsconfig.json").exists()
+        has_package_json = (repo_path / "package.json").exists()
+        has_ts_files = any(f.suffix == ".ts" for f in repo_path.rglob("*.ts"))
+        return has_package_json and (has_ts_config or has_ts_files)
+        
+    # Default check just verifies directory exists and has files
+    return True
 
 
 if __name__ == "__main__":

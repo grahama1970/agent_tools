@@ -208,7 +208,7 @@ def test_stats_consistency_across_extraction_methods(python_sample, javascript_s
             f.write(javascript_sample)
         
         js_stats = initialize_stats_dict(source=js_file, output_dir=output_dir)
-        _extract_js_ts_blocks(js_file, javascript_sample, output_dir, js_stats, language="javascript")
+        _extract_js_ts_blocks(js_file, javascript_sample, output_dir, js_stats)
         
         # Test Markdown extraction
         md_file = output_dir / "sample.md"

@@ -1,12 +1,132 @@
 """
-Tests for code extractor functionality.
+TEST EXPECTATIONS
 
-Official Documentation References:
-- ast: https://docs.python.org/3/library/ast.html
-- tree_sitter: https://tree-sitter.github.io/tree-sitter/
-- json: https://docs.python.org/3/library/json.html
-- tempfile: https://docs.python.org/3/library/tempfile.html
-- os.path: https://docs.python.org/3/library/os.path.html
+1. test_extract_python_blocks:
+   Input: Python file with functions and classes
+   Expected Output:
+   {
+       "code_blocks": > 0,
+       "total_files": 1,
+       "file_blocks": {
+           "example.py": [
+               {
+                   "block_type": "function",
+                   "name": "simple_function",
+                   "content": "def simple_function()..."
+               },
+               {
+                   "block_type": "function",
+                   "name": "function_with_args",
+                   "content": "def function_with_args(arg1: str, arg2: int = 0)..."
+               },
+               {
+                   "block_type": "class",
+                   "name": "SimpleClass",
+                   "content": "class SimpleClass..."
+               }
+           ]
+       }
+   }
+
+2. test_extract_js_ts_blocks:
+   Input: JavaScript file with functions and classes
+   Expected Output:
+   {
+       "file_blocks": {
+           "example.js": [
+               {
+                   "block_type": "function",
+                   "name": "greet",
+                   "content": "function greet(name)..."
+               },
+               {
+                   "block_type": "class",
+                   "name": "Person",
+                   "content": "class Person..."
+               }
+           ]
+       }
+   }
+
+3. test_extract_markdown_blocks:
+   Input: Markdown file with sections and code blocks
+   Expected Output:
+   {
+       "doc_blocks": > 0,
+       "total_files": 1,
+       "file_blocks": {
+           "example.md": [
+               {
+                   "block_type": "section",
+                   "title": "Example_Documentation",
+                   "content": "# Example Documentation..."
+               },
+               {
+                   "block_type": "code_block",
+                   "language": "python",
+                   "content": "from my_package import MyClass..."
+               }
+           ]
+       }
+   }
+
+4. test_extract_repository_integration:
+   Input: Repository with Python, JavaScript, Markdown, and text files
+   Expected Output:
+   {
+       "total_files": 4,
+       "languages": ["python", "javascript", "markdown", "text"],
+       "file_blocks": {
+           "main.py": [...],
+           "script.js": [...],
+           "README.md": [...],
+           "notes.txt": [...]
+       }
+   }
+
+CRITICAL RULES:
+1. Block Extraction Rules:
+   - Each block must have a block_type
+   - Each block must have a name (if applicable)
+   - Each block must have content
+   - Each block must preserve original formatting
+
+2. Language Detection Rules:
+   - .py files → python
+   - .js files → javascript
+   - .ts files → typescript
+   - .md files → markdown
+   - Unknown extensions → text
+
+3. Stats Tracking Rules:
+   - Track total files processed
+   - Track blocks per file
+   - Track languages encountered
+   - Track errors during extraction
+
+4. Output File Rules:
+   - blocks.json must be created
+   - extraction_stats.json must be created
+   - All output files must be valid JSON
+   - All paths must be relative to output directory
+
+Input:
+- source_path (Path): Path to source file or directory
+- output_path (Path): Path to output directory
+- max_files (int, optional): Maximum number of files to process
+
+Output Structure:
+{
+    "total_files": int,
+    "code_blocks": int,
+    "doc_blocks": int,
+    "languages": Set[str],
+    "file_blocks": Dict[str, List[Dict]],
+    "errors": List[Dict]
+}
+
+This test verifies the code extraction functionality across different file types
+and ensures proper block extraction, stats tracking, and output file generation.
 """
 
 import pytest
@@ -18,32 +138,19 @@ import sys
 from pathlib import Path
 
 # Add the src directory to the Python path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "src"))
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
 
 # Import directly from the module
-try:
-    from agent_tools.dualipa.code_extractor import (
-        extract_repository, 
-        _extract_python_blocks, 
-        _extract_with_tree_sitter,
-        _extract_js_ts_blocks, 
-        _extract_markdown_blocks, 
-        _extract_generic_blocks,
-        _get_language_for_file_ext,
-        initialize_stats_dict
-    )
-    IMPORTS_AVAILABLE = True
-except ImportError as import_error:
-    import traceback
-    print(f"IMPORT ERROR: {import_error}")
-    print("Traceback:")
-    traceback.print_exc()
-    IMPORTS_AVAILABLE = False
-    
-# Only skip tests if imports failed
-if not IMPORTS_AVAILABLE:
-    pytest.fail(f"Required code extractor modules not available: {import_error}. Fix the dependencies to run these tests.")
-
+from agent_tools.dualipa.code_extractor import (
+    extract_repository, 
+    _extract_python_blocks, 
+    _extract_js_ts_blocks, 
+    _extract_markdown_blocks, 
+    _extract_generic_blocks,
+    initialize_stats_dict
+)
+from agent_tools.dualipa.language_detection import detect_language
 
 @pytest.fixture
 def temp_dir():
@@ -350,11 +457,11 @@ def test_extract_generic_blocks(temp_dir):
 
 def test_get_language_for_file_ext():
     """Test the language detection from file extensions."""
-    assert _get_language_for_file_ext(".py") == "python", "Python language not detected"
-    assert _get_language_for_file_ext(".js") == "javascript", "JavaScript language not detected"
-    assert _get_language_for_file_ext(".md") == "markdown", "Markdown language not detected"
-    assert _get_language_for_file_ext(".unknown") == "text", "Unknown extension should default to text"
-    assert _get_language_for_file_ext("") == "text", "No extension should default to text"
+    assert detect_language("test.py") == "python", "Python language not detected"
+    assert detect_language("test.js") == "javascript", "JavaScript language not detected"
+    assert detect_language("test.md") == "markdown", "Markdown language not detected"
+    assert detect_language("test.unknown") == "unknown", "Unknown extension should default to unknown"
+    assert detect_language("noextension") == "unknown", "No extension should default to unknown"
 
 
 def test_extract_repository_integration(temp_dir):

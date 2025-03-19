@@ -1,0 +1,44 @@
+from typing import List, Dict, Any
+from pathlib import Path
+from log import logger
+
+def extract_code_hierarchy(file_path: Path) -> List[Dict[str, Any]]:
+    """
+    Extract code hierarchy from a file using tree-sitter.
+    
+    Args:
+        file_path: Path to the file to extract hierarchy from
+        
+    Returns:
+        List[Dict[str, Any]]: List of code blocks with their hierarchy information
+    """
+    if not file_path.exists():
+        logger.error(f"File not found: {file_path}")
+        return []
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        logger.error(f"Failed to read file {file_path}: {e}")
+        return []
+    
+    language = _get_language_for_file(file_path)
+    if not language:
+        logger.error(f"Unsupported file type: {file_path}")
+        return []
+    
+    # Extract hierarchical structure using tree-sitter
+    blocks = _extract_hierarchical_structure_treesitter(content, language, str(file_path))
+    
+    # Convert blocks dictionary to list format
+    block_list = []
+    for block_name, block_data in blocks.get("blocks", {}).items():
+        block = block_data.copy()
+        block["name"] = block_name
+        block_list.append(block)
+    
+    # Sort blocks by start line
+    block_list.sort(key=lambda x: x.get("start_line", 0))
+    
+    return block_list 

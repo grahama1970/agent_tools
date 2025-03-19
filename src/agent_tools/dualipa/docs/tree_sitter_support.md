@@ -39,6 +39,12 @@ Each language extracts different types of syntax nodes based on the language's s
   - Interfaces (TS): `interface_declaration`
   - Type Aliases (TS): `type_alias_declaration`
   - Variable Declarations: `variable_declaration` (with function assignments)
+  - Method Handling:
+    - Regular methods: Counted in stats
+    - Constructors: Counted in class stats, excluded from interface stats
+    - Private/Protected methods: Detected via modifiers
+    - Static methods: Detected via modifiers
+    - Async methods: Detected via modifiers
 
 - **Python**:
   - Functions: `function_definition`
@@ -76,10 +82,27 @@ To use tree-sitter for code extraction:
 
 1. Import the appropriate tree-sitter language module
 2. Create a Parser instance
-3. Load the language
+3. Load the language using `get_language` from `tree_sitter_languages`
 4. Parse the source code
 5. Traverse the syntax tree to find declarations
 6. Extract each declaration with metadata (name, type, line range)
+
+### Method Counting Rules
+
+When counting methods in TypeScript:
+
+1. For interfaces:
+   - Count all method declarations
+   - Exclude constructors from method count
+   - Include getter/setter methods
+   - Include async methods
+
+2. For classes:
+   - Count all methods including constructors
+   - Count private and protected methods
+   - Count static methods
+   - Count async methods
+   - Include getter/setter methods
 
 ### Fallback Mechanisms
 

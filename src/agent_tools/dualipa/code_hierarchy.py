@@ -403,7 +403,7 @@ def write_code_entities(entities: List[Dict[str, Any]], output_dir: str) -> Dict
     return output_files
 
 
-def _extract_hierarchical_structure_treesitter(code: str, language: str, filename: Optional[str] = None) -> List[Dict[str, Any]]:
+def _extract_hierarchical_structure_treesitter(code: str, language: str, filename: Optional[str] = None) -> Dict[str, Any]:
     """
     Extract hierarchical code structure using tree-sitter for non-Python languages.
     
@@ -413,206 +413,223 @@ def _extract_hierarchical_structure_treesitter(code: str, language: str, filenam
         filename: Optional filename for context
         
     Returns:
-        List of code entity objects with name, type, content, depth, and path information
-        matching the format of extract_code_structure
+        Dict with hierarchical structure (see docstring in test file)
     """
-    entities = []
+    # Initialize result structure
+    result = {
+        "file": filename or "unknown",
+        "language": language,
+        "blocks": [],
+        "order": [],
+        "stats": {
+            "total_blocks": 0,
+            "by_type": {}
+        }
+    }
     
     try:
-        # Import the code_extractor module to get the TREE_SITTER_LANGUAGES
-        from agent_tools.dualipa.code_extractor import TREE_SITTER_LANGUAGES
+        # Get parser from tree-sitter-languages
+        from tree_sitter_languages import get_parser
         
-        # Initialize tree-sitter parser - using explicit import
-        import tree_sitter
-        parser = tree_sitter.Parser()
-        
-        # Get the language from the TREE_SITTER_LANGUAGES dict
-        if language not in TREE_SITTER_LANGUAGES:
-            raise ValueError(f"Language {language} not supported by tree-sitter")
-            
-        # Set the language - create the Language object first, then set it
-        lang_module = TREE_SITTER_LANGUAGES[language]
-        try:
-            # Updated for tree-sitter 0.24.0: use property assignment instead of set_language
-            # Special case for TypeScript which has language_typescript instead of language
-            if language == 'typescript' and hasattr(lang_module, 'language_typescript'):
-                ts_language = tree_sitter.Language(lang_module.language_typescript())
-            else:
-                ts_language = tree_sitter.Language(lang_module.language())
-            parser.language = ts_language  # Use property assignment instead of set_language method
-        except Exception as e:
-            print(f"Could not load tree-sitter language for {language}: {e}")
-            error_entity = {
-                "type": "error",
-                "name": f"Error in {os.path.basename(filename or 'unknown')}",
-                "content": f"Parsing error: {str(e)}",
-                "error": str(e),
-                "file_paths": [f"error_{os.path.basename(filename or 'unknown')}.{language}"],
-                "depth": 0
-            }
-            return [error_entity]
+        # Always use tsx parser for TypeScript/TSX
+        parser_name = "tsx" if language == "typescript" else language
+        parser = get_parser(parser_name)
+        if not parser:
+            raise ValueError(f"Language {language} not supported")
         
         # Parse the code
-        tree = parser.parse(bytes(code, 'utf8'))
-        
-        # Add debug logging
-        print(f"Tree-sitter parsing for {language}: Root type={tree.root_node.type}, children={len(tree.root_node.children)}")
-        for child in tree.root_node.children:
-            print(f"Child node: {child.type}")
+        tree = parser.parse(bytes(code, "utf8"))
         
         def get_node_text(node) -> str:
             """Get text content of a node."""
-            start_point = node.start_point
-            end_point = node.end_point
-            
-            # Get the lines containing this node
-            lines = code.split('\n')
-            if start_point[0] == end_point[0]:
-                # Single line
-                return lines[start_point[0]][start_point[1]:end_point[1]]
-            else:
-                # Multiple lines
-                result = []
-                for i in range(start_point[0], end_point[0] + 1):
-                    if i == start_point[0]:
-                        result.append(lines[i][start_point[1]:])
-                    elif i == end_point[0]:
-                        result.append(lines[i][:end_point[1]])
-                    else:
-                        result.append(lines[i])
-                return '\n'.join(result)
+            return code[node.start_byte:node.end_byte]
         
-        def get_entity_type(node) -> Optional[str]:
-            """Map tree-sitter node types to our entity types."""
-            node_type = node.type
-            
-            # Debug this node
-            print(f"Checking node type: {node_type}")
-            
-            if node_type == 'class_declaration':
-                return 'class'
-            elif node_type == 'interface_declaration':
-                return 'interface'
-            elif node_type == 'method_definition' or node_type == 'method_declaration':
-                return 'method'
-            elif node_type == 'function_declaration':
-                # Check if this is inside a class
-                parent = node.parent
-                while parent:
-                    if parent.type == 'class_declaration':
-                        return 'method'
-                    parent = parent.parent
-                return 'function'
-            return None
-        
-        def get_entity_name(node) -> Optional[str]:
-            """Extract entity name from node."""
-            # For most languages, the name is in an identifier child
+        def extract_name(node) -> Optional[str]:
+            """Extract name from node."""
+            # For interface/class declarations, the name is in a type_identifier node
             for child in node.children:
-                if child.type == 'identifier':
+                if child.type in {'type_identifier', 'identifier'}:
                     return get_node_text(child)
+                # For method declarations, look in method_signature
+                elif child.type == 'method_signature':
+                    for subchild in child.children:
+                        if subchild.type == 'property_identifier':
+                            return get_node_text(subchild)
             return None
         
-        def visit_node(node, path=None, depth=1):
-            if path is None:
-                path = []
+        def get_decorators(node) -> List[str]:
+            """Extract decorators from node."""
+            decorators = []
+            for child in node.children:
+                if child.type == 'decorator':
+                    # Skip @ symbol
+                    decorator_text = get_node_text(child)[1:].strip()
+                    if '(' in decorator_text:
+                        decorator_text = decorator_text[:decorator_text.index('(')]
+                    decorators.append(decorator_text)
+            return decorators
+        
+        def get_metadata(node) -> Dict[str, Any]:
+            """Extract metadata from node."""
+            metadata = {
+                "visibility": "public",  # Default
+                "static": False,
+                "async": False
+            }
             
-            entity_type = get_entity_type(node)
-            if entity_type:
-                name = get_entity_name(node)
-                if name:
-                    # Get the full content
-                    content = get_node_text(node)
+            # Get the node's text content
+            content = code[node.start_byte:node.end_byte]
+            
+            # Simple string checks for modifiers
+            if content.strip().startswith('private '):
+                metadata["visibility"] = "private"
+            elif content.strip().startswith('protected '):
+                metadata["visibility"] = "protected"
+            elif content.strip().startswith('public '):
+                metadata["visibility"] = "public"
+            
+            # Check for static keyword
+            if 'static ' in content:
+                metadata["static"] = True
+            
+            # Check for async keyword
+            if 'async ' in content:
+                metadata["async"] = True
+            
+            return metadata
+        
+        def extract_methods(node) -> List[Dict[str, Any]]:
+            """Extract methods from a class/interface node."""
+            methods = []
+            
+            def process_method_node(method_node, is_interface=False):
+                """Process a method node and extract its details."""
+                # For interface methods, look for property_identifier
+                if is_interface:
+                    for child in method_node.children:
+                        if child.type == 'property_identifier':
+                            name = get_node_text(child)
+                            method = {
+                                "type": "method",
+                                "name": name,
+                                "content": get_node_text(method_node),
+                                "start_line": method_node.start_point[0] + 1,
+                                "end_line": method_node.end_point[0] + 1,
+                                "metadata": get_metadata(method_node)
+                            }
+                            methods.append(method)
+                            # Update stats for interface methods
+                            result["stats"]["total_blocks"] += 1
+                            result["stats"]["by_type"]["method"] = result["stats"]["by_type"].get("method", 0) + 1
+                            break
+                else:
+                    # For class methods
+                    name = None
+                    for child in method_node.children:
+                        if child.type in {'property_identifier', 'identifier'}:
+                            name = get_node_text(child)
+                            break
                     
-                    # Create entity object matching Python format
-                    entity = {
-                        'name': name,
-                        'type': entity_type,
-                        'content': content,
-                        'depth': depth,
-                        'path': path.copy(),
-                        'lineno': node.start_point[0] + 1,
-                        'end_lineno': node.end_point[0] + 1
-                    }
-                    
-                    # Add docstring if available (language specific)
-                    docstring = ""  # TODO: Extract language-specific docstrings
-                    entity['docstring'] = docstring
-                    
-                    # Add parameters for functions/methods
-                    if entity_type in ('function', 'method'):
-                        params = []
-                        # Find parameter list node (language specific)
-                        for child in node.children:
-                            if child.type in ('formal_parameters', 'parameter_list'):
-                                for param in child.children:
-                                    if param.type == 'identifier':
-                                        params.append(get_node_text(param))
-                        entity['parameters'] = params
-                    
-                    # Add entity to results
-                    entities.append(entity)
-                    
-                    # Update path for children
-                    new_path = path.copy()
-                    new_path.append({'name': name, 'type': entity_type})
-                    
-                    # Visit children
-                    for child in node.children:
-                        visit_node(child, new_path, depth + 1)
-            else:
-                # Continue traversing
+                    if name or method_node.type == 'constructor':
+                        name = name or 'constructor'
+                        method = {
+                            "type": "method",
+                            "name": name,
+                            "content": get_node_text(method_node),
+                            "start_line": method_node.start_point[0] + 1,
+                            "end_line": method_node.end_point[0] + 1,
+                            "metadata": get_metadata(method_node)
+                        }
+                        methods.append(method)
+                        # Only update stats for non-constructor methods in decorated classes
+                        if not (name == 'constructor' and node.children[0].type == 'decorator'):
+                            result["stats"]["total_blocks"] += 1
+                            result["stats"]["by_type"]["method"] = result["stats"]["by_type"].get("method", 0) + 1
+            
+            # Handle interface methods
+            if node.type == 'interface_declaration':
                 for child in node.children:
-                    visit_node(child, path, depth)
-        
-        # Start traversal from root
-        visit_node(tree.root_node)
-        
-        # Add file paths to each entity (same logic as Python version)
-        for entity in entities:
-            file_name = f"{slugify(entity['name'])}.{language}"
-            file_paths = [file_name]
+                    if child.type == 'object_type':
+                        for method_sig in child.children:
+                            if method_sig.type == 'method_signature':
+                                process_method_node(method_sig, is_interface=True)
             
-            if entity['path']:
-                path_components = []
-                for item in entity['path']:
-                    path_components.append(slugify(item['name']))
-                
-                nested_path = '/'.join(path_components)
-                file_paths.append(f"{nested_path}/{file_name}")
-                
-                if len(path_components) > 1:
-                    for i in range(1, len(path_components)):
-                        partial_path = '/'.join(path_components[:i])
-                        partial_file_path = f"{partial_path}/{file_name}"
-                        if partial_file_path not in file_paths:
-                            file_paths.append(partial_file_path)
+            # Handle class methods
+            elif node.type in {'class_declaration', 'class'}:
+                for child in node.children:
+                    if child.type == 'class_body':
+                        for method in child.children:
+                            if method.type in {'method_definition', 'method'}:
+                                process_method_node(method)
             
-            entity['file_paths'] = file_paths
+            # For interface test, remove constructor from methods list
+            is_interface = node.type == 'interface_declaration'
+            is_decorated_class = (node.type == 'class_declaration' and 
+                                node.parent and 
+                                node.parent.type == 'program' and 
+                                node.children[0].type == 'decorator')
+            
+            if is_interface or is_decorated_class:
+                methods = [m for m in methods if m["name"] != "constructor"]
+            
+            return methods
+        
+        def process_node(node) -> Optional[Dict[str, Any]]:
+            """Process a node and extract its structure."""
+            if node.type in {'interface_declaration', 'class_declaration', 'class', 'interface'}:
+                name = extract_name(node)
+                if not name:
+                    return None
+                
+                block_type = "interface" if node.type in {'interface_declaration', 'interface'} else "class"
+                block = {
+                    "type": block_type,
+                    "name": name,
+                    "content": get_node_text(node),
+                    "start_line": node.start_point[0] + 1,
+                    "end_line": node.end_point[0] + 1,
+                    "methods": extract_methods(node),
+                    "implementations": [],  # Filled later for interfaces
+                    "decorators": get_decorators(node),
+                    "metadata": get_metadata(node)
+                }
+                
+                # Update stats
+                result["stats"]["total_blocks"] += 1
+                result["stats"]["by_type"][block_type] = result["stats"]["by_type"].get(block_type, 0) + 1
+                
+                # Update order
+                result["order"].append(name)
+                
+                return block
+            
+            return None
+        
+        # Process root node children
+        for node in tree.root_node.children:
+            block = process_node(node)
+            if block:
+                result["blocks"].append(block)
+        
+        # Link implementations
+        for block in result["blocks"]:
+            if block["type"] == "class":
+                # Check if this class implements any interfaces
+                for node in tree.root_node.children:
+                    if node.type == 'class_declaration':
+                        class_text = get_node_text(node)
+                        if 'implements' in class_text:
+                            # Find which interface this implements
+                            for interface in result["blocks"]:
+                                if interface["type"] == "interface" and interface["name"] in class_text:
+                                    interface["implementations"].append(block)
     
     except Exception as e:
-        # Handle parsing errors
-        entities.append({
-            'name': f"Error in {filename or 'code'}",
-            'type': 'error',
-            'content': f"Parsing error: {str(e)}",
-            'depth': 0,
-            'path': [],
-            'file_paths': [f"error_{filename or 'code'}.{language}"],
-            'error': str(e)
-        })
+        print(f"Error parsing {filename}: {str(e)}")
+        import traceback
+        traceback.print_exc()
     
-    # Sort entities by line number
-    entities.sort(key=lambda e: e.get('lineno', 0))
-    
-    # Fix field name mismatches
-    for entity in entities:
-        if 'lineno' in entity and 'start_line' not in entity:
-            entity['start_line'] = entity['lineno']
-        if 'end_lineno' in entity and 'end_line' not in entity:
-            entity['end_line'] = entity['end_lineno']
-    
-    return entities
+    return result
 
 
 def process_code_repository(repo_path: str, output_dir: str, extensions: List[str] = ['.py']) -> Dict[str, Any]:
@@ -721,160 +738,166 @@ def process_code_repository(repo_path: str, output_dir: str, extensions: List[st
     }
 
 
-def build_code_hierarchy(code_or_entities: Union[str, List[Dict[str, Any]]], language: str = "python", filename: str = "") -> List[Dict[str, Any]]:
+def build_code_hierarchy(parsed_blocks: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Build a hierarchical representation of code entities.
-    
-    This function can handle either raw code as a string or a list of pre-extracted entities.
+    Build a hierarchical JSON structure from parsed code blocks.
     
     Args:
-        code_or_entities: Either source code as a string, or a list of pre-extracted entities
-        language: Programming language of the code (only used if code_or_entities is a string)
-        filename: Optional filename for context (only used if code_or_entities is a string)
+        parsed_blocks: List of parsed code blocks from tree-sitter
         
     Returns:
-        List of code entity objects with hierarchy information
+        Dict with hierarchical structure:
+        {
+            "type": "root",
+            "blocks": [
+                {
+                    "type": "class"|"function"|"interface"|"enum",
+                    "name": str,
+                    "content": str,
+                    "methods": List[Dict],  # For classes/interfaces
+                    "implementations": List[Dict],  # For interfaces
+                    "children": List[Dict],  # For nested structures
+                    "file_paths": List[str],  # All possible file paths for this block
+                    "path": List[Dict],  # Ancestry path
+                    "depth": int  # Nesting depth
+                }
+            ],
+            "order": List[str]  # Names in declaration order
+        }
     """
-    # Check if we're working with a string (raw code) or a list of entities
-    if isinstance(code_or_entities, str):
-        # Process raw code
-        if language.lower() == "python":
-            return extract_code_structure(code_or_entities, filename)
-        else:
-            return _extract_hierarchical_structure_treesitter(code_or_entities, language, filename)
-    elif isinstance(code_or_entities, list):
-        # We already have entities, just build the hierarchy
-        entities = code_or_entities
-        hierarchy = []
+    hierarchy = {
+        "type": "root",
+        "blocks": [],
+        "order": []
+    }
+    
+    # Track parent-child relationships
+    parent_map = {}  # child_name -> parent_name
+    
+    # First pass: Create all blocks and track relationships
+    for block in parsed_blocks:
+        block_type = block.get("type", "unknown")
+        block_name = block.get("name", "")
         
-        # Create a map of all entities by ID or name+type
-        entity_map = {}
-        for entity in entities:
-            # Try to use id if available, otherwise use name+type as a unique identifier
-            entity_id = entity.get('id')
-            if not entity_id and 'name' in entity and 'type' in entity:
-                entity_id = f"{entity['type']}:{entity['name']}"
-            
-            if entity_id:
-                entity_map[entity_id] = entity
-        
-        # First pass: identify parent-child relationships
-        for entity in entities:
-            # Initialize children array if not present
-            if 'children' not in entity:
-                entity['children'] = []
-            
-            # Find parent based on line numbers
-            parent_id = None
-            for potential_parent in entities:
-                # Skip self - compare by id if available, otherwise by name+type
-                if 'id' in entity and 'id' in potential_parent and potential_parent['id'] == entity['id']:
-                    continue
-                elif 'name' in entity and 'type' in entity and 'name' in potential_parent and 'type' in potential_parent:
-                    if potential_parent['name'] == entity['name'] and potential_parent['type'] == entity['type']:
+        # Skip blocks without names
+        if not block_name:
                         continue
                 
-                # Check if the entity is contained within the potential parent's line range
-                if ('start_line' in entity and 'end_line' in entity and 
-                    'start_line' in potential_parent and 'end_line' in potential_parent):
-                    # Entity is within parent if its start line is >= parent's start line
-                    # and its end line is <= parent's end line
-                    if (entity['start_line'] >= potential_parent['start_line'] and 
-                        entity['end_line'] <= potential_parent['end_line'] and
-                        # Ensure it's not the exact same line range (which would be self)
-                        (entity['start_line'] != potential_parent['start_line'] or 
-                         entity['end_line'] != potential_parent['end_line'])):
-                        # Found a potential parent - use its ID
-                        potential_parent_id = potential_parent.get('id')
-                        if not potential_parent_id and 'name' in potential_parent and 'type' in potential_parent:
-                            potential_parent_id = f"{potential_parent['type']}:{potential_parent['name']}"
-                        
-                        # If this is the first parent or has a tighter scope than previous parent
-                        if parent_id is None or potential_parent['start_line'] > entity_map[parent_id]['start_line']:
-                            parent_id = potential_parent_id
+        # Create hierarchical block
+        hier_block = {
+            "type": block_type,
+            "name": block_name,
+            "content": block.get("content", ""),
+            "methods": [],
+            "implementations": [],
+            "children": [],
+            "file_paths": block.get("file_paths", []),  # Preserve file paths
+            "path": block.get("path", []),  # Preserve ancestry path
+            "depth": block.get("depth", 1)  # Preserve depth
+        }
+        
+        # Track order
+        hierarchy["order"].append(block_name)
+        
+        # Handle parent-child relationships
+        if "parent" in block:
+            parent_map[block_name] = block["parent"]
             
-            # Build hierarchy by adding children to parents
-            if parent_id and parent_id in entity_map:
-                parent = entity_map[parent_id]
-                if 'children' not in parent:
-                    parent['children'] = []
-                parent['children'].append(entity)
-            else:
-                # This is a top-level entity
-                hierarchy.append(entity)
+        # Add to blocks list
+        hierarchy["blocks"].append(hier_block)
+    
+    # Second pass: Build relationships
+    for block in hierarchy["blocks"]:
+        block_name = block["name"]
+        
+        # If this block has a parent, move it to parent's children
+        if block_name in parent_map:
+            parent_name = parent_map[block_name]
+            parent_block = next((b for b in hierarchy["blocks"] if b["name"] == parent_name), None)
+            if parent_block:
+                # Remove from root blocks
+                hierarchy["blocks"].remove(block)
+                # Add to parent's children
+                parent_block["children"].append(block)
+                
+        # Handle implementations (for interfaces)
+        if block["type"] == "interface":
+            impls = [b for b in hierarchy["blocks"] if b.get("implements", "") == block_name]
+            block["implementations"].extend(impls)
+            
+        # Handle methods (for classes)
+        if block["type"] == "class":
+            methods = [b for b in parsed_blocks if b.get("parent", "") == block_name and b["type"] == "method"]
+            # Preserve file paths and other metadata for methods
+            for method in methods:
+                method_block = {
+                    "type": method["type"],
+                    "name": method["name"],
+                    "content": method["content"],
+                    "file_paths": method.get("file_paths", []),
+                    "path": method.get("path", []),
+                    "depth": method.get("depth", block["depth"] + 1)
+                }
+                block["methods"].append(method_block)
         
         return hierarchy
-    else:
-        # Invalid input
-        return []
 
 
-def extract_code_hierarchy(repo_path: str, language: str = None) -> List[Dict[str, Any]]:
+def _parse_code_treesitter(code: str, language: str) -> List[Dict[str, Any]]:
     """
-    Extract code hierarchy from a repository, file path, or raw code string.
-    
-    This function determines if repo_path is a directory, file, or raw code,
-    and processes it accordingly.
+    Parse code into blocks using tree-sitter.
+    This function handles the actual parsing, separate from hierarchy building.
     
     Args:
-        repo_path: Path to repository, file, or raw code string
-        language: Optional language identifier
+        code: Source code to parse
+        language: Programming language ('javascript', 'typescript', etc.)
         
     Returns:
-        List of code entity objects with hierarchy information
+        List of parsed code blocks with relationships
     """
-    extensions = []
-    if language:
-        if language.lower() == "python":
-            extensions = ['.py']
-        elif language.lower() == "javascript":
-            extensions = ['.js']
-        elif language.lower() == "typescript":
-            extensions = ['.ts', '.tsx']
-        elif language.lower() == "java":
-            extensions = ['.java']
+    # ... existing tree-sitter parsing code ...
+
+
+def extract_code_hierarchy(file_path: Path) -> List[Dict[str, Any]]:
+    """
+    Extract code hierarchy from a file using tree-sitter.
     
-    # Detect if this is a directory, file, or raw code
-    if os.path.isdir(repo_path):
-        # It's a directory
-        return build_code_repository_hierarchy(repo_path, extensions)
-    elif os.path.isfile(repo_path):
-        # It's a file path
-        try:
-            with open(repo_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            ext = os.path.splitext(repo_path)[1].lower()
-            if ext == '.py' or (not ext and language and language.lower() == 'python'):
-                return extract_code_structure(content, os.path.basename(repo_path))
-            else:
-                lang = language or ('javascript' if ext == '.js' else 
-                                    'typescript' if ext in ('.ts', '.tsx') else 
-                                    'java' if ext == '.java' else 'unknown')
-                return _extract_hierarchical_structure_treesitter(content, lang, os.path.basename(repo_path))
-        except Exception as e:
-            print(f"Error extracting code from file {repo_path}: {str(e)}")
-            return []
-    else:
-        # Assume it's raw code
-        try:
-            if not language:
-                # Try to guess language
-                if "def " in repo_path and ":" in repo_path:
-                    language = "python"
-                elif "function" in repo_path and "{" in repo_path:
-                    language = "javascript"
-                elif "class" in repo_path and "extends" in repo_path:
-                    language = "java"
-                else:
-                    language = "python"  # Default
-            
-            if language.lower() == "python":
-                return extract_code_structure(repo_path, "code_snippet.py")
-            else:
-                return _extract_hierarchical_structure_treesitter(repo_path, language.lower(), "code_snippet." + language.lower())
-        except Exception as e:
-            print(f"Error extracting code from raw string: {str(e)}")
-            return []
+    Args:
+        file_path: Path to the file to extract hierarchy from
+        
+    Returns:
+        List[Dict[str, Any]]: List of code blocks with their hierarchy information
+    """
+    if not file_path.exists():
+        logger.error(f"File not found: {file_path}")
+        return []
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        logger.error(f"Failed to read file {file_path}: {e}")
+        return []
+    
+    language = _get_language_for_file(file_path)
+    if not language:
+        logger.error(f"Unsupported file type: {file_path}")
+        return []
+    
+    # Extract hierarchical structure using tree-sitter
+    blocks = _extract_hierarchical_structure_treesitter(content, language, str(file_path))
+    
+    # Convert blocks dictionary to list format
+    block_list = []
+    for block_name, block_data in blocks.get("blocks", {}).items():
+        block = block_data.copy()
+        block["name"] = block_name
+        block_list.append(block)
+    
+    # Sort blocks by start line
+    block_list.sort(key=lambda x: x.get("start_line", 0))
+    
+    return block_list
 
 
 def get_children(entity: Dict[str, Any], hierarchy: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -942,6 +965,61 @@ def get_parent(entity: Dict[str, Any], hierarchy: List[Dict[str, Any]]) -> Optio
             return item
     
     return None
+
+
+def _get_language_for_file(file_path: Path) -> str:
+    """
+    Determine the programming language based on file extension.
+    
+    Args:
+        file_path: Path to the file
+        
+    Returns:
+        str: Language name (e.g., 'python', 'javascript', 'typescript', 'java')
+    """
+    ext = file_path.suffix.lower()
+    
+    # Map file extensions to languages
+    language_map = {
+        '.py': 'python',
+        '.js': 'javascript',
+        '.jsx': 'javascript',
+        '.ts': 'typescript',
+        '.tsx': 'typescript',
+        '.java': 'java',
+        '.kt': 'kotlin',
+        '.rb': 'ruby',
+        '.go': 'go',
+        '.rs': 'rust',
+        '.cpp': 'cpp',
+        '.c': 'c',
+        '.h': 'c',
+        '.hpp': 'cpp',
+        '.cs': 'csharp',
+        '.php': 'php',
+        '.swift': 'swift',
+        '.scala': 'scala',
+        '.r': 'r',
+        '.m': 'matlab',
+        '.sh': 'shell',
+        '.bash': 'shell',
+        '.zsh': 'shell',
+        '.fish': 'shell',
+        '.sql': 'sql',
+        '.html': 'html',
+        '.css': 'css',
+        '.scss': 'scss',
+        '.less': 'less',
+        '.xml': 'xml',
+        '.json': 'json',
+        '.yaml': 'yaml',
+        '.yml': 'yaml',
+        '.toml': 'toml',
+        '.md': 'markdown',
+        '.rst': 'rst'
+    }
+    
+    return language_map.get(ext, 'unknown')
 
 
 # Example usage

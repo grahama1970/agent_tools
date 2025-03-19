@@ -1,8 +1,49 @@
 """
-Tests for code block verification functionality with real-world repositories.
+TEST EXPECTATIONS
 
-These tests verify the validation and verification of code blocks extracted
-from real-world repositories.
+1. test_verify_python_block:
+   Input: Python code blocks (valid and invalid)
+   Expected Output:
+   - Valid blocks pass verification
+   - Invalid blocks fail verification
+   - Proper error messages for invalid blocks
+
+2. test_verify_javascript_block:
+   Input: JavaScript code blocks (valid and invalid)
+   Expected Output:
+   - Valid blocks pass verification
+   - Invalid blocks fail verification
+   - Proper error messages for invalid blocks
+
+3. test_verify_blocks_from_extraction:
+   Input: Blocks extracted from Python files
+   Expected Output:
+   - All extracted blocks are valid Python code
+   - Proper error messages for any invalid blocks
+   - Stats tracking is accurate
+
+4. test_verify_multifile_extraction:
+   Input: Blocks from multiple files (Python, JavaScript)
+   Expected Output:
+   - All blocks are valid in their respective languages
+   - Language-specific verification rules are applied
+   - Stats tracking is accurate
+
+CRITICAL RULES:
+1. Verification Rules:
+   - Each block must be syntactically valid
+   - Each block must be complete (no partial functions/classes)
+   - Each block must preserve original formatting
+
+2. Error Handling:
+   - Clear error messages for invalid blocks
+   - Skip tests if dependencies are missing
+   - Log verification failures
+
+3. Stats Tracking:
+   - Track number of blocks verified
+   - Track verification failures
+   - Track language-specific issues
 """
 
 import os
@@ -48,10 +89,7 @@ except ImportError as e:
     raise ImportError(f"Required verification modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Skip all tests if dependencies are not available
-# pytestmark = pytest.mark.skipif(
-#     not HAS_DEPENDENCIES, 
-#     reason="Required modules not available"
-# )
+pytestmark = pytest.mark.skipif(not HAS_DEPENDENCIES, reason="Required verification modules not available")
 
 def create_test_block(language, content=None, valid=True):
     """Create a test code block for verification."""
@@ -74,6 +112,22 @@ def create_test_block(language, content=None, valid=True):
         "type": "function",
         "name": "test_function"
     }
+
+@pytest.fixture(scope="session")
+def requests_repo():
+    """Fixture to provide the requests repository path."""
+    requests_path = project_root / "test_repos" / "requests"
+    if not requests_path.exists():
+        pytest.skip("Requests repository not available")
+    return requests_path
+
+@pytest.fixture(scope="session")
+def react_repo():
+    """Fixture to provide the React repository path."""
+    react_path = project_root / "test_repos" / "react"
+    if not react_path.exists():
+        pytest.skip("React repository not available")
+    return react_path
 
 def test_verify_python_block():
     """Test verification of Python code blocks."""
@@ -200,16 +254,10 @@ class TestClass:
             print(f"Successfully verified {verified_count} blocks")
             assert verified_count > 0, "Should verify at least one block"
 
-def test_verify_multifile_extraction():
+def test_verify_multifile_extraction(requests_repo, react_repo):
     """Test verifying blocks from multiple files of different languages."""
-    # Define paths to test repos
-    project_root = Path(__file__).parent.parent.parent.parent  # Assuming tests/dualipa/stage2/test_*
-    
     # Get paths to specific test files we know exist
-    requests_repo = project_root / "test_repos" / "requests"
     python_file = requests_repo / "setup.py"
-    
-    react_repo = project_root / "test_repos" / "react"
     js_file = react_repo / "fixtures" / "devtools" / "scheduling-profiler" / "run.js"
     
     test_files = []
@@ -219,7 +267,7 @@ def test_verify_multifile_extraction():
         test_files.append(("javascript", js_file))
     
     if not test_files:
-        pytest.fail("No test files found in repositories")
+        pytest.skip("No test files found in repositories")
     
     print(f"Testing with {len(test_files)} files")
     for lang, file in test_files:
@@ -228,7 +276,6 @@ def test_verify_multifile_extraction():
     # Extract and verify blocks
     with tempfile.TemporaryDirectory() as temp_dir:
         output_dir = Path(temp_dir)
-        
         total_verified = 0
         
         # Process each test file
@@ -240,25 +287,21 @@ def test_verify_multifile_extraction():
                 content = f.read()
             
             # Set up stats dictionary for extraction with proper keys
-            stats = initialize_stats_dict(source=f.name, output_dir=output_dir)
+            stats = initialize_stats_dict(source=str(file_path), output_dir=output_dir)
             
             # Extract blocks
             if lang == "python":
-                # Python only needs code_blocks
                 _extract_python_blocks(file_path, content, output_dir, stats)
             elif lang == "javascript":
-                # JavaScript only needs code_blocks
-                _extract_js_ts_blocks(file_path, content, output_dir, stats, "javascript")
+                _extract_js_ts_blocks(file_path, content, output_dir, stats)
             
-            print(f"Extracted {stats['code_blocks']} blocks from {lang} file")
-            
-            # Find block files
+            # Verify blocks
             blocks_dir = output_dir / "blocks" / "code" / lang
             if blocks_dir.exists():
                 block_files = list(blocks_dir.glob(f"*.{lang}"))
+                print(f"Found {len(block_files)} block files for {lang}")
                 
-                # Verify each block
-                for block_file in block_files[:5]:  # Test up to 5 blocks per language
+                for block_file in block_files:
                     with open(block_file, 'r') as bf:
                         block_content = bf.read()
                     
@@ -269,15 +312,12 @@ def test_verify_multifile_extraction():
                     }
                     
                     result = verify_code_block(block)
-                    # We don't assert here, just count verification results
-                    # Some blocks might not be valid syntactically
-                    if result:
-                        total_verified += 1
-                        print(f"✓ Verified block {block_file.name}")
-                    else:
-                        print(f"✗ Failed to verify {block_file.name}")
+                    assert result, f"Block should be valid {lang}: {block_file.name}"
+                    total_verified += 1
+                    print(f"Verified {block_file.name}")
         
-        print(f"Total verified blocks: {total_verified}")
+        print(f"Successfully verified {total_verified} blocks across {len(test_files)} languages")
+        assert total_verified > 0, "Should verify at least one block"
 
 if __name__ == "__main__":
     pytest.main(["-xvs", __file__]) 

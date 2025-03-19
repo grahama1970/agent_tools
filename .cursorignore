@@ -1,0 +1,45 @@
+# Dependencies and build artifacts
+dist/
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+*.whl
+
+# Environment and configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.venv/
+venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary and test directories
+temp_repos/
+test_repos/
+_archive/
+_temp/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Coverage and test reports
+.coverage
+htmlcov/
+coverage/
+.pytest_cache/

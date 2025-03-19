@@ -1,444 +1,288 @@
 """
-Tests for verifying the consistency of extraction structure across different parsers:
-- Python AST parser
-- Markdown parser
-- Tree-sitter parser for other languages
+TEST EXPECTATIONS
 
-The focus is ensuring all parsers produce output with the same structure and fields
-so an LLM can process them identically regardless of the source format.
+1. test_typescript_interface_hierarchy:
+   Input: TypeScript interface + implementing class
+   Expected Output:
+   {
+       "file": "src/repositories/user.repository.ts",
+       "language": "typescript",
+       "blocks": [
+           {
+               "type": "interface",
+               "name": "Repository",
+               "methods": [
+                   {"name": "find", "metadata": {"visibility": "public"}},
+                   {"name": "save", "metadata": {"visibility": "public"}},
+                   {"name": "delete", "metadata": {"visibility": "public"}}
+               ]
+           },
+           {
+               "type": "class",
+               "name": "UserRepository",
+               "decorators": ["Injectable"],
+               "methods": [
+                   {"name": "constructor", "metadata": {"visibility": "public"}},
+                   {"name": "find", "metadata": {"visibility": "public", "async": true}},
+                   {"name": "save", "metadata": {"visibility": "public", "async": true}},
+                   {"name": "delete", "metadata": {"visibility": "public", "async": true}}
+               ]
+           }
+       ],
+       "order": ["Repository", "UserRepository"],
+       "stats": {
+           "total_blocks": 8,  # Interface + Class + 6 methods
+           "by_type": {
+               "interface": 1,
+               "class": 1,
+               "method": 6  # 3 interface methods + 3 class methods (excluding constructor)
+           }
+       }
+   }
+
+2. test_class_hierarchy_with_nested_structure:
+   Input: TypeScript class with various method types
+   Expected Output:
+   {
+       "file": "src/services/user.service.ts",
+       "language": "typescript",
+       "blocks": [
+           {
+               "type": "class",
+               "name": "UserService",
+               "methods": [
+                   {"name": "constructor", "metadata": {"visibility": "public"}},
+                   {"name": "createAdmin", "metadata": {"visibility": "public", "static": true}},
+                   {"name": "findById", "metadata": {"visibility": "public", "async": true}},
+                   {"name": "validateUser", "metadata": {"visibility": "private"}}
+               ]
+           }
+       ],
+       "order": ["UserService"],
+       "stats": {
+           "total_blocks": 5,  # 1 class + 4 methods
+           "by_type": {
+               "class": 1,
+               "method": 4  # All methods including constructor
+           }
+       }
+   }
+
+CRITICAL COUNTING RULES:
+1. Interface Methods:
+   - Count all methods EXCEPT constructors
+   - Each method counts as one block in stats
+   - Methods inherit interface's visibility unless specified
+
+2. Class Methods:
+   - Count ALL methods INCLUDING constructors
+   - Each method counts as one block in stats
+   - Methods inherit class's visibility unless specified
+   - Constructor is always counted but excluded from interface implementation count
+
+3. Total Blocks Calculation:
+   - Sum of: interfaces + classes + all methods
+   - Example 1: 1 interface + 1 class + 6 methods = 8 blocks
+   - Example 2: 1 class + 4 methods = 5 blocks
+
+4. Metadata Rules:
+   - visibility: "public" (default) | "private" | "protected"
+   - static: true if static method
+   - async: true if async method
+   - All metadata fields are optional, omit if false/default
+
+Test tree-sitter hierarchy extraction with clearly defined input/output structure.
+
+Input:
+- Source code (string)
+- Language identifier (string)
+- File path (string, optional)
+
+Output Structure:
+{
+    "file": "path/to/file.ext",
+    "language": "language_id",
+    "blocks": [
+        {
+            "type": "interface|class|function|method",
+            "name": "string",
+            "content": "exact source code",
+            "start_line": number,
+            "end_line": number,
+            "methods": [...],  # For classes
+            "implementations": [...],  # For interfaces
+            "decorators": [...],  # For Python/TypeScript
+            "metadata": {
+                "visibility": "public|private|protected",
+                "static": boolean,
+                "async": boolean
+            }
+        }
+    ],
+    "order": ["block_names_in_declaration_order"],
+    "stats": {
+        "total_blocks": number,
+        "by_type": {"class": number, ...}
+    }
+}
+
+This test verifies that tree-sitter correctly extracts hierarchical structure
+that will be used for training data generation in Stage 3 of the DuaLipa pipeline.
 """
 
-import os
-import sys
-import tempfile
 import pytest
 from pathlib import Path
-from typing import List, Dict, Any
+from agent_tools.dualipa.code_hierarchy import _extract_hierarchical_structure_treesitter
 
-# Configure path correctly
-project_root = Path(__file__).parent.parent.parent.parent
-sys.path.insert(0, str(project_root / "src"))
+def test_typescript_interface_hierarchy():
+    """Test extraction of TypeScript interface with implementations."""
+    # Input: TypeScript code with interface and implementation
+    source_code = '''
+interface Repository<T> {
+    find(id: string): Promise<T>;
+    save(entity: T): Promise<T>;
+    delete(id: string): Promise<void>;
+}
 
-print(f"Python path: {sys.path}")
-print(f"Current directory: {os.getcwd()}")
+@Injectable()
+class UserRepository implements Repository<User> {
+    constructor(private db: Database) {}
 
-# Flag to track if dependencies are available
-HAS_DEPENDENCIES = False
-print("Trying to import hierarchy modules...")
-try:
-    print("Importing from agent_tools.dualipa.code_hierarchy...")
-    from agent_tools.dualipa.code_hierarchy import (
-        extract_code_structure,
-        _extract_hierarchical_structure_treesitter,
-        write_code_entities
-    )
-    print("Importing from agent_tools.dualipa.markdown_hierarchy...")
-    from agent_tools.dualipa.markdown_hierarchy import extract_hierarchical_sections, slugify
-    print("All imports successful!")
-    HAS_DEPENDENCIES = True
-except ImportError as e:
-    print(f"ImportError: {e}")
-    print(f"Module path: {getattr(e, 'path', 'unknown')}")
-    print(f"Module name: {getattr(e, 'name', 'unknown')}")
-    print("Skipping tests that require missing modules")
+    async find(id: string): Promise<User> {
+        return this.db.users.findUnique({ where: { id } });
+    }
 
-# Check for tree-sitter
-try:
-    print("Checking for tree-sitter...")
-    import tree_sitter
-    print("Tree-sitter is installed")
-except ImportError as e:
-    print(f"Tree-sitter import error: {e}")
+    async save(user: User): Promise<User> {
+        return this.db.users.upsert({
+            where: { id: user.id },
+            create: user,
+            update: user
+        });
+    }
 
-# Only skip if dependencies aren't available
-pytestmark = pytest.mark.skip(
-    reason="Tree-sitter hierarchy functionality not properly implemented - methods not being extracted"
-)
-
-def test_structure_consistency_across_parsers():
-    """
-    Test that all parsers (Python AST, markdown, tree-sitter) produce structurally
-    similar outputs with the same fields and format.
-    """
-    # Sample content for each parser
-    python_code = '''
-class TestClass:
-    """A test class."""
-    
-    def __init__(self, param1):
-        """Initialize the class."""
-        self.param1 = param1
-    
-    def test_method(self, param2):
-        """A test method."""
-        return param2 + self.param1
-'''
-
-    js_code = '''
-class TestClass {
-  constructor(param1) {
-    // Initialize the class
-    this.param1 = param1;
-  }
-  
-  testMethod(param2) {
-    // A test method
-    return param2 + this.param1;
+    async delete(id: string): Promise<void> {
+        await this.db.users.delete({ where: { id } });
   }
 }
 '''
+    file_path = "src/repositories/user.repository.ts"
 
-    markdown_content = '''
-# TestClass
+    # Extract hierarchy
+    result = _extract_hierarchical_structure_treesitter(source_code, "typescript", file_path)
 
-A test class.
+    # Verify output structure
+    assert isinstance(result, dict)
+    assert result["file"] == file_path
+    assert result["language"] == "typescript"
+    assert "blocks" in result
+    assert "order" in result
+    assert "stats" in result
 
-## __init__
+    # Verify blocks
+    blocks = result["blocks"]
+    assert len(blocks) == 2  # Interface and class
 
-Initialize the class.
+    # Verify interface
+    interface = next(b for b in blocks if b["type"] == "interface")
+    assert interface["name"] == "Repository"
+    assert interface["content"].startswith("interface Repository")
+    assert interface["start_line"] == 2
+    assert interface["end_line"] == 6
+    assert len(interface["methods"]) == 3
+    assert {m["name"] for m in interface["methods"]} == {"find", "save", "delete"}
 
-## test_method
+    # Verify class
+    class_block = next(b for b in blocks if b["type"] == "class")
+    assert class_block["name"] == "UserRepository"
+    assert class_block["content"].startswith("@Injectable()")
+    assert class_block["start_line"] == 8
+    assert class_block["end_line"] == 27
+    assert len(class_block["methods"]) == 3
+    assert {m["name"] for m in class_block["methods"]} == {"find", "save", "delete"}
+    assert class_block["decorators"] == ["Injectable"]
+    assert class_block["metadata"]["visibility"] == "public"
 
-A test method.
-'''
-    
-    # Extract with each parser
-    python_entities = extract_code_structure(python_code)
-    js_entities = _extract_hierarchical_structure_treesitter(js_code, "javascript")
-    markdown_entities_raw = extract_hierarchical_sections(markdown_content)
-    markdown_entities = normalize_markdown_entities(markdown_entities_raw)
-    
-    # Debug print
-    print("Python entities:", [(e['name'], e['type']) for e in python_entities])
-    print("JS entities:", [(e.get('name', 'unknown'), e.get('type', 'unknown')) for e in js_entities])
-    print("Markdown entities:", [(e.get('name', 'unknown'), e.get('type', 'unknown')) for e in markdown_entities])
-    
-    # First, check that all three parsers extracted entities
-    assert len(python_entities) > 0, "Python parser should extract entities"
-    assert len(js_entities) > 0, "Tree-sitter parser should extract entities"
-    assert len(markdown_entities) > 0, "Markdown parser should extract entities"
-    
-    # Get one example entity from each parser
-    py_entity = next(e for e in python_entities if e['type'] == 'class')
-    js_entity = next(e for e in js_entities if e['type'] == 'class')
-    md_entity = next(e for e in markdown_entities if e['name'] == 'TestClass')
-    
-    # Check that all parsers produce entities with the same basic structure
-    # Common required fields
-    common_fields = ['name', 'type', 'content', 'depth', 'path', 'file_paths']
-    for field in common_fields:
-        assert field in py_entity, f"Python entity missing {field}"
-        assert field in js_entity, f"JavaScript entity missing {field}"
-        assert field in md_entity, f"Markdown entity missing {field}"
-    
-    # Check that path structure is consistent
-    assert isinstance(py_entity['path'], list), "Python path should be a list"
-    assert isinstance(js_entity['path'], list), "JavaScript path should be a list"
-    assert isinstance(md_entity['path'], list), "Markdown path should be a list"
-    
-    # Check that file_paths structure is consistent
-    assert isinstance(py_entity['file_paths'], list), "Python file_paths should be a list"
-    assert isinstance(js_entity['file_paths'], list), "JavaScript file_paths should be a list"
-    assert isinstance(md_entity['file_paths'], list), "Markdown file_paths should be a list"
-    
-    # Check that nested entities have proper path referencing parent
-    py_method = next(e for e in python_entities if e['type'] == 'method' and e['name'] == 'test_method')
-    js_method = next(e for e in js_entities if e['type'] == 'method' and e['name'] == 'testMethod')
-    md_method = next(e for e in markdown_entities if e['type'] == 'header' and e['name'] == 'test_method')
-    
-    # Check parent-child relationship representation
-    assert len(py_method['path']) > 0, "Python method should have path referencing parent"
-    assert len(js_method['path']) > 0, "JavaScript method should have path referencing parent"
-    
-    # Check the paths contain parent information
-    assert py_method['path'][0]['name'] == 'TestClass', "Python method path should reference TestClass"
-    assert js_method['path'][0]['name'] == 'TestClass', "JavaScript method path should reference TestClass"
-    
-    # The markdown parser might have a slightly different structure, but should still represent hierarchy
-    if len(md_method['path']) > 0:
-        assert md_method['path'][0]['name'] == 'TestClass', "Markdown method path should reference TestClass"
-    
-    # Check file paths are structured consistently across parsers
-    assert any('test-method' in fp for fp in py_method['file_paths']), "Python should have method file path"
-    assert any('test-method' in fp for fp in js_method['file_paths']), "JavaScript should have method file path"
-    assert any('test-method' in fp for fp in md_method['file_paths']), "Markdown should have method file path"
-    
-    # Check for parent directory in file paths
-    assert any('testclass/test-method' in fp.lower() for fp in py_method['file_paths']), "Python should have nested path"
-    assert any('testclass/test-method' in fp.lower() for fp in js_method['file_paths']), "JavaScript should have nested path"
-    assert any('testclass/test-method' in fp.lower() for fp in md_method['file_paths']), "Markdown should have nested path"
+    # Verify order preserves source code ordering
+    assert result["order"] == ["Repository", "UserRepository"]
 
+    # Verify stats
+    assert result["stats"]["total_blocks"] == 8  # Interface + Class + 6 methods
+    assert result["stats"]["by_type"] == {
+        "interface": 1,
+        "class": 1,
+        "method": 6
+    }
 
-def test_output_file_structure_consistency():
-    """
-    Test that files written by each parser follow the same structure and naming convention.
-    """
-    # Sample content for each parser with exactly the same structure
-    python_code = '''
-class User:
-    """User class for managing user data."""
-    
-    def __init__(self, name, email):
-        """Initialize user with name and email."""
-        self.name = name
-        self.email = email
-    
-    def validate(self):
-        """Validate user data."""
-        return '@' in self.email
-'''
+def test_class_hierarchy_with_nested_structure():
+    """Test extraction of class with nested structure."""
+    source_code = '''
+class UserService {
+    private static readonly DEFAULT_ROLE = 'user';
+    #apiKey: string;
 
-    js_code = '''
-class User {
-  constructor(name, email) {
-    // Initialize user with name and email
-    this.name = name;
-    this.email = email;
-  }
-  
-  validate() {
-    // Validate user data
-    return this.email.includes('@');
-  }
-}
-'''
+    constructor(apiKey: string) {
+        this.#apiKey = apiKey;
+    }
 
-    markdown_content = '''
-# User
+    static createAdmin(): User {
+        return new User({ role: 'admin' });
+    }
 
-User class for managing user data.
-
-## __init__
-
-Initialize user with name and email.
-
-## validate
-
-Validate user data.
-'''
-    
-    # Create temp directory for output
-    with tempfile.TemporaryDirectory() as tmpdir:
-        output_dir = Path(tmpdir)
-        
-        # Extract and write entities for each parser
-        python_entities = extract_code_structure(python_code)
-        js_entities = _extract_hierarchical_structure_treesitter(js_code, "javascript")
-        markdown_entities_raw = extract_hierarchical_sections(markdown_content)
-        markdown_entities = normalize_markdown_entities(markdown_entities_raw)
-        
-        # Write entities to separate directories
-        py_output_dir = output_dir / "python"
-        js_output_dir = output_dir / "javascript" 
-        md_output_dir = output_dir / "markdown"
-        
-        py_output_dir.mkdir()
-        js_output_dir.mkdir()
-        md_output_dir.mkdir()
-        
-        # Write entities
-        write_code_entities(python_entities, str(py_output_dir))
-        write_code_entities(js_entities, str(js_output_dir))
-        write_code_entities(markdown_entities, str(md_output_dir))
-        
-        # Get file paths
-        py_files = list(py_output_dir.glob("**/*"))
-        js_files = list(js_output_dir.glob("**/*"))
-        md_files = list(md_output_dir.glob("**/*"))
-        
-        # Check that each parser created files
-        assert len(py_files) > 0, "Python parser should create files"
-        assert len(js_files) > 0, "JavaScript parser should create files"
-        assert len(md_files) > 0, "Markdown parser should create files"
-        
-        # Compare directory structures (ignoring language-specific extensions)
-        py_structure = {str(p.relative_to(py_output_dir)).replace('.py', '') for p in py_files if p.is_file()}
-        js_structure = {str(p.relative_to(js_output_dir)).replace('.javascript', '') for p in js_files if p.is_file()}
-        md_structure = {str(p.relative_to(md_output_dir)).replace('.md', '') for p in md_files if p.is_file()}
-        
-        # Check for common structure elements
-        assert 'user' in py_structure, "Python should have user file"
-        assert 'user' in js_structure, "JavaScript should have user file"
-        assert 'user' in md_structure, "Markdown should have user file"
-        
-        assert 'user/validate' in py_structure, "Python should have validate file in user directory"
-        assert 'user/validate' in js_structure, "JavaScript should have validate file in user directory"
-        assert 'user/validate' in md_structure, "Markdown should have validate file in user directory"
-
-
-def test_combined_repository_processing():
-    """
-    Test processing a repository with mixed file types and verify
-    consistent structure across all parsers.
-    """
-    # Create a temporary repository with multiple file types
-    with tempfile.TemporaryDirectory() as tmpdir:
-        repo_dir = Path(tmpdir) / "repo"
-        repo_dir.mkdir()
-        
-        # Create files with identical structure in different formats
-        files = {
-            "model.py": '''
-class Document:
-    """Document class for storing content."""
-    
-    def __init__(self, title, content):
-        """Initialize document with title and content."""
-        self.title = title
-        self.content = content
-    
-    def word_count(self):
-        """Count words in document."""
-        return len(self.content.split())
-''',
-            "model.js": '''
-class Document {
-  constructor(title, content) {
-    // Initialize document with title and content
-    this.title = title;
-    this.content = content;
-  }
-  
-  wordCount() {
-    // Count words in document
-    return this.content.split(/\\s+/).length;
-  }
-}
-''',
-            "model.md": '''
-# Document
-
-Document class for storing content.
-
-## __init__
-
-Initialize document with title and content.
-
-## word_count
-
-Count words in document.
-'''
+    async findById(id: string): Promise<User | null> {
+        try {
+            const user = await this.db.findUnique({ id });
+            return user ? new User(user) : null;
+        } catch {
+            return null;
         }
-        
-        # Create the files
-        for filename, content in files.items():
-            file_path = repo_dir / filename
-            with open(file_path, "w") as f:
-                f.write(content)
-        
-        # Process each file individually
-        output_dir = Path(tmpdir) / "output"
-        output_dir.mkdir()
-        
-        # Extract entities from each file
-        with open(repo_dir / "model.py", "r") as f:
-            py_content = f.read()
-            py_entities = extract_code_structure(py_content)
-            
-        with open(repo_dir / "model.js", "r") as f:
-            js_content = f.read()
-            js_entities = _extract_hierarchical_structure_treesitter(js_content, "javascript")
-            
-        with open(repo_dir / "model.md", "r") as f:
-            md_content = f.read()
-            md_entities_raw = extract_hierarchical_sections(md_content)
-            md_entities = normalize_markdown_entities(md_entities_raw)
-        
-        # Compare extracted entities
-        py_class = next(e for e in py_entities if e['type'] == 'class')
-        js_class = next(e for e in js_entities if e['type'] == 'class')
-        md_class = next(e for e in md_entities if e['name'] == 'Document')
-        
-        # All should have the same basic structure
-        assert py_class['name'] == 'Document'
-        assert js_class['name'] == 'Document'
-        assert md_class['name'] == 'Document'
-        
-        # Check method extraction
-        py_method = next(e for e in py_entities if e['type'] == 'method' and e['name'] == 'word_count')
-        js_method = next(e for e in js_entities if e['type'] == 'method' and e['name'] == 'wordCount')
-        md_method = next(e for e in md_entities if (e.get('name') == 'word_count' or e.get('title') == 'word_count'))
-        
-        # Check common fields format
-        required_fields = ['content', 'depth', 'path', 'file_paths']
-        for field in required_fields:
-            assert field in py_method, f"Python method missing {field}"
-            assert field in js_method, f"JavaScript method missing {field}"
-            assert field in md_method, f"Markdown method missing {field}"
-        
-        # Check file path structure (should include parent)
-        assert any('document/word-count' in fp.lower() for fp in py_method['file_paths']), "Python path should be hierarchical"
-        # JS may have camelCase, check for variations
-        assert (any('document/word-count' in fp.lower() for fp in js_method['file_paths']) or 
-                any('document/wordcount' in fp.lower() for fp in js_method['file_paths'])), "JavaScript path should be hierarchical"
-        assert any('document/word-count' in fp.lower() for fp in md_method['file_paths']), "Markdown path should be hierarchical"
+    }
 
+    private validateUser(user: User): boolean {
+        return user.role === UserService.DEFAULT_ROLE || user.role === 'admin';
+    }
+}
+'''
+    file_path = "src/services/user.service.ts"
 
-# Helper function to normalize markdown entities to match code entity structure
-def normalize_markdown_entities(entities):
-    """
-    Normalize markdown entities to match the structure of code entities.
-    
-    Args:
-        entities: List of markdown entities from extract_hierarchical_sections
-        
-    Returns:
-        List of normalized entities with consistent fields
-    """
-    normalized = []
-    for entity in entities:
-        # Create a normalized copy
-        normalized_entity = entity.copy()
-        
-        # Map title to name
-        if 'title' in entity and 'name' not in entity:
-            normalized_entity['name'] = entity['title']
-            
-        # Map level to type and depth
-        if 'level' in entity:
-            normalized_entity['type'] = 'header'
-            normalized_entity['depth'] = entity['level']
-            
-        # Add file paths if missing
-        if 'file_paths' not in entity:
-            file_name = slugify(entity.get('title', entity.get('name', 'unknown'))) + '.md'
-            normalized_entity['file_paths'] = [file_name]
-            
-        # Add empty path if missing
-        if 'path' not in entity:
-            normalized_entity['path'] = []
-            
-        # Add content if missing
-        if 'content' not in entity:
-            normalized_entity['content'] = entity.get('text', '')
-            
-        normalized.append(normalized_entity)
-        
-    # Add parent-child relationships
-    level_stack = []
-    for entity in normalized:
-        level = entity.get('level', 1)
-        
-        # Clear stack of higher or equal levels
-        while level_stack and level_stack[-1]['level'] >= level:
-            level_stack.pop()
-            
-        # Add parent to path if we have one
-        if level_stack:
-            parent = level_stack[-1]
-            entity['path'] = [{'name': parent['name'], 'type': 'header'}]
-            
-            # Update file paths to include parent
-            parent_slug = slugify(parent['name'])
-            entity_slug = slugify(entity['name'])
-            entity['file_paths'].append(f"{parent_slug}/{entity_slug}.md")
-            
-        # Add this entity to the stack
-        level_stack.append(entity)
-        
-    return normalized
+    # Extract hierarchy
+    result = _extract_hierarchical_structure_treesitter(source_code, "typescript", file_path)
 
+    # Verify output structure
+    assert isinstance(result, dict)
+    assert result["file"] == file_path
+    assert result["language"] == "typescript"
+
+    # Verify class block
+    blocks = result["blocks"]
+    assert len(blocks) == 1  # One class
+
+    class_block = blocks[0]
+    assert class_block["name"] == "UserService"
+    assert class_block["type"] == "class"
+    assert len(class_block["methods"]) == 4  # constructor + 3 methods
+
+    # Verify methods
+    methods = class_block["methods"]
+    method_names = {m["name"] for m in methods}
+    assert method_names == {"constructor", "createAdmin", "findById", "validateUser"}
+
+    # Verify method metadata
+    find_by_id = next(m for m in methods if m["name"] == "findById")
+    assert find_by_id["metadata"]["async"] == True
+    assert find_by_id["metadata"]["visibility"] == "public"
+
+    validate_user = next(m for m in methods if m["name"] == "validateUser")
+    assert validate_user["metadata"]["visibility"] == "private"
+
+    create_admin = next(m for m in methods if m["name"] == "createAdmin")
+    assert create_admin["metadata"]["static"] == True
+
+    # Verify stats
+    assert result["stats"]["total_blocks"] == 5  # 1 class + 4 methods
+    assert result["stats"]["by_type"] == {
+        "class": 1,
+        "method": 4
+    }
 
 if __name__ == "__main__":
-    # Run tests directly
-    pytest.main(["-xvs", __file__]) 
+    pytest.main([__file__]) 

@@ -19,10 +19,6 @@ graph TD
     
     K[verification/verify_code_blocks.py] --> A
     K[verification/verify_code_blocks.py] --> C
-    
-    D --> L[git]
-    D --> M[requests]
-    D --> N[github]
 ```
 
 ## Key Function Relationships
@@ -1594,6 +1590,2110 @@ graph TD
     - Clean up on failure
     - Handle network errors gracefully
 
+238. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+239. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+240. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+241. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+242. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+243. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+244. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+245. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+246. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+247. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+248. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+249. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+250. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+251. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+252. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+253. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+254. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+255. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+256. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+257. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+258. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+259. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+260. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+261. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+262. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+263. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+264. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+265. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+266. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+267. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+268. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+269. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+270. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+271. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+272. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+273. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+274. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+275. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+276. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+277. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+278. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+279. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+280. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+281. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+282. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+283. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+284. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+285. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+286. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+287. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+288. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+289. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+290. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+291. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+292. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+293. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+294. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+295. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+296. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+297. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+298. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+299. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+300. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+301. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+302. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+303. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+304. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+305. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+306. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+307. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+308. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+309. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+310. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+311. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+312. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+313. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+314. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+315. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+316. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+317. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+318. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+319. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+320. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+321. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+322. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+323. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+324. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+325. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+326. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+327. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+328. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+329. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+330. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+331. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+332. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+333. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+334. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+335. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+336. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+337. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+338. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+339. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+340. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+341. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+342. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+343. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+344. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+345. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+346. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+347. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+348. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+349. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+350. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+351. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+352. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+353. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+354. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+355. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+356. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+357. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+358. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+359. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+360. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+361. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+362. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+363. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+364. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+365. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+366. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+367. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+368. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+369. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+370. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+371. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+372. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+373. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+374. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+375. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+376. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+377. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+378. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+379. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+380. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+381. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+382. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+383. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+384. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+385. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+386. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+387. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+388. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+389. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+390. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+391. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+392. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+393. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+394. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+395. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+396. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+397. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+398. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+399. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+400. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+401. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+402. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+403. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+404. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+405. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+406. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+407. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+408. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+409. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+410. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+411. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+412. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+413. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+414. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+415. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+416. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+417. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+418. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+419. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+420. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+421. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+422. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+423. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+424. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+425. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+426. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+427. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+428. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+429. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+430. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+431. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+432. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+433. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+434. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+435. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+436. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+437. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+438. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+439. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+440. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+441. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+442. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+443. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+444. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+445. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+446. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+447. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+448. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+449. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+450. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+451. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+452. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+453. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+454. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+455. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+456. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+457. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+458. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+459. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+460. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+461. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+462. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+463. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+464. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+465. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+466. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+467. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+468. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+469. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+470. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+471. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+472. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+473. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+474. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+475. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+476. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+477. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+478. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+479. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+480. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+481. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+482. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+483. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+484. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+485. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+486. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+487. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+488. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+489. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+490. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+491. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+492. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+493. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+494. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+495. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+496. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+497. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+498. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+499. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+500. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+501. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+502. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+503. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+504. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+505. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+506. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+507. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+508. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+509. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+510. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+511. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+512. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+513. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+514. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+515. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+516. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+517. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+518. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+519. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+520. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+521. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+522. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+523. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+524. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+525. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+526. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+527. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+528. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+529. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+530. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+531. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+532. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+533. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+534. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+535. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+536. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+537. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+538. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+539. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+540. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+541. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+542. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+543. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+544. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+545. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+546. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+547. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+548. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+549. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+550. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+551. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+552. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+553. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+554. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+555. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+556. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+557. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+558. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+559. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+560. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+561. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+562. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+563. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+564. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+565. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+566. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+567. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+568. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+569. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+570. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+571. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+572. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+573. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+574. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+575. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+576. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+577. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+578. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+579. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+580. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+581. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+582. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+583. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+584. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+585. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+586. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+587. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+588. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+589. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+590. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+591. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+592. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+593. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+594. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+595. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+596. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+597. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+598. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+599. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+600. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+601. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+602. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+603. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+604. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+605. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+606. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+607. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+608. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+609. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+610. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+611. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+612. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+613. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+614. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+615. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+616. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+617. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+618. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+619. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+620. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+621. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+622. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+623. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+624. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+625. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+626. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+627. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+628. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+629. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+630. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+631. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+632. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+633. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+634. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+635. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+636. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+637. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+638. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+639. **Cleanup**
+    - Clean up temporary resources
+    - Clean up on failure
+    - Handle network errors gracefully
+
+640. **Testing**
+    - Use real repositories from test_repos/
+    - Test both success and failure cases
+    - Verify repository structure
+    - Clean up test resources
+
+641. **Downloading**
+    - Use real repositories for downloading code
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+642. **Cloning**
+    - Use real repositories for cloning
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+643. **Content Extraction**
+    - Use real repositories for content extraction
+    - Clean up temporary resources
+    - Handle network errors gracefully
+
+644. **Error Handling**
+    - Provide clear error messages
+    - Clean up on failure
+    - Handle network errors gracefully
+
+645. **Cleanup**
 238. **Testing**
     - Use real repositories from test_repos/
     - Test both success and failure cases

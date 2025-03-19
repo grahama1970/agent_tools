@@ -679,3 +679,90 @@ async def process_document(doc_id):
    - Tested multiple extractors together
    - Verified cross-language consistency
    - Caught integration issues early
+
+## Stats Dictionary Testing Success Story
+
+### 1. Why This Stats Testing Succeeded
+- Started with a single source of truth for stats initialization
+- Tested all extraction methods together for consistency
+- Verified both structure and updates in the same test
+- Used real-world examples for each language type
+- Progressive verification from structure to content
+
+### 2. Key Testing Patterns
+- **Unified Stats Structure**:
+  ```python
+  def verify_stats_fields(stats):
+      """Verify all required fields with correct types."""
+      required_fields = {
+          "source": str,
+          "output_path": str,
+          "code_blocks": int,
+          "doc_blocks": int,
+          "languages": dict,
+          "file_types": dict,
+          "errors": list,
+          "file_blocks": dict
+      }
+      # Verify all fields exist with correct types
+      for field, expected_type in required_fields.items():
+          assert field in stats
+          assert isinstance(stats[field], expected_type)
+  ```
+
+- **Cross-Language Consistency**:
+  ```python
+  # Test all extraction methods in the same test
+  python_stats = initialize_stats_dict(...)
+  _extract_python_blocks(...)
+  
+  js_stats = initialize_stats_dict(...)
+  _extract_js_ts_blocks(...)
+  
+  md_stats = initialize_stats_dict(...)
+  _extract_markdown_blocks(...)
+  
+  # Verify consistency across all methods
+  assert verify_stats_fields(python_stats)
+  assert verify_stats_fields(js_stats)
+  assert verify_stats_fields(md_stats)
+  ```
+
+### 3. Simplified Language Detection
+- Moved from explicit language parameters to file extension detection
+- Reduced complexity in extraction functions
+- Eliminated redundant configuration
+- Example:
+  ```python
+  # Before: Required explicit language
+  _extract_js_ts_blocks(file, content, output_dir, stats, language="javascript")
+  
+  # After: Determines from file extension
+  _extract_js_ts_blocks(file, content, output_dir, stats)
+  ```
+
+### 4. Tree-Sitter Integration Lessons
+- **Simplified Initialization**: Remove unnecessary availability checks since tree-sitter is a required dependency
+- **Direct Parser Setup**: Initialize parsers once at module level
+- **Clear Language Mapping**: Use file extensions to determine parser
+- **Fallback Mechanism**: Generic extraction as backup for unsupported constructs
+
+### 5. Test Suite Organization
+1. Start with basic imports and dependencies (`test_01_simple.py`, `test_02_import.py`)
+2. Verify stats dictionary consistency (`test_05_stats_consistency.py`)
+3. Test language-specific extraction (`test_20_python_extractor.py`, `test_30_js_ts_extraction.py`)
+4. Test supporting utilities (`test_10_github_utils.py`)
+
+This progression ensures:
+- Dependencies are available before complex tests
+- Stats consistency is verified before extraction
+- Each language extractor builds on working stats
+- Supporting utilities don't interfere with core functionality
+
+### 6. Best Practices Validated
+1. **Single Source of Truth**: One `initialize_stats_dict` function used everywhere
+2. **Real-World Testing**: Using actual code samples for each language
+3. **Progressive Verification**: Structure → Updates → Cross-Language Consistency
+4. **Clear Dependencies**: Required packages specified in pyproject.toml
+5. **Simplified Configuration**: Remove redundant parameters and checks
+6. **Consistent Error Handling**: All extractors update stats["errors"] similarly
