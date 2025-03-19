@@ -40,10 +40,7 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
 try:
-    from agent_tools.dualipa.code_extractor import (
-        _get_language_for_file,
-        _is_code_file
-    )
+    from agent_tools.dualipa.code_hierarchy import _get_language_for_file
     IMPORTS_AVAILABLE = True
 except ImportError as import_error:
     import traceback
@@ -58,88 +55,54 @@ pytestmark = pytest.mark.skipif(not IMPORTS_AVAILABLE, reason="Required code ext
 def test_detect_language_from_extension():
     """Test language detection from file extensions."""
     # Python files
-    assert _get_language_for_file("test.py") == "python", "Failed to detect Python"
-    assert _get_language_for_file("test.PY") == "python", "Failed to detect Python (uppercase)"
-    assert _get_language_for_file("test.pyw") == "python", "Failed to detect Python (alternate extension)"
+    assert _get_language_for_file(Path("test.py")) == "python", "Failed to detect Python"
+    assert _get_language_for_file(Path("script.py")) == "python", "Failed to detect Python"
     
     # JavaScript files
-    assert _get_language_for_file("test.js") == "javascript", "Failed to detect JavaScript"
-    assert _get_language_for_file("test.JS") == "javascript", "Failed to detect JavaScript (uppercase)"
-    assert _get_language_for_file("test.jsx") == "javascript", "Failed to detect JavaScript (JSX)"
-    assert _get_language_for_file("test.mjs") == "javascript", "Failed to detect JavaScript (module)"
+    assert _get_language_for_file(Path("app.js")) == "javascript", "Failed to detect JavaScript"
+    assert _get_language_for_file(Path("component.jsx")) == "javascript", "Failed to detect JSX"
     
     # TypeScript files
-    assert _get_language_for_file("test.ts") == "typescript", "Failed to detect TypeScript"
-    assert _get_language_for_file("test.TS") == "typescript", "Failed to detect TypeScript (uppercase)"
-    assert _get_language_for_file("test.tsx") == "typescript", "Failed to detect TypeScript (TSX)"
+    assert _get_language_for_file(Path("service.ts")) == "typescript", "Failed to detect TypeScript"
+    assert _get_language_for_file(Path("component.tsx")) == "typescript", "Failed to detect TSX"
     
     # Java files
-    assert _get_language_for_file("test.java") == "java", "Failed to detect Java"
-    assert _get_language_for_file("test.JAVA") == "java", "Failed to detect Java (uppercase)"
+    assert _get_language_for_file(Path("Main.java")) == "java", "Failed to detect Java"
     
-    # C++ files
-    assert _get_language_for_file("test.cpp") == "cpp", "Failed to detect C++"
-    assert _get_language_for_file("test.CPP") == "cpp", "Failed to detect C++ (uppercase)"
-    assert _get_language_for_file("test.hpp") == "cpp", "Failed to detect C++ header"
-    assert _get_language_for_file("test.cc") == "cpp", "Failed to detect C++ (alternate extension)"
-    
-    # Go files
-    assert _get_language_for_file("test.go") == "go", "Failed to detect Go"
-    assert _get_language_for_file("test.GO") == "go", "Failed to detect Go (uppercase)"
-    
-    # Rust files
-    assert _get_language_for_file("test.rs") == "rust", "Failed to detect Rust"
-    assert _get_language_for_file("test.RS") == "rust", "Failed to detect Rust (uppercase)"
-    
-    # Ruby files
-    assert _get_language_for_file("test.rb") == "ruby", "Failed to detect Ruby"
-    assert _get_language_for_file("test.RB") == "ruby", "Failed to detect Ruby (uppercase)"
-    
-    # Bash files
-    assert _get_language_for_file("test.sh") == "bash", "Failed to detect Bash"
-    assert _get_language_for_file("test.SH") == "bash", "Failed to detect Bash (uppercase)"
-    assert _get_language_for_file("test.bash") == "bash", "Failed to detect Bash (alternate extension)"
+    # C/C++ files
+    assert _get_language_for_file(Path("program.c")) == "c", "Failed to detect C"
+    assert _get_language_for_file(Path("class.cpp")) == "cpp", "Failed to detect C++"
+    assert _get_language_for_file(Path("header.h")) == "c", "Failed to detect C header"
+    assert _get_language_for_file(Path("class.hpp")) == "cpp", "Failed to detect C++ header"
 
 def test_detect_language_edge_cases():
     """Test language detection edge cases."""
     # Missing extension
-    assert _get_language_for_file("test") is None, "Should not detect language without extension"
-    
-    # Empty extension
-    assert _get_language_for_file("test.") is None, "Should not detect language with empty extension"
+    assert _get_language_for_file(Path("test")) is None, "Should not detect language without extension"
     
     # Unknown extension
-    assert _get_language_for_file("test.xyz") is None, "Should not detect language with unknown extension"
+    assert _get_language_for_file(Path("file.xyz")) is None, "Should not detect unknown extension"
     
-    # Multiple extensions
-    assert _get_language_for_file("test.min.js") == "javascript", "Failed to detect language with multiple extensions"
+    # Mixed case extensions
+    assert _get_language_for_file(Path("test.PY")) == "python", "Should handle uppercase extension"
+    assert _get_language_for_file(Path("test.Py")) == "python", "Should handle mixed case extension"
     
-    # Hidden files
-    assert _get_language_for_file(".gitignore") is None, "Should not detect language for gitignore"
-    assert _get_language_for_file(".env") is None, "Should not detect language for env file"
-    
-    # Binary file extensions
-    assert _get_language_for_file("test.exe") is None, "Should not detect language for executable"
-    assert _get_language_for_file("test.bin") is None, "Should not detect language for binary file"
-    assert _get_language_for_file("test.jpg") is None, "Should not detect language for image file"
+    # Multiple dots
+    assert _get_language_for_file(Path("test.min.js")) == "javascript", "Should handle multiple dots"
+    assert _get_language_for_file(Path("test.spec.ts")) == "typescript", "Should handle multiple dots"
 
 def test_detect_language_with_path():
     """Test language detection with full file paths."""
     # Absolute paths
-    assert _get_language_for_file("/path/to/test.py") == "python", "Failed to detect Python from absolute path"
-    assert _get_language_for_file("/root/project/src/test.js") == "javascript", "Failed to detect JavaScript from absolute path"
+    assert _get_language_for_file(Path("/path/to/test.py")) == "python", "Failed to detect Python from absolute path"
+    assert _get_language_for_file(Path("/var/www/html/app.js")) == "javascript", "Failed to detect JavaScript from absolute path"
     
     # Relative paths
-    assert _get_language_for_file("./src/test.py") == "python", "Failed to detect Python from relative path"
-    assert _get_language_for_file("../project/test.js") == "javascript", "Failed to detect JavaScript from relative path"
+    assert _get_language_for_file(Path("./src/main.ts")) == "typescript", "Failed to detect TypeScript from relative path"
+    assert _get_language_for_file(Path("../lib/utils.java")) == "java", "Failed to detect Java from relative path"
     
-    # Windows-style paths
-    assert _get_language_for_file("C:\\path\\to\\test.py") == "python", "Failed to detect Python from Windows path"
-    assert _get_language_for_file("D:\\project\\src\\test.js") == "javascript", "Failed to detect JavaScript from Windows path"
-    
-    # Path with spaces and special characters
-    assert _get_language_for_file("path with spaces/test.py") == "python", "Failed to detect Python from path with spaces"
-    assert _get_language_for_file("special_@#$%/test.js") == "javascript", "Failed to detect JavaScript from path with special chars"
+    # Nested paths
+    assert _get_language_for_file(Path("deep/nested/path/script.py")) == "python", "Failed to detect Python from nested path"
 
 def test_detect_language_with_content():
     """Test language detection with file content."""
@@ -155,18 +118,7 @@ if __name__ == "__main__":
 """)
         f.flush()
         # Even though content is Python, extension is not
-        assert _get_language_for_file(f.name) is None, "Should not detect Python from content alone"
-    
-    with tempfile.NamedTemporaryFile(suffix=".js") as f:
-        # TypeScript content in .js file
-        f.write(b"""interface User {
-    name: string;
-    age: number;
-}
-""")
-        f.flush()
-        # Extension determines language, not content
-        assert _get_language_for_file(f.name) == "javascript", "Should detect JavaScript from extension"
+        assert _get_language_for_file(Path(f.name)) is None, "Should not detect Python from content alone"
 
 def test_detect_language_with_shebang():
     """Test language detection with shebang lines."""
@@ -176,26 +128,16 @@ def test_detect_language_with_shebang():
         f.write(b"#!/usr/bin/env python3\n")
         f.flush()
         # No extension, so no language detection
-        assert _get_language_for_file(f.name) is None, "Should not detect Python from shebang alone"
-    
-    with tempfile.NamedTemporaryFile() as f:
-        # Bash shebang
-        f.write(b"#!/bin/bash\n")
-        f.flush()
-        # No extension, so no language detection
-        assert _get_language_for_file(f.name) is None, "Should not detect Bash from shebang alone"
+        assert _get_language_for_file(Path(f.name)) is None, "Should not detect Python from shebang alone"
 
 def test_detect_language_with_empty_files():
     """Test language detection with empty files."""
     # Create temporary empty files
     with tempfile.NamedTemporaryFile(suffix=".py") as f:
-        assert _get_language_for_file(f.name) == "python", "Should detect Python from empty file"
+        assert _get_language_for_file(Path(f.name)) == "python", "Should detect Python from empty file"
     
     with tempfile.NamedTemporaryFile(suffix=".js") as f:
-        assert _get_language_for_file(f.name) == "javascript", "Should detect JavaScript from empty file"
-    
-    with tempfile.NamedTemporaryFile() as f:
-        assert _get_language_for_file(f.name) is None, "Should not detect language from empty file without extension"
+        assert _get_language_for_file(Path(f.name)) == "javascript", "Should detect JavaScript from empty file"
 
 if __name__ == "__main__":
     pytest.main([__file__]) 

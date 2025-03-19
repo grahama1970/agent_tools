@@ -967,7 +967,7 @@ def get_parent(entity: Dict[str, Any], hierarchy: List[Dict[str, Any]]) -> Optio
     return None
 
 
-def _get_language_for_file(file_path: Path) -> str:
+def _get_language_for_file(file_path: Path) -> str | None:
     """
     Determine the programming language based on file extension.
     
@@ -975,7 +975,7 @@ def _get_language_for_file(file_path: Path) -> str:
         file_path: Path to the file
         
     Returns:
-        str: Language name (e.g., 'python', 'javascript', 'typescript', 'java')
+        str | None: Language name (e.g., 'python', 'javascript', 'typescript', 'java') or None if unknown
     """
     ext = file_path.suffix.lower()
     
@@ -1019,7 +1019,7 @@ def _get_language_for_file(file_path: Path) -> str:
         '.rst': 'rst'
     }
     
-    return language_map.get(ext, 'unknown')
+    return language_map.get(ext, None)
 
 
 # Example usage

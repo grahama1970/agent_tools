@@ -343,3 +343,104 @@ Output Structure:
 
 By following this explicitly customized Markdown workflow—directly referencing your provided DuaLipa docs and tests—you significantly reduce ambiguity for your LLM agent. The agent will remain tightly aligned with your intended TDD workflow and produce robust, well-tested implementations.
 
+## ✅ Test Ordering and Dependencies
+
+### Test Categories and Order
+
+Tests MUST be organized in the following order to ensure proper dependency management:
+
+1. **Basic Setup (01-10)**
+   - Import validation
+   - Stats consistency
+   - GitHub utilities
+   - Basic sanity checks
+
+2. **Core Functionality (11-20)**
+   - Language detection (15)
+   - Format validation (17)
+   - Block verification (20)
+
+3. **Basic Extraction (21-30)**
+   - Tree-sitter hierarchy (25)
+   - Python extraction (30)
+
+4. **Language-Specific (31-40)**
+   - JS/TS extraction (31)
+   - Markdown extraction (35)
+
+5. **Advanced Extraction (41-50)**
+   - Sample block extraction (41)
+   - Real-world block extraction (42)
+   - Generic extraction (45)
+
+6. **Hierarchy and Parsing (51-60)**
+   - Markdown hierarchy (51)
+   - Markdown-it parser (52)
+   - Code hierarchy (55)
+
+7. **Integration (61-90)**
+   - Code extractor (65)
+   - Multi-language extractor (70)
+   - Output examples (80)
+   - Repository integration (85)
+   - Repository operations (90)
+
+### Critical Rules for Test Dependencies
+
+1. **No Forward References**
+   - Tests MUST NOT depend on functionality tested in higher-numbered tests
+   - Each test should only use components verified by earlier tests
+
+2. **Core Dependencies First**
+   - Language detection (15) MUST be tested before any language-specific extraction
+   - Format validation (17) MUST be tested before any extraction tests
+   - Block verification (20) MUST be tested before advanced extraction features
+
+3. **Component Before Integration**
+   - Individual language extractors MUST be tested before multi-language extraction
+   - Basic extraction MUST be tested before advanced features
+   - All extractors MUST be tested before repository integration
+
+4. **Hierarchy Validation**
+   - Tree-sitter hierarchy MUST be tested before language-specific extraction
+   - Code hierarchy MUST be tested before integration tests
+
+### Test Naming Convention
+
+1. **Prefix Format**: `test_XX_descriptive_name.py`
+   - XX: Two-digit number indicating test order
+   - descriptive_name: Underscore-separated description
+
+2. **Number Ranges**
+   - 01-10: Basic setup and utilities
+   - 11-20: Core functionality
+   - 21-30: Basic extraction
+   - 31-40: Language-specific tests
+   - 41-50: Advanced extraction
+   - 51-60: Hierarchy and parsing
+   - 61-90: Integration tests
+
+3. **Gaps in Numbering**
+   - Leave gaps between test numbers (e.g., 15, 17, 20)
+   - Allows for future tests to be inserted while maintaining order
+   - Use larger gaps in integration tests for flexibility
+
+### Test Migration Guidelines
+
+When moving or creating new tests:
+
+1. **Check Dependencies**
+   - Review imports and function calls
+   - Verify all dependencies are tested in earlier numbers
+   - Update imports if needed
+
+2. **Validate Order**
+   - Ensure test number reflects correct dependencies
+   - Check for any circular dependencies
+   - Verify no forward references
+
+3. **Update Documentation**
+   - Add test to this ordering document
+   - Update related documentation
+   - Document any special dependencies
+
