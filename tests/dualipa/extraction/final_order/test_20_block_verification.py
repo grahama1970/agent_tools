@@ -243,11 +243,15 @@ class TestClass:
                     
                     blocks.append(block)
                     print(f"Added block from {block_file.name}")
+                    print(f"Content:\n{block_content}")
             
             # Verify each block
             verified_count = 0
             for block in blocks:
                 result = verify_code_block(block)
+                if not result:
+                    print(f"\nFailed to verify block: {block['file']}")
+                    print(f"Content:\n{block['content']}")
                 assert result, f"Block should be valid Python: {block['file']}"
                 verified_count += 1
             
