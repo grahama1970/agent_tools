@@ -240,6 +240,40 @@ for match in react_query.matches(tree.root_node):
 5. Verify React components are correctly extracted with complete content
 6. Ensure hooks and handlers are present in the extracted component
 
+### 8. Indentation Issues in code_extractor.py
+**Problem**: Tests failing with `IndentationError: unexpected indent` in code_extractor.py
+**Solution**:
+- Check for hidden whitespace and tabs in error handling sections
+- Fix indentation consistency in exception handling blocks
+- Pay special attention to lines after `return` statements
+
+```python
+# Error: Extra indentation after return statement
+if not verify_repo_structure(source_path):
+    error_msg = f"Invalid repository structure at {source}"
+    logger.error(error_msg)
+    stats["errors"].append(error_msg)
+    return stats
+    # Extra spaces or tabs here causing indentation error
+            
+# Fixed version:
+if not verify_repo_structure(source_path):
+    error_msg = f"Invalid repository structure at {source}"
+    logger.error(error_msg)
+    stats["errors"].append(error_msg)
+    return stats
+        
+# Use cat -A to see hidden characters:
+# cat -A src/agent_tools/dualipa/code_extractor.py
+```
+
+**Tips for Indentation Debugging**:
+- Use `cat -A` to reveal hidden whitespace and tab characters
+- Use `grep -A` and `grep -B` to see context around problem lines
+- Check all exception handling blocks for consistent indentation
+- Fix one indentation error at a time and run tests after each fix
+- Use `sed` to fix specific line indentation without modifying the rest of the file
+
 ## Best Practices
 
 1. **Always Read Before Edit**:

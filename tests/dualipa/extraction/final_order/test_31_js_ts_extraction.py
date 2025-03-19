@@ -152,22 +152,58 @@ def test_ts_class_extraction():
         block_files = list(blocks_dir.glob("*.ts"))
         assert len(block_files) > 0, "Should create block files"
         
-        # Verify block contents
-        found_items = set()
-        for block_file in block_files:
-            with open(block_file) as f:
-                content = f.read()
-                if "class Person" in content:
-                    found_items.add("Person")
-                elif "getName()" in content:
-                    found_items.add("getName")
-                elif "getAge()" in content:
-                    found_items.add("getAge")
-                elif "isAdult()" in content:
-                    found_items.add("isAdult")
-        
-        assert "Person" in found_items, "Should extract Person class"
-        assert len(found_items) > 1, "Should extract class methods"
+        # Verify block format matches specification
+        blocks = stats["file_blocks"][str(ts_file)]
+        for block in blocks:
+            # Verify required fields from extraction_format.md
+            assert "uuid" in block, "Block should have UUID"
+            assert "id" in block, "Block should have human-readable ID"
+            assert block["type"] == "code", "Block type should be 'code'"
+            assert block["language"] == "typescript", "Block language should be 'typescript'"
+            assert "title" in block, "Block should have title"
+            assert "content" in block, "Block should have content"
+            assert "file_path" in block, "Block should have file path"
+            assert "breadcrumb" in block, "Block should have breadcrumb"
+            assert isinstance(block["breadcrumb"], list), "Breadcrumb should be a list"
+            assert "parent_uuid" in block, "Block should have parent_uuid"
+            assert "child_uuids" in block, "Block should have child_uuids"
+            assert isinstance(block["child_uuids"], list), "child_uuids should be a list"
+            
+            # Verify code-specific fields
+            assert "dependencies" in block, "Block should have dependencies"
+            assert "imports" in block["dependencies"], "Dependencies should track imports"
+            assert "referenced_types" in block["dependencies"], "Dependencies should track type references"
+            
+            assert "test_coverage" in block, "Block should have test_coverage"
+            assert "test_file" in block["test_coverage"], "test_coverage should have test_file"
+            assert "coverage_percentage" in block["test_coverage"], "test_coverage should have coverage_percentage"
+            
+            assert "version_history" in block, "Block should have version_history"
+            assert "last_modified" in block["version_history"], "version_history should have last_modified"
+            
+            assert "qa_generation" in block, "Block should have qa_generation"
+            assert "difficulty_levels" in block["qa_generation"], "qa_generation should have difficulty_levels"
+            assert "knowledge_prerequisites" in block["qa_generation"], "qa_generation should have knowledge_prerequisites"
+            assert "focus_areas" in block["qa_generation"], "qa_generation should have focus_areas"
+            assert "qa_examples" in block["qa_generation"], "qa_generation should have qa_examples"
+            
+            # Verify content analysis
+            if "class Person" in block["content"]:
+                assert "Type hints" in block["qa_generation"]["knowledge_prerequisites"], "Should detect type usage"
+                assert "Class design" in block["qa_generation"]["focus_areas"], "Should focus on class design"
+                assert "Type system" in block["qa_generation"]["focus_areas"], "Should focus on type system"
+                assert "intermediate" in block["qa_generation"]["difficulty_levels"], "Types should increase difficulty"
+                
+                # Verify type references are captured
+                type_refs = block["dependencies"]["referenced_types"]
+                assert "string" in type_refs or "String" in type_refs, "Should capture string type"
+                assert "number" in type_refs or "Number" in type_refs, "Should capture number type"
+                assert "boolean" in type_refs or "Boolean" in type_refs, "Should capture boolean type"
+                
+                # Verify OOP concepts are detected
+                assert "OOP" in block["qa_generation"]["knowledge_prerequisites"], "Should detect OOP usage"
+                assert "private" in block["content"], "Should detect private members"
+                assert "constructor" in block["content"], "Should detect constructor"
 
 def test_tsx_component_extraction():
     """

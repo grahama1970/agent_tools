@@ -220,12 +220,55 @@ def create_app():
             block_files = list(blocks_dir.glob("*.py"))
             assert len(block_files) > 0, "Should create at least one block file"
             
-            # Optional: verify content of blocks
-            for block_file in block_files:
-                with open(block_file, 'r') as f:
-                    content = f.read()
-                print(f"Block content preview: {content[:50]}...")
-                assert "def " in content, "Block should contain a function definition"
+            # Verify block format matches specification
+            blocks = stats["file_blocks"][str(file_path)]
+            for block in blocks:
+                # Verify required fields from extraction_format.md
+                assert "uuid" in block, "Block should have UUID"
+                assert "id" in block, "Block should have human-readable ID"
+                assert block["type"] == "code", "Block type should be 'code'"
+                assert block["language"] == "python", "Block language should be 'python'"
+                assert "title" in block, "Block should have title"
+                assert "content" in block, "Block should have content"
+                assert "file_path" in block, "Block should have file path"
+                assert "breadcrumb" in block, "Block should have breadcrumb"
+                assert isinstance(block["breadcrumb"], list), "Breadcrumb should be a list"
+                assert "parent_uuid" in block, "Block should have parent_uuid"
+                assert "child_uuids" in block, "Block should have child_uuids"
+                assert isinstance(block["child_uuids"], list), "child_uuids should be a list"
+                
+                # Verify code-specific fields
+                assert "dependencies" in block, "Block should have dependencies"
+                assert "imports" in block["dependencies"], "Dependencies should track imports"
+                assert "referenced_types" in block["dependencies"], "Dependencies should track type references"
+                
+                assert "test_coverage" in block, "Block should have test_coverage"
+                assert "test_file" in block["test_coverage"], "test_coverage should have test_file"
+                assert "coverage_percentage" in block["test_coverage"], "test_coverage should have coverage_percentage"
+                
+                assert "version_history" in block, "Block should have version_history"
+                assert "last_modified" in block["version_history"], "version_history should have last_modified"
+                
+                assert "qa_generation" in block, "Block should have qa_generation"
+                assert "difficulty_levels" in block["qa_generation"], "qa_generation should have difficulty_levels"
+                assert "knowledge_prerequisites" in block["qa_generation"], "qa_generation should have knowledge_prerequisites"
+                assert "focus_areas" in block["qa_generation"], "qa_generation should have focus_areas"
+                assert "qa_examples" in block["qa_generation"], "qa_generation should have qa_examples"
+                
+                # Verify content analysis
+                if "create_app" in block["content"]:
+                    assert "Flask" in block["qa_generation"]["knowledge_prerequisites"], "Should detect Flask usage"
+                    assert "Web development" in block["qa_generation"]["focus_areas"], "Should focus on web development"
+                    assert "intermediate" in block["qa_generation"]["difficulty_levels"], "Flask should increase difficulty"
+                    
+                    # Verify imports are captured
+                    imports = block["dependencies"]["imports"]
+                    assert "flask" in [imp.lower() for imp in imports], "Should capture Flask import"
+                    
+                # Verify decorators are detected
+                if "@app.route" in block["content"]:
+                    assert "Decorators" in block["qa_generation"]["knowledge_prerequisites"], "Should detect decorator usage"
+                    assert "Web routes" in block["qa_generation"]["focus_areas"], "Should focus on web routes"
         except Exception as e:
             pytest.fail(f"Failed to extract Python functions: {e}")
 

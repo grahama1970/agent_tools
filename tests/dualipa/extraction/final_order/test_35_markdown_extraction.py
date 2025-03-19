@@ -198,6 +198,36 @@ More nested content.
     assert "Subsection_1" in section_titles
     assert "Sub_subsection_1_1" in section_titles
 
+    # Verify block format matches specification
+    main_section = next(block for block in file_blocks if block["title"] == "Main_Section")
+    assert "uuid" in main_section
+    assert "id" in main_section
+    assert main_section["type"] == "documentation"
+    assert main_section["language"] == "markdown"
+    assert "original_title" in main_section
+    assert "content" in main_section
+    assert "file_path" in main_section
+    assert "breadcrumb" in main_section
+    assert isinstance(main_section["child_uuids"], list)
+    assert isinstance(main_section["depth"], int)
+    assert isinstance(main_section["header_depth"], list)
+    assert isinstance(main_section["content_flags"], dict)
+    assert "section_role" in main_section
+    assert "toc_format" in main_section
+    assert "extraction_focus" in main_section
+    assert "summary_instructions" in main_section
+    assert isinstance(main_section["qa_generation"], dict)
+    assert "difficulty_levels" in main_section["qa_generation"]
+    assert "knowledge_prerequisites" in main_section["qa_generation"]
+    assert "focus_areas" in main_section["qa_generation"]
+    assert "qa_examples" in main_section["qa_generation"]
+
+    # Verify hierarchical relationships
+    subsection = next(block for block in file_blocks if block["title"] == "Subsection_1")
+    assert subsection["parent_uuid"] == main_section["uuid"]
+    assert subsection["depth"] == main_section["depth"] + 1
+    assert len(subsection["breadcrumb"]) == subsection["depth"] + 1
+
 def test_markdown_extraction_error_handling(temp_dir, stats_dict):
     """Test error handling in Markdown extraction."""
     # Create an invalid file path

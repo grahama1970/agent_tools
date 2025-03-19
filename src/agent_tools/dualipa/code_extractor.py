@@ -55,6 +55,7 @@ import argparse
 import fnmatch
 from tree_sitter_languages import get_language, get_parser
 from .language_detection import detect_language
+import uuid
 
 # Configure logger
 logger.remove()
@@ -664,24 +665,12 @@ def _save_python_block(
     stats: Dict[str, Any],
     block_type: str
 ) -> None:
-    """
-    Save a Python code block to a file and update stats.
-    
-    Args:
-        block_name: Name of the block (function/class/method name)
-        block_content: Content of the block
-        source_file: Source file path
-        output_dir: Output directory
-        start_line: Start line of the block
-        end_line: End line of the block
-        stats: Statistics dictionary
-        block_type: Type of block (function, class, method, script)
-    """
+    """Save a Python code block to a file and update stats."""
     # Create a sanitized filename
     safe_name = re.sub(r'[^\w\-\.]', '_', block_name)
     block_file = output_dir / f"{safe_name}.py"
     
-    # Ensure we don't overwrite existing blocks with the same name
+    # Ensure we don't overwrite existing blocks
     if block_file.exists():
         count = 1
         while block_file.exists():
@@ -691,20 +680,21 @@ def _save_python_block(
     # Write block to file
     with open(block_file, "w", encoding="utf-8") as f:
         f.write(block_content)
-            
-            # Create block metadata
-    block_info = {
-        "type": block_type,  # Keep type for backward compatibility
-        "block_type": block_type,  # Add block_type to match test expectations
-        "name": block_name,
-        "source_file": str(source_file),
-        "source_start_line": start_line,
-        "source_end_line": end_line,
-        "content": block_content,
-        "language": "python",
-        "output_file": str(block_file),
-        "extracted_at": datetime.now().isoformat()
-    }
+    
+    # Create block metadata using the new helper
+    block_info = _create_code_block(
+        name=block_name,
+        content=block_content,
+        file_path=source_file,
+        block_type=block_type,
+        language="python",
+        start_line=start_line,
+        end_line=end_line,
+        test_file=None  # Would need test discovery
+    )
+    
+    # Add output file path
+    block_info["output_file"] = str(block_file)
     
     # Add to stats
     stats["file_blocks"][str(source_file)].append(block_info)
@@ -742,7 +732,7 @@ def _extract_js_ts_blocks(
             language = 'javascript'  # Default to JavaScript
             
     # Create output directory
-        blocks_dir = output_dir / "blocks" / "code" / language
+    blocks_dir = output_dir / "blocks" / "code" / language
     blocks_dir.mkdir(parents=True, exist_ok=True)
     
     # Update language and file type stats
@@ -763,16 +753,16 @@ def _extract_js_ts_blocks(
                 component_name = component_match.group(1)
                 
                 # Add the entire content as a component block
-                block_info = {
-                    "type": "react_component",
-                    "block_type": "react_component",
-                    "name": component_name,
-                    "source_file": str(file_path),
-                    "content": content,
-                    "language": language,
-                    "output_file": str(blocks_dir / f"{component_name}{file_path.suffix}"),
-                    "extracted_at": datetime.now().isoformat()
-                }
+                block_info = _create_code_block(
+                    name=component_name,
+                    content=content,
+                    file_path=file_path,
+                    block_type="react_component",
+                    language=language
+                )
+                
+                # Add output file path
+                block_info["output_file"] = str(blocks_dir / f"{component_name}{file_path.suffix}")
                 
                 # Add to stats
                 stats["file_blocks"][str(file_path)].append(block_info)
@@ -883,16 +873,16 @@ def _extract_js_ts_blocks(
         # Save blocks
         for block_type, block_name, block_content in blocks:
             # Create block metadata
-            block_info = {
-                "type": block_type,
-                "block_type": block_type,
-                "name": block_name,
-                "source_file": str(file_path),
-                "content": block_content,
-                "language": language,
-                "output_file": str(blocks_dir / f"{block_name}{file_path.suffix}"),
-                "extracted_at": datetime.now().isoformat()
-            }
+            block_info = _create_code_block(
+                name=block_name,
+                content=block_content,
+                file_path=file_path,
+                block_type=block_type,
+                language=language
+            )
+            
+            # Add output file path
+            block_info["output_file"] = str(blocks_dir / f"{block_name}{file_path.suffix}")
             
             # Add to stats
             stats["file_blocks"][str(file_path)].append(block_info)
@@ -944,19 +934,19 @@ def _save_block(
     with open(block_file, "w", encoding="utf-8") as f:
         f.write(block_content)
     
-    # Create block metadata
-    block_info = {
-        "type": block_type,  # Keep type for backward compatibility
-        "block_type": block_type,  # Add block_type to match test expectations
-        "name": block_name,
-        "source_file": str(source_file),
-        "source_start_line": start_line,
-        "source_end_line": end_line,
-        "content": block_content,
-        "language": language,
-        "output_file": str(block_file),
-        "extracted_at": datetime.now().isoformat()
-    }
+    # Create block metadata using the new helper
+    block_info = _create_code_block(
+        name=block_name,
+        content=block_content,
+        file_path=source_file,
+        block_type=block_type,
+        language=language,
+        start_line=start_line,
+        end_line=end_line
+    )
+    
+    # Add output file path
+    block_info["output_file"] = str(block_file)
     
     # Add to stats
     stats["file_blocks"][str(source_file)].append(block_info)
@@ -969,146 +959,187 @@ OUTPUT_DIRS = {
     "DOC_BLOCKS": "blocks/docs"
 }
 
+def _create_section_block(
+    title: str,
+    content: str,
+    file_path: Path,
+    breadcrumb: List[str],
+    parent_uuid: Optional[str],
+    current_level: int,
+    section_index: int
+) -> Dict[str, Any]:
+    """Create a section block with basic reliable metadata.
+    
+    We focus on extracting only what we can determine reliably:
+    1. Section hierarchy (levels, parent/child relationships)
+    2. Basic content flags (presence of code blocks, tables, etc.)
+    3. Location information
+    
+    The rest (focus areas, summary instructions, etc.) should be determined by the LLM
+    which can do deeper content analysis.
+    """
+    section_uuid = str(uuid.uuid4())
+    normalized_title = re.sub(r'[\s\-\.]+', '_', title)
+    section_id = f"{file_path.stem}_{normalized_title.lower()}"
+    
+    # Format title for table of contents
+    toc_indent = "    " * (current_level - 1)
+    toc_format = f"{toc_indent}{title}"
+    
+    return {
+        "uuid": section_uuid,
+        "id": section_id,
+        "type": "documentation",
+        "language": "markdown",
+        "title": normalized_title,
+        "original_title": title,
+        "content": content,
+        "file_path": str(file_path),
+        "breadcrumb": list(breadcrumb),
+        "parent_uuid": parent_uuid,
+        "child_uuids": [],
+        "depth": len(breadcrumb) - 1,
+        "header_depth": [i+1 for i in range(current_level)],
+        "content_flags": {
+            "has_code_block": "```" in content,
+            "has_table": "|" in content,
+            "has_links": "[" in content and "](" in content,
+            "has_image": "![" in content,
+            "has_list": bool(re.search(r'^\s*[-*+]\s', content, re.MULTILINE))
+        },
+        "toc_format": toc_format
+    }
+
 def _extract_markdown_blocks(
     file_path: Path, 
     content: str, 
     output_dir: Path, 
     stats: Dict[str, Any]
 ) -> int:
-    """
-    Extract sections from markdown based on headers.
-    
-    Args:
-        file_path: Path to the markdown file
-        content: Content of the file
-        output_dir: Output directory to save blocks
-        stats: Statistics dictionary
-        
-    Returns:
-        Number of blocks extracted
-    """
+    """Extract sections from markdown based on headers."""
     try:
-        # Initialize stats if needed
+        # Initialize stats
         if "errors" not in stats:
             stats["errors"] = []
-        
+            
         # Verify file exists
         if not file_path.exists():
             error_msg = f"File not found: {file_path}"
             logger.error(error_msg)
             stats["errors"].append(error_msg)
             return 0
-        
-        # Create output directory for markdown blocks
+            
+        # Create output directory
         blocks_dir = output_dir / "doc_blocks" / "markdown"
         blocks_dir.mkdir(parents=True, exist_ok=True)
         
-        # Update language statistics
+        # Update stats
         stats["languages"]["markdown"] = stats["languages"].get("markdown", 0) + 1
-        
-        # Update file type statistics
-        ext = file_path.suffix.lower()
-        stats["file_types"][ext] = stats["file_types"].get(ext, 0) + 1
-        
-        # Update total files count
+        stats["file_types"][file_path.suffix.lower()] = stats["file_types"].get(file_path.suffix.lower(), 0) + 1
         stats["total_files"] = stats.get("total_files", 0) + 1
         
-        # Initialize file_blocks for this file if not already present
         if str(file_path) not in stats["file_blocks"]:
             stats["file_blocks"][str(file_path)] = []
-        
-        # Split on headers (lines starting with #)
+            
+        # Track sections and hierarchy
         sections = []
         current_section = []
-        current_level = 0
         current_title = None
+        current_level = 0
+        breadcrumb = []
+        parent_stack = []
+        section_index = 0
         
-        # Process code blocks
-        code_block_pattern = re.compile(r'```(\w*)\n(.*?)\n```', re.DOTALL)
-        code_blocks = []
-        
-        # First pass: extract code blocks
-        for match in code_block_pattern.finditer(content):
-            language = match.group(1)
-            code_content = match.group(2)
-            
-            # Map common language aliases
-            language_map = {
-                '': 'text',
-                'sh': 'bash',
-                'shell': 'bash',
-                'console': 'bash',
-                'js': 'javascript',
-                'ts': 'typescript',
-                'py': 'python',
-                'rb': 'ruby',
-                'rs': 'rust',
-                'cpp': 'cpp',
-                'c++': 'cpp',
-                'cs': 'csharp',
-                'json': 'json',
-                'xml': 'xml',
-                'html': 'html',
-                'css': 'css',
-                'yaml': 'yaml',
-                'yml': 'yaml',
-                'md': 'markdown',
-                'sql': 'sql'
-            }
-            
-            # Use mapped language or original if not in map
-            block_language = language_map.get(language.lower(), language) or 'text'
-            
-            code_blocks.append({
-                "block_type": "code_block",
-                "language": block_language,
-                "content": code_content.strip()
-            })
-        
-        # Second pass: process sections
+        # Process lines
         lines = content.splitlines()
         for line in lines:
-            # Check for header
             header_match = re.match(r'^(#+)\s+(.+)$', line)
             if header_match:
-                # Save previous section if it exists
+                # Save previous section
                 if current_section and current_title:
                     section_content = "\n".join(current_section)
                     if section_content.strip():
-                        sections.append({
-                            "block_type": "section",
-                            "title": current_title,
-                            "level": current_level,
-                            "content": section_content
-                        })
+                        parent_uuid = parent_stack[-1]["uuid"] if parent_stack else None
+                        
+                        section = _create_section_block(
+                            current_title,
+                            section_content,
+                            file_path,
+                            breadcrumb,
+                            parent_uuid,
+                            current_level,
+                            section_index
+                        )
+                        
+                        if parent_uuid:
+                            for parent in parent_stack:
+                                if parent["uuid"] == parent_uuid:
+                                    parent["child_uuids"].append(section["uuid"])
+                        
+                        sections.append(section)
+                        section_index += 1
                 
                 # Start new section
                 current_level = len(header_match.group(1))
-                # Format title to match test expectations (replace spaces with underscores)
-                current_title = re.sub(r'\s+', '_', header_match.group(2).strip())
+                current_title = header_match.group(2).strip()
                 current_section = [line]
+                
+                # Update hierarchy tracking
+                while parent_stack and len(parent_stack) >= current_level:
+                    parent_stack.pop()
+                    breadcrumb.pop()
+                    
+                breadcrumb.append(line.strip())
+                if sections:
+                    parent_stack.append(sections[-1])
             else:
-                if current_title:  # Only append if we have a section
+                if current_title:
                     current_section.append(line)
         
-        # Save the last section
+        # Handle last section
         if current_section and current_title:
             section_content = "\n".join(current_section)
             if section_content.strip():
-                sections.append({
-                    "block_type": "section",
-                    "title": current_title,
-                    "level": current_level,
-                    "content": section_content
-                })
+                parent_uuid = parent_stack[-1]["uuid"] if parent_stack else None
+                
+                section = _create_section_block(
+                    current_title,
+                    section_content,
+                    file_path,
+                    breadcrumb,
+                    parent_uuid,
+                    current_level,
+                    section_index
+                )
+                
+                if parent_uuid:
+                    for parent in parent_stack:
+                        if parent["uuid"] == parent_uuid:
+                            parent["child_uuids"].append(section["uuid"])
+                
+                sections.append(section)
         
-        # Add all blocks to stats
-        blocks = sections + code_blocks
-        stats["file_blocks"][str(file_path)].extend(blocks)
-        stats["doc_blocks"] = stats.get("doc_blocks", 0) + len(blocks)
-        
-        return len(blocks)
+        # Write sections to files
+        for section in sections:
+            safe_title = re.sub(r'[^\w\-\.]', '_', section["title"])
+            output_file = blocks_dir / f"{safe_title}.md"
             
+            # Avoid filename collisions
+            counter = 1
+            while output_file.exists():
+                output_file = blocks_dir / f"{safe_title}_{counter}.md"
+                counter += 1
+            
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write(section["content"])
+            section["output_file"] = str(output_file)
+        
+        # Update stats
+        stats["file_blocks"][str(file_path)].extend(sections)
+        stats["doc_blocks"] = stats.get("doc_blocks", 0) + len(sections)
+        
+        return len(sections)
+        
     except Exception as e:
         error_msg = f"Error extracting markdown blocks from {file_path}: {str(e)}"
         logger.error(error_msg)
@@ -1124,6 +1155,7 @@ def _extract_generic_blocks(
 ) -> int:
     """
     Extract blocks from generic code files by splitting on double newlines.
+    Handles edge cases and normalizes whitespace for reliable block separation.
     
     Args:
         file_path: Path to the code file
@@ -1154,35 +1186,56 @@ def _extract_generic_blocks(
         # Update total files count
         stats["total_files"] = stats.get("total_files", 0) + 1
         
-        # Split by double newlines
-        blocks = re.split(r"\n\s*\n", content)
+        # Normalize line endings and whitespace
+        content = content.replace('\r\n', '\n')  # Normalize line endings
+        content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)  # Collapse multiple newlines to double newlines
+        content = content.strip()  # Remove leading/trailing whitespace
+        
+        if not content:  # Skip empty files
+            return 0
+            
+        # Split by double newlines while preserving important whitespace
+        raw_blocks = re.split(r'\n\s*\n', content)
         
         # Process each block
         block_count = 0
-        for i, block in enumerate(blocks):
-            block = block.strip()
+        current_line = 1  # Track line numbers
+        
+        for i, raw_block in enumerate(raw_blocks):
+            block = raw_block.strip()
             if not block:  # Skip empty blocks
                 continue
                 
-            # Create block metadata
-            block_info = {
-                "type": "text",
-                "block_type": "text",
-                "language": language,
-                "content": block,
-                "file": str(file_path),
-                "chunk_index": i,
-                "output_file": str(blocks_dir / f"{file_path.stem}_chunk_{i}{ext}")
-            }
+            # Calculate line numbers for this block
+            block_lines = raw_block.count('\n') + 1
+            end_line = current_line + block_lines - 1
+            
+            # Create block metadata using _create_code_block
+            block_info = _create_code_block(
+                name=f"{file_path.stem}_chunk_{i+1}",  # 1-based chunk numbering
+                content=block,
+                file_path=file_path,
+                block_type="code",  # Changed from "text" to "code" for consistency
+                language=language,
+                start_line=current_line,
+                end_line=end_line
+            )
+            
+            # Add chunk index and output file
+            block_info["chunk_index"] = i + 1
+            block_info["output_file"] = str(blocks_dir / f"{file_path.stem}_chunk_{i+1}{ext}")
             
             # Add to stats
             stats["file_blocks"][str(file_path)].append(block_info)
             block_count += 1
             
-            # Save block to file
+            # Save block to file with original indentation preserved
             with open(block_info["output_file"], "w", encoding="utf-8") as f:
-                f.write(block)
+                f.write(raw_block)  # Use raw_block to preserve original formatting
             
+            # Update line counter for next block
+            current_line = end_line + 2  # +2 for the double newline separator
+        
         # Update statistics
         stats["code_blocks"] = stats.get("code_blocks", 0) + block_count
         
@@ -1453,5 +1506,136 @@ def _save_stats_to_json(stats: Dict[str, Any], output_path: str) -> None:
         logger.info(f"Saved extraction stats to {stats_file}")
     except Exception as e:
         logger.error(f"Failed to save stats to {stats_file}: {e}")
+
+def _create_code_block(
+    name: str,
+    content: str,
+    file_path: Path,
+    block_type: str = "code",
+    language: str = None,
+    start_line: int = None,
+    end_line: int = None,
+    imports: List[str] = None,
+    referenced_types: List[str] = None,
+    test_file: str = None
+) -> Dict[str, Any]:
+    """Create a code block with basic reliable metadata.
+    
+    We focus on extracting only what AST gives us reliably:
+    1. Function definitions (including decorators)
+    2. Class definitions
+    3. Method definitions
+    4. Import statements
+    5. Type annotations
+    """
+    # Initialize with empty lists
+    imports = imports or []
+    referenced_types = referenced_types or []
+    focus_areas = []
+    prerequisites = [language.title()] if language else []
+    
+    # Extract what AST gives us reliably
+    if language == "python":
+        try:
+            tree = ast.parse(content)
+            has_decorators = False
+            has_flask = False
+            
+            # Extract imports and analyze nodes
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    for n in node.names:
+                        imports.append(n.name)
+                        if n.name.lower() == 'flask':
+                            has_flask = True
+                elif isinstance(node, ast.ImportFrom):
+                    imports.append(node.module)
+                    if node.module and node.module.lower() == 'flask':
+                        has_flask = True
+                        # Check what's being imported from flask
+                        for name_node in node.names:
+                            if name_node.name == 'Flask':
+                                has_flask = True
+                # Extract type annotations
+                elif isinstance(node, (ast.AnnAssign, ast.FunctionDef)):
+                    if hasattr(node, 'annotation'):
+                        if isinstance(node.annotation, ast.Name):
+                            referenced_types.append(node.annotation.id)
+                            prerequisites.append("Type hints")
+                    # Check for decorators using AST's decorator_list
+                    if isinstance(node, ast.FunctionDef) and node.decorator_list:
+                        has_decorators = True
+                        # Check for route decorators
+                        for decorator in node.decorator_list:
+                            if isinstance(decorator, ast.Call):
+                                if isinstance(decorator.func, ast.Attribute):
+                                    if decorator.func.attr == 'route':
+                                        # Use exact string match "Web routes" for route decorators 
+                                        focus_areas.append("Web routes")
+                                        has_flask = True
+                                        break
+                elif isinstance(node, ast.ClassDef) and node.decorator_list:
+                    has_decorators = True
+                    
+                # Check for Flask instantiation
+                elif isinstance(node, ast.Assign):
+                    for target in node.targets:
+                        if isinstance(target, ast.Name) and isinstance(node.value, ast.Call):
+                            if isinstance(node.value.func, ast.Name) and node.value.func.id == 'Flask':
+                                has_flask = True
+            
+            if has_decorators:
+                prerequisites.append("Decorators")
+                
+            # Add Flask to prerequisites if detected
+            if has_flask or 'flask' in content.lower() or 'Flask(' in content:
+                prerequisites.append("Flask")
+                focus_areas.append("Web development")
+                
+        except SyntaxError:
+            # If AST parsing fails, just continue with what we have
+            pass
+    
+    # Add basic focus areas based on AST-derived block type
+    if block_type == "function":
+        focus_areas.append("Function implementation")
+    elif block_type in ["class", "method"]:
+        focus_areas.append("Object-oriented programming")
+    
+    # Remove duplicates while preserving order
+    focus_areas = list(dict.fromkeys(focus_areas))
+    prerequisites = list(dict.fromkeys(prerequisites))
+    
+    return {
+        "uuid": str(uuid.uuid4()),
+        "id": f"{file_path.stem}_{name.lower()}",
+        "type": "code",
+        "language": language,
+        "title": name,
+        "content": content,
+        "file_path": str(file_path),
+        "breadcrumb": [str(file_path), name],
+        "parent_uuid": None,
+        "child_uuids": [],
+        "dependencies": {
+            "imports": imports,
+            "referenced_types": referenced_types
+        },
+        "test_coverage": {
+            "test_file": test_file,
+            "coverage_percentage": 0
+        },
+        "version_history": {
+            "last_modified": datetime.now().isoformat()
+        },
+        "qa_generation": {
+            "difficulty_levels": ["intermediate"] if prerequisites else ["beginner"],
+            "knowledge_prerequisites": prerequisites,
+            "focus_areas": focus_areas,
+            "qa_examples": []
+        },
+        "start_line": start_line,
+        "end_line": end_line
+    }
 
 # ... rest of the existing code ...

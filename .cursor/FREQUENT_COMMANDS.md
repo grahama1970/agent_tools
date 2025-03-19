@@ -11,3 +11,7 @@ action -vv```
 run tests in a directory
 ```cd /home/grahama/workspace/experiments/agent_tools && python -m pytest tests/dualipa/stage2/ -v```
 
+
+# Grep for strings in files in a directory
+```grep -rlZ 'unsloth' . | xargs -0 grep -l 'training'```
+
