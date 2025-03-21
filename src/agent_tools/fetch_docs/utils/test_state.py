@@ -21,7 +21,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional, Tuple, Union
 
 # Import existing utility functions to leverage them
-from ..core.cursor_rules import (
+from agent_tools.fetch_docs.core.cursor_rules import (
     hybrid_search,
     bm25_keyword_search,
     semantic_search,
@@ -29,7 +29,7 @@ from ..core.cursor_rules import (
 )
 
 # Updated import path to match new file structure
-from agent_tools.cursor_rules.core.cursor_rules import generate_embedding
+from agent_tools.fetch_docs.core.cursor_rules import generate_embedding
 
 logger = logging.getLogger(__name__)
 
@@ -503,7 +503,7 @@ async def _search_test_failures(db, query, limit=5):
         List of test failure documents with relevance scores
     """
     import textwrap
-    from agent_tools.cursor_rules.core.cursor_rules import generate_embedding
+    from agent_tools.fetch_docs.core.cursor_rules import generate_embedding
     
     # Ensure collections exist and view is updated with the right analyzers
     await ensure_test_collections(db)

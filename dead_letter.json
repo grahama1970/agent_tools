@@ -1,0 +1,44 @@
+[
+  {
+    "config": {
+      "model": "error-model",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Test content"
+        }
+      ],
+      "request_id": "8e8e5add-2d50-494e-902b-04b0b15837b7"
+    },
+    "timestamp": "2025-03-20T11:43:29.550393",
+    "error": "Circuit breaker open"
+  },
+  {
+    "config": {
+      "model": "error-model",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Test content"
+        }
+      ],
+      "request_id": "8e8e5add-2d50-494e-902b-04b0b15837b7"
+    },
+    "timestamp": "2025-03-20T11:43:31.554473",
+    "error": "Circuit breaker open"
+  },
+  {
+    "config": {
+      "model": "error-model",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Test content"
+        }
+      ],
+      "request_id": "8e8e5add-2d50-494e-902b-04b0b15837b7"
+    },
+    "timestamp": "2025-03-20T11:43:33.558373",
+    "error": "Circuit breaker open"
+  }
+]

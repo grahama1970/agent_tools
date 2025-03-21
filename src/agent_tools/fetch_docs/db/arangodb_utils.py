@@ -12,7 +12,7 @@ import os
 from arango.client import ArangoClient
 from arango.database import StandardDatabase
 from loguru import logger
-from ..models import PageDocument, ContentDocument, ExtractionResult, PageMetadata
+from agent_tools.fetch_docs.models import PageDocument, ContentDocument, ExtractionResult, PageMetadata
 from arango.exceptions import ArangoError, DocumentInsertError, DocumentGetError
 from fetch_page.embedding.embedding_utils import create_embedding_sync
 

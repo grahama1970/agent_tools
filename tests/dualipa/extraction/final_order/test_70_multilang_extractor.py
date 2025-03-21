@@ -34,25 +34,28 @@ HAS_DEPENDENCIES = False
 
 # Import the extractor functions
 try:
-    from agent_tools.dualipa.multilang_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         extract_code_blocks,
-        get_language_for_file,
-        get_available_languages,
-        extract_blocks_from_repository
+        extract_python_blocks,
+        extract_js_ts_blocks,
+        extract_generic_blocks,
+        validate_block,
+        verify_block
     )
+    from agent_tools.dualipa.extraction.extractors.utils.language_utils import detect_language
+    print("Successfully imported code extractor modules")
     HAS_DEPENDENCIES = True
-    print("Successfully imported multilang_extractor")
 except ImportError as e:
-    # Instead of silently skipping, fail loudly with a clear error message
-    raise ImportError(f"Required multilang_extractor modules not available: {e}. Fix the dependencies to run these tests.")
+    print(f"Error importing code extractor modules: {e}")
+    raise ImportError(f"Required code extractor modules not available: {e}. Fix the dependencies to run these tests.")
 
 # Check if tree-sitter is available
 try:
     import tree_sitter
+    print("Successfully imported tree-sitter")
     TREE_SITTER_AVAILABLE = True
-    print("tree-sitter is available")
 except ImportError as e:
-    # Instead of silently skipping, fail loudly
+    print(f"Error importing tree-sitter: {e}")
     raise ImportError(f"tree-sitter is not available: {e}. Install tree-sitter to run these tests.")
 
 # Skip tests if required modules are not available
@@ -62,11 +65,24 @@ except ImportError as e:
 #         reason="Required modules not available"
 #     )
 
+# Import cloning utility
+from tests.dualipa.extraction.final_order.test_42_realworld_block_extraction import clone_repository_if_not_exists
+
 # Define paths to test repositories
 REPOS_DIR = Path(__file__).parent.parent.parent.parent / "test_repos"
 REACT_REPO = REPOS_DIR / "react"
 RUST_ANALYZER_REPO = REPOS_DIR / "rust-analyzer"
-REQUESTS_REPO = REPOS_DIR / "requests"
+
+# Try to clone requests if not present
+try:
+    REQUESTS_REPO = clone_repository_if_not_exists(
+        "https://github.com/psf/requests.git",
+        REPOS_DIR / "requests",
+        depth=1
+    )
+except Exception as e:
+    print(f"Failed to clone requests repository: {e}")
+    REQUESTS_REPO = REPOS_DIR / "requests"
 
 HAS_REACT = REACT_REPO.exists()
 HAS_RUST_ANALYZER = RUST_ANALYZER_REPO.exists()

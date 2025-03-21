@@ -1,0 +1,105 @@
+name: QA Module CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/agent_tools/dualipa/qa/**'
+      - 'tests/qa/**'
+      - '.github/workflows/qa_ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/agent_tools/dualipa/qa/**'
+      - 'tests/qa/**'
+      - '.github/workflows/qa_ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-asyncio pytest-cov
+        pip install -e .
+    
+    - name: Run tests with coverage
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        pytest tests/qa/ --cov=src/agent_tools/dualipa/qa --cov-report=xml -v
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+
+  performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-asyncio pytest-benchmark
+        pip install -e .
+    
+    - name: Run performance tests
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        pytest tests/qa/test_performance.py::test_batch_processing_small tests/qa/test_performance.py::test_adaptive_resource_optimization -v
+    
+    - name: Verify performance gates
+      run: |
+        python -m agent_tools.dualipa.qa.ci.verify_performance
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort
+    
+    - name: Run linters
+      run: |
+        flake8 src/agent_tools/dualipa/qa --count --select=E9,F63,F7,F82 --show-source --statistics
+        black --check src/agent_tools/dualipa/qa
+        isort --check-only --profile black src/agent_tools/dualipa/qa

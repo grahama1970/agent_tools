@@ -2,6 +2,18 @@
 
 This document defines a secure, enterprise-ready interface for generating question-answer pairs from structured content, with production-grade validation, error recovery, and compliance checks.
 
+## Implementation Using Test-Driven Development
+
+This module is being implemented using a strict TDD approach, following these steps:
+
+1. **Start with MVP** - Begin with a minimal working solution that passes a smoke test
+2. **Add Tests First** - Write tests for each new feature before implementation
+3. **Minimal Implementation** - Implement only what's needed for tests to pass
+4. **Follow Technical Patterns** - Adhere to project-specific patterns like textwrap.dedent()
+5. **Iterative Expansion** - Build functionality in phases as outlined in task.md
+
+See [agent_learnings.md](agent_learnings.md), [tdd_instructions.md](tdd_instructions.md), and [implementation_lessons.md](implementation_lessons.md) for detailed TDD guidance and lessons learned.
+
 ## Workflow Overview
 
 ```
@@ -77,10 +89,11 @@ flowchart TD
 ## Implementation Components
 
 ### 1. Security & Validation
-```
+```python
 from pydantic import BaseModel, Field
 import bleach
 import logging
+import textwrap
 
 class QAPair(BaseModel):
     question: str = Field(..., min_length=10, regex="^.*\?$")
@@ -96,7 +109,7 @@ def sanitize_input(content: str) -> str:
 ```
 
 ### 2. Error Recovery & Retry
-```
+```python
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=30))
@@ -111,13 +124,13 @@ async def generate_with_fallback(prompt: str, config: dict):
 ```
 
 ### 3. Bidirectional Generation
-```
+```python
 async def generate_reversed_pair(original: QAPair) -> QAPair:
     """Create reverse Q&A pair with validation"""
-    reverse_prompt = f"""
-    Given answer: {original.answer}
-    Generate a different question. Include "Oh wait?!" moment.
-    """
+    reverse_prompt = textwrap.dedent(f"""
+        Given answer: {original.answer}
+        Generate a different question. Include "Oh wait?!" moment.
+    """)
     
     response = await generate_with_fallback(reverse_prompt, {
         "temperature": 0.7,
@@ -134,7 +147,7 @@ async def generate_reversed_pair(original: QAPair) -> QAPair:
 ```
 
 ### 4. Semantic Deduplication
-```
+```python
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -142,6 +155,11 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def semantic_deduplicate(pairs: list[QAPair], threshold=0.85) -> list[QAPair]:
     """Remove similar QA pairs using cosine similarity"""
+    # Always dedent multiline strings
+    prompt = textwrap.dedent("""
+        This is a deduplicated list of QA pairs.
+    """).strip()
+    
     embeddings = model.encode([f"{p.question} {p.answer}" for p in pairs])
     sim_matrix = np.inner(embeddings, embeddings)
     unique_indices = set()
@@ -170,7 +188,11 @@ src/agent_tools/dualipa/
 │   │   ├── security.py        # Sanitization
 │   │   └── deduplication.py   # Semantic similarity
 │   ├── processor.py           # Main pipeline
-│   └── cli.py                 # Command interface
+│   ├── cli.py                 # Command interface
+│   └── docs/
+│       ├── README.md          # This file
+│       ├── agent_learnings.md # TDD lessons
+│       └── tdd_instructions.md # TDD guidelines
 ```
 
 ## Production Features
@@ -190,7 +212,7 @@ src/agent_tools/dualipa/
    - EAR99 export control checks
 
 4. **Validation**
-   ```
+   ```python
    def validate_qa_pair(pair: QAPair) -> bool:
        return all([
            "?" in pair.question,
@@ -201,7 +223,7 @@ src/agent_tools/dualipa/
    ```
 
 ## Usage Example
-```
+```python
 from dualipa.qa import process_extraction_json
 
 # Generate from cleaned input
@@ -218,7 +240,7 @@ assert sum(1 for p in output.qa_pairs if p.direction == "reverse") >= 10
 ```
 
 ## CI/CD Requirements
-```
+```yaml
 # .github/workflows/qa_ci.yml
 jobs:
   test:
@@ -229,8 +251,30 @@ jobs:
         run: python -m dualipa.qa.utils.security audit qa_pairs_sample.json
 ```
 
-**Implementation Status:** Production-ready (100% test coverage)
-```
+## TDD Implementation Progress
+
+- [x] Phase 0: Preparation and Documentation Foundation
+  - [x] Task 0.1: Review Official Documentation
+  - [x] Task 0.2: Establish Real-World Baseline (MVP)
+- [x] Phase 1: Setup and Core Model Validation
+  - [x] Task 1.1: Set Up Project Structure and Testing Framework
+  - [x] Task 1.2: Implement and Test Pydantic Models with Constraints
+  - [x] Task 1.3: Configuration Management
+  - [x] Task 1.4: Security Validation
+- [ ] Phase 2: Core Business Logic Components
+  - [x] Task 2.1: Input Validation and Normalization
+  - [x] Task 2.2: Temperature Iteration Logic with Rate-Limiting
+  - [x] Task 2.3: Bidirectional Generation
+  - [ ] Task 2.4: Reasoning Enrichment with Enhanced Error Recovery
+  - [ ] Task 2.5: Advanced Deduplication with Tuning
+  - [ ] Task 2.6: Output Validation
+  - [ ] Task 2.7: Model Fallback Strategy
+  - [x] Task 2.8: Constraint Tracking for Phase 2
+- [ ] Phase 3: Infrastructure and Integration
+- [ ] Phase 4: Optimization and CLI
+- [ ] Phase 5: Final Verification and CI
+
+**Current Status:** Working on Phase 2 - Core Business Logic Components
 
 This README:
 1. Specifies exact input/output formats with validation rules
@@ -240,6 +284,4 @@ This README:
 5. Enforces compliance requirements
 6. Integrates with CI/CD
 7. Provides clear usage examples
-
-Would you like me to elaborate on any specific component or add additional sections?
-
+8. Documents TDD approach and progress

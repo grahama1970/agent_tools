@@ -52,14 +52,21 @@ HAS_DEPENDENCIES = False
 
 # Import the required modules
 try:
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction import (
         extract_repository,
         format_output_as_json,
         format_output_as_md,
-        format_output_as_html,
-        TREE_SITTER_AVAILABLE,
-        TREE_SITTER_LANGUAGES
+        format_output_as_html
     )
+    from agent_tools.dualipa.extraction.extractors.utils.tree_sitter_utils import (
+        get_supported_languages,
+        SUPPORTED_LANGUAGES
+    )
+    
+    # Define constants for compatibility
+    TREE_SITTER_AVAILABLE = True
+    TREE_SITTER_LANGUAGES = SUPPORTED_LANGUAGES
+    
     HAS_DEPENDENCIES = True
     print("Successfully imported formatting modules")
 except ImportError as e:
@@ -347,13 +354,24 @@ class TestClass:
                     if blocks_json.exists():
                         print(f"blocks.json exists but no blocks in directory")
                         with open(blocks_json, 'r') as f:
-                            blocks_data = json.load(f)
-                            print(f"Found {len(blocks_data)} blocks in blocks.json")
-                        
-                        # If blocks exist in blocks.json but not in the directory, use those
-                        if blocks_data:
-                            print("Using blocks from blocks.json")
-                            blocks = blocks_data
+                            json_content = json.load(f)
+                            # Handle different structures of blocks.json
+                            if "blocks" in json_content:
+                                blocks_data = json_content["blocks"]
+                                print(f"Found {len(blocks_data)} blocks in blocks.json")
+                                
+                                # If blocks exist in blocks.json but not in the directory, use those
+                                if blocks_data:
+                                    print("Using blocks from blocks.json")
+                                    # Make sure blocks is a list of dictionaries
+                                    if isinstance(blocks_data, list):
+                                        blocks = blocks_data
+                                    elif isinstance(blocks_data, dict) and "blocks" in blocks_data:
+                                        # Handle nested blocks structure
+                                        blocks = blocks_data["blocks"]
+                                        print(f"Extracted from nested structure, got {len(blocks)} blocks")
+                            else:
+                                print("No blocks found in blocks.json")
                     
                     if not blocks:
                         pytest.fail("No blocks were extracted for formatting test")

@@ -1,0 +1,23 @@
+{
+  "batch_processing": {
+    "single_worker_time": 0.5534,
+    "multi_worker_time": 0.1832,
+    "speedup_factor": 3.02
+  },
+  "worker_scaling": {
+    "speedup_factor": 3.02
+  },
+  "adaptive_chunk": {
+    "100_4": 12,
+    "10_2": 5,
+    "1000_8": 25
+  },
+  "cache": {
+    "uncached_time": 0.1125,
+    "cached_time": 0.0024,
+    "speedup_factor": 46.87
+  },
+  "memory": {
+    "peak_usage_mb": 84.7
+  }
+}

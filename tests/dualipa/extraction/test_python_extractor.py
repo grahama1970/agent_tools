@@ -444,6 +444,62 @@ def test_imports_work():
     except Exception as e:
         pytest.fail(f"Import test failed: {e}")
 
+def test_basic_function_extraction(tmp_path):
+    """Test extraction of a basic Python function."""
+    py_file = tmp_path / "test.py"
+    py_file.write_text("""
+def greet(name: str) -> str:
+    return f"Hello {name}!"
+""")
+    
+    blocks, stats = extract_python_blocks(str(py_file))
+    assert len(blocks) == 1
+    assert blocks[0]["type"] == "function"
+    assert blocks[0]["name"] == "greet"
+    assert blocks[0]["metadata"]["returns"] == "str"
+    assert stats["functions"] == 1
+
+def test_basic_class_extraction(tmp_path):
+    """Test extraction of a basic Python class."""
+    py_file = tmp_path / "test.py"
+    py_file.write_text("""
+class Person:
+    def __init__(self, name: str):
+        self.name = name
+    
+    def greet(self) -> str:
+        return f"Hello {self.name}!"
+""")
+    
+    blocks, stats = extract_python_blocks(str(py_file))
+    assert len(blocks) == 3  # Class + 2 methods
+    assert blocks[0]["type"] == "class"
+    assert blocks[0]["name"] == "Person"
+    assert blocks[1]["type"] == "method"
+    assert blocks[1]["name"] == "__init__"
+    assert blocks[2]["type"] == "method"
+    assert blocks[2]["name"] == "greet"
+    assert stats["classes"] == 1
+
+def test_import_tracking(tmp_path):
+    """Test tracking of import statements."""
+    py_file = tmp_path / "test.py"
+    py_file.write_text("""
+from typing import List, Optional
+import sys
+
+def main():
+    print("Hello")
+""")
+    
+    blocks, stats = extract_python_blocks(str(py_file))
+    assert len(blocks) == 1
+    assert blocks[0]["type"] == "function"
+    assert len(blocks[0]["metadata"]["imports"]) == 2
+    assert "from typing import List, Optional" in blocks[0]["metadata"]["imports"]
+    assert "import sys" in blocks[0]["metadata"]["imports"]
+    assert stats["imports"] == 2
+
 if __name__ == "__main__":
     # Run the tests directly
     try:

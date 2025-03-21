@@ -23,7 +23,8 @@ import json
 
 # Import the code_extractor module
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
-from agent_tools.dualipa.code_extractor import extract_repository
+from agent_tools.dualipa.extraction.extractors.code import extract_repository
+from agent_tools.dualipa.extraction.extractors.utils.block_metadata import initialize_stats_dict
 
 # Configure logging
 from loguru import logger

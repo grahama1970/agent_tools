@@ -18,6 +18,10 @@ import subprocess
 from pathlib import Path
 import collections
 
+from agent_tools.dualipa.extraction.extractors.github import download_github_repo
+from agent_tools.dualipa.extraction.extractors.utils.block_metadata import initialize_stats_dict
+from agent_tools.dualipa.extraction.extractors.code.hierarchy import parse_github_url
+
 # Add project root to Python path
 sys.path.insert(0, os.path.abspath('.'))
 

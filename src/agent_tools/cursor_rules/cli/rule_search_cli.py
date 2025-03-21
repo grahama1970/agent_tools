@@ -18,19 +18,23 @@ import json
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from tabulate import tabulate
-from ..core.cursor_rules import setup_cursor_rules_db
-from ..utils.rule_search import (
+from agent_tools.cursor_rules.core.cursor_rules import setup_cursor_rules_db
+from agent_tools.cursor_rules.utils.rule_search import (
     search_for_user_query,
     search_for_reasoning_task,
     get_related_rules,
-    format_rules_for_agent
+    format_rules_for_agent,
+    search_rules,
+    get_rule_by_name,
+    list_all_rules
 )
-from ..utils.test_state import (
+from agent_tools.cursor_rules.utils.test_state import (
     store_test_state,
     get_test_state,
     get_all_test_states,
     ensure_test_collections,
-    _search_test_failures
+    _search_test_failures,
+    update_test_state
 )
 
 def run_async(coro):

@@ -5,6 +5,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+from agent_tools.dualipa.extraction.extractors.code import extract_python_blocks
+from agent_tools.dualipa.extraction.extractors.utils.block_metadata import initialize_stats_dict
+
 # Configure paths properly
 project_root = Path(__file__).parent
 src_path = project_root / "src"

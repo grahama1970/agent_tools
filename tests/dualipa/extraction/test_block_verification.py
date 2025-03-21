@@ -8,9 +8,10 @@ from real-world repositories.
 import os
 import sys
 import tempfile
-import pytest
+import uuid
+import textwrap
 from pathlib import Path
-import json
+import pytest
 
 # Configure path correctly
 project_root = Path(__file__).parent.parent.parent.parent
@@ -31,15 +32,12 @@ if not HAS_TEST_REPOS:
 
 # Import the required modules
 try:
-    # Try to import the module
-    from agent_tools.dualipa import code_extractor
-    from agent_tools.dualipa.code_extractor import (
-        _extract_python_blocks,
-        _extract_js_ts_blocks,
-        _extract_generic_blocks,
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
+        extract_code_blocks,
+        validate_block,
+        verify_block
     )
-    # Import verification function correctly
-    from agent_tools.dualipa.verification.verify_code_blocks import verify_code_block
+    from agent_tools.dualipa.extraction.extractors.utils.stats_utils import init_stats
     
     HAS_DEPENDENCIES = True
 except ImportError as e:
@@ -48,246 +46,172 @@ except ImportError as e:
 
 # Skip all tests if dependencies are not available
 # pytestmark = pytest.mark.skipif(
-#     not HAS_DEPENDENCIES, 
-#     reason="Required modules not available"
-# )
 
-def create_test_block(language, content=None, valid=True):
-    """Create a test code block for verification."""
-    if content is None:
-        if language == "python":
-            content = "def test_function():\n    return 'test'" if valid else "def test_function(:\n    return 'test'"
-        elif language == "javascript":
-            content = "function test() {\n    return 'test';\n}" if valid else "function test() {\n    return 'test';\n"
-        elif language == "rust":
-            content = "fn test() {\n    println!(\"test\");\n}" if valid else "fn test() {\n    println!(\"test\");\n"
-        else:
-            content = "// Sample content"
-    
-    return {
-        "language": language,
-        "content": content,
-        "path": f"test.{language}",
-        "start_line": 1,
-        "end_line": content.count('\n') + 1,
-        "type": "function",
-        "name": "test_function"
-    }
-
-def test_verify_python_block():
+def test_python_block_verification():
     """Test verification of Python code blocks."""
     # Create a valid Python block
     valid_block = {
-        "language": "python",
-        "content": """
-def hello_world():
-    print("Hello, world!")
-    return "Hello, world!"
-""",
-        "file": "sample.py"
+        "uuid": str(uuid.uuid4()),
+        "type": "function",
+        "name": "example_function",
+        "content": "def example_function():\n    return 42\n",
+        "line_start": 1,
+        "line_end": 2,
+        "metadata": {
+            "language": "python",
+            "file": "test.py",
+            "imports": [],
+            "exports": []
+        }
     }
     
-    # Create an invalid Python block with syntax error
+    # Create an invalid Python block
     invalid_block = {
-        "language": "python",
-        "content": """
-def hello_world()
-    print("Hello, world!")
-    return "Hello, world!"
-""",  # Missing colon
-        "file": "sample.py"
+        "uuid": str(uuid.uuid4()),
+        "type": "function",
+        "name": "invalid_function",
+        "content": "def invalid_function():\n    return }\n",  # Invalid syntax
+        "line_start": 1,
+        "line_end": 2,
+        "metadata": {
+            "language": "python",
+            "file": "test.py",
+            "imports": [],
+            "exports": []
+        }
     }
     
     # Test verification
-    assert verify_code_block(valid_block), "Valid Python block should pass verification"
-    assert not verify_code_block(invalid_block), "Invalid Python block should fail verification"
+    assert validate_block(valid_block), "Valid Python block should pass validation"
+    assert verify_block(valid_block), "Valid Python block should pass verification"
+    assert not verify_block(invalid_block), "Invalid Python block should fail verification"
     
     print("Python block verification tests passed!")
 
-def test_verify_javascript_block():
+def test_javascript_block_verification():
     """Test verification of JavaScript code blocks."""
     # Create a valid JavaScript block
     valid_block = {
-        "language": "javascript",
-        "content": """
-function helloWorld() {
-    console.log("Hello, world!");
-    return "Hello, world!";
-}
-""",
-        "file": "sample.js"
+        "uuid": str(uuid.uuid4()),
+        "type": "function",
+        "name": "exampleFunction",
+        "content": "function exampleFunction() {\n  return 42;\n}\n",
+        "line_start": 1,
+        "line_end": 3,
+        "metadata": {
+            "language": "javascript",
+            "file": "test.js",
+            "imports": [],
+            "exports": []
+        }
     }
     
-    # Create an invalid JavaScript block with syntax error
+    # Create a valid React component block
+    react_block = {
+        "uuid": str(uuid.uuid4()),
+        "type": "react_component",
+        "name": "ExampleComponent",
+        "content": textwrap.dedent('''
+            import React from 'react';
+            
+            export function ExampleComponent() {
+                return <div>Hello World</div>;
+            }
+        ''').strip(),
+        "line_start": 1,
+        "line_end": 5,
+        "metadata": {
+            "language": "javascript",
+            "file": "test.jsx",
+            "framework": "react",
+            "imports": ["import React from 'react'"],
+            "exports": ["export function ExampleComponent"]
+        }
+    }
+    
+    # Create an invalid JavaScript block
     invalid_block = {
-        "language": "javascript",
-        "content": """
-function helloWorld() {
-    console.log("Hello, world!")
-    return "Hello, world!"
-""",  # Missing closing brace
-        "file": "sample.js"
+        "uuid": str(uuid.uuid4()),
+        "type": "function",
+        "name": "invalidFunction",
+        "content": "function invalidFunction() {\n  return }\n",  # Missing semicolon
+        "line_start": 1,
+        "line_end": 2,
+        "metadata": {
+            "language": "javascript",
+            "file": "test.js",
+            "imports": [],
+            "exports": []
+        }
     }
     
     # Test verification
-    assert verify_code_block(valid_block), "Valid JavaScript block should pass verification"
-    assert not verify_code_block(invalid_block), "Invalid JavaScript block should fail verification"
+    assert validate_block(valid_block), "Valid JavaScript block should pass validation"
+    assert verify_block(valid_block), "Valid JavaScript block should pass verification"
+    assert validate_block(react_block), "Valid React component should pass validation"
+    assert verify_block(react_block), "Valid React component should pass verification"
+    assert not verify_block(invalid_block), "Invalid JavaScript block should fail verification"
     
     print("JavaScript block verification tests passed!")
 
-def test_verify_blocks_from_extraction():
-    """Test verifying blocks generated by the extraction process."""
-    # Create a temporary Python file
-    with tempfile.NamedTemporaryFile(suffix='.py', mode='w') as f:
-        f.write("""
-def hello_world():
-    print("Hello, world!")
-    
-class TestClass:
-    def __init__(self):
-        self.value = 42
-    
-    def get_value(self):
-        return self.value
-""")
-        f.flush()
+def test_block_extraction():
+    """Test extraction and verification of code blocks."""
+    # Create a temporary directory for output
+    with tempfile.TemporaryDirectory() as output_dir:
+        output_path = Path(output_dir)
         
-        # Extract code blocks
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_dir = Path(temp_dir)
-            
-            # Create test file for extraction
-            with open(f.name, 'r') as file:
-                content = file.read()
-            
-            # Set up stats dictionary for extraction with proper keys
-            stats = {
-                "code_blocks": 0,
-                "errors": [],
-                "file_blocks": {}
+        # Test Python extraction
+        python_content = textwrap.dedent('''
+            def example_function():
+                return 42
+
+            class ExampleClass:
+                def method(self):
+                    pass
+        ''').strip()
+        
+        # Write Python content to file
+        python_file = output_path / "test.py"
+        with open(python_file, "w") as f:
+            f.write(python_content)
+        
+        # Extract Python blocks
+        blocks = extract_code_blocks(str(python_file), output_path)
+        assert len(blocks) > 0, "Should extract Python blocks"
+        
+        # Test JavaScript/React extraction
+        js_content = textwrap.dedent('''
+            import React from 'react';
+
+            export function ExampleComponent() {
+                return <div>Hello World</div>;
             }
-            
-            # Extract blocks
-            _extract_python_blocks(Path(f.name), content, output_dir, stats)
-            
-            assert stats["code_blocks"] > 0, "Should extract at least one code block"
-            
-            # Verify blocks
-            blocks = []
-            blocks_dir = output_dir / "blocks" / "code" / "python"
-            if blocks_dir.exists():
-                print(f"Found blocks directory at {blocks_dir}")
-                block_files = list(blocks_dir.glob("*.py"))
-                print(f"Found {len(block_files)} block files")
-                
-                for block_file in block_files:
-                    with open(block_file, 'r') as bf:
-                        block_content = bf.read()
-                    
-                    block = {
-                        "language": "python",
-                        "content": block_content,
-                        "file": str(block_file)
-                    }
-                    
-                    blocks.append(block)
-                    print(f"Added block from {block_file.name}")
-            
-            # Verify each block
-            verified_count = 0
-            for block in blocks:
-                result = verify_code_block(block)
-                assert result, f"Block should be valid Python: {block['file']}"
-                verified_count += 1
-            
-            print(f"Successfully verified {verified_count} blocks")
-            assert verified_count > 0, "Should verify at least one block"
 
-def test_verify_multifile_extraction():
-    """Test verifying blocks from multiple files of different languages."""
-    # Define paths to test repos
-    project_root = Path(__file__).parent.parent.parent.parent  # Assuming tests/dualipa/stage2/test_*
-    
-    # Get paths to specific test files we know exist
-    requests_repo = project_root / "test_repos" / "requests"
-    python_file = requests_repo / "setup.py"
-    
-    react_repo = project_root / "test_repos" / "react"
-    js_file = react_repo / "fixtures" / "devtools" / "scheduling-profiler" / "run.js"
-    
-    test_files = []
-    if python_file.exists():
-        test_files.append(("python", python_file))
-    if js_file.exists():
-        test_files.append(("javascript", js_file))
-    
-    if not test_files:
-        pytest.fail("No test files found in repositories")
-    
-    print(f"Testing with {len(test_files)} files")
-    for lang, file in test_files:
-        print(f"- {lang}: {file}")
-
-    # Extract and verify blocks
-    with tempfile.TemporaryDirectory() as temp_dir:
-        output_dir = Path(temp_dir)
-        
-        total_verified = 0
-        
-        # Process each test file
-        for lang, file_path in test_files:
-            print(f"Processing {lang} file: {file_path}")
-            
-            # Read file content
-            with open(file_path, 'r', errors='ignore') as f:
-                content = f.read()
-            
-            # Initialize stats dict with proper keys depending on language
-            if lang == "python":
-                # Python only needs code_blocks
-                stats = {
-                    "code_blocks": 0,
-                    "errors": [],
-                    "file_blocks": {}
+            class ExampleClass {
+                method() {
+                    return true;
                 }
-                _extract_python_blocks(file_path, content, output_dir, stats)
-            elif lang == "javascript":
-                # JavaScript only needs code_blocks
-                stats = {
-                    "code_blocks": 0,
-                    "errors": [],
-                    "file_blocks": {}
-                }
-                _extract_js_ts_blocks(file_path, content, output_dir, stats, "javascript")
-            
-            print(f"Extracted {stats['code_blocks']} blocks from {lang} file")
-            
-            # Find block files
-            blocks_dir = output_dir / "blocks" / "code" / lang
-            if blocks_dir.exists():
-                block_files = list(blocks_dir.glob(f"*.{lang}"))
-                
-                # Verify each block
-                for block_file in block_files[:5]:  # Test up to 5 blocks per language
-                    with open(block_file, 'r') as bf:
-                        block_content = bf.read()
-                    
-                    block = {
-                        "language": lang,
-                        "content": block_content,
-                        "file": str(block_file)
-                    }
-                    
-                    result = verify_code_block(block)
-                    # We don't assert here, just count verification results
-                    # Some blocks might not be valid syntactically
-                    if result:
-                        total_verified += 1
-                        print(f"✓ Verified block {block_file.name}")
-                    else:
-                        print(f"✗ Failed to verify {block_file.name}")
+            }
+        ''').strip()
         
-        print(f"Total verified blocks: {total_verified}")
+        # Write JavaScript content to file
+        js_file = output_path / "test.jsx"
+        with open(js_file, "w") as f:
+            f.write(js_content)
+        
+        # Extract JavaScript blocks
+        blocks = extract_code_blocks(str(js_file), output_path)
+        assert len(blocks) > 0, "Should extract JavaScript blocks"
+        
+        # Verify each block
+        for block in blocks:
+            assert validate_block(block), f"Block {block['name']} should pass validation"
+            assert verify_block(block), f"Block {block['name']} should pass verification"
+            assert "uuid" in block, "Block should have UUID"
+            assert "metadata" in block, "Block should have metadata"
+            assert "language" in block["metadata"], "Block should have language in metadata"
+            assert "imports" in block["metadata"], "Block should have imports in metadata"
+            assert "exports" in block["metadata"], "Block should have exports in metadata"
 
 if __name__ == "__main__":
-    pytest.main(["-xvs", __file__]) 
+    pytest.main([__file__, "-v"]) 

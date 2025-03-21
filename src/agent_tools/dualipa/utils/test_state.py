@@ -21,7 +21,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional, Tuple, Union
 
 # Import existing utility functions to leverage them
-from ..core.cursor_rules import (
+from agent_tools.dualipa.core.cursor_rules import (
     hybrid_search,
     bm25_keyword_search,
     semantic_search,
