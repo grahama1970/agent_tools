@@ -2,26 +2,33 @@
 Code extraction module for DuaLipa.
 
 This module contains extractors for various programming languages including Python,
-JavaScript/TypeScript, and other code formats.
-
-This module provides functionality for extracting code blocks from
-source files in various programming languages.
+JavaScript/TypeScript, and other code formats. It provides functionality for extracting 
+code blocks from source files and analyzing their hierarchical structure.
 
 Key Features:
 1. AST-based Python extraction
 2. Tree-sitter based JS/TS extraction
 3. Pattern-based generic extraction
 4. Block metadata and statistics
+5. Code hierarchy analysis
+6. Block relationship tracking
 
 Dependencies:
-- ast: For Python parsing
-- tree-sitter: For JS/TS parsing
-- loguru: For logging
+- ast: For Python parsing (https://docs.python.org/3/library/ast.html)
+- tree-sitter: For JS/TS parsing (https://tree-sitter.github.io/tree-sitter/)
+- loguru: For logging (https://github.com/Delgan/loguru)
 
 Related Files:
 - python_extractor.py: AST-based Python extraction
 - js_ts_extractor.py: Tree-sitter based JS/TS extraction
 - generic_extractor.py: Pattern-based extraction
+- hierarchy/: Code hierarchy analysis (refactored from hierarchy.py)
+
+Architecture Notes:
+- The module has been refactored to comply with the 500-line limit standard
+- Hierarchy analysis has been moved to dedicated modules in hierarchy/
+- See /hierarchy/TECHNICAL_DEBT.md for known limitations and future work
+- For integration with QA module, see /docs/extraction_learnings.md
 """
 
 import os

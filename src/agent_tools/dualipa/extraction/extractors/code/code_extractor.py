@@ -90,6 +90,11 @@ from agent_tools.dualipa.extraction.extractors.utils.language_utils import detec
 from agent_tools.dualipa.extraction.extractors.utils.tree_sitter_utils import get_parser
 from agent_tools.dualipa.extraction.extractors.utils.validation_utils import validate_block
 from agent_tools.dualipa.extraction.extractors.utils.verification_utils import verify_block
+from agent_tools.dualipa.extraction.extractors.utils.tree_sitter_helpers import (
+    get_node_text, get_block_content, is_async_node, is_static_node, 
+    get_ts_return_type, get_extends_class, get_implements_interfaces,
+    get_extends_interfaces, get_interface_properties
+)
 
 # For JS/TS extraction, tree_sitter import is handled through tree_sitter_utils.py
 # tree-sitter is always available through tree-sitter-language-pack
@@ -309,61 +314,61 @@ def extract_js_ts_blocks(
                 if node.type == "function_declaration":
                     blocks.append({
                         "type": "function",
-                        "name": _get_node_text(node.child_by_field_name("name"), content),
-                        "content": _get_node_text(node, content),
+                        "name": get_node_text(node.child_by_field_name("name"), content),
+                        "content": get_node_text(node, content),
                         "line_start": node.start_point[0] + 1,
                         "line_end": node.end_point[0] + 1,
                         "metadata": {
                             "language": language,
                             "file": file_path,
-                            "is_async": _is_async_node(node),
-                            "return_type": _get_ts_return_type(node, content)
+                            "is_async": is_async_node(node),
+                            "return_type": get_ts_return_type(node, content)
                         }
                     })
                     
                 elif node.type == "class_declaration":
                     blocks.append({
                         "type": "class",
-                        "name": _get_node_text(node.child_by_field_name("name"), content),
-                        "content": _get_node_text(node, content),
+                        "name": get_node_text(node.child_by_field_name("name"), content),
+                        "content": get_node_text(node, content),
                         "line_start": node.start_point[0] + 1,
                         "line_end": node.end_point[0] + 1,
                         "metadata": {
                             "language": language,
                             "file": file_path,
-                            "extends": _get_extends_class(node, content),
-                            "implements": _get_implements_interfaces(node, content)
+                            "extends": get_extends_class(node, content),
+                            "implements": get_implements_interfaces(node, content)
                         }
                     })
                     
                 elif node.type == "method_definition":
                     blocks.append({
                         "type": "method",
-                        "name": _get_node_text(node.child_by_field_name("name"), content),
-                        "content": _get_node_text(node, content),
+                        "name": get_node_text(node.child_by_field_name("name"), content),
+                        "content": get_node_text(node, content),
                         "line_start": node.start_point[0] + 1,
                         "line_end": node.end_point[0] + 1,
                         "metadata": {
                             "language": language,
                             "file": file_path,
-                            "is_static": _is_static_node(node),
-                            "is_async": _is_async_node(node),
-                            "return_type": _get_ts_return_type(node, content)
+                            "is_static": is_static_node(node),
+                            "is_async": is_async_node(node),
+                            "return_type": get_ts_return_type(node, content)
                         }
                     })
                     
                 elif node.type == "interface_declaration" and language == "typescript":
                     blocks.append({
                         "type": "interface",
-                        "name": _get_node_text(node.child_by_field_name("name"), content),
-                        "content": _get_node_text(node, content),
+                        "name": get_node_text(node.child_by_field_name("name"), content),
+                        "content": get_node_text(node, content),
                         "line_start": node.start_point[0] + 1,
                         "line_end": node.end_point[0] + 1,
                         "metadata": {
                             "language": language,
                             "file": file_path,
-                            "extends": _get_extends_interfaces(node, content),
-                            "properties": _get_interface_properties(node, content)
+                            "extends": get_extends_interfaces(node, content),
+                            "properties": get_interface_properties(node, content)
                         }
                     })
                     
@@ -424,7 +429,7 @@ def extract_generic_blocks(
                 blocks.append({
                     "type": "function",
                     "name": match.group(1),
-                    "content": _get_block_content(content, match),
+                    "content": get_block_content(content, match),
                     "line_start": content.count('\n', 0, match.start()) + 1,
                     "line_end": content.count('\n', 0, match.end()) + 1,
                     "metadata": {
@@ -440,7 +445,7 @@ def extract_generic_blocks(
                 blocks.append({
                     "type": "class",
                     "name": match.group(1),
-                    "content": _get_block_content(content, match),
+                    "content": get_block_content(content, match),
                     "line_start": content.count('\n', 0, match.start()) + 1,
                     "line_end": content.count('\n', 0, match.end()) + 1,
                     "metadata": {
@@ -460,155 +465,6 @@ def extract_generic_blocks(
 # - validation_utils.py: For validating block structure and standardizing field names
 # - verification_utils.py: For verifying code syntax and semantics
 
-# Helper functions
-def _get_node_text(node: Any, source: str) -> str:
-    """Get text from a tree-sitter node."""
-    try:
-        start_byte = node.start_byte
-        end_byte = node.end_byte
-        return source[start_byte:end_byte]
-    except Exception:
-        return ""
+# Helper functions have been moved to tree_sitter_helpers.py
 
-def _get_block_content(content: str, match: re.Match) -> str:
-    """Get block content from regex match."""
-    try:
-        # Find block end
-        start = match.end()
-        brace_count = 1
-        end = start
-        
-        while end < len(content) and brace_count > 0:
-            if content[end] == '{':
-                brace_count += 1
-            elif content[end] == '}':
-                brace_count -= 1
-            end += 1
-            
-        return content[match.start():end]
-        
-    except Exception:
-        return match.group(0)
-
-def _is_async_node(node: Any) -> bool:
-    """Check if node is async."""
-    try:
-        for child in node.children:
-            if child.type == "async":
-                return True
-        return False
-    except Exception:
-        return False
-
-def _is_static_node(node: Any) -> bool:
-    """Check if node is static."""
-    try:
-        for child in node.children:
-            if child.type == "static":
-                return True
-        return False
-    except Exception:
-        return False
-
-def _get_ts_return_type(node: Any, source: str) -> Optional[str]:
-    """Get TypeScript return type."""
-    try:
-        for child in node.children:
-            if child.type == "type_annotation":
-                return _get_node_text(child, source).strip(": ")
-        return None
-    except Exception:
-        return None
-
-def _get_extends_class(node: Any, source: str) -> Optional[str]:
-    """Get extended class name."""
-    try:
-        for child in node.children:
-            if child.type == "extends_clause":
-                for extends_child in child.children:
-                    if extends_child.type == "identifier":
-                        return _get_node_text(extends_child, source)
-        return None
-    except Exception:
-        return None
-
-def _get_implements_interfaces(node: Any, source: str) -> List[str]:
-    """Get implemented interface names."""
-    interfaces = []
-    try:
-        for child in node.children:
-            if child.type == "implements_clause":
-                for impl_child in child.children:
-                    if impl_child.type == "identifier":
-                        interfaces.append(_get_node_text(impl_child, source))
-        return interfaces
-    except Exception:
-        return []
-
-def _get_extends_interfaces(node: Any, source: str) -> List[str]:
-    """Get extended interface names."""
-    interfaces = []
-    try:
-        for child in node.children:
-            if child.type == "extends_clause":
-                for extends_child in child.children:
-                    if extends_child.type == "identifier":
-                        interfaces.append(_get_node_text(extends_child, source))
-        return interfaces
-    except Exception:
-        return []
-
-def _get_interface_properties(node: Any, source: str) -> List[Dict[str, str]]:
-    """Get interface property definitions."""
-    properties = []
-    try:
-        for child in node.children:
-            if child.type == "interface_body":
-                for prop in child.children:
-                    if prop.type == "property_signature":
-                        prop_info = {
-                            "name": _get_node_text(prop.child_by_field_name("name"), source),
-                            "type": _get_node_text(prop.child_by_field_name("type"), source).strip(": ")
-                        }
-                        properties.append(prop_info)
-        return properties
-    except Exception:
-        return []
-
-def usage_example() -> None:
-    """Example usage of code extraction."""
-    # Example Python file
-    python_content = textwrap.dedent('''
-        class ExampleClass:
-            """Example class docstring."""
-            
-            def __init__(self, name: str):
-                self.name = name
-                
-            def greet(self) -> str:
-                return f"Hello, {self.name}!"
-                
-        def example_function(x: int, y: int) -> int:
-            """Example function docstring."""
-            return x + y
-    ''').strip()
-    
-    # Save to temp file
-    with open('example.py', 'w') as f:
-        f.write(python_content)
-        
-    # Extract blocks
-    blocks = extract_code_blocks('example.py', Path('output'))
-    
-    print("Extracted Blocks:")
-    for block in blocks:
-        print(f"\nType: {block['type']}")
-        print(f"Name: {block['name']}")
-        print(f"Lines: {block['line_start']}-{block['line_end']}")
-        print("Metadata:", block['metadata'])
-        print("Content:")
-        print(block['content'])
-        
-    # Cleanup
-    import os
-    os.remove('example.py') 
+# Usage examples moved to usage_examples.py 
