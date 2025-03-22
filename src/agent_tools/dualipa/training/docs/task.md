@@ -1,102 +1,78 @@
 # Task Plan for DuaLipa LLM Training Module
 
-This plan ensures a 100% reliable, enterprise-ready implementation with scheduled key rotation, signature verification, and full compliance. Adheres to TDD and lessons from `.cursor/TESTING_LESSONS.md`.
+This plan ensures a secure, scalable, and production-ready implementation of the DuaLipa LLM Training Module using Unsloth's optimized framework for LoRA training. It adheres to TDD principles, incorporates lessons from `.cursor/TESTING_LESSONS.md`, and targets 100% reliability with automated checks and human oversight.
 
-**Current Date:** Friday, March 21, 2025, 10:17 AM EDT
+**Current Date:** Friday, March 21, 2025, 12:19 PM EDT
 **Success Probability:** 100% (All gaps addressed)
 
 ---
 
 ## Phase 0: Preparation and Baseline
 
-### Task 0.1: Documentation Foundation
-- [ ] Read and link:
-  - `unsloth` 4-bit quantization docs
-  - Hugging Face Model Hub API spec
-  - OWASP Top 10 for ML Systems
+### Task 0.1: Documentation and Environment Setup
+- [ ] Review and link documentation:
+  - Unsloth v2025.3 4-bit quantization docs
+  - Hugging Face Transformers 4.38.0 API
+  - PyTorch 2.2.0+cu121 optimization notes
+  - OWASP ML security guidelines (2025 edition)
   - EAR99 export control regulations
-- [ ] Write docstring in `conftest.py` covering:
-  - Quantization validation requirements
-  - Security audit requirements
-  - Compliance thresholds
+- [ ] Set up development environment:
+  - Configure RunPod A40 (48GB VRAM) for training
+  - Set up local NVIDIA A5000 (24GB VRAM) for FP8 inference testing
+- [ ] Write comprehensive docstring in `conftest.py` covering:
+  - 4-bit quantization validation requirements
+  - Security audit procedures
+  - Compliance thresholds (e.g., >85% QA accuracy)
 
-### Task 0.2: MVP Implementation
-- [ ] Obtain real QA JSON export (`qa_export.json`)
-- [ ] Write smoke test: `test_minimal_training_real_data`
-- [ ] Implement MVP in `trainer.py`:
-  - Basic model loading
-  - Minimal training loop
-  - Adapter saving
+### Task 0.2: Baseline Implementation
+- [ ] Obtain real QA JSON export (`qa_export_2025.json`)
+- [ ] Implement baseline in `src/trainer.py`:
+  - Load Llama-3-14B in 4-bit with Unsloth
+  - Train minimal LoRA adapter (r=16, alpha=16, dropout=0.05)
+- [ ] Write smoke test: `test_unsloth_lora_basic_training`
+  - Verify model loads, trains, and saves without errors
 
-## Phase 1: Core Implementation
+---
 
-### Task 1.1: Project Structure Validation
-- [ ] Verify directory structure
-- [ ] Write test: `test_structure_exists`
-- [ ] Implement missing components
+## Phase 1: Core System Design
+
+### Task 1.1: Project Structure and Configuration
+- [ ] Implement structure:
+  - `src/config.py`: Training configuration
+  - `src/trainer.py`: Core training logic
+  - `src/security.py`: Sanitization and compliance checks
+  - `src/utils/`: Helper functions (checksum, logging, etc.)
+- [ ] Write test: `test_project_structure_2025`
+- [ ] Implement `TrainingConfig` model with Pydantic, including all LoRA parameters
 
 ### Task 1.2: Security Hardening
-- [ ] Write tests for input sanitization and prompt injection defense
-- [ ] Implement in `security.py`:
+- [ ] Write tests: `test_input_sanitization`, `test_prompt_injection_defense`
+- [ ] Implement in `src/security.py`:
   - HTML/script sanitization with Bleach
   - Prompt injection detection
   - Rate-limiting (3 calls/sec)
 
-### Task 1.3: Model Configuration
-- [ ] Write tests for 4-bit quantization and fallback
-- [ ] Implement in `training_config.py`:
-  - 4-bit verification
-  - GPU capability fallback
-  - Auto-checksum from Unsloth registry
-
-## Phase 2: Training Implementation
-
-### Task 2.1: Training with Diagnostics
-- [ ] Write tests for NaN detection and gradient tracking
-- [ ] Implement in `trainer.py`:
-  - NaN loss detection/recovery
-  - Gradient norm tracking
-  - OOM recovery with batch scaling
-
-### Task 2.2: Error Recovery System
-- [ ] Implement circuit breaker pattern
-
-## Phase 3: Security and Compliance
-
-### Task 3.1: Key Rotation Implementation
-- [ ] Implement key rotation logic
-- [ ] Write tests for CI rotation schedule
-- [ ] Add key rotation to CI/CD pipeline
-
-### Task 3.2: Signature Verification
-- [ ] Implement GPG signing during upload
-- [ ] Write tests for signature generation and verification
-
-### Task 3.3: Compliance Checks
-- [ ] Implement EAR99 compliance check
-- [ ] Add real license validation via HF API
-- [ ] Write tests for compliance checks
-
-## Phase 4: Performance and Drift Prevention
-
-### Task 4.1: Checksum Validation
-- [ ] Implement checksum fetching from Unsloth registry
-- [ ] Write tests for checksum validation
-
-### Task 4.2: Drift Prevention
-- [ ] Implement KL-divergence calculation
-- [ ] Write tests for inference distribution
-
-## Phase 5: Final Verification and CI
-
-### Task 5.1: Comprehensive Validation
-- [ ] Run full test suite with updated coverage requirements
-- [ ] Verify real-world output
-
-### Task 5.2: CI/CD Integration
-- [ ] Implement final CI/CD pipeline with all checks
-- [ ] Verify scheduled jobs, including key rotation
+### Task 1.3: Model Configuration and Checksum Verification
+- [ ] Write tests: `test_4bit_loading`, `test_checksum_validation`
+- [ ] Implement in `src/trainer.py`:
+  - 4-bit model loading with auto-checksum from Unsloth registry
+  - GPU capability check with fallback options
+  - Benchmark vs 8-bit baseline
 
 ---
 
-This plan is now 100% complete with full security hardening, production-grade error recovery, compliance with legal requirements, and automated CI/CD with performance gates. It's ready for enterprise deployment.
+## Phase 2: Training Pipeline Implementation
+
+### Task 2.1: LoRA Training Setup
+- [ ] Implement RSLoRA (Rank-Stabilized LoRA) configuration
+- [ ] Add option for fine-tuning lm_head and embed_tokens matrices
+- [ ] Write tests: `test_rslora_stability`, `test_lora_parameter_impact`
+
+### Task 2.2: Training with Advanced Diagnostics
+- [ ] Implement in `src/trainer.py`:
+  - NaN loss detection with automatic learning rate adjustment
+  - Gradient norm tracking (alert if >10 or 95% branch coverage
+- Perplexity 85% on test set
+- Secure deployment to Hugging Face with GPG signature
+- No security vulnerabilities in final audit
+- Successful inference on A5000 with FP8 precision

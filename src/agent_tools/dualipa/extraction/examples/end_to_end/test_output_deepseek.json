@@ -1,0 +1,276 @@
+[
+  {
+    "uuid": "27af9bbc-02cb-447b-a368-bf46e148956d",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage"
+    ],
+    "title": "DeepSeek Usage",
+    "content": "SGLang provides several optimizations specifically designed for the DeepSeek model to boost its inference speed. This document outlines current optimizations for DeepSeek. Additionally, the SGLang team is actively developing enhancements for [DeepSeek V3](https://github.com/sgl-project/sglang/issues/2591).",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "8b61edcb-3350-4e21-b45f-b24024e820d7",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Launch DeepSeek V3 with SGLang"
+    ],
+    "title": "Launch DeepSeek V3 with SGLang",
+    "content": "SGLang is recognized as one of the top engines for [DeepSeek model inference](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3). To run DeepSeek V3/R1 models, the requirements are as follows:\n\n-------------------|\n\n8 x MI300X |\n| | 2 x 8 x H100/800/20 |\n\n2 x 8 x MI300X |\n\n4 x 8 x A100/A800 |\n\n8 x A100/A800 |\n\n32 x L40S |\n\n<style>\n.md-typeset__table {\n  width: 100%;\n}\n\n.md-typeset__table table {\n  border-collapse: collapse;\n  margin: 1em 0;\n  border: 2px solid var(--md-typeset-table-color);\n  table-layout: fixed;\n}\n\n.md-typeset__table th {\n  border: 1px solid var(--md-typeset-table-color);\n  border-bottom: 2px solid var(--md-typeset-table-color);\n  background-color: var(--md-default-bg-color--lighter);\n  padding: 12px;\n}\n\n.md-typeset__table td {\n  border: 1px solid var(--md-typeset-table-color);\n  padding: 12px;\n}\n\n.md-typeset__table tr:nth-child(2n) {\n  background-color: var(--md-default-bg-color--lightest);\n}\n</style>\n\nDetailed commands for reference:\n\n- [8 x H200](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#using-docker-recommended)\n- [8 x MI300X](https://docs.sglang.ai/references/amd.html#running-deepseek-v3)\n- [2 x 8 x H200](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-two-h208-nodes)\n- [4 x 8 x A100](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-four-a1008-nodes)\n- [8 x A100 (AWQ)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-8-a100a800-with-awq-quantization)\n- [16 x A100 (int8)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-16-a100a800-with-int8-quantization)\n- [32 x L40S (int8)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-32-l40s-with-int8-quantization)",
+    "images": [],
+    "tests": [],
+    "tables": [
+      {
+        "uuid": "ec33de80-24c3-481f-8818-64e97489a52d",
+        "content": {
+          "headers": [
+            "Weight Type",
+            "Configuration"
+          ],
+          "rows": []
+        }
+      },
+      {
+        "uuid": "07e1ea4f-f833-4584-aecc-0837d36991de",
+        "content": {
+          "headers": [
+            "**Full precision FP8**<br>*(recommended)*",
+            "8 x H200"
+          ],
+          "rows": []
+        }
+      },
+      {
+        "uuid": "1eafa459-edcc-429f-a4a2-b2314680edcf",
+        "content": {
+          "headers": [
+            "**Full precision BF16**",
+            "2 x 8 x H200"
+          ],
+          "rows": []
+        }
+      },
+      {
+        "uuid": "71ffd9d6-9504-4636-940b-f4096e9702f4",
+        "content": {
+          "headers": [
+            "4 x 8 x H100/800/20"
+          ],
+          "rows": []
+        }
+      },
+      {
+        "uuid": "c530b86d-6d0e-46a9-85ed-786c904cfb96",
+        "content": {
+          "headers": [
+            "**Quantized weights (AWQ)**",
+            "8 x H100/800/20"
+          ],
+          "rows": []
+        }
+      },
+      {
+        "uuid": "fd7cf997-9c8a-41ee-90c6-6362f59f9c4a",
+        "content": {
+          "headers": [
+            "**Quantized weights (int8)**",
+            "16 x A100/800"
+          ],
+          "rows": []
+        }
+      }
+    ],
+    "code": []
+  },
+  {
+    "uuid": "922ddace-8d24-4f35-96fb-631d13abfc63",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Launch DeepSeek V3 with SGLang",
+      "Download Weights"
+    ],
+    "title": "Download Weights",
+    "content": "If you encounter errors when starting the server, ensure the weights have finished downloading. It's recommended to download them beforehand or restart multiple times until all weights are downloaded. Please refer to [DeepSeek V3](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base#61-inference-with-deepseek-infer-demo-example-only) official guide to download the weights.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "46e530c1-8d4a-4664-a18b-aadde86ca15f",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Launch DeepSeek V3 with SGLang",
+      "Caching `torch.compile`"
+    ],
+    "title": "Caching `torch.compile`",
+    "content": "The DeepSeek series have huge model weights, it takes some time to compile the model with `torch.compile` for the first time if you have added the flag `--enable-torch-compile`. You can refer [here](https://docs.sglang.ai/backend/hyperparameter_tuning.html#try-advanced-options) to optimize the caching of compilation results, so that the cache can be used to speed up the next startup.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "80435646-f28d-4b7e-8cd2-41d6431ebd15",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Launch DeepSeek V3 with SGLang",
+      "Launch with One node of 8 H200"
+    ],
+    "title": "Launch with One node of 8 H200",
+    "content": "Please refer to [the example](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#using-docker-recommended). **Note that Deepseek V3 is already in FP8. So we should not run it with any quantization arguments like `--quantization fp8 --kv-cache-dtype fp8_e5m2`.** Also, `--enable-dp-attention` can be useful to improve for Deepseek V3/R1's throughput. Please refer to [Data Parallelism Attention](https://docs.sglang.ai/references/deepseek.html#multi-head-latent-attention-mla-throughput-optimizations) for detail.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "ec03f2ad-dc5a-4899-86a0-829f8562a54f",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Launch DeepSeek V3 with SGLang",
+      "Running examples on Multi-node"
+    ],
+    "title": "Running examples on Multi-node",
+    "content": "- [Serving with two H20*8 nodes](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-two-h208-nodes).\n\n- [Serving with two H200*8 nodes and docker](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-two-h2008-nodes-and-docker).\n\n- [Serving with four A100*8 nodes](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-four-a1008-nodes).",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "eec08200-3738-4c10-b433-69ef8e32b8d9",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations"
+    ],
+    "title": "Optimizations",
+    "content": "## Optimizations",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "d753ba36-b240-4e79-9307-fac99a4823fd",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Multi-head Latent Attention (MLA) Throughput Optimizations"
+    ],
+    "title": "Multi-head Latent Attention (MLA) Throughput Optimizations",
+    "content": "**Description**: [MLA](https://arxiv.org/pdf/2405.04434) is an innovative attention mechanism introduced by the DeepSeek team, aimed at improving inference efficiency. SGLang has implemented specific optimizations for this, including:\n\n- **Weight Absorption**: By applying the associative law of matrix multiplication to reorder computation steps, this method balances computation and memory access and improves efficiency in the decoding phase.\n\n- **Flashinfer MLA Wrapper**: By providing `--enable-flashinfer-mla` argument, the server will use MLA kernels customized by Flashinfer. More details can be referred to [this document](https://docs.flashinfer.ai/api/mla.html). Under long input scenarios, flashinfer mla can improve performance significantly. Optimized triton kernels will be used when flashinfer mla is turned off.\n\n- **FP8 Quantization**: W8A8 FP8 and KV Cache FP8 quantization enables efficient FP8 inference. Additionally, we have implemented Batched Matrix Multiplication (BMM) operator to facilitate FP8 inference in MLA with weight absorption.\n\n- **CUDA Graph & Torch.compile**: Both MLA and Mixture of Experts (MoE) are compatible with CUDA Graph and Torch.compile, which reduces latency and accelerates decoding speed for small batch sizes.\n\nOverall, with these optimizations, we have achieved up to **7x** acceleration in output throughput compared to the previous version.\n\n**Usage**: MLA optimization is enabled by default, to disable, use `--disable-mla`.\n\n**Reference**: Check [Blog](https://lmsys.org/blog/2024-09-04-sglang-v0-3/#deepseek-multi-head-latent-attention-mla-throughput-optimizations) and [Slides](https://github.com/sgl-project/sgl-learning-materials/blob/main/slides/lmsys_1st_meetup_deepseek_mla.pdf) for more details.",
+    "images": [
+      {
+        "uuid": "b1489c39-5bd9-4dc5-9312-2818e0c7f755",
+        "src": "https://lmsys.org/images/blog/sglang_v0_3/deepseek_mla.svg",
+        "alt": "Multi-head Latent Attention for DeepSeek Series Models"
+      }
+    ],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "3d4fb151-8e2e-4c10-b9f0-5a63e1c9da7b",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Data Parallelism Attention"
+    ],
+    "title": "Data Parallelism Attention",
+    "content": "**Description**: This optimization involves data parallelism (DP) for the MLA attention mechanism of DeepSeek Series Models, which allows for a significant reduction in the KV cache size, enabling larger batch sizes. Each DP worker independently handles different types of batches (prefill, decode, idle), which are then synchronized before and after processing through the Mixture-of-Experts (MoE) layer.\n\nWith data parallelism attention enabled, we have achieved up to **1.9x** decoding throughput improvement compared to the previous version.\n\n**Usage**:\n- This optimization is aimed at improving throughput and should be used for scenarios with high QPS (Queries Per Second). It can be enabled by `--enable-dp-attention` for DeepSeek models.\n- Since v0.4.4, DP and TP attention can be flexibly combined. For example, to deploy DeepSeek-V3/R1 on 2 node with 8*H100, you can specify `--tp 16` and `--dp 2`, which means for attention part there are 2 DP groups, and in each DP group there are 8 TP groups.\n\n**Reference**: Check [Blog](https://lmsys.org/blog/2024-12-04-sglang-v0-4/#data-parallelism-attention-for-deepseek-models).",
+    "images": [
+      {
+        "uuid": "fef13006-2195-4d7a-b5ca-28df9bcc59d7",
+        "src": "https://lmsys.org/images/blog/sglang_v0_4/dp_attention.svg",
+        "alt": "Data Parallelism Attention for DeepSeek Series Models"
+      },
+      {
+        "uuid": "ac72fec3-b21e-48d2-911f-3975d8ba2190",
+        "src": "https://lmsys.org/images/blog/sglang_v0_4/deepseek_coder_v2.svg",
+        "alt": "Data Parallelism Attention Performance Comparison"
+      }
+    ],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "42084312-2b70-4588-9160-92c600a45b89",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Multi Node Tensor Parallelism"
+    ],
+    "title": "Multi Node Tensor Parallelism",
+    "content": "**Description**: For users with limited memory on a single node, SGLang supports serving DeepSeek Series Models, including DeepSeek V3, across multiple nodes using tensor parallelism. This approach partitions the model parameters across multiple GPUs or nodes to handle models that are too large for one node's memory.\n\n**Usage**: Check [here](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-2-h208) for usage examples.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "98b7c045-8945-4b9e-afef-2037c1be0b05",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Block-wise FP8"
+    ],
+    "title": "Block-wise FP8",
+    "content": "**Description**: SGLang implements block-wise FP8 quantization with two key optimizations:\n\n- **Activation**: E4M3 format using per-token-per-128-channel sub-vector scales with online casting.\n\n- **Weight**: Per-128x128-block quantization for better numerical stability.\n\n**Usage**: Turn on by default for DeepSeek V3 models.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "9b19c76c-8944-44a5-8fc1-ad0267acd959",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Multi-token Prediction"
+    ],
+    "title": "Multi-token Prediction",
+    "content": "**Description**: SGLang implements DeepSeek V3 Multi-Token Prediction (MTP) based on [EAGLE speculative decoding](https://docs.sglang.ai/backend/speculative_decoding.html#EAGLE-Decoding). With this optimization, the decoding speed can be improved by **1.8x** for batch size 1 and **1.5x** for batch size 32 respectively on H200 TP8 setting.\n\n**Usage**:\nAdd arguments `--speculative-algorithm`, `--speculative-draft-model-path`,\n`--speculative-num-steps`, `--speculative-eagle-topk` and `--speculative-num-draft-tokens` to enable this feature. For example:\n\n- The draft model are available at huggingface: [lmsys/DeepSeek-V3-NextN](https://huggingface.co/lmsys/DeepSeek-V3-NextN), [lmsys/DeepSeek-R1-NextN](https://huggingface.co/lmsys/DeepSeek-R1-NextN). It can also be exported from original DeepSeek-V3/R1 model with [export_deepseek_nextn.py](https://github.com/sgl-project/sglang/blob/main/scripts/export_deepseek_nextn.py) script.\n- The best configuratin for `--speculative-num-steps`, `--speculative-eagle-topk` and `--speculative-num-draft-tokens` can be searched with [bench_speculative.py](https://github.com/sgl-project/sglang/blob/main/scripts/playground/bench_speculative.py) script for given batch size. The minimum configuration is `--speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2`, which can achieve speedup for larger batch sizes.\n- Currently when using flashinfer mla wrapper (`--enable-flashinfer-mla`) and speculative decoding together, the `--speculative-eagle-topk` parameter should be set to `1`.\n- To enable DeepSeek MTP for large batch sizes (>32), there are some parameters should be changed (Reference [this discussion](https://github.com/sgl-project/sglang/issues/4543#issuecomment-2737413756)):\n  - Adjust `--max-running-requests` to a larger number. The default value is `32` for MTP. For larger batch sizes, you should increase this value beyond the default value.\n  - Set `--cuda-graph-bs`. It's a list of batch sizes for cuda graph capture. The default captured batch sizes for speculative decoding is set [here](https://github.com/sgl-project/sglang/blob/49420741746c8f3e80e0eb17e7d012bfaf25793a/python/sglang/srt/model_executor/cuda_graph_runner.py#L126). You can include more batch sizes into it.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": [
+      {
+        "uuid": "1775cbc9-ecc1-4b7d-8228-38ec9ead37d7",
+        "language": "text",
+        "content": "python3 -m sglang.launch_server --model-path deepseek-ai/DeepSeek-V3 --speculative-algorithm EAGLE --speculative-draft-model-path lmsys/DeepSeek-V3-NextN --speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2 --trust-remote-code --tp 8"
+      }
+    ]
+  },
+  {
+    "uuid": "be066a8e-12b9-4c91-a0ad-14a80ce3b793",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "Optimizations",
+      "Reasoning Content for DeepSeek R1"
+    ],
+    "title": "Reasoning Content for DeepSeek R1",
+    "content": "See [Separate Reasoning](https://docs.sglang.ai/backend/separate_reasoning.html).",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  },
+  {
+    "uuid": "b4a2593f-f6b9-41a0-a487-458dfe3b46a2",
+    "section_hierarchy_depth": [
+      "DeepSeek Usage",
+      "FAQ"
+    ],
+    "title": "FAQ",
+    "content": "1. **Question**: What should I do if model loading takes too long and NCCL timeout occurs?\n\n    **Answer**: You can try to add `--dist-timeout 3600` when launching the model, this allows for 1-hour timeout.",
+    "images": [],
+    "tests": [],
+    "tables": [],
+    "code": []
+  }
+]

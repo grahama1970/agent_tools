@@ -1,4 +1,4 @@
-# DuaLipa LLM Training Module: Final TDD Strategy
+# DuaLipa LLM Training Module: TDD Strategy
 
 ## Testing Framework Setup
 ```
@@ -8,11 +8,49 @@ from datetime import datetime, timedelta
 from unittest.mock import patch, MagicMock
 ```
 
-## 1. **Key Rotation CI Tests**
+## Sample Inputs and Expected Outputs
+Before any coding or testing begins, we must define:
+
+### Input: QA JSON Export
 ```
-# test_security.py
+{
+  "qa_pairs": [
+    {
+      "question": "What is the capital of France?",
+      "answer": "The capital of France is Paris.",
+      "reasoning": "Paris has been the capital of France for centuries. Oh wait?! It's also the largest city in the country."
+    }
+  ]
+}
+```
+
+### Expected Output: Trained Adapter
+```
+{
+  "model_info": {
+    "base_model": "unsloth/Meta-Llama-3.1-8B-bnb-4bit",
+    "adapter_checksum": "sha256:abc123...",
+    "training_timestamp": "2025-03-21T10:30:00Z"
+  },
+  "training_metrics": {
+    "final_loss": 0.0023,
+    "perplexity": 1.15,
+    "qa_accuracy": 0.92
+  },
+  "compliance": {
+    "ear99_valid": true,
+    "license": "apache-2.0"
+  },
+  "signature": {
+    "gpg_fingerprint": "A1B2C3D4...",
+    "rotation_schedule": "2025-Q2"
+  }
+}
+```
+
+## 1. Key Rotation CI Tests
+```
 def test_ci_rotation_schedule():
-    """Verify key rotation cron job in CI config"""
     with open(".github/workflows/rotate_keys.yml") as f:
         content = f.read()
     assert "0 0 1 */3 *" in content  # Quarterly schedule
@@ -28,63 +66,52 @@ def test_key_rotation_implementation():
         assert mock_rm.called_with("old.enc")
 ```
 
-## 2. **Checksum Automation Tests**
+## 2. Checksum Automation Tests
 ```
-# test_trainer.py
 def test_checksum_fetch_real():
-    """Test checksum fetching from Unsloth registry"""
     with patch("requests.get") as mock_get:
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = "abc123"
         assert fetch_model_checksum("test-model") == "abc123"
 
 def test_checksum_validation_failure():
-    """Test checksum mismatch detection"""
     with patch("requests.get") as mock_get, \
          pytest.raises(ValueError):
         mock_get.return_value.text = "bad_checksum"
         load_and_configure_model("unsloth/test-model")
 ```
 
-## 3. **Enhanced Compliance Tests**
+## 3. Enhanced Compliance Tests
 ```
-# test_compliance.py
 def test_ear99_compliance():
-    """Verify export control blocking"""
     with pytest.raises(ValueError) as e:
         check_compliance("military-optimized-model")
     assert "EAR99" in str(e.value)
 
 def test_license_fetch_real():
-    """Test real license validation via HF API"""
     with patch("huggingface_hub.HfApi.model_info") as mock_info:
         mock_info.return_value.card_data = {"license": "apache-2.0"}
         check_compliance("valid-model")
         assert mock_info.called
 ```
 
-## 4. **Signature Verification Tests**
+## 4. Signature Verification Tests
 ```
-# test_hf_utils.py
 def test_signature_generation():
-    """Verify GPG signing during upload"""
     with patch("gnupg.GPG.sign") as mock_sign:
         upload_to_hf(model, tokenizer, "adapter", "merged", "user", "token.enc")
         assert mock_sign.called_with(any, keyid="default_key_id")
 
 def test_verification_failure_handling():
-    """Test invalid signature detection"""
     with patch("gnupg.GPG.verify_data") as mock_verify, \
          pytest.raises(ValueError):
         mock_verify.return_value.valid = False
         verify_hf_download("invalid_model")
 ```
 
-## 5. **Drift Prevention Tests**
+## 5. Drift Prevention Tests
 ```
-# test_trainer.py
 def test_inference_distribution():
-    """Verify KL-divergence calculation matches training data"""
     train_dist = {"low": 0.2, "medium": 0.5, "high": 0.3}
     outputs = ["low"]*20 + ["medium"]*50 + ["high"]*30
     inference_dist = calculate_distribution(outputs)
@@ -110,33 +137,10 @@ def test_inference_distribution():
 | **Integrity** | Checksum validation | `test_checksum_fetch_real`, `test_checksum_validation_failure` |
 | **CI/CD** | Scheduled jobs | `test_ci_rotation_schedule`, `test_ci_regression` |
 
-## Execution Plan Additions
-1. **Phase 5: Scheduled Jobs Validation**
-   ```
-   - [ ] Add cron job validation test
-   - [ ] Test key rotation in CI environment
-   - [ ] Verify alerting on missed rotations
-   ```
-
 ## New Best Practices
-1. **Rotation Testing**
-   ```
-   - Test key rotation both manually and via CI schedule mock
-   - Store rotation history in encrypted audit log
-   ```
-
-2. **Signature Management**
-   ```
-   - Store GPG keys in GitHub Secrets
-   - Test signing with test key in CI
-   - Rotate signing keys quarterly
-   ```
-
-3. **Checksum Validation**
-   ```
-   - Test checksum fetch failure fallback
-   - Add checksum to model card metadata
-   ```
+1. **Rotation Testing**: Test key rotation manually and via CI schedule mock
+2. **Signature Management**: Store GPG keys in GitHub Secrets, test signing with test key in CI
+3. **Checksum Validation**: Test checksum fetch failure fallback, add checksum to model card metadata
 
 ## Final Test Coverage Requirements
 ```
@@ -152,17 +156,5 @@ filterwarnings =
     ignore::DeprecationWarning
 ```
 
----
-
-**Key Improvements:**
-1. Added explicit CI schedule validation
-2. Real license check tests via HF API mocking
-3. GPG signature generation/verification tests
-4. Checksum fetch failure handling
-5. Drift prevention threshold enforcement
-
-**Alignment Status:**  
-✅ Fully aligned with all updates in `task.md` and `README.md`  
-✅ Covers 100% of security/compliance features  
-✅ Validates CI/CD automation  
+This updated TDD strategy now includes sample inputs and expected outputs as a prerequisite for coding and testing. It also maintains the key improvements from the previous version, ensuring comprehensive coverage of security, compliance, and performance aspects of the DuaLipa LLM Training Module.
 
