@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Result: length_function_extraction.json</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .summary-box {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .passed {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .failed {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .error-list {
+            background-color: #fff3f3;
+            padding: 10px;
+            border-left: 4px solid #dc3545;
+            margin-bottom: 15px;
+        }
+        .success-list {
+            background-color: #f1fff0;
+            padding: 10px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #28a745;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        .progress-bar-fill.failed {
+            background-color: #dc3545;
+        }
+        .progress-bar-fill.warning {
+            background-color: #ffc107;
+        }
+        .progress-bar-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .metadata {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .back-link {
+            margin-bottom: 20px;
+        }
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="summary.html">← Back to Summary</a>
+        </div>
+        
+        <h1>Validation Result: length_function_extraction.json</h1>
+        <div class="timestamp">Generated on: 2025-03-24 13:18:07</div>
+        
+        <div class="summary-box">
+            <h2>Overall Result: <span class="failed">FAILED</span></h2>
+            
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 19.4%;"></div>
+            </div>
+            <div class="progress-bar-label">Overall Score: 19.4%</div>
+            
+            <table>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Template Used</th>
+                    <th>Extraction Path</th>
+                </tr>
+                <tr>
+                    <td>arangodb</td>
+                    <td>arangodb_expected_format.json</td>
+                    <td>length_function_extraction.json.converted</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h2>Validation Scores</h2>
+        <div class="summary-box">
+            <h3>Structure Validation: <span class="failed">FAILED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 33.3%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 33.3% (Threshold: 75%)</div>
+            <p>Checks passed: 4 / 12</p>
+            
+            <div class="error-list"><h4>Structure Errors:</h4><ul><li>Missing required block type: documentation</li><li>Missing required block type: doc_page</li><li>Missing required block type: doc_section</li><li>Missing required block type: code_block</li><li>Missing required block type: table</li><li>Missing parent block type: documentation</li><li>Missing parent block type: doc_page</li><li>Missing parent block type: doc_section</li></ul></div>
+            
+            
+            <h3>Content Validation: <span class="failed">FAILED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 25.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 25.0% (Threshold: 85%)</div>
+            <p>Checks passed: 2 / 8</p>
+            
+            <div class="error-list"><h4>Content Errors:</h4><ul><li>Missing function purpose, expected one of: ['query language', 'data manipulation', 'data retrieval', 'database queries']</li><li>Missing required keyword: query</li><li>Missing required keyword: collection</li><li>Missing required keyword: filter</li><li>Missing required keyword: data</li><li>Missing required keyword: database</li></ul></div>
+            <div class="success-list"><h4>Content Successes:</h4><ul><li>Found function name: AQL</li><li>Found required keyword: AQL</li></ul></div>
+            
+            <h3>Structure Consistency: <span class="failed">FAILED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 0.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 0.0% (Threshold: 75%)</div>
+            <p>Checks passed: 0 / 2</p>
+            
+            <div class="error-list"><h4>Consistency Errors:</h4><ul><li>Missing required root block type: documentation</li><li>No blocks have file paths in metadata</li></ul></div>
+            
+        </div>
+        
+        <h2>Raw Validation Data</h2>
+        <div class="metadata">
+            <pre>{
+  "valid": false,
+  "overall_score": 19.4,
+  "structure_validation": {
+    "valid": false,
+    "score": 33.3,
+    "errors": [
+      "Missing required block type: documentation",
+      "Missing required block type: doc_page",
+      "Missing required block type: doc_section",
+      "Missing required block type: code_block",
+      "Missing required block type: table",
+      "Missing parent block type: documentation",
+      "Missing parent block type: doc_page",
+      "Missing parent block type: doc_section"
+    ],
+    "successes": [],
+    "total_checks": 12,
+    "passed_checks": 4
+  },
+  "content_validation": {
+    "valid": false,
+    "score": 25.0,
+    "errors": [
+      "Missing function purpose, expected one of: ['query language', 'data manipulation', 'data retrieval', 'database queries']",
+      "Missing required keyword: query",
+      "Missing required keyword: collection",
+      "Missing required keyword: filter",
+      "Missing required keyword: data",
+      "Missing required keyword: database"
+    ],
+    "successes": [
+      "Found function name: AQL",
+      "Found required keyword: AQL"
+    ],
+    "total_checks": 8,
+    "passed_checks": 2
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "Missing required root block type: documentation",
+      "No blocks have file paths in metadata"
+    ],
+    "successes": [],
+    "total_checks": 2,
+    "passed_checks": 0
+  },
+  "name": "length_function_extraction.json",
+  "extraction_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/length_function_extraction.json.converted",
+  "expected_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_expected_format.json",
+  "doc_type": "arangodb"
+}</pre>
+        </div>
+    </div>
+</body>
+</html>

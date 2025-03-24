@@ -1,0 +1,201 @@
+{
+  "description": "Expected format for ARRAY_INTERSECTION function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "ARRAY_INTERSECTION",
+    "function_purpose": [
+      "returns the intersection of arrays",
+      "finds common elements"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "array, array",
+        "description": [
+          "A array, array value",
+          "input array, array"
+        ]
+      }
+    ],
+    "return_type": "result",
+    "examples": [
+      {
+        "code": "RETURN ARRAY_INTERSECTION([1, 2, 3], [2, 3, 4])",
+        "output": "[2, 3]"
+      }
+    ],
+    "required_keywords": [
+      "ARRAY_INTERSECTION",
+      "function",
+      "return",
+      "array, array"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "da939688-07ce-44b5-866a-3c927a46a583",
+      "id": "docs_arangodb_array_intersection",
+      "name": "Documentation: arangodb_array_intersection",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/stable/aql/functions/array/#array_intersection",
+      "source_url": "https://docs.arangodb.com/stable/aql/functions/array/#array_intersection",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/array/#array_intersection",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_array_intersection_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page for ARRAY_INTERSECTION function",
+      "file_path": "/path/to/downloaded/arangodb/array/array_intersection.html",
+      "parent_uuid": "da939688-07ce-44b5-866a-3c927a46a583",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/array/#array_intersection",
+        "relative_path": "aql/functions/array/array_intersection.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "function_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "functions_arangodb_array_intersection_function",
+      "name": "ARRAY_INTERSECTION",
+      "type": "doc_section",
+      "language": "markdown",
+      "content": "# ARRAY_INTERSECTION\n\nreturns the intersection of arrays.",
+      "file_path": "/path/to/downloaded/arangodb/array/array_intersection.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "markdown",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "ARRAY_INTERSECTION"
+        ]
+      }
+    },
+    "syntax_table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "array_intersection_syntax_table",
+      "name": "ARRAY_INTERSECTION Function Syntax",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['ARRAY_INTERSECTION(value)', 'returns the intersection of arrays']]}",
+      "file_path": "/path/to/downloaded/arangodb/array/array_intersection.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": [
+          "Syntax",
+          "Description"
+        ],
+        "rows": [
+          [
+            "ARRAY_INTERSECTION(value)",
+            "returns the intersection of arrays"
+          ]
+        ]
+      }
+    },
+    "example_code": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "array_intersection_example",
+      "name": "ARRAY_INTERSECTION example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN ARRAY_INTERSECTION([1, 2, 3], [2, 3, 4]) // returns [2, 3]",
+      "file_path": "/path/to/downloaded/arangodb/array/array_intersection.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "aql",
+        "source": "html"
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "description": "Expected format for LENGTH function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "file",
+      "section",
+      "text"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "file",
+        "child_types": ["section"]
+      },
+      {
+        "parent_type": "section",
+        "child_types": ["text"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "LENGTH",
+    "function_purpose": [
+      "returns the length of a string",
+      "returns the length of an array",
+      "calculates string length",
+      "counts array elements"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "string|array",
+        "description": [
+          "A string or array value",
+          "input string",
+          "input array"
+        ]
+      }
+    ],
+    "return_type": "number",
+    "examples": [
+      {
+        "code": "LENGTH(\"hello world\")",
+        "output": "11"
+      },
+      {
+        "code": "LENGTH([1, 2, 3, 4, 5])",
+        "output": "5"
+      }
+    ],
+    "required_keywords": [
+      "LENGTH",
+      "string",
+      "array",
+      "function"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["file"],
+    "hierarchical_types": [
+      {
+        "parent": "file",
+        "children": ["section"]
+      },
+      {
+        "parent": "section",
+        "children": ["text"]
+      }
+    ],
+    "validation_threshold": 75
+  }
+}

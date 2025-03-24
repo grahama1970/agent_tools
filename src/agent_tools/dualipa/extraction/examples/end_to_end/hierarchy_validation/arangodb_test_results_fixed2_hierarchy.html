@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Document Hierarchy Visualization</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .hierarchy { margin-left: 20px; }
+    .block { margin: 5px 0; padding: 5px; border: 1px solid #ddd; border-radius: 4px; }
+    .block-header { display: flex; justify-content: space-between; }
+    .block-type { color: #666; }
+    .doc { background-color: #f8f8ff; }
+    .page { background-color: #fff8f8; }
+    .section { background-color: #f8fff8; }
+    .code { background-color: #fff8ff; }
+    .table { background-color: #fffff8; }
+    .children { margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px; }
+    .error { color: red; font-weight: bold; }
+    .warning { color: orange; }
+    .info { color: blue; }
+    .collapsible { cursor: pointer; }
+    .content { max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
+    .active .content { max-height: 500px; }
+  </style>
+</head>
+<body>
+  <h1>Document Hierarchy Visualization</h1>
+  <div class='summary'>
+    <p><strong>Total Blocks:</strong> 2</p>
+    <p><strong>Root Blocks:</strong> 2</p>
+  </div>
+  <div class='hierarchy'>
+<div class='block code'>
+  <div class='block-header'>
+    <span class='collapsible'>Sample code block</span>
+    <span class='block-type'>code_block</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> sample-uuid-1</p>
+    <p><strong>Content:</strong> print(&#x27;Hello World&#x27;)</p>
+    <p><strong>Metadata:</strong> 1 fields</p>
+  </div>
+</div>
+<div class='block table'>
+  <div class='block-header'>
+    <span class='collapsible'>Sample table</span>
+    <span class='block-type'>table</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> sample-uuid-2</p>
+    <p><strong>Content:</strong> [List with 2 items]</p>
+    <p><strong>Metadata:</strong> 1 fields</p>
+  </div>
+</div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var collapsibles = document.getElementsByClassName('collapsible');
+      for (var i = 0; i < collapsibles.length; i++) {
+        collapsibles[i].addEventListener('click', function() {
+          this.parentElement.parentElement.classList.toggle('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

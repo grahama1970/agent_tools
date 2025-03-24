@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  report-server:
+    image: nginx:alpine
+    container_name: dualipa-test-reports
+    ports:
+      - "${PORT:-8765}:80"
+    volumes:
+      - ${RESULTS_DIR:-./test_results}:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    networks:
+      - report-network
+
+networks:
+  report-network:
+    driver: bridge

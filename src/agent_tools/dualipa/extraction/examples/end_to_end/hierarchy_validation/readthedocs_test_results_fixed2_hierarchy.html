@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Document Hierarchy Visualization</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .hierarchy { margin-left: 20px; }
+    .block { margin: 5px 0; padding: 5px; border: 1px solid #ddd; border-radius: 4px; }
+    .block-header { display: flex; justify-content: space-between; }
+    .block-type { color: #666; }
+    .doc { background-color: #f8f8ff; }
+    .page { background-color: #fff8f8; }
+    .section { background-color: #f8fff8; }
+    .code { background-color: #fff8ff; }
+    .table { background-color: #fffff8; }
+    .children { margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px; }
+    .error { color: red; font-weight: bold; }
+    .warning { color: orange; }
+    .info { color: blue; }
+    .collapsible { cursor: pointer; }
+    .content { max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
+    .active .content { max-height: 500px; }
+  </style>
+</head>
+<body>
+  <h1>Document Hierarchy Visualization</h1>
+  <div class='summary'>
+    <p><strong>Total Blocks:</strong> 8</p>
+    <p><strong>Root Blocks:</strong> 1</p>
+  </div>
+  <div class='hierarchy'>
+<div class='block doc'>
+  <div class='block-header'>
+    <span class='collapsible'>Documentation: python</span>
+    <span class='block-type'>documentation</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> e81e2fb0-458e-4285-ba76-fa7d7be77035</p>
+    <p><strong>Content:</strong> Documentation site: https://python.readthedocs.io/en/latest/</p>
+    <p><strong>Metadata:</strong> 3 fields</p>
+  </div>
+  <div class='children'>
+<div class='block page'>
+  <div class='block-header'>
+    <span class='collapsible'>index.html</span>
+    <span class='block-type'>doc_page</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 73257742-55ab-4bad-b7b7-7e77921b71e3</p>
+    <p><strong>Content:</strong> Documentation page from https://python.readthedocs.io/en/latest/</p>
+    <p><strong>Parent:</strong> <span class=''>Documentation: python (e81e2fb0-458e-4285-ba76-fa7d7be77035)</span></p>
+    <p><strong>Metadata:</strong> 4 fields</p>
+  </div>
+  <div class='children'>
+<div class='block section'>
+  <div class='block-header'>
+    <span class='collapsible'>Navigation</span>
+    <span class='block-type'>doc_section</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 5e8a2ec4-7695-47af-96df-877f6f64a2d8</p>
+    <p><strong>Content:</strong> 
+![Python logo](https://docs.python.org/3/_static/py.svg)</p>
+    <p><strong>Parent:</strong> <span class=''>index.html (73257742-55ab-4bad-b7b7-7e77921b71e3)</span></p>
+    <p><strong>Metadata:</strong> 10 fields</p>
+  </div>
+</div>
+<div class='block section'>
+  <div class='block-header'>
+    <span class='collapsible'>Python 3.13.2 documentation</span>
+    <span class='block-type'>doc_section</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 6513e334-2382-47a3-a1c2-142c19214e68</p>
+    <p><strong>Content:</strong> 
+Welcome! This is the official documentation for Python 3.13.2.
+Documentation sections:
+&lt;table align...</p>
+    <p><strong>Parent:</strong> <span class=''>index.html (73257742-55ab-4bad-b7b7-7e77921b71e3)</span></p>
+    <p><strong>Metadata:</strong> 10 fields</p>
+  </div>
+  <div class='children'>
+<div class='block section'>
+  <div class='block-header'>
+    <span class='collapsible'>Navigation</span>
+    <span class='block-type'>doc_section</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 3e4be566-0833-4163-8262-a3df3334831d</p>
+    <p><strong>Content:</strong> 
+![Python logo](https://docs.python.org/3/_static/py.svg)</p>
+    <p><strong>Parent:</strong> <span class=''>Python 3.13.2 documentation (6513e334-2382-47a3-a1c2-142c19214e68)</span></p>
+    <p><strong>Metadata:</strong> 10 fields</p>
+  </div>
+</div>
+<div class='block table'>
+  <div class='block-header'>
+    <span class='collapsible'>Table 1</span>
+    <span class='block-type'>table</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 592c9b3d-548b-47a6-bd06-feeaeeef9e3d</p>
+    <p><strong>Content:</strong> {&#x27;headers&#x27;: [], &#x27;rows&#x27;: [[&#x27;What\&#x27;s new in Python 3.13?\n Or all &quot;What\&#x27;s new&quot; documents since Python...</p>
+    <p><strong>Parent:</strong> <span class=''>Python 3.13.2 documentation (6513e334-2382-47a3-a1c2-142c19214e68)</span></p>
+    <p><strong>Metadata:</strong> 9 fields</p>
+  </div>
+</div>
+<div class='block table'>
+  <div class='block-header'>
+    <span class='collapsible'>Table 2</span>
+    <span class='block-type'>table</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> a9acad84-1004-4602-8c4b-5ac7867e85ac</p>
+    <p><strong>Content:</strong> {&#x27;headers&#x27;: [], &#x27;rows&#x27;: [[&#x27;Global module index\nAll modules and libraries\nGeneral index\nAll functi...</p>
+    <p><strong>Parent:</strong> <span class=''>Python 3.13.2 documentation (6513e334-2382-47a3-a1c2-142c19214e68)</span></p>
+    <p><strong>Metadata:</strong> 9 fields</p>
+  </div>
+</div>
+<div class='block table'>
+  <div class='block-header'>
+    <span class='collapsible'>Table 3</span>
+    <span class='block-type'>table</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 95e08b78-5adb-4bda-81ce-7e842a58647f</p>
+    <p><strong>Content:</strong> {&#x27;headers&#x27;: [], &#x27;rows&#x27;: [[&#x27;Reporting issues\nContributing to Docs\nDownload the documentation&#x27;, &#x27;His...</p>
+    <p><strong>Parent:</strong> <span class=''>Python 3.13.2 documentation (6513e334-2382-47a3-a1c2-142c19214e68)</span></p>
+    <p><strong>Metadata:</strong> 9 fields</p>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var collapsibles = document.getElementsByClassName('collapsible');
+      for (var i = 0; i < collapsibles.length; i++) {
+        collapsibles[i].addEventListener('click', function() {
+          this.parentElement.parentElement.classList.toggle('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

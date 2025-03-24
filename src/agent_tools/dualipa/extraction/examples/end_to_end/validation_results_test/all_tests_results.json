@@ -1,0 +1,15 @@
+[
+  {
+    "source": "LENGTH Function",
+    "valid": false,
+    "overall_score": 39.7,
+    "structure_valid": false,
+    "structure_score": 33.3,
+    "content_valid": true,
+    "content_score": 85.7,
+    "format_valid": true,
+    "results_path": "validation_results_test/length_function/validation_results.json",
+    "html_path": "validation_results_test/length_function/validation_report.html",
+    "timestamp": "2025-03-24 13:34:30"
+  }
+]

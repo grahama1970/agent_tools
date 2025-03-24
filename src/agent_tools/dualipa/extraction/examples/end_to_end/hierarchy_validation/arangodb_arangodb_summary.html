@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arangodb_arangodb Validation Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .summary { margin: 20px 0; }
+        .success { color: green; }
+        .failure { color: red; }
+        .warning { color: orange; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .stat-card { 
+            padding: 15px; 
+            border-radius: 5px; 
+            background-color: #f5f5f5; 
+            text-align: center;
+        }
+        .stat-value { font-size: 24px; font-weight: bold; margin: 5px 0; }
+        .stat-label { font-size: 14px; color: #666; }
+        .errors, .warnings { 
+            margin: 20px 0; 
+            padding: 10px; 
+            border-radius: 5px;
+        }
+        .errors { background-color: #ffeeee; }
+        .warnings { background-color: #ffffee; }
+        .error-title, .warning-title { font-weight: bold; margin-bottom: 10px; }
+        .error-title { color: red; }
+        .warning-title { color: orange; }
+        .links { margin: 20px 0; }
+        .links a { display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>arangodb_arangodb Hierarchy Validation Summary</h1>
+    
+    <div class="summary">
+        <h2>Validation Result: 
+            <span class="success">
+                ✅ PASSED
+            </span>
+        </h2>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Total Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">1</div>
+            <div class="stat-label">Root Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Child Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Orphaned Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Bidirectional References</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Missing References</div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="warnings">
+        <div class="warning-title">Warnings (2)</div>
+        <ul>
+            <li>Child b45722e8-e795-4250-b7bf-bae61ca47bb9 doesn't reference parent ff5d4d20-c5f1-4fa1-8d63-a502aa462bbc in its parent_uuid field</li><li>Child 61b785a9-4b8b-4d0a-be54-81e748a633ee doesn't reference parent b45722e8-e795-4250-b7bf-bae61ca47bb9 in its parent_uuid field</li>
+        </ul>
+    </div>
+    
+    
+    <div class="links">
+        <h3>Related Files</h3>
+        <a href="arangodb_arangodb_hierarchy.html">View Complete Hierarchy Visualization</a>
+        <a href="arangodb_arangodb_validation.json">Download Validation Results (JSON)</a>
+    </div>
+</body>
+</html>

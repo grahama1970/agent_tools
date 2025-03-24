@@ -1,0 +1,188 @@
+{
+  "description": "Expected format for Read the Docs documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "doc_section",
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_url",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": [
+      "Python",
+      "documentation",
+      "reference",
+      "module"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "skip_metadata_checks": false,
+    "skip_root_checks": false,
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "e51bb4e0-215e-459f-b2cf-94ac4d68c7b4",
+      "id": "docs_readthedocs",
+      "name": "Documentation: readthedocs",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://python.readthedocs.io/en/latest/",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://python.readthedocs.io/en/latest/",
+        "doc_type": "readthedocs"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_readthedocs_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://python.readthedocs.io/en/latest/",
+      "file_path": "/path/to/downloaded/readthedocs/index.html",
+      "parent_uuid": "e51bb4e0-215e-459f-b2cf-94ac4d68c7b4",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://python.readthedocs.io/en/latest/",
+        "relative_path": "index.html",
+        "doc_type": "readthedocs"
+      }
+    },
+    "doc_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "readthedocs_section_0",
+      "name": "Main Section",
+      "type": "doc_section",
+      "language": "html",
+      "content": "Main section content",
+      "file_path": "/path/to/downloaded/readthedocs/index.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "Main Section"
+        ]
+      }
+    },
+    "code_block": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "readthedocs_code_0",
+      "name": "Example Code",
+      "type": "code_block",
+      "language": "python",
+      "content": "print('Hello, world!')",
+      "file_path": "/path/to/downloaded/readthedocs/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "python"
+      }
+    },
+    "table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "readthedocs_table_0",
+      "name": "Example Table",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Column 1', 'Column 2'], 'rows': [['Value 1', 'Value 2'], ['Value 3', 'Value 4']]}",
+      "file_path": "/path/to/downloaded/readthedocs/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "headers": [
+          "Column 1",
+          "Column 2"
+        ],
+        "rows": [
+          [
+            "Value 1",
+            "Value 2"
+          ],
+          [
+            "Value 3",
+            "Value 4"
+          ]
+        ]
+      }
+    }
+  }
+}

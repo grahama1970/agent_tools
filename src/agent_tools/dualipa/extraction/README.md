@@ -1,6 +1,14 @@
 # DuaLipa Extraction Module
 
-This module provides functionality for extracting code blocks and content from various file types and repositories, with support for multiple programming languages.
+The DuaLipa extraction module provides robust tools for extracting code and documentation from repositories, maintaining proper hierarchical structure for LLM processing.
+
+## Core Features
+
+- **Code Extraction**: Extract functions, classes, and methods from source code
+- **Documentation Integration**: Integrate external documentation from supported sources
+- **Hierarchical Structure**: Maintain parent-child relationships throughout extraction
+- **Validation Framework**: Ensure extraction quality and structural integrity
+- **QA Format Compatibility**: Generate outputs compatible with QA systems
 
 ## Module Structure
 
@@ -19,6 +27,11 @@ extraction/
 │   │   ├── parser.py
 │   │   ├── hierarchy.py
 │   │   └── extractor.py
+│   ├── html/            # HTML documentation extraction
+│   │   ├── __init__.py
+│   │   ├── parser.py
+│   │   ├── hierarchy.py
+│   │   └── extractor.py
 │   ├── github/         # Repository operations
 │   │   ├── __init__.py
 │   │   ├── repo_utils.py
@@ -29,110 +42,110 @@ extraction/
 │       ├── validation_utils.py
 │       ├── verification_utils.py
 │       └── stats_utils.py
+├── examples/
+│   └── end_to_end/     # End-to-end examples and validation tools
+├── EXTRACTION_DOCUMENTATION.md
+├── PARENT_CHILD_REQUIREMENTS.md
 └── README.md
 ```
 
-## Key Features
-
-1. **Multi-language Code Extraction**
-   - Python (AST-based)
-   - JavaScript/TypeScript (tree-sitter)
-   - Generic pattern-based extraction
-
-2. **Markdown Content Extraction**
-   - Section hierarchy
-   - Code block extraction
-   - Content organization
-
-3. **GitHub Repository Handling**
-   - Repository cloning
-   - Metadata fetching
-   - File operations
-
-4. **Common Utilities**
-   - Language detection
-   - Block validation
-   - Code verification
-   - Statistics tracking
-
-## Dependencies
-
-- `ast`: Python AST parsing
-- `tree-sitter`: JavaScript/TypeScript parsing
-- `markdown-it-py`: Markdown parsing
-- `requests`: GitHub API calls
-- `loguru`: Logging
-
-## Usage Examples
-
-### Code Extraction
+## Quick Start
 
 ```python
-from agent_tools.dualipa.extraction import extract_python_blocks
+# Basic extraction with documentation integration
+from agent_tools.dualipa.extraction.examples.end_to_end.extraction_blocks import extract_all_blocks
+from agent_tools.dualipa.fetch_docs_integration import integrate_docs_with_extraction
 
-# Extract Python code blocks
-blocks, stats = extract_python_blocks("script.py")
-print(f"Found {stats['total_blocks']} blocks")
-```
+# Extract code blocks
+code_blocks = extract_all_blocks("/path/to/repository")
 
-### Markdown Extraction
+# Enhance with documentation
+all_blocks = integrate_docs_with_extraction("/path/to/repository", code_blocks)
 
-```python
-from agent_tools.dualipa.extraction import extract_markdown_blocks
-
-# Extract markdown content
-blocks, stats = extract_markdown_blocks("README.md")
-print(f"Found {stats['sections']} sections")
-```
-
-### GitHub Operations
-
-```python
-from agent_tools.dualipa.extraction import clone_repository
-
-# Clone a repository
-repo_path = clone_repository(
-    "https://github.com/example/repo.git",
-    target_dir="repos",
-    depth=1
+# Convert to QA-compatible format
+from agent_tools.dualipa.extraction.examples.end_to_end.qa_formatter import (
+    create_qa_compatible_blocks,
+    create_qa_compatible_output
 )
+
+qa_blocks = create_qa_compatible_blocks(all_blocks)
+qa_output = create_qa_compatible_output(qa_blocks)
 ```
 
-## Test Organization
+## Documentation
 
-Tests are organized in order of dependency:
+- [Extraction Documentation](EXTRACTION_DOCUMENTATION.md) - Comprehensive guide to extraction functionality
+- [Parent-Child Requirements](PARENT_CHILD_REQUIREMENTS.md) - Requirements for hierarchical structure
+- [Code Extraction](examples/end_to_end/CODE_EXTRACTION.md) - Details on the code extraction process
+- [Validation Framework](examples/end_to_end/VALIDATION_FRAMEWORK.md) - Guide to the validation framework
+- [Hierarchy Validation](examples/end_to_end/HIERARCHY_VALIDATION.md) - Tools for validating parent-child relationships
 
-1. Core Functionality (01-10)
-   - Basic setup
-   - Imports
-   - Stats tracking
-   - GitHub utils
+## Validation Tools
 
-2. Language and Parsing (15-25)
-   - Language detection
-   - Format validation
-   - Block verification
-   - Tree-sitter parsing
+```bash
+# Validate a single extraction
+python examples/end_to_end/validate_hierarchy.py --input extraction_output.json
 
-3. Basic Extraction (30-45)
-   - Python extraction
-   - JS/TS extraction
-   - Markdown extraction
-   - Generic extraction
+# Validate all extractions
+python examples/end_to_end/validate_all_hierarchies.py
+```
 
-4. Hierarchy and Parsing (51-55)
-   - Markdown hierarchy
-   - Code hierarchy
+## Supported Documentation Sources
 
-5. Integration (65-90)
-   - Code extractor
-   - Multi-language
-   - Repository integration
+- ReadTheDocs (`*.readthedocs.io`, `readthedocs.org`)
+- ArangoDB Documentation (`docs.arangodb.com`)
+- Generic HTML documentation with proper section headings
+- Markdown documentation
+
+## Multi-language Support
+
+- **Python**: AST-based extraction
+- **JavaScript/TypeScript**: Tree-sitter based extraction
+- **HTML/CSS**: Specialized parsers
+- **Markdown**: Specialized parsers
+- **Other languages**: Regex-based fallback
+
+## Command Line Interface
+
+```bash
+# Extract a repository with documentation integration
+python -m agent_tools.dualipa.cli extract /path/to/repository --include-docs
+
+# Convert extraction to QA format
+python -m agent_tools.dualipa.cli convert extraction_output.json --format qa
+
+# Validate extraction output
+python -m agent_tools.dualipa.cli validate extraction_output.json --expected expected_format.json
+```
+
+## Requirements for LLM Integration
+
+For proper integration with LLMs, extraction outputs must maintain:
+
+1. **Bidirectional References**: Both parent → child and child → parent
+2. **Complete Hierarchy**: No orphaned blocks or broken relationships
+3. **Consistent Structure**: Follow expected parent-child patterns
+4. **Metadata Consistency**: Include required metadata fields
+
+See [Parent-Child Requirements](PARENT_CHILD_REQUIREMENTS.md) for detailed requirements.
+
+## Testing
+
+```bash
+# Run extraction tests
+python -m pytest examples/end_to_end/test_extraction_e2e.py
+
+# Test documentation integration
+python examples/end_to_end/test_fetch_docs_integration.py
+
+# Run blind tests for specific documentation sources
+python examples/end_to_end/blind_test.py
+```
 
 ## Contributing
 
 1. Follow the module structure
-2. Add comprehensive documentation
-3. Include usage examples
-4. Add tests in correct order
-5. Update this README as needed 
+2. Maintain bidirectional parent-child relationships
+3. Include comprehensive documentation
+4. Add tests for new functionality
+5. Validate extractions using the validation framework

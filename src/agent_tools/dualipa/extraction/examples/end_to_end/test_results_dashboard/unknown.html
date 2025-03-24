@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Result: unknown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .summary-box {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .passed {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .failed {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .error-list {
+            background-color: #fff3f3;
+            padding: 10px;
+            border-left: 4px solid #dc3545;
+            margin-bottom: 15px;
+        }
+        .success-list {
+            background-color: #f1fff0;
+            padding: 10px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #28a745;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        .progress-bar-fill.failed {
+            background-color: #dc3545;
+        }
+        .progress-bar-fill.warning {
+            background-color: #ffc107;
+        }
+        .progress-bar-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .metadata {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .back-link {
+            margin-bottom: 20px;
+        }
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="summary.html">← Back to Summary</a>
+        </div>
+        
+        <h1>Validation Result: unknown</h1>
+        <div class="timestamp">Generated on: 2025-03-24 13:18:07</div>
+        
+        <div class="summary-box">
+            <h2>Overall Result: <span class="failed">FAILED</span></h2>
+            
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 31.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Overall Score: 31.0%</div>
+            
+            <table>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Template Used</th>
+                    <th>Extraction Path</th>
+                </tr>
+                <tr>
+                    <td>unknown</td>
+                    <td>unknown</td>
+                    <td>unknown</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h2>Validation Scores</h2>
+        <div class="summary-box">
+            <h3>Structure Validation: <span class="failed">FAILED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 0.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 0.0% (Threshold: 75%)</div>
+            <p>Checks passed: 0 / 4</p>
+            
+            <div class="error-list"><h4>Structure Errors:</h4><ul><li>Missing required block type: uuid</li><li>Missing required block type: title</li><li>Missing required block type: content</li><li>Missing required block type: section_hierarchy_depth</li></ul></div>
+            
+            
+            <h3>Content Validation: <span class="passed">PASSED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill passed" style="width: 92.9%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 92.9% (Threshold: 85%)</div>
+            <p>Checks passed: 13 / 14</p>
+            
+            <div class="error-list"><h4>Content Errors:</h4><ul><li>Missing example output: 11...</li></ul></div>
+            <div class="success-list"><h4>Content Successes:</h4><ul><li>Found function name: LENGTH</li><li>Found function purpose: returns the length of a string, returns the number of characters</li><li>Found parameter: value</li><li>Found parameter type: string|array for value</li><li>Found parameter description for value: string or array</li><li>Found return type: number</li><li>Found example code: LENGTH("hello world")...</li><li>Found example code: LENGTH([1, 2, 3, 4, 5])...</li><li>Found example output: 5...</li><li>Found required keyword: LENGTH</li><li>... and 3 more successful checks</li></ul></div>
+            
+            <h3>Structure Consistency: <span class="failed">FAILED</span></h3>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 0.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Score: 0.0% (Threshold: 75%)</div>
+            <p>Checks passed: 0 / 1</p>
+            
+            <div class="error-list"><h4>Consistency Errors:</h4><ul><li>No blocks have file paths in metadata</li></ul></div>
+            
+        </div>
+        
+        <h2>Raw Validation Data</h2>
+        <div class="metadata">
+            <pre>{
+  "valid": false,
+  "overall_score": 31.0,
+  "structure_validation": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "Missing required block type: uuid",
+      "Missing required block type: title",
+      "Missing required block type: content",
+      "Missing required block type: section_hierarchy_depth"
+    ],
+    "successes": [],
+    "total_checks": 4,
+    "passed_checks": 0
+  },
+  "content_validation": {
+    "valid": true,
+    "score": 92.9,
+    "errors": [
+      "Missing example output: 11..."
+    ],
+    "successes": [
+      "Found function name: LENGTH",
+      "Found function purpose: returns the length of a string, returns the number of characters",
+      "Found parameter: value",
+      "Found parameter type: string|array for value",
+      "Found parameter description for value: string or array",
+      "Found return type: number",
+      "Found example code: LENGTH(\"hello world\")...",
+      "Found example code: LENGTH([1, 2, 3, 4, 5])...",
+      "Found example output: 5...",
+      "Found required keyword: LENGTH",
+      "Found required keyword: string",
+      "Found required keyword: array",
+      "Found required keyword: function"
+    ],
+    "total_checks": 14,
+    "passed_checks": 13
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "No blocks have file paths in metadata"
+    ],
+    "successes": [],
+    "total_checks": 1,
+    "passed_checks": 0
+  }
+}</pre>
+        </div>
+    </div>
+</body>
+</html>

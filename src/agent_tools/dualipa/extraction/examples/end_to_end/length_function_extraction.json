@@ -1,0 +1,202 @@
+[
+  {
+    "uuid": "2d168659-8b9b-46be-8d4e-361be30cd279",
+    "id": "functions",
+    "name": "functions.md",
+    "type": "file",
+    "language": "markdown",
+    "content": "# ArangoDB LENGTH Function\n            \n            ## LENGTH()\n            \n            The `LENGTH()` function returns the length of a string or the number of elements in an array.\n            \n            ### Syntax\n            \n            ```\n            LENGTH(value)\n            ```\n            \n            ### Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | A string or array to determine the length of |\n            \n            ### Returns\n            \n            | Return Type | Description |\n            |-------------|-------------|\n            | number | Length (number of characters or elements) |\n            \n            ### Examples\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4\n            ```\n            \n            ### Notes\n            \n            - LENGTH() can be used with both strings and arrays\n            - For strings, it returns the number of characters\n            - For arrays, it returns the number of array elements\n            - Works with nested arrays (counts the nested array as one element)\n            ",
+    "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+    "child_uuids": [
+      "14282c50-2350-402b-ad84-13f569f44e0b"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/functions.md"
+    }
+  },
+  {
+    "uuid": "14282c50-2350-402b-ad84-13f569f44e0b",
+    "id": "functions_arangodb_length_function",
+    "name": "ArangoDB LENGTH Function",
+    "type": "section",
+    "language": "markdown",
+    "content": "# ArangoDB LENGTH Function\n            \n            ## LENGTH()\n            \n            The `LENGTH()` function returns the length of a string or the number of elements in an array.\n            \n            ### Syntax\n            \n            ```\n            LENGTH(value)\n            ```\n            \n            ### Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | A string or array to determine the length of |\n            \n            ### Returns\n            \n            | Return Type | Description |\n            |-------------|-------------|\n            | number | Length (number of characters or elements) |\n            \n            ### Examples\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4\n            ```\n            \n            ### Notes\n            \n            - LENGTH() can be used with both strings and arrays\n            - For strings, it returns the number of characters\n            - For arrays, it returns the number of array elements\n            - Works with nested arrays (counts the nested array as one element)",
+    "pure_content": "## LENGTH()\n            \n            The `LENGTH()` function returns the length of a string or the number of elements in an array.\n            \n            ### Syntax\n            \n            ```\n            LENGTH(value)\n            ```\n            \n            ### Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | A string or array to determine the length of |\n            \n            ### Returns\n            \n            | Return Type | Description |\n            |-------------|-------------|\n            | number | Length (number of characters or elements) |\n            \n            ### Examples\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4\n            ```\n            \n            ### Notes\n            \n            - LENGTH() can be used with both strings and arrays\n            - For strings, it returns the number of characters\n            - For arrays, it returns the number of array elements\n            - Works with nested arrays (counts the nested array as one element)",
+    "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+    "parent_uuid": "2d168659-8b9b-46be-8d4e-361be30cd279",
+    "child_uuids": [
+      "59a73480-9da0-4853-a5fd-38fd947ec9e4"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "level": 1,
+      "has_code": true,
+      "has_tables": true,
+      "has_images": false,
+      "position": 0,
+      "section_hierarchy": [
+        "ArangoDB LENGTH Function"
+      ],
+      "section_start": 0,
+      "section_end": 1467
+    }
+  },
+  {
+    "uuid": "59a73480-9da0-4853-a5fd-38fd947ec9e4",
+    "id": "functions_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "## LENGTH()\n            \n            The `LENGTH()` function returns the length of a string or the number of elements in an array.\n            \n            ### Syntax\n            \n            ```\n            LENGTH(value)\n            ```\n            \n            ### Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | A string or array to determine the length of |\n            \n            ### Returns\n            \n            | Return Type | Description |\n            |-------------|-------------|\n            | number | Length (number of characters or elements) |\n            \n            ### Examples\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4\n            ```\n            \n            ### Notes\n            \n            - LENGTH() can be used with both strings and arrays\n            - For strings, it returns the number of characters\n            - For arrays, it returns the number of array elements\n            - Works with nested arrays (counts the nested array as one element)",
+    "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+    "parent_uuid": "14282c50-2350-402b-ad84-13f569f44e0b",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "is_embedded": true,
+      "position": 27,
+      "element_type": "text",
+      "section_hierarchy": [
+        "ArangoDB LENGTH Function"
+      ]
+    }
+  },
+  {
+    "uuid": "539e88b2-366a-48f4-8bdd-ac3afcb0f707",
+    "id": "README",
+    "name": "README.md",
+    "type": "file",
+    "language": "markdown",
+    "content": "# ArangoDB LENGTH Function Test\n            \n            ## String and Array Functions\n            \n            ArangoDB offers useful functions in AQL, including the \n            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)\n            which returns the length of a string or array.\n            \n            ## Example Usage\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])\n            ```\n            \n            ## Function Signature\n            \n            | Function | Description |\n            |---------|-------------|\n            | LENGTH(value) | Returns the length of a string or the number of elements in an array |\n            \n            ## Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | The string or array to measure |\n            \n            ## Return Type\n            \n            | Type | Description |\n            |------|-------------|\n            | number | Length of the string or number of array elements |\n            ",
+    "file_path": "/tmp/length_function_test_0ylfel9f/README.md",
+    "child_uuids": [
+      "88cbd82c-9c5d-49be-841b-172a23fbfaa0"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/README.md"
+    }
+  },
+  {
+    "uuid": "88cbd82c-9c5d-49be-841b-172a23fbfaa0",
+    "id": "README_arangodb_length_function_test",
+    "name": "ArangoDB LENGTH Function Test",
+    "type": "section",
+    "language": "markdown",
+    "content": "# ArangoDB LENGTH Function Test\n            \n            ## String and Array Functions\n            \n            ArangoDB offers useful functions in AQL, including the \n            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)\n            which returns the length of a string or array.\n            \n            ## Example Usage\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])\n            ```\n            \n            ## Function Signature\n            \n            | Function | Description |\n            |---------|-------------|\n            | LENGTH(value) | Returns the length of a string or the number of elements in an array |\n            \n            ## Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | The string or array to measure |\n            \n            ## Return Type\n            \n            | Type | Description |\n            |------|-------------|\n            | number | Length of the string or number of array elements |",
+    "pure_content": "## String and Array Functions\n            \n            ArangoDB offers useful functions in AQL, including the \n            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)\n            which returns the length of a string or array.\n            \n            ## Example Usage\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])\n            ```\n            \n            ## Function Signature\n            \n            | Function | Description |\n            |---------|-------------|\n            | LENGTH(value) | Returns the length of a string or the number of elements in an array |\n            \n            ## Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | The string or array to measure |\n            \n            ## Return Type\n            \n            | Type | Description |\n            |------|-------------|\n            | number | Length of the string or number of array elements |",
+    "file_path": "/tmp/length_function_test_0ylfel9f/README.md",
+    "parent_uuid": "539e88b2-366a-48f4-8bdd-ac3afcb0f707",
+    "child_uuids": [
+      "7475ab18-ca0f-4bf9-bb54-c049ea173f60"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/README.md",
+      "level": 1,
+      "has_code": true,
+      "has_tables": true,
+      "has_images": false,
+      "position": 0,
+      "section_hierarchy": [
+        "ArangoDB LENGTH Function Test"
+      ],
+      "section_start": 0,
+      "section_end": 1228
+    }
+  },
+  {
+    "uuid": "7475ab18-ca0f-4bf9-bb54-c049ea173f60",
+    "id": "README_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "## String and Array Functions\n            \n            ArangoDB offers useful functions in AQL, including the \n            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)\n            which returns the length of a string or array.\n            \n            ## Example Usage\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])\n            ```\n            \n            ## Function Signature\n            \n            | Function | Description |\n            |---------|-------------|\n            | LENGTH(value) | Returns the length of a string or the number of elements in an array |\n            \n            ## Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | The string or array to measure |\n            \n            ## Return Type\n            \n            | Type | Description |\n            |------|-------------|\n            | number | Length of the string or number of array elements |",
+    "file_path": "/tmp/length_function_test_0ylfel9f/README.md",
+    "parent_uuid": "88cbd82c-9c5d-49be-841b-172a23fbfaa0",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/tmp/length_function_test_0ylfel9f/README.md",
+      "is_embedded": true,
+      "position": 32,
+      "element_type": "text",
+      "section_hierarchy": [
+        "ArangoDB LENGTH Function Test"
+      ]
+    }
+  },
+  {
+    "uuid": "c04eaf6d-715e-481f-8de6-ffdd93c1a604",
+    "id": "docs_arangodb_#length",
+    "name": "Documentation: arangodb_#length",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "file_path": "/tmp/length_function_test_0ylfel9f",
+    "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "child_uuids": [
+      "d79f7905-3ad6-4dc3-9491-23fc795e4fdd"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "d79f7905-3ad6-4dc3-9491-23fc795e4fdd",
+    "id": "docs_arangodb_#length_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "file_path": "/tmp/length_function_test_0ylfel9f/.dualipa_docs/f2052ef9/docs.arangodb.com/3.12/aql/functions/string/index.html",
+    "parent_uuid": "c04eaf6d-715e-481f-8de6-ffdd93c1a604",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "relative_path": "docs.arangodb.com/3.12/aql/functions/string/index.html",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "fb2fd3c9-3c0f-404b-b5bd-b3204a1c5957",
+    "id": "docs_arangodb_#length",
+    "name": "Documentation: arangodb_#length",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "file_path": "/tmp/length_function_test_0ylfel9f",
+    "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "child_uuids": [
+      "2ce7134b-467a-485f-b2ed-9fa553709212"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "2ce7134b-467a-485f-b2ed-9fa553709212",
+    "id": "docs_arangodb_#length_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "file_path": "/tmp/length_function_test_0ylfel9f/.dualipa_docs/f2052ef9/docs.arangodb.com/3.12/aql/functions/string/index.html",
+    "parent_uuid": "fb2fd3c9-3c0f-404b-b5bd-b3204a1c5957",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "relative_path": "docs.arangodb.com/3.12/aql/functions/string/index.html",
+      "doc_type": "arangodb"
+    }
+  }
+]

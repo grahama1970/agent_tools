@@ -1,0 +1,222 @@
+{
+  "description": "Expected format for LENGTH function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "LENGTH",
+    "function_purpose": [
+      "returns the length of a string",
+      "returns the length of an array",
+      "calculates string length",
+      "counts array elements"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "string|array",
+        "description": [
+          "A string or array value",
+          "input string",
+          "input array"
+        ]
+      }
+    ],
+    "return_type": "number",
+    "examples": [
+      {
+        "code": "LENGTH(\"hello world\")",
+        "output": "11"
+      },
+      {
+        "code": "LENGTH([1, 2, 3, 4, 5])",
+        "output": "5"
+      }
+    ],
+    "required_keywords": [
+      "LENGTH",
+      "string",
+      "array",
+      "function"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      },
+      {
+        "parent": "doc_section",
+        "children": ["code_block", "table"]
+      }
+    ],
+    "validation_threshold": 75
+  },
+  
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "arangodb-uuid-placeholder",
+      "id": "docs_arangodb_#length",
+      "name": "Documentation: arangodb_#length",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "child_uuids": ["doc-page-uuid-placeholder"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_#length_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "arangodb-uuid-placeholder",
+      "child_uuids": ["section-uuid-placeholder"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+        "relative_path": "docs.arangodb.com/3.12/aql/functions/string/index.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "length_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "functions_arangodb_length_function",
+      "name": "LENGTH",
+      "type": "doc_section",
+      "language": "markdown",
+      "content": "# LENGTH\n\nReturns the length of a string or an array.",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": ["code-block-uuid-placeholder-1", "code-block-uuid-placeholder-2", "table-uuid-placeholder-1", "table-uuid-placeholder-2", "table-uuid-placeholder-3"],
+      "metadata": {
+        "language": "markdown",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "has_images": false,
+        "position": 0,
+        "section_hierarchy": ["LENGTH"]
+      }
+    },
+    "syntax_table": {
+      "uuid": "table-uuid-placeholder-1",
+      "id": "length_syntax_table",
+      "name": "LENGTH Function Syntax",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['LENGTH(value)', 'Returns the length of a string or the number of elements in an array']]}",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": ["Syntax", "Description"],
+        "rows": [["LENGTH(value)", "Returns the length of a string or the number of elements in an array"]]
+      }
+    },
+    "params_table": {
+      "uuid": "table-uuid-placeholder-2",
+      "id": "length_params_table",
+      "name": "LENGTH Function Parameters",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Parameter', 'Type', 'Description'], 'rows': [['value', 'string|array', 'A string or array value']]}",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": ["Parameter", "Type", "Description"],
+        "rows": [["value", "string|array", "A string or array value"]]
+      }
+    },
+    "return_table": {
+      "uuid": "table-uuid-placeholder-3",
+      "id": "length_return_table",
+      "name": "LENGTH Function Return Value",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Return Type', 'Description'], 'rows': [['number', 'The length of the string or number of elements in the array']]}",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": ["Return Type", "Description"],
+        "rows": [["number", "The length of the string or number of elements in the array"]]
+      }
+    },
+    "string_example": {
+      "uuid": "code-block-uuid-placeholder-1",
+      "id": "length_string_example",
+      "name": "LENGTH with string example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN LENGTH(\"hello world\") // returns 11",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "aql",
+        "source": "markdown"
+      }
+    },
+    "array_example": {
+      "uuid": "code-block-uuid-placeholder-2",
+      "id": "length_array_example",
+      "name": "LENGTH with array example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN LENGTH([1, 2, 3, 4, 5]) // returns 5",
+      "file_path": "/path/to/doc/functions.md",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "aql",
+        "source": "markdown"
+      }
+    }
+  }
+}

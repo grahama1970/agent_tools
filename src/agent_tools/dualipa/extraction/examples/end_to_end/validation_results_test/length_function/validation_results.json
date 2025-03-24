@@ -1,0 +1,59 @@
+{
+  "valid": false,
+  "overall_score": 39.7,
+  "structure_validation": {
+    "valid": false,
+    "score": 33.3,
+    "errors": [
+      "Missing required block type: documentation",
+      "Missing required block type: doc_page",
+      "Missing required block type: doc_section",
+      "Missing required block type: code_block",
+      "Missing required block type: table",
+      "Missing parent block type: documentation",
+      "Missing parent block type: doc_page",
+      "Missing parent block type: doc_section"
+    ],
+    "successes": [],
+    "total_checks": 12,
+    "passed_checks": 4
+  },
+  "content_validation": {
+    "valid": true,
+    "score": 85.7,
+    "errors": [
+      "Missing parameter description for value, expected one of: ['A string or array value', 'input string', 'input array']",
+      "Missing example output: 11..."
+    ],
+    "successes": [
+      "Found function name: LENGTH",
+      "Found function purpose: returns the length of a string",
+      "Found parameter: value",
+      "Found parameter type: string|array for value",
+      "Found return type: number",
+      "Found example code: LENGTH(\"hello world\")...",
+      "Found example code: LENGTH([1, 2, 3, 4, 5])...",
+      "Found example output: 5...",
+      "Found required keyword: LENGTH",
+      "Found required keyword: string",
+      "Found required keyword: array",
+      "Found required keyword: function"
+    ],
+    "total_checks": 14,
+    "passed_checks": 12
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "Missing required root block type: documentation",
+      "No blocks have file paths in metadata"
+    ],
+    "successes": [],
+    "total_checks": 2,
+    "passed_checks": 0
+  }
+}

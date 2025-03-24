@@ -104,6 +104,26 @@ For CI/CD pipelines:
 3. Store artifacts as build artifacts
 4. Link to artifacts in PR comments for human review
 
+## Dependency and Import Considerations
+
+When working with the fetch_docs module, be aware of these important requirements:
+
+1. **Required Dependencies**:
+   - **BeautifulSoup (bs4)**: For HTML parsing and manipulation
+   - **lxml**: The HTML parser used by BeautifulSoup in our module
+   - **loguru**: For structured logging throughout the module
+   - **spacy**: For natural language processing (with `en_core_web_sm` model)
+   
+2. **Import Path Considerations**:
+   - Always use absolute imports: `from agent_tools.fetch_docs.clean_html import clean_html`
+   - Avoid relative imports that go outside the current directory (no `from ..module import x`)
+   - Ensure PYTHONPATH includes both the `src` and `tests` directories
+
+3. **Common Pitfalls**:
+   - The `extract_sections_from_html` function expects a `Path` object, not a string, for the `file_path` parameter
+   - The `process_documentation` function returns a specific dictionary structure that must be maintained
+   - Custom functions must match the expected interface when integrating with other modules
+
 ## Recommended Tools
 
 - **BeautifulSoup**: For parsing and manipulating HTML

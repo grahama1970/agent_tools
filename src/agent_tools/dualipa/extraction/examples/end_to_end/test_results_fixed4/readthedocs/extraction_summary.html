@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ReadTheDocs Documentation Extraction Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: #e6f7ff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .commands {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .comparison {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .original, .extracted {
+            flex: 1;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .example {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ReadTheDocs Documentation Extraction Summary</h1>
+            <p>Test run: 2025-03-24 10:33:58</p>
+            <p>Source URL: <a href="https://python.readthedocs.io/en/latest/">https://python.readthedocs.io/en/latest/</a></p>
+        </div>
+
+        <div class="section">
+            <h2>Extraction Statistics</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Blocks</h3>
+                    <p>8</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Documentation Blocks</h3>
+                    <p>1</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Page Blocks</h3>
+                    <p>1</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Section Blocks</h3>
+                    <p>3</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Code Blocks</h3>
+                    <p>0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Table Blocks</h3>
+                    <p>3</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Verification Files</h2>
+            <p>The following files have been created for verification:</p>
+            <ul>
+                <li><strong>Original HTML:</strong> <a href="readthedocs.html">readthedocs.html</a></li>
+                <li><strong>Extracted Blocks:</strong> <a href="readthedocs_blocks.json">readthedocs_blocks.json</a></li>
+            </ul>
+            
+            <div class="commands">
+                <p>Commands to inspect the extraction results:</p>
+                <p>cat "readthedocs_blocks.json" | grep "type" | sort | uniq -c</p>
+                <p>cat "readthedocs_blocks.json" | grep "doc_type" | sort | uniq -c</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Example Content Extraction</h2>
+            
+            <div class="example">
+                <h3>Main Heading</h3>
+                <div class="comparison">
+                    <div class="original">
+                        <h4>Original HTML</h4>
+                        <pre><h1>Python 3.13.2 documentation</h1></pre>
+                    </div>
+                    <div class="extracted">
+                        <h4>Extracted Block</h4>
+                        <pre>{
+  "uuid": "78e7de9d-0216-4af3-8eee-4153f9c00711",
+  "id": "docs_python_index.html_section_1",
+  "name": "Python 3.13.2 documentation",
+  "type": "doc_section",
+  "language": "html",
+  "content": "\nWelcome! This is the official documentation for Python 3.13.2.\nDocumentation sections:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/whatsnew/3.13.html\">What's new in Python 3.13?</a><br/>\n<span class=\"linkdescr\"> Or <a href=\"https://docs.python.org/3/whatsnew/index.html\">all \"What's new\" documents since Python 2.0</a></span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/tutorial/index.html\">Tutorial</a><br/>\n<span class=\"linkdescr\">Start here: a tour of Python's syntax and features</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/library/index.html\">Library reference</a><br/>\n<span class=\"linkdescr\">Standard library and builtins</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/reference/index.html\">Language reference</a><br/>\n<span class=\"linkdescr\">Syntax and language elements</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/using/index.html\">Python setup and usage</a><br/>\n<span class=\"linkdescr\">How to install, configure, and use Python</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/howto/index.html\">Python HOWTOs</a><br/>\n<span class=\"linkdescr\">In-depth topic manuals</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/installing/index.html\">Installing Python modules</a><br/>\n<span class=\"linkdescr\">Third-party modules and PyPI.org</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/distributing/index.html\">Distributing Python modules</a><br/>\n<span class=\"linkdescr\">Publishing modules for use by other people</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/extending/index.html\">Extending and embedding</a><br/>\n<span class=\"linkdescr\">For C/C++ programmers</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/c-api/index.html\">Python's C API</a><br/>\n<span class=\"linkdescr\">C API reference</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/faq/index.html\">FAQs</a><br/>\n<span class=\"linkdescr\">Frequently asked questions (with answers!)</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/deprecations/index.html\">Deprecations</a><br/>\n<span class=\"linkdescr\">Deprecated functionality</span></p>\n</td></tr>\n</table>\nWhat's new in Python 3.13?Orall \"What's new\" documents since Python 2.0\nTutorialStart here: a tour of Python's syntax and features\nLibrary referenceStandard library and builtins\nLanguage referenceSyntax and language elements\nPython setup and usageHow to install, configure, and use Python\nPython HOWTOsIn-depth topic manuals\nInstalling Python modulesThird-party modules and PyPI.org\nDistributing Python modulesPublishing modules for use by other people\nExtending and embeddingFor C/C++ programmers\nPython's C APIC API reference\nFAQsFrequently asked questions (with answers!)\nDeprecationsDeprecated functionality\nIndices, glossary, and search:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/py-modindex.html\">Global module index</a><br/>\n<span class=\"linkdescr\">All modules and libraries</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/genindex.html\">General index</a><br/>\n<span class=\"linkdescr\">All functions, classes, and terms</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/glossary.html\">Glossary</a><br/>\n<span class=\"linkdescr\">Terms explained</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/search.html\">Search page</a><br/>\n<span class=\"linkdescr\">Search this documentation</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/contents.html\">Complete table of contents</a><br/>\n<span class=\"linkdescr\">Lists all sections and subsections</span></p>\n</td></tr>\n</table>\nGlobal module indexAll modules and libraries\nGeneral indexAll functions, classes, and terms\nGlossaryTerms explained\nSearch pageSearch this documentation\nComplete table of contentsLists all sections and subsections\nProject information:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/bugs.html\">Reporting issues</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://devguide.python.org/documentation/help-documenting/\">Contributing to Docs</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/download.html\">Download the documentation</a></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/license.html\">History and license of Python</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/copyright.html\">Copyright</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/about.html\">About the documentation</a></p>\n</td></tr>\n</table>\nReporting issues\nContributing to Docs\nDownload the documentation\nHistory and license of Python\nCopyright\nAbout the documentation\n\nDownload these documents\n\n",
+  "file_path": "/tmp/tmpfpiyrya8/python.readthedocs.io/en/latest/index.html",
+  "parent_uuid": "d6bf4abe-86af-40cf-a6b1-9901defa79cf",
+  "child_uuids": [
+    "15e29ac6-dfc9-468b-a27a-1d7740e33995",
+    "73e03ffd-24fd-4378-aa57-918c864a73a5",
+    "46f8597b-50a0-45b6-a28b-f59d7f167cdd",
+    "92bc0190-3f41-4153-b1d9-0e5a967f46ea"
+  ],
+  "metadata": {
+    "language": "html",
+    "source_url": "https://python.readthedocs.io/en/latest/",
+    "position": 1,
+    "doc_type": "readthedocs",
+    "header_level": 1,
+    "token_count": 751,
+    "section_hierarchy": [
+      "Python 3.13.2 documentation"
+    ],
+    "has_code": false,
+    "has_tables": true,
+    "has_images": false
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Code Block Example</h3>
+                <div class="comparison">
+                    <div class="original">
+                        <h4>Original HTML</h4>
+                        <pre>No pre tag found</pre>
+                    </div>
+                    <div class="extracted">
+                        <h4>Extracted Block</h4>
+                        <pre>{
+  "name": "Not found"
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example">
+                <h3>Table Example</h3>
+                <div class="comparison">
+                    <div class="original">
+                        <h4>Original HTML</h4>
+                        <pre><table align="center" class="contentstable"><tr>
+<td width="50%">
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/whatsnew/3.13.html">What's new in Python 3.13?</a><br/>
+<span class="linkdescr"> Or <a href="https://docs.python.org/3/whatsnew/index.html">all "What's new" documents since Python 2.0</a></span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/tutorial/index.html">Tutorial</a><br/>
+<span class="linkdescr">Start here: a tour of Python's syntax and features</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/library/index.html">Library reference</a><br/>
+<span class="linkdescr">Standard library and builtins</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/reference/index.html">Language reference</a><br/>
+<span class="linkdescr">Syntax and language elements</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/using/index.html">Python setup and usage</a><br/>
+<span class="linkdescr">How to install, configure, and use Python</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/howto/index.html">Python HOWTOs</a><br/>
+<span class="linkdescr">In-depth topic manuals</span></p>
+</td><td width="50%">
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/installing/index.html">Installing Python modules</a><br/>
+<span class="linkdescr">Third-party modules and PyPI.org</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/distributing/index.html">Distributing Python modules</a><br/>
+<span class="linkdescr">Publishing modules for use by other people</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/extending/index.html">Extending and embedding</a><br/>
+<span class="linkdescr">For C/C++ programmers</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/c-api/index.html">Python's C API</a><br/>
+<span class="linkdescr">C API reference</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/faq/index.html">FAQs</a><br/>
+<span class="linkdescr">Frequently asked questions (with answers!)</span></p>
+<p class="biglink"><a class="biglink" href="https://docs.python.org/3/deprecations/index.html">Deprecations</a><br/>
+<span class="linkdescr">Deprecated functionality</span></p>
+</td></tr>
+</table></pre>
+                    </div>
+                    <div class="extracted">
+                        <h4>Extracted Block</h4>
+                        <pre>{
+  "uuid": "15e29ac6-dfc9-468b-a27a-1d7740e33995",
+  "id": "docs_python_index.html_section_1_table_0",
+  "name": "Table 1",
+  "type": "table",
+  "language": "html",
+  "content": "{'headers': [], 'rows': [['What\\'s new in Python 3.13?\\n Or all \"What\\'s new\" documents since Python 2.0\\nTutorial\\nStart here: a tour of Python\\'s syntax and features\\nLibrary reference\\nStandard library and builtins\\nLanguage reference\\nSyntax and language elements\\nPython setup and usage\\nHow to install, configure, and use Python\\nPython HOWTOs\\nIn-depth topic manuals', \"Installing Python modules\\nThird-party modules and PyPI.org\\nDistributing Python modules\\nPublishing modules for use by other people\\nExtending and embedding\\nFor C/C++ programmers\\nPython's C API\\nC API reference\\nFAQs\\nFrequently asked questions (with answers!)\\nDeprecations\\nDeprecated functionality\"]], 'position': 88}",
+  "file_path": "/tmp/tmpfpiyrya8/python.readthedocs.io/en/latest/index.html",
+  "parent_uuid": "78e7de9d-0216-4af3-8eee-4153f9c00711",
+  "child_uuids": [],
+  "metadata": {
+    "language": "html",
+    "source_url": "https://python.readthedocs.io/en/latest/",
+    "position": 88,
+    "doc_type": "readthedocs",
+    "element_type": "table",
+    "is_embedded": true,
+    "headers": [],
+    "rows": [
+      [
+        "What's new in Python 3.13?\n Or all \"What's new\" documents since Python 2.0\nTutorial\nStart here: a tour of Python's syntax and features\nLibrary reference\nStandard library and builtins\nLanguage reference\nSyntax and language elements\nPython setup and usage\nHow to install, configure, and use Python\nPython HOWTOs\nIn-depth topic manuals",
+        "Installing Python modules\nThird-party modules and PyPI.org\nDistributing Python modules\nPublishing modules for use by other people\nExtending and embedding\nFor C/C++ programmers\nPython's C API\nC API reference\nFAQs\nFrequently asked questions (with answers!)\nDeprecations\nDeprecated functionality"
+      ]
+    ],
+    "section_hierarchy": [
+      "Python 3.13.2 documentation"
+    ]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Block Structure Overview</h2>
+            <p>Here's a sample of the extracted block structure:</p>
+            <pre>
+[
+  {
+    "uuid": "ffedbde4-82da-45ed-80a9-8ff27292b41a",
+    "type": "documentation",
+    "name": "Documentation: python",
+    "language": "html",
+    "doc_type": "readthedocs"
+  },
+  {
+    "uuid": "d6bf4abe-86af-40cf-a6b1-9901defa79cf",
+    "type": "doc_page",
+    "name": "index.html",
+    "language": "html",
+    "doc_type": "readthedocs"
+  },
+  {
+    "uuid": "3961eea2-8716-4f1f-8245-e139f74c8885",
+    "type": "doc_section",
+    "name": "Navigation",
+    "language": "html",
+    "doc_type": "readthedocs"
+  },
+  {
+    "uuid": "78e7de9d-0216-4af3-8eee-4153f9c00711",
+    "type": "doc_section",
+    "name": "Python 3.13.2 documentation",
+    "language": "html",
+    "doc_type": "readthedocs"
+  },
+  {
+    "uuid": "15e29ac6-dfc9-468b-a27a-1d7740e33995",
+    "type": "table",
+    "name": "Table 1",
+    "language": "html",
+    "doc_type": "readthedocs"
+  }
+]
+            </pre>
+            <p><em>Note: This is a sample of 5 blocks out of 8 total blocks.</em></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Document Hierarchy Visualization</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .hierarchy { margin-left: 20px; }
+    .block { margin: 5px 0; padding: 5px; border: 1px solid #ddd; border-radius: 4px; }
+    .block-header { display: flex; justify-content: space-between; }
+    .block-type { color: #666; }
+    .doc { background-color: #f8f8ff; }
+    .page { background-color: #fff8f8; }
+    .section { background-color: #f8fff8; }
+    .code { background-color: #fff8ff; }
+    .table { background-color: #fffff8; }
+    .children { margin-left: 20px; border-left: 1px solid #ccc; padding-left: 10px; }
+    .error { color: red; font-weight: bold; }
+    .warning { color: orange; }
+    .info { color: blue; }
+    .collapsible { cursor: pointer; }
+    .content { max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
+    .active .content { max-height: 500px; }
+  </style>
+</head>
+<body>
+  <h1>Document Hierarchy Visualization</h1>
+  <div class='summary'>
+    <p><strong>Total Blocks:</strong> 10</p>
+    <p><strong>Root Blocks:</strong> 4</p>
+  </div>
+  <div class='hierarchy'>
+<div class='block doc'>
+  <div class='block-header'>
+    <span class='collapsible'>Documentation: arangodb_#length</span>
+    <span class='block-type'>documentation</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> c04eaf6d-715e-481f-8de6-ffdd93c1a604</p>
+    <p><strong>Content:</strong> Documentation site: https://docs.arangodb.com/3.12/aql/functions/string/#length</p>
+    <p><strong>Metadata:</strong> 3 fields</p>
+  </div>
+  <div class='children'>
+<div class='block page'>
+  <div class='block-header'>
+    <span class='collapsible'>index.html</span>
+    <span class='block-type'>doc_page</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> d79f7905-3ad6-4dc3-9491-23fc795e4fdd</p>
+    <p><strong>Content:</strong> Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length</p>
+    <p><strong>Parent:</strong> <span class=''>Documentation: arangodb_#length (c04eaf6d-715e-481f-8de6-ffdd93c1a604)</span></p>
+    <p><strong>Metadata:</strong> 4 fields</p>
+  </div>
+</div>
+  </div>
+</div>
+<div class='block doc'>
+  <div class='block-header'>
+    <span class='collapsible'>Documentation: arangodb_#length</span>
+    <span class='block-type'>documentation</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> fb2fd3c9-3c0f-404b-b5bd-b3204a1c5957</p>
+    <p><strong>Content:</strong> Documentation site: https://docs.arangodb.com/3.12/aql/functions/string/#length</p>
+    <p><strong>Metadata:</strong> 3 fields</p>
+  </div>
+  <div class='children'>
+<div class='block page'>
+  <div class='block-header'>
+    <span class='collapsible'>index.html</span>
+    <span class='block-type'>doc_page</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 2ce7134b-467a-485f-b2ed-9fa553709212</p>
+    <p><strong>Content:</strong> Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length</p>
+    <p><strong>Parent:</strong> <span class=''>Documentation: arangodb_#length (fb2fd3c9-3c0f-404b-b5bd-b3204a1c5957)</span></p>
+    <p><strong>Metadata:</strong> 4 fields</p>
+  </div>
+</div>
+  </div>
+</div>
+<div class='block '>
+  <div class='block-header'>
+    <span class='collapsible'>README.md</span>
+    <span class='block-type'>file</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 539e88b2-366a-48f4-8bdd-ac3afcb0f707</p>
+    <p><strong>Content:</strong> # ArangoDB LENGTH Function Test
+            
+            ## String and Array Functions
+            
+...</p>
+    <p><strong>Metadata:</strong> 2 fields</p>
+  </div>
+  <div class='children'>
+<div class='block section'>
+  <div class='block-header'>
+    <span class='collapsible'>ArangoDB LENGTH Function Test</span>
+    <span class='block-type'>section</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 88cbd82c-9c5d-49be-841b-172a23fbfaa0</p>
+    <p><strong>Content:</strong> # ArangoDB LENGTH Function Test
+            
+            ## String and Array Functions
+            
+...</p>
+    <p><strong>Parent:</strong> <span class=''>README.md (539e88b2-366a-48f4-8bdd-ac3afcb0f707)</span></p>
+    <p><strong>Metadata:</strong> 10 fields</p>
+  </div>
+  <div class='children'>
+<div class='block '>
+  <div class='block-header'>
+    <span class='collapsible'>Text Block 1</span>
+    <span class='block-type'>text</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 7475ab18-ca0f-4bf9-bb54-c049ea173f60</p>
+    <p><strong>Content:</strong> ## String and Array Functions
+            
+            ArangoDB offers useful functions in AQL, incl...</p>
+    <p><strong>Parent:</strong> <span class=''>ArangoDB LENGTH Function Test (88cbd82c-9c5d-49be-841b-172a23fbfaa0)</span></p>
+    <p><strong>Metadata:</strong> 6 fields</p>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+<div class='block '>
+  <div class='block-header'>
+    <span class='collapsible'>functions.md</span>
+    <span class='block-type'>file</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 2d168659-8b9b-46be-8d4e-361be30cd279</p>
+    <p><strong>Content:</strong> # ArangoDB LENGTH Function
+            
+            ## LENGTH()
+            
+            The `LENGTH...</p>
+    <p><strong>Metadata:</strong> 2 fields</p>
+  </div>
+  <div class='children'>
+<div class='block section'>
+  <div class='block-header'>
+    <span class='collapsible'>ArangoDB LENGTH Function</span>
+    <span class='block-type'>section</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 14282c50-2350-402b-ad84-13f569f44e0b</p>
+    <p><strong>Content:</strong> # ArangoDB LENGTH Function
+            
+            ## LENGTH()
+            
+            The `LENGTH...</p>
+    <p><strong>Parent:</strong> <span class=''>functions.md (2d168659-8b9b-46be-8d4e-361be30cd279)</span></p>
+    <p><strong>Metadata:</strong> 10 fields</p>
+  </div>
+  <div class='children'>
+<div class='block '>
+  <div class='block-header'>
+    <span class='collapsible'>Text Block 1</span>
+    <span class='block-type'>text</span>
+  </div>
+  <div class='content'>
+    <p><strong>UUID:</strong> 59a73480-9da0-4853-a5fd-38fd947ec9e4</p>
+    <p><strong>Content:</strong> ## LENGTH()
+            
+            The `LENGTH()` function returns the length of a string or the n...</p>
+    <p><strong>Parent:</strong> <span class=''>ArangoDB LENGTH Function (14282c50-2350-402b-ad84-13f569f44e0b)</span></p>
+    <p><strong>Metadata:</strong> 6 fields</p>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var collapsibles = document.getElementsByClassName('collapsible');
+      for (var i = 0; i < collapsibles.length; i++) {
+        collapsibles[i].addEventListener('click', function() {
+          this.parentElement.parentElement.classList.toggle('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

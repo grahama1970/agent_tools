@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Results Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .summary-box {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .passed {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .failed {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .error-list {
+            background-color: #fff3f3;
+            padding: 10px;
+            border-left: 4px solid #dc3545;
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #28a745;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        .progress-bar-fill.failed {
+            background-color: #dc3545;
+        }
+        .progress-bar-fill.warning {
+            background-color: #ffc107;
+        }
+        .progress-bar-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Validation Results Summary</h1>
+        <div class="timestamp">Generated on: 2025-03-24 13:18:07</div>
+        
+        <div class="summary-box">
+            <h2>Overall Statistics</h2>
+            <div class="progress-bar">
+                <div class="progress-bar-fill failed" style="width: 31.0%;"></div>
+            </div>
+            <div class="progress-bar-label">Overall Score: 31.0% (FAILED)</div>
+            
+            <table>
+                <tr>
+                    <th>Total Tests</th>
+                    <th>Passed</th>
+                    <th>Failed</th>
+                    <th>Success Rate</th>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="passed">1</td>
+                    <td class="failed">2</td>
+                    <td>50%</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>Document Type Distribution</h2>
+        <table>
+            <tr>
+                <th>Document Type</th>
+                <th>Tests</th>
+                <th>Passed</th>
+                <th>Failed</th>
+                <th>Success Rate</th>
+            </tr>
+            
+        <tr>
+            <td>arangodb</td>
+            <td>1</td>
+            <td class="passed">0</td>
+            <td class="failed">1</td>
+            <td>0%</td>
+        </tr>
+        
+        <tr>
+            <td>unknown</td>
+            <td>2</td>
+            <td class="passed">1</td>
+            <td class="failed">1</td>
+            <td>50%</td>
+        </tr>
+        
+        </table>
+
+        <h2>Test Results</h2>
+        <table>
+            <tr>
+                <th>Test Name</th>
+                <th>Doc Type</th>
+                <th>Status</th>
+                <th>Structure</th>
+                <th>Content</th>
+                <th>Consistency</th>
+                <th>Overall</th>
+                <th>Details</th>
+            </tr>
+            
+        <tr>
+            <td>length_function_extraction.json</td>
+            <td>arangodb</td>
+            <td class="failed">FAILED</td>
+            <td>33.3%</td>
+            <td>25.0%</td>
+            <td>0.0%</td>
+            <td>19.4%</td>
+            <td><a href="length_function_extraction.json.html">Details</a></td>
+        </tr>
+        
+        <tr>
+            <td>unknown</td>
+            <td>unknown</td>
+            <td class="passed">PASSED</td>
+            <td>100.0%</td>
+            <td>92.9%</td>
+            <td>100.0%</td>
+            <td>97.6%</td>
+            <td><a href="unknown.html">Details</a></td>
+        </tr>
+        
+        <tr>
+            <td>unknown</td>
+            <td>unknown</td>
+            <td class="failed">FAILED</td>
+            <td>0.0%</td>
+            <td>92.9%</td>
+            <td>0.0%</td>
+            <td>31.0%</td>
+            <td><a href="unknown.html">Details</a></td>
+        </tr>
+        
+        </table>
+    </div>
+</body>
+</html>

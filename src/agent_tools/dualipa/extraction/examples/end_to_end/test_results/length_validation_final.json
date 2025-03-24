@@ -1,0 +1,54 @@
+{
+  "valid": false,
+  "overall_score": 31.0,
+  "structure_validation": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "Missing required block type: uuid",
+      "Missing required block type: title",
+      "Missing required block type: content",
+      "Missing required block type: section_hierarchy_depth"
+    ],
+    "successes": [],
+    "total_checks": 4,
+    "passed_checks": 0
+  },
+  "content_validation": {
+    "valid": true,
+    "score": 92.9,
+    "errors": [
+      "Missing example output: 11..."
+    ],
+    "successes": [
+      "Found function name: LENGTH",
+      "Found function purpose: returns the length of a string, returns the number of characters",
+      "Found parameter: value",
+      "Found parameter type: string|array for value",
+      "Found parameter description for value: string or array",
+      "Found return type: number",
+      "Found example code: LENGTH(\"hello world\")...",
+      "Found example code: LENGTH([1, 2, 3, 4, 5])...",
+      "Found example output: 5...",
+      "Found required keyword: LENGTH",
+      "Found required keyword: string",
+      "Found required keyword: array",
+      "Found required keyword: function"
+    ],
+    "total_checks": 14,
+    "passed_checks": 13
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "No blocks have file paths in metadata"
+    ],
+    "successes": [],
+    "total_checks": 1,
+    "passed_checks": 0
+  }
+}

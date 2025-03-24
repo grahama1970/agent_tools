@@ -1,0 +1,16 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "Child b45722e8-e795-4250-b7bf-bae61ca47bb9 doesn't reference parent ff5d4d20-c5f1-4fa1-8d63-a502aa462bbc in its parent_uuid field",
+    "Child 61b785a9-4b8b-4d0a-be54-81e748a633ee doesn't reference parent b45722e8-e795-4250-b7bf-bae61ca47bb9 in its parent_uuid field"
+  ],
+  "stats": {
+    "total_blocks": 3,
+    "root_blocks": 1,
+    "child_blocks": 2,
+    "orphaned_blocks": 0,
+    "bidirectional_references": 0,
+    "missing_references": 0
+  }
+}

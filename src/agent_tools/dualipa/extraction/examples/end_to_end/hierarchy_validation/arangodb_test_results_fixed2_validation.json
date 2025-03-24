@@ -1,0 +1,15 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "Found 2 orphaned blocks with no parent or children"
+  ],
+  "stats": {
+    "total_blocks": 2,
+    "root_blocks": 2,
+    "child_blocks": 0,
+    "orphaned_blocks": 2,
+    "bidirectional_references": 0,
+    "missing_references": 0
+  }
+}

@@ -1,0 +1,208 @@
+[
+  {
+    "uuid": "96710ddf-2c77-4ae4-9b1a-b653e83c5d20",
+    "id": "docs_python",
+    "name": "Documentation: python",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://python.readthedocs.io/en/latest/",
+    "file_path": "/tmp/tmpw1rt5go2",
+    "source_url": "https://python.readthedocs.io/en/latest/",
+    "child_uuids": [
+      "edeab348-dd49-4574-b992-954a20c178be"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "doc_type": "readthedocs"
+    }
+  },
+  {
+    "uuid": "edeab348-dd49-4574-b992-954a20c178be",
+    "id": "docs_python_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://python.readthedocs.io/en/latest/",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "96710ddf-2c77-4ae4-9b1a-b653e83c5d20",
+    "child_uuids": [
+      "2e556b9a-0333-4a16-98da-bcf39709ae9e",
+      "756b4010-a43d-4809-803c-fce24e38a6b4"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "relative_path": "index.html",
+      "doc_type": "readthedocs"
+    }
+  },
+  {
+    "uuid": "2e556b9a-0333-4a16-98da-bcf39709ae9e",
+    "id": "docs_python_index.html_section_0",
+    "name": "Navigation",
+    "type": "doc_section",
+    "language": "html",
+    "content": "\n![Python logo](https://docs.python.org/3/_static/py.svg)",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "edeab348-dd49-4574-b992-954a20c178be",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 0,
+      "doc_type": "readthedocs",
+      "header_level": 3,
+      "token_count": 8,
+      "section_hierarchy": [
+        "Navigation"
+      ],
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false
+    }
+  },
+  {
+    "uuid": "756b4010-a43d-4809-803c-fce24e38a6b4",
+    "id": "docs_python_index.html_section_1",
+    "name": "Python 3.13.2 documentation",
+    "type": "doc_section",
+    "language": "html",
+    "content": "\nWelcome! This is the official documentation for Python 3.13.2.\nDocumentation sections:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/whatsnew/3.13.html\">What's new in Python 3.13?</a><br/>\n<span class=\"linkdescr\"> Or <a href=\"https://docs.python.org/3/whatsnew/index.html\">all \"What's new\" documents since Python 2.0</a></span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/tutorial/index.html\">Tutorial</a><br/>\n<span class=\"linkdescr\">Start here: a tour of Python's syntax and features</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/library/index.html\">Library reference</a><br/>\n<span class=\"linkdescr\">Standard library and builtins</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/reference/index.html\">Language reference</a><br/>\n<span class=\"linkdescr\">Syntax and language elements</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/using/index.html\">Python setup and usage</a><br/>\n<span class=\"linkdescr\">How to install, configure, and use Python</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/howto/index.html\">Python HOWTOs</a><br/>\n<span class=\"linkdescr\">In-depth topic manuals</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/installing/index.html\">Installing Python modules</a><br/>\n<span class=\"linkdescr\">Third-party modules and PyPI.org</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/distributing/index.html\">Distributing Python modules</a><br/>\n<span class=\"linkdescr\">Publishing modules for use by other people</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/extending/index.html\">Extending and embedding</a><br/>\n<span class=\"linkdescr\">For C/C++ programmers</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/c-api/index.html\">Python's C API</a><br/>\n<span class=\"linkdescr\">C API reference</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/faq/index.html\">FAQs</a><br/>\n<span class=\"linkdescr\">Frequently asked questions (with answers!)</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/deprecations/index.html\">Deprecations</a><br/>\n<span class=\"linkdescr\">Deprecated functionality</span></p>\n</td></tr>\n</table>\nWhat's new in Python 3.13?Orall \"What's new\" documents since Python 2.0\nTutorialStart here: a tour of Python's syntax and features\nLibrary referenceStandard library and builtins\nLanguage referenceSyntax and language elements\nPython setup and usageHow to install, configure, and use Python\nPython HOWTOsIn-depth topic manuals\nInstalling Python modulesThird-party modules and PyPI.org\nDistributing Python modulesPublishing modules for use by other people\nExtending and embeddingFor C/C++ programmers\nPython's C APIC API reference\nFAQsFrequently asked questions (with answers!)\nDeprecationsDeprecated functionality\nIndices, glossary, and search:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/py-modindex.html\">Global module index</a><br/>\n<span class=\"linkdescr\">All modules and libraries</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/genindex.html\">General index</a><br/>\n<span class=\"linkdescr\">All functions, classes, and terms</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/glossary.html\">Glossary</a><br/>\n<span class=\"linkdescr\">Terms explained</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/search.html\">Search page</a><br/>\n<span class=\"linkdescr\">Search this documentation</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/contents.html\">Complete table of contents</a><br/>\n<span class=\"linkdescr\">Lists all sections and subsections</span></p>\n</td></tr>\n</table>\nGlobal module indexAll modules and libraries\nGeneral indexAll functions, classes, and terms\nGlossaryTerms explained\nSearch pageSearch this documentation\nComplete table of contentsLists all sections and subsections\nProject information:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/bugs.html\">Reporting issues</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://devguide.python.org/documentation/help-documenting/\">Contributing to Docs</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/download.html\">Download the documentation</a></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/license.html\">History and license of Python</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/copyright.html\">Copyright</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/about.html\">About the documentation</a></p>\n</td></tr>\n</table>\nReporting issues\nContributing to Docs\nDownload the documentation\nHistory and license of Python\nCopyright\nAbout the documentation\n\nDownload these documents\n\n",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "edeab348-dd49-4574-b992-954a20c178be",
+    "child_uuids": [
+      "28b05003-c918-436f-a786-6053d4258741",
+      "bfbfce3c-6618-4a7f-b2c6-512283dcaa0d",
+      "7515620a-b1f9-4b09-8b22-5d9da37bd26f",
+      "3b6cecf9-68f3-4b4b-bad6-a931fe3aff96"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 1,
+      "doc_type": "readthedocs",
+      "header_level": 1,
+      "token_count": 751,
+      "section_hierarchy": [
+        "Python 3.13.2 documentation"
+      ],
+      "has_code": false,
+      "has_tables": true,
+      "has_images": false
+    }
+  },
+  {
+    "uuid": "28b05003-c918-436f-a786-6053d4258741",
+    "id": "docs_python_index.html_section_1_table_0",
+    "name": "Table 1",
+    "type": "table",
+    "language": "html",
+    "content": "{'headers': [], 'rows': [['What\\'s new in Python 3.13?\\n Or all \"What\\'s new\" documents since Python 2.0\\nTutorial\\nStart here: a tour of Python\\'s syntax and features\\nLibrary reference\\nStandard library and builtins\\nLanguage reference\\nSyntax and language elements\\nPython setup and usage\\nHow to install, configure, and use Python\\nPython HOWTOs\\nIn-depth topic manuals', \"Installing Python modules\\nThird-party modules and PyPI.org\\nDistributing Python modules\\nPublishing modules for use by other people\\nExtending and embedding\\nFor C/C++ programmers\\nPython's C API\\nC API reference\\nFAQs\\nFrequently asked questions (with answers!)\\nDeprecations\\nDeprecated functionality\"]], 'position': 88}",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "756b4010-a43d-4809-803c-fce24e38a6b4",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 88,
+      "doc_type": "readthedocs",
+      "element_type": "table",
+      "is_embedded": true,
+      "headers": [],
+      "rows": [
+        [
+          "What's new in Python 3.13?\n Or all \"What's new\" documents since Python 2.0\nTutorial\nStart here: a tour of Python's syntax and features\nLibrary reference\nStandard library and builtins\nLanguage reference\nSyntax and language elements\nPython setup and usage\nHow to install, configure, and use Python\nPython HOWTOs\nIn-depth topic manuals",
+          "Installing Python modules\nThird-party modules and PyPI.org\nDistributing Python modules\nPublishing modules for use by other people\nExtending and embedding\nFor C/C++ programmers\nPython's C API\nC API reference\nFAQs\nFrequently asked questions (with answers!)\nDeprecations\nDeprecated functionality"
+        ]
+      ],
+      "section_hierarchy": [
+        "Python 3.13.2 documentation"
+      ]
+    }
+  },
+  {
+    "uuid": "bfbfce3c-6618-4a7f-b2c6-512283dcaa0d",
+    "id": "docs_python_index.html_section_1_table_1",
+    "name": "Table 2",
+    "type": "table",
+    "language": "html",
+    "content": "{'headers': [], 'rows': [['Global module index\\nAll modules and libraries\\nGeneral index\\nAll functions, classes, and terms\\nGlossary\\nTerms explained', 'Search page\\nSearch this documentation\\nComplete table of contents\\nLists all sections and subsections']], 'position': 3141}",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "756b4010-a43d-4809-803c-fce24e38a6b4",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 3141,
+      "doc_type": "readthedocs",
+      "element_type": "table",
+      "is_embedded": true,
+      "headers": [],
+      "rows": [
+        [
+          "Global module index\nAll modules and libraries\nGeneral index\nAll functions, classes, and terms\nGlossary\nTerms explained",
+          "Search page\nSearch this documentation\nComplete table of contents\nLists all sections and subsections"
+        ]
+      ],
+      "section_hierarchy": [
+        "Python 3.13.2 documentation"
+      ]
+    }
+  },
+  {
+    "uuid": "7515620a-b1f9-4b09-8b22-5d9da37bd26f",
+    "id": "docs_python_index.html_section_1_table_2",
+    "name": "Table 3",
+    "type": "table",
+    "language": "html",
+    "content": "{'headers': [], 'rows': [['Reporting issues\\nContributing to Docs\\nDownload the documentation', 'History and license of Python\\nCopyright\\nAbout the documentation']], 'position': 4349}",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "756b4010-a43d-4809-803c-fce24e38a6b4",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 4349,
+      "doc_type": "readthedocs",
+      "element_type": "table",
+      "is_embedded": true,
+      "headers": [],
+      "rows": [
+        [
+          "Reporting issues\nContributing to Docs\nDownload the documentation",
+          "History and license of Python\nCopyright\nAbout the documentation"
+        ]
+      ],
+      "section_hierarchy": [
+        "Python 3.13.2 documentation"
+      ]
+    }
+  },
+  {
+    "uuid": "3b6cecf9-68f3-4b4b-bad6-a931fe3aff96",
+    "id": "docs_python_index.html_section_2",
+    "name": "Navigation",
+    "type": "doc_section",
+    "language": "html",
+    "content": "\n![Python logo](https://docs.python.org/3/_static/py.svg)",
+    "file_path": "/tmp/tmpw1rt5go2/python.readthedocs.io/en/latest/index.html",
+    "parent_uuid": "756b4010-a43d-4809-803c-fce24e38a6b4",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "position": 2,
+      "doc_type": "readthedocs",
+      "header_level": 3,
+      "token_count": 8,
+      "section_hierarchy": [
+        "Python 3.13.2 documentation",
+        "Navigation"
+      ],
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false
+    }
+  }
+]

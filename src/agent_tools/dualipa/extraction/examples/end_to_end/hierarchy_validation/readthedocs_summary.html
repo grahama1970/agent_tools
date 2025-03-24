@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>readthedocs Validation Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .summary { margin: 20px 0; }
+        .success { color: green; }
+        .failure { color: red; }
+        .warning { color: orange; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .stat-card { 
+            padding: 15px; 
+            border-radius: 5px; 
+            background-color: #f5f5f5; 
+            text-align: center;
+        }
+        .stat-value { font-size: 24px; font-weight: bold; margin: 5px 0; }
+        .stat-label { font-size: 14px; color: #666; }
+        .errors, .warnings { 
+            margin: 20px 0; 
+            padding: 10px; 
+            border-radius: 5px;
+        }
+        .errors { background-color: #ffeeee; }
+        .warnings { background-color: #ffffee; }
+        .error-title, .warning-title { font-weight: bold; margin-bottom: 10px; }
+        .error-title { color: red; }
+        .warning-title { color: orange; }
+        .links { margin: 20px 0; }
+        .links a { display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>readthedocs Hierarchy Validation Summary</h1>
+    
+    <div class="summary">
+        <h2>Validation Result: 
+            <span class="success">
+                ✅ PASSED
+            </span>
+        </h2>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Total Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">1</div>
+            <div class="stat-label">Root Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">7</div>
+            <div class="stat-label">Child Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Orphaned Blocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Bidirectional References</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Missing References</div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="warnings">
+        <div class="warning-title">Warnings (7)</div>
+        <ul>
+            <li>Child edeab348-dd49-4574-b992-954a20c178be doesn't reference parent 96710ddf-2c77-4ae4-9b1a-b653e83c5d20 in its parent_uuid field</li><li>Child 2e556b9a-0333-4a16-98da-bcf39709ae9e doesn't reference parent edeab348-dd49-4574-b992-954a20c178be in its parent_uuid field</li><li>Child 756b4010-a43d-4809-803c-fce24e38a6b4 doesn't reference parent edeab348-dd49-4574-b992-954a20c178be in its parent_uuid field</li><li>Child 28b05003-c918-436f-a786-6053d4258741 doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field</li><li>Child bfbfce3c-6618-4a7f-b2c6-512283dcaa0d doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field</li><li>Child 7515620a-b1f9-4b09-8b22-5d9da37bd26f doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field</li><li>Child 3b6cecf9-68f3-4b4b-bad6-a931fe3aff96 doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field</li>
+        </ul>
+    </div>
+    
+    
+    <div class="links">
+        <h3>Related Files</h3>
+        <a href="readthedocs_hierarchy.html">View Complete Hierarchy Visualization</a>
+        <a href="readthedocs_validation.json">Download Validation Results (JSON)</a>
+    </div>
+</body>
+</html>

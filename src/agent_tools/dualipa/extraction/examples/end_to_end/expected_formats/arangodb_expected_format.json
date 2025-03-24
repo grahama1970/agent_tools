@@ -1,0 +1,188 @@
+{
+  "description": "Expected format for ArangoDB documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "doc_section",
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_url",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": [
+      "ArangoDB",
+      "AQL",
+      "query",
+      "function"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "skip_metadata_checks": false,
+    "skip_root_checks": false,
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "aeb5eabd-405e-4c4c-92b2-a28d8e9945aa",
+      "id": "docs_arangodb",
+      "name": "Documentation: arangodb",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/stable/aql/",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://docs.arangodb.com/stable/aql/",
+      "file_path": "/path/to/downloaded/arangodb/index.html",
+      "parent_uuid": "aeb5eabd-405e-4c4c-92b2-a28d8e9945aa",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "relative_path": "index.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "arangodb_section_0",
+      "name": "Main Section",
+      "type": "doc_section",
+      "language": "html",
+      "content": "Main section content",
+      "file_path": "/path/to/downloaded/arangodb/index.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "Main Section"
+        ]
+      }
+    },
+    "code_block": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "arangodb_code_0",
+      "name": "Example Code",
+      "type": "code_block",
+      "language": "javascript",
+      "content": "console.log('Hello, world!');",
+      "file_path": "/path/to/downloaded/arangodb/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "javascript"
+      }
+    },
+    "table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "arangodb_table_0",
+      "name": "Example Table",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Column 1', 'Column 2'], 'rows': [['Value 1', 'Value 2'], ['Value 3', 'Value 4']]}",
+      "file_path": "/path/to/downloaded/arangodb/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "headers": [
+          "Column 1",
+          "Column 2"
+        ],
+        "rows": [
+          [
+            "Value 1",
+            "Value 2"
+          ],
+          [
+            "Value 3",
+            "Value 4"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "description": "Expected format for HTML documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["doc_section", "code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_url",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": [
+      "html",
+      "documentation",
+      "reference"
+    ],
+    "html_elements": [
+      "h1",
+      "h2",
+      "p",
+      "code",
+      "pre"
+    ],
+    "context_validation": [
+      {
+        "name": "headings",
+        "patterns": ["<h[1-6]>.*?</h[1-6]>", "#.*", "==+"]
+      },
+      {
+        "name": "code_elements",
+        "patterns": ["```", "<code>", "<pre>"]
+      }
+    ],
+    "validation_threshold": 80
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      }
+    ],
+    "html_structure": {
+      "main_content_selector": "main, article, .content, #content",
+      "navigation_selector": "nav, .navigation, #navigation, .sidebar, #sidebar",
+      "heading_selectors": ["h1", "h2", "h3", "h4", "h5", "h6"]
+    },
+    "validation_threshold": 75
+  }
+}

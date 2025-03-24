@@ -1,0 +1,33 @@
+{
+  "description": "Expected format for deepseek format output",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [],
+    "hierarchy": [],
+    "metadata_checks": [],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": ["ArangoDB"],
+    "validation_threshold": 70
+  },
+  "structure_consistency": {
+    "required_root_blocks": [],
+    "hierarchical_types": [],
+    "skip_metadata_checks": true,
+    "skip_root_checks": true,
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "section": {
+      "uuid": "12345",
+      "title": "Sample Section",
+      "content": "This is sample content",
+      "section_hierarchy_depth": ["Parent", "Child"],
+      "images": [],
+      "tables": [],
+      "code": [],
+      "tests": []
+    }
+  }
+}

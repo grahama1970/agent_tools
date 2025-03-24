@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Summary Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { border: 1px solid #ddd; border-radius: 4px; padding: 20px; margin-bottom: 20px; }
+        .status { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: bold; margin-left: 10px; }
+        .passed { background-color: #d4edda; color: #155724; }
+        .failed { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        .score { font-size: 18px; font-weight: bold; }
+        .summary { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .summary-item { text-align: center; padding: 15px; border-radius: 4px; background-color: #f8f9fa; flex: 1; margin: 0 10px; }
+        .summary-value { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        .progress-bar { height: 20px; background-color: #e9ecef; border-radius: 4px; overflow: hidden; }
+        .progress { height: 100%; background-color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Validation Summary Report</h1>
+        
+        <div class="summary">
+            <div class="summary-item">
+                <div class="summary-value">0/1</div>
+                <div>Tests Passed</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">39.7%</div>
+                <div>Average Score</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">0.0%</div>
+                <div>Success Rate</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Test Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <th>Overall Score</th>
+                        <th>Structure</th>
+                        <th>Content</th>
+                        <th>Format</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>LENGTH Function</td>
+                        <td><span class="status failed">FAILED</span></td>
+                        <td>
+                            <div class="score">39.7%</div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 39.7%;"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score">33.3%</div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 33.3%;"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score">85.7%</div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85.7%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status passed">PASSED</span></td>
+                        <td><a href="length_function/validation_report.html" target="_blank">View Report</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Generated on 2025-03-24 13:34:30</p>
+    </div>
+</body>
+</html>
