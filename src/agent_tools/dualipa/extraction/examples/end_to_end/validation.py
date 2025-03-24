@@ -20,21 +20,21 @@ Examples:
     Output validation successful
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List, Union
 import logging
 
 # Setup logging
 logger = logging.getLogger("extraction.validation")
 
 
-def validate_qa_output(output: Dict[str, Any]) -> bool:
+def validate_qa_output(output: Any) -> bool:
     """Validate that the output meets QA module requirements.
     
     This function checks that the extraction output includes all required fields
     and maintains consistent relationships between sections.
     
     Args:
-        output: The complete output dictionary to validate
+        output: The complete output dictionary or list to validate
         
     Returns:
         True if validation passes, False if it fails
@@ -46,6 +46,55 @@ def validate_qa_output(output: Dict[str, Any]) -> bool:
         True
     """
     logger.info("Validating QA-compatible output")
+    
+    # Check for deepseek format - a list of sections
+    if isinstance(output, list):
+        logger.info("Validating deepseek format output")
+        
+        # Check for empty list
+        if not output:
+            logger.error("Empty deepseek format output")
+            return False
+        
+        # Check first section for required fields
+        required_fields = ["uuid", "title", "content", "section_hierarchy_depth"]
+        for field in required_fields:
+            if field not in output[0]:
+                logger.error(f"Missing required field in deepseek format: {field}")
+                return False
+        
+        # Validate section contents
+        for i, section in enumerate(output):
+            # Check required nested elements
+            for element_type in ["images", "tables", "code"]:
+                if element_type not in section:
+                    logger.error(f"Section {i} missing element type: {element_type}")
+                    return False
+                
+                # Check element content if any exist
+                elements = section.get(element_type, [])
+                if elements:
+                    if element_type == "images":
+                        if "src" not in elements[0] or "alt" not in elements[0]:
+                            logger.error(f"Section {i} has invalid image format")
+                            return False
+                    elif element_type == "tables":
+                        if "content" not in elements[0]:
+                            logger.error(f"Section {i} has invalid table format")
+                            return False
+                    elif element_type == "code":
+                        if "language" not in elements[0] or "content" not in elements[0]:
+                            logger.error(f"Section {i} has invalid code format")
+                            return False
+        
+        # If we got here, the deepseek format is valid
+        logger.info("Deepseek format validation successful")
+        return True
+    
+    # Standard format validation
+    if not isinstance(output, dict):
+        logger.error(f"Output is neither a dict nor a list: {type(output)}")
+        return False
     
     # Check required top-level fields
     required_top_fields = ["sections", "extraction_metadata", "section_relationships"]

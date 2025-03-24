@@ -1,0 +1,310 @@
+{
+  "blocks": [
+    {
+      "uuid": "doc-001-uuid",
+      "id": "readme_md",
+      "name": "README.md",
+      "type": "file",
+      "language": "markdown",
+      "content": "# Project Documentation\n\nThis is a sample README file with markdown content.",
+      "file_path": "/path/to/project/README.md",
+      "child_uuids": ["section-001-uuid"],
+      "metadata": {
+        "language": "markdown",
+        "file_type": "markdown",
+        "last_modified": "2025-03-22T08:00:00Z"
+      }
+    },
+    {
+      "uuid": "section-001-uuid",
+      "id": "readme_md_section_0",
+      "name": "Project Documentation",
+      "type": "section",
+      "language": "markdown",
+      "content": "# Project Documentation\n\nThis is a sample README file with markdown content.",
+      "file_path": "/path/to/project/README.md",
+      "parent_uuid": "doc-001-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "markdown",
+        "position": 0,
+        "header_level": 1,
+        "section_hierarchy": ["Project Documentation"]
+      }
+    },
+    {
+      "uuid": "py-001-uuid",
+      "id": "main_py",
+      "name": "main.py",
+      "type": "file",
+      "language": "python",
+      "content": "#!/usr/bin/env python3\n\ndef main():\n    print(\"Hello, world!\")\n\nif __name__ == \"__main__\":\n    main()",
+      "file_path": "/path/to/project/main.py",
+      "child_uuids": ["function-001-uuid"],
+      "metadata": {
+        "language": "python",
+        "file_type": "python",
+        "last_modified": "2025-03-22T08:00:00Z"
+      }
+    },
+    {
+      "uuid": "function-001-uuid",
+      "id": "main_py_function_main",
+      "name": "main",
+      "type": "function",
+      "language": "python",
+      "content": "def main():\n    print(\"Hello, world!\")",
+      "file_path": "/path/to/project/main.py",
+      "parent_uuid": "py-001-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "python",
+        "start_line": 3,
+        "end_line": 4,
+        "function_type": "function",
+        "parameters": []
+      }
+    },
+    {
+      "uuid": "js-001-uuid",
+      "id": "app_js",
+      "name": "app.js",
+      "type": "file",
+      "language": "javascript",
+      "content": "// Main application script\nconst express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n    res.send('Hello, world!');\n});\n\napp.listen(3000, () => {\n    console.log('Server running on port 3000');\n});",
+      "file_path": "/path/to/project/app.js",
+      "child_uuids": ["function-002-uuid"],
+      "metadata": {
+        "language": "javascript",
+        "file_type": "javascript",
+        "last_modified": "2025-03-22T08:00:00Z"
+      }
+    },
+    {
+      "uuid": "function-002-uuid",
+      "id": "app_js_route_handler",
+      "name": "route handler for '/'",
+      "type": "function",
+      "language": "javascript",
+      "content": "app.get('/', (req, res) => {\n    res.send('Hello, world!');\n});",
+      "file_path": "/path/to/project/app.js",
+      "parent_uuid": "js-001-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "javascript",
+        "start_line": 5,
+        "end_line": 7,
+        "function_type": "anonymous"
+      }
+    },
+    {
+      "uuid": "html-001-uuid",
+      "id": "index_html",
+      "name": "index.html",
+      "type": "file",
+      "language": "html",
+      "content": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Sample Page</title>\n</head>\n<body>\n    <h1>Hello World</h1>\n    <p>This is a sample HTML page.</p>\n</body>\n</html>",
+      "file_path": "/path/to/project/index.html",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "file_type": "html",
+        "last_modified": "2025-03-22T08:00:00Z"
+      }
+    },
+    {
+      "uuid": "doc-002-uuid",
+      "id": "docs_rtd",
+      "name": "Documentation: ReadTheDocs",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://example.readthedocs.io/",
+      "source_url": "https://example.readthedocs.io/",
+      "child_uuids": ["docpage-001-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.readthedocs.io/",
+        "doc_type": "readthedocs"
+      }
+    },
+    {
+      "uuid": "docpage-001-uuid",
+      "id": "docs_rtd_index_html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://example.readthedocs.io/",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "doc-002-uuid",
+      "child_uuids": ["docsection-001-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.readthedocs.io/",
+        "relative_path": "index.html",
+        "doc_type": "readthedocs"
+      }
+    },
+    {
+      "uuid": "docsection-001-uuid",
+      "id": "docs_rtd_index_html_section_0",
+      "name": "Project Documentation",
+      "type": "doc_section",
+      "language": "html",
+      "content": "<h1>Project Documentation</h1><p>This is project documentation from ReadTheDocs.</p>",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "docpage-001-uuid",
+      "child_uuids": ["doccode-001-uuid", "doctable-001-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.readthedocs.io/",
+        "position": 0,
+        "doc_type": "readthedocs",
+        "header_level": 1,
+        "token_count": 20,
+        "section_hierarchy": ["Project Documentation"],
+        "has_code": true,
+        "has_tables": true,
+        "has_images": false
+      }
+    },
+    {
+      "uuid": "doccode-001-uuid",
+      "id": "docs_rtd_index_html_section_0_code_0",
+      "name": "Code Block 1",
+      "type": "code_block",
+      "language": "python",
+      "content": "import example\n\nexample.run()",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "docsection-001-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "python",
+        "source_url": "https://example.readthedocs.io/",
+        "position": 100,
+        "doc_type": "readthedocs",
+        "element_type": "code_block",
+        "is_embedded": true,
+        "section_hierarchy": ["Project Documentation"]
+      }
+    },
+    {
+      "uuid": "doctable-001-uuid",
+      "id": "docs_rtd_index_html_section_0_table_0",
+      "name": "Table 1",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Method', 'Description'], 'rows': [['GET', 'Retrieves data'], ['POST', 'Creates new data']]}",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "docsection-001-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.readthedocs.io/",
+        "position": 200,
+        "doc_type": "readthedocs",
+        "element_type": "table",
+        "is_embedded": true,
+        "headers": ["Method", "Description"],
+        "rows": [["GET", "Retrieves data"], ["POST", "Creates new data"]],
+        "section_hierarchy": ["Project Documentation"]
+      }
+    },
+    {
+      "uuid": "doc-003-uuid",
+      "id": "docs_arangodb_aql",
+      "name": "Documentation: ArangoDB AQL",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/stable/aql/",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "child_uuids": ["docpage-002-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "doc_type": "arangodb"
+      }
+    },
+    {
+      "uuid": "docpage-002-uuid",
+      "id": "docs_arangodb_aql_index_html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://docs.arangodb.com/stable/aql/",
+      "file_path": "/path/to/downloaded/site/arangodb/index.html",
+      "parent_uuid": "doc-003-uuid",
+      "child_uuids": ["docsection-002-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "relative_path": "index.html",
+        "doc_type": "arangodb"
+      }
+    },
+    {
+      "uuid": "docsection-002-uuid",
+      "id": "docs_arangodb_aql_index_html_section_0",
+      "name": "ArangoDB Query Language",
+      "type": "doc_section",
+      "language": "html",
+      "content": "<h1>ArangoDB Query Language</h1><p>This is the ArangoDB Query Language documentation.</p>",
+      "file_path": "/path/to/downloaded/site/arangodb/index.html",
+      "parent_uuid": "docpage-002-uuid",
+      "child_uuids": ["doccode-002-uuid", "doctable-002-uuid"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "position": 0,
+        "doc_type": "arangodb",
+        "header_level": 1,
+        "token_count": 15,
+        "section_hierarchy": ["ArangoDB Query Language"],
+        "has_code": true,
+        "has_tables": true,
+        "has_images": false
+      }
+    },
+    {
+      "uuid": "doccode-002-uuid",
+      "id": "docs_arangodb_aql_index_html_section_0_code_0",
+      "name": "AQL Example",
+      "type": "code_block",
+      "language": "javascript",
+      "content": "FOR doc IN collection\n  FILTER doc.value > 10\n  RETURN doc",
+      "file_path": "/path/to/downloaded/site/arangodb/index.html",
+      "parent_uuid": "docsection-002-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "javascript",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "position": 100,
+        "doc_type": "arangodb",
+        "element_type": "code_block",
+        "is_embedded": true,
+        "section_hierarchy": ["ArangoDB Query Language"]
+      }
+    },
+    {
+      "uuid": "doctable-002-uuid",
+      "id": "docs_arangodb_aql_index_html_section_0_table_0",
+      "name": "AQL Operations",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Operator', 'Description'], 'rows': [['FOR', 'Iteration'], ['FILTER', 'Selection'], ['RETURN', 'Projection']]}",
+      "file_path": "/path/to/downloaded/site/arangodb/index.html",
+      "parent_uuid": "docsection-002-uuid",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/",
+        "position": 200,
+        "doc_type": "arangodb",
+        "element_type": "table",
+        "is_embedded": true,
+        "headers": ["Operator", "Description"],
+        "rows": [["FOR", "Iteration"], ["FILTER", "Selection"], ["RETURN", "Projection"]],
+        "section_hierarchy": ["ArangoDB Query Language"]
+      }
+    }
+  ]
+}

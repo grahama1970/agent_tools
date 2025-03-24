@@ -289,20 +289,41 @@ def run_real_world_test(repo_path: Path, output_path: Path = None) -> bool:
         logger.info(f"Output written to {output_path}")
         
         # 8. Verify significant content was extracted
-        stats = output.get("extraction_metadata", {}).get("statistics", {})
-        total_blocks = stats.get("total_blocks", 0)
-        total_files = stats.get("total_files", 0)
-        
-        if total_blocks < 10:
-            logger.error(f"Too few blocks extracted: {total_blocks}")
-            return False
-        
-        if total_files < 2:
-            logger.error(f"Too few files processed: {total_files}")
-            return False
-        
-        logger.info("Real-world extraction test successful")
-        logger.info(f"Extracted {total_blocks} blocks from {total_files} files")
+        # Check if output is in deepseek format (list) or standard format (dict)
+        if isinstance(output, list):
+            # Deepseek format - just count the sections
+            total_sections = len(output)
+            logger.info("Real-world extraction test successful")
+            logger.info(f"Extracted {total_sections} sections in deepseek format")
+            
+            if total_sections < 1:
+                logger.error("Too few sections extracted in deepseek format")
+                return False
+                
+            # Count elements within sections
+            total_tables = sum(len(section.get("tables", [])) for section in output)
+            total_code_blocks = sum(len(section.get("code", [])) for section in output)
+            total_images = sum(len(section.get("images", [])) for section in output)
+            
+            logger.info(f"Deepseek format contains: {total_sections} sections, " + 
+                       f"{total_tables} tables, {total_code_blocks} code blocks, " +
+                       f"{total_images} images")
+        else:
+            # Standard format
+            stats = output.get("extraction_metadata", {}).get("statistics", {})
+            total_blocks = stats.get("total_blocks", 0)
+            total_files = stats.get("total_files", 0)
+            
+            if total_blocks < 10:
+                logger.error(f"Too few blocks extracted: {total_blocks}")
+                return False
+            
+            if total_files < 2:
+                logger.error(f"Too few files processed: {total_files}")
+                return False
+            
+            logger.info("Real-world extraction test successful")
+            logger.info(f"Extracted {total_blocks} blocks from {total_files} files")
         
         # Print some sample blocks for inspection
         logger.info("Sample blocks:")

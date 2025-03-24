@@ -859,4 +859,16 @@ def extract_all_blocks(source_dir: Path) -> List[Dict[str, Any]]:
             overall_stats["errors"].append(str(e))
     
     logger.info(f"Extraction complete: {len(all_blocks)} blocks from {overall_stats['total_files']} files")
+    
+    # Try to enhance with documentation from fetch_docs
+    try:
+        from agent_tools.dualipa.fetch_docs_integration import integrate_docs_with_extraction
+        logger.info("Enhancing extraction with documentation from fetch_docs")
+        all_blocks = integrate_docs_with_extraction(source_dir, all_blocks)
+        logger.info(f"Enhanced extraction complete: {len(all_blocks)} blocks total (including documentation)")
+    except ImportError:
+        logger.info("fetch_docs_integration module not found, skipping documentation enhancement")
+    except Exception as e:
+        logger.error(f"Error enhancing extraction with documentation: {e}")
+    
     return all_blocks

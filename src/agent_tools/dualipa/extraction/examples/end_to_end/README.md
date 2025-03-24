@@ -1,181 +1,109 @@
-# Markdown Extraction Module
+# DuaLipa Documentation Integration
 
-This module extracts structured content from markdown files, maintaining hierarchical relationships between sections and properly handling various content elements like tables, code blocks, and images.
+This module integrates external documentation sources with the DuaLipa extraction pipeline. It automatically detects documentation links in repositories, downloads and processes the documentation content, and integrates it with code extraction in a format compatible with the QA system.
 
-## Input and Output Formats
+## Features
 
-### Input
-The module processes markdown files (`.md`) and extracts structured content including:
-- Section hierarchies (based on heading levels #, ##, ###, etc.)
-- Tables (formatted with pipe syntax)
-- Code blocks (fenced with triple backticks)
-- Images (with markdown image syntax)
-- Text content between other elements
-
-### Output
-Output is a JSON array of section objects where each section contains:
-- `uuid`: Unique identifier for the section
-- `section_hierarchy_depth`: Array showing the nested path of sections
-- `title`: Section heading title
-- `content`: Plain text content within the section
-- `tables`: Array of table objects, each with:
-  - `uuid`: Unique identifier
-  - `content`: Object containing:
-    - `headers`: Array of header cell values
-    - `rows`: Array of arrays, each representing a row of cell values
-- `images`: Array of image objects, each with:
-  - `uuid`: Unique identifier
-  - `src`: Image URL/path
-  - `alt`: Alternative text for the image
-- `code`: Array of code block objects, each with:
-  - `uuid`: Unique identifier
-  - `language`: Programming language (extracted from code fence)
-  - `content`: Code content
-- `tests`: Array of test blocks (optional, for specific documentation)
-
-## Example
-
-### Input (markdown file)
-```markdown
-# DeepSeek Usage
-
-SGLang provides several optimizations specifically designed for the DeepSeek model to boost its inference speed. This document outlines current optimizations for DeepSeek.
-
-## Launch DeepSeek V3 with SGLang
-
-SGLang is recognized as one of the top engines for [DeepSeek model inference](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3). To run DeepSeek V3/R1 models, the requirements are as follows:
-
-| Weight Type | Configuration |
-|-------------|---------------|
-| **Full precision FP8**<br>*(recommended)* | 8 x H200 |
-| | 8 x MI300X |
-| | 2 x 8 x H100/800/20 |
-
-### Download Weights
-
-If you encounter errors when starting the server, ensure the weights have finished downloading.
-```
-
-### Output (JSON)
-```json
-[
-  {
-    "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "section_hierarchy_depth": ["DeepSeek Usage"],
-    "title": "DeepSeek Usage",
-    "content": "SGLang provides several optimizations specifically designed for the DeepSeek model to boost its inference speed. This document outlines current optimizations for DeepSeek.",
-    "images": [],
-    "tests": [],
-    "tables": [],
-    "code": []
-  },
-  {
-    "uuid": "550e8400-e29b-41d4-a716-446655440000",
-    "section_hierarchy_depth": [
-      "DeepSeek Usage",
-      "Launch DeepSeek V3 with SGLang"
-    ],
-    "title": "Launch DeepSeek V3 with SGLang",
-    "content": "SGLang is recognized as one of the top engines for [DeepSeek model inference](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3). To run DeepSeek V3/R1 models, the requirements are as follows:",
-    "images": [],
-    "tests": [],
-    "tables": [
-      {
-        "uuid": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-        "content": {
-          "headers": ["Weight Type", "Configuration"],
-          "rows": [
-            ["**Full precision FP8**<br>*(recommended)*", "8 x H200"],
-            ["", "8 x MI300X"],
-            ["", "2 x 8 x H100/800/20"]
-          ]
-        }
-      }
-    ],
-    "code": []
-  },
-  {
-    "uuid": "123e4567-e89b-12d3-a456-426614174000",
-    "section_hierarchy_depth": [
-      "DeepSeek Usage",
-      "Launch DeepSeek V3 with SGLang",
-      "Download Weights"
-    ],
-    "title": "Download Weights",
-    "content": "If you encounter errors when starting the server, ensure the weights have finished downloading.",
-    "images": [],
-    "tests": [],
-    "tables": [],
-    "code": []
-  }
-]
-```
-
-## File Structure
-
-- `extraction_blocks.py`: Core extraction logic for identifying markdown elements
-- `qa_formatter.py`: Formats extracted blocks into the expected output structure
-- `real_world_test.py`: Test framework for running extraction on sample repositories
-- `validation.py`: Validates the extraction output structure
-
-## Processing Flow
-
-1. **File Identification**: Locate markdown files in the repository
-2. **Section Extraction**: Parse headings to identify sections and their hierarchical relationships
-3. **Element Extraction**: Extract tables, code blocks, images, and text from each section
-4. **Position Tracking**: Maintain element order using character positions
-5. **Hierarchy Mapping**: Create section hierarchy paths for nested sections
-6. **Format Transformation**: Convert internal block representation to the expected output format
-7. **Validation**: Verify the output structure meets the requirements
+- Automatic detection of documentation links in markdown files
+- Support for ReadTheDocs and ArangoDB documentation formats
+- HTML cleaning and section extraction
+- Hierarchical content structure preservation
+- Format conversion to DuaLipa-compatible blocks
+- Seamless integration with code extraction
 
 ## Usage
 
+### Basic Usage
+
 ```python
-from pathlib import Path
-from extraction_blocks import extract_all_blocks
-from qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
+from agent_tools.dualipa.extraction.examples.end_to_end.extraction_blocks import extract_all_blocks
 
-# Path to repository or directory containing markdown files
-repo_path = Path("./test_repos/sglang")
+# Extract code and documentation blocks
+blocks = extract_all_blocks("/path/to/repository")
 
-# Extract blocks from all files
-blocks = extract_all_blocks(repo_path)
-
-# Convert to QA-compatible format
-qa_blocks = create_qa_compatible_blocks(blocks)
-
-# Create final output
-output = create_qa_compatible_output(qa_blocks)
-
-# Write to JSON file
-import json
-with open("output.json", "w") as f:
-    json.dump(output, f, indent=2)
+# Documentation blocks are automatically included in the output
 ```
 
-## Implementation Notes
+### Direct Documentation Integration
 
-### 1. Section Hierarchy
-- Sections are identified by heading markers (#, ##, ###, etc.)
-- Nested sections are determined by heading level (e.g., ### is child of ##)
-- Full hierarchy path is stored in `section_hierarchy_depth` for each section
+```python
+from agent_tools.dualipa.fetch_docs_integration import integrate_docs_with_extraction
 
-### 2. Table Extraction
-- Tables are identified using markdown pipe syntax
-- Header row is separated from data rows
-- Empty cells are preserved as empty strings
-- Markdown formatting within cells is preserved
+# Get code blocks from extraction
+code_blocks = [...]  # Your extracted code blocks
 
-### 3. Code Block Extraction
-- Code blocks are identified using triple backtick fences
-- Language is extracted from the opening fence if specified
-- Code content is preserved including indentation and empty lines
+# Enhance with documentation
+all_blocks = integrate_docs_with_extraction("/path/to/repository", code_blocks)
+```
 
-### 4. Image Extraction
-- Images use standard markdown syntax: `![alt text](image_url)`
-- Both the URL and alt text are extracted
-- Images are associated with their parent section
+## Testing
 
-### 5. Position Tracking
-- Character positions are tracked to maintain original element order
-- Ensures output elements appear in the same order as in the source document
+Run the test suite to validate the integration:
+
+```bash
+# General integration test
+python test_fetch_docs_integration.py
+
+# ArangoDB documentation blind test
+python blind_test.py --arangodb-docs-only
+
+# ArangoDB AQL main page specific test
+python blind_test.py --aql-main-page-only
+
+# Run all blind tests
+python blind_test.py
+```
+
+### AQL-Specific Testing
+
+The system includes specialized testing for the ArangoDB AQL main documentation page 
+(https://docs.arangodb.com/stable/aql/), which is a critical documentation resource. 
+This test validates that:
+
+1. The main AQL page is correctly identified and extracted
+2. Code blocks containing AQL examples are properly structured
+3. Tables of AQL operations are correctly formatted
+4. Parent-child relationships between documentation elements are maintained
+
+For more details, see `AQL_INTEGRATION.md`.
+
+## Architecture
+
+1. **Link Detection**: Scans repository files for documentation links
+2. **Documentation Download**: Downloads and saves documentation pages
+3. **HTML Processing**: Cleans HTML and extracts sections
+4. **Format Conversion**: Converts to DuaLipa-compatible format
+5. **Integration**: Merges documentation blocks with code blocks
+
+## Supported Documentation Sources
+
+- ReadTheDocs (`*.readthedocs.io`, `readthedocs.org`)
+- ArangoDB Documentation (`docs.arangodb.com`)
+  - General ArangoDB docs
+  - AQL main documentation page (https://docs.arangodb.com/stable/aql/)
+  - AQL operations (https://docs.arangodb.com/stable/aql/operations/)
+  - Indexing documentation (https://docs.arangodb.com/stable/indexing/)
+
+## Format
+
+Documentation blocks follow this structure:
+
+```json
+{
+  "uuid": "<unique-id>",
+  "id": "docs_<section-name>",
+  "name": "Documentation: <section-title>",
+  "type": "documentation",
+  "language": "html",
+  "content": "<processed-content>",
+  "file_path": "<relative-path>",
+  "source_url": "<original-url>",
+  "child_uuids": ["<child-section-uuids>"],
+  "metadata": {
+    "language": "html",
+    "source_url": "<original-url>",
+    "doc_type": "readthedocs|arangodb",
+    "section_hierarchy": ["<parent>", "<current>"]
+  }
+}
+```

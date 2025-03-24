@@ -27,10 +27,18 @@ from pathlib import Path
 import logging
 
 # Import extraction modules
-from .extraction_blocks import extract_all_blocks
-from .hierarchy_analyzer import analyze_hierarchies, enrich_blocks_with_hierarchy
-from .qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
-from .validation import validate_qa_output
+try:
+    # Try relative import first
+    from .extraction_blocks import extract_all_blocks
+    from .hierarchy_analyzer import analyze_hierarchies, enrich_blocks_with_hierarchy
+    from .qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
+    from .validation import validate_qa_output
+except ImportError:
+    # Fall back to direct import
+    from extraction_blocks import extract_all_blocks
+    from hierarchy_analyzer import analyze_hierarchies, enrich_blocks_with_hierarchy
+    from qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
+    from validation import validate_qa_output
 
 # Setup logging
 logging.basicConfig(

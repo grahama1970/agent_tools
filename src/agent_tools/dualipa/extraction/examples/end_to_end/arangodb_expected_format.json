@@ -1,0 +1,114 @@
+{
+  "documentation": {
+    "uuid": "arangodb-uuid-placeholder",
+    "id": "docs_arangodb_aql",
+    "name": "Documentation: ArangoDB AQL",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://docs.arangodb.com/stable/aql/",
+    "source_url": "https://docs.arangodb.com/stable/aql/",
+    "child_uuids": ["doc-page-uuid-placeholder"],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "doc_type": "arangodb"
+    }
+  },
+  "main_aql_doc": {
+    "uuid": "main-aql-uuid-placeholder",
+    "id": "docs_arangodb_aql",
+    "name": "ArangoDB Query Language (AQL)",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://docs.arangodb.com/stable/aql/",
+    "source_url": "https://docs.arangodb.com/stable/aql/",
+    "child_uuids": ["doc-page-uuid-placeholder"],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "doc_type": "arangodb"
+    }
+  },
+  "doc_page": {
+    "uuid": "doc-page-uuid-placeholder",
+    "id": "docs_arangodb_aql_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://docs.arangodb.com/stable/aql/",
+    "file_path": "/path/to/downloaded/site/index.html",
+    "parent_uuid": "arangodb-uuid-placeholder",
+    "child_uuids": ["section-uuid-placeholder"],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "relative_path": "index.html",
+      "doc_type": "arangodb"
+    }
+  },
+  "doc_section": {
+    "uuid": "section-uuid-placeholder",
+    "id": "docs_arangodb_aql_index.html_section_0",
+    "name": "ArangoDB Query Language",
+    "type": "doc_section",
+    "language": "html",
+    "content": "<h1>ArangoDB Query Language</h1><p>This is the ArangoDB Query Language documentation.</p>",
+    "file_path": "/path/to/downloaded/site/index.html",
+    "parent_uuid": "doc-page-uuid-placeholder",
+    "child_uuids": ["code-block-uuid-placeholder", "table-uuid-placeholder"],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "position": 0,
+      "doc_type": "arangodb",
+      "header_level": 1,
+      "token_count": 15,
+      "section_hierarchy": ["ArangoDB Query Language"],
+      "has_code": true,
+      "has_tables": true,
+      "has_images": false
+    }
+  },
+  "code_block": {
+    "uuid": "code-block-uuid-placeholder",
+    "id": "docs_arangodb_aql_index.html_section_0_code_0",
+    "name": "Code Block 1",
+    "type": "code_block",
+    "language": "javascript",
+    "content": "FOR doc IN collection\n  FILTER doc.value > 10\n  RETURN doc",
+    "file_path": "/path/to/downloaded/site/index.html",
+    "parent_uuid": "section-uuid-placeholder",
+    "child_uuids": [],
+    "metadata": {
+      "language": "javascript",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "position": 100,
+      "doc_type": "arangodb",
+      "element_type": "code_block",
+      "is_embedded": true,
+      "section_hierarchy": ["ArangoDB Query Language"]
+    }
+  },
+  "table": {
+    "uuid": "table-uuid-placeholder",
+    "id": "docs_arangodb_aql_index.html_section_0_table_0",
+    "name": "Table 1",
+    "type": "table",
+    "language": "html",
+    "content": "{'headers': ['Operator', 'Description'], 'rows': [['FOR', 'Iteration'], ['FILTER', 'Selection'], ['RETURN', 'Projection']]}",
+    "file_path": "/path/to/downloaded/site/index.html",
+    "parent_uuid": "section-uuid-placeholder",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://docs.arangodb.com/stable/aql/",
+      "position": 200,
+      "doc_type": "arangodb",
+      "element_type": "table",
+      "is_embedded": true,
+      "headers": ["Operator", "Description"],
+      "rows": [["FOR", "Iteration"], ["FILTER", "Selection"], ["RETURN", "Projection"]],
+      "section_hierarchy": ["ArangoDB Query Language"]
+    }
+  }
+}

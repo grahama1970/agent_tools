@@ -1,0 +1,59 @@
+[
+    {
+        "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "section_hierarchy_depth": [
+            "Document Section"
+        ],
+        "title": "Document Section",
+        "content": "This is a sample document section for testing extraction format validation.",
+        "images": [],
+        "tests": [],
+        "tables": [],
+        "code": []
+    },
+    {
+        "uuid": "550e8400-e29b-41d4-a716-446655440000",
+        "section_hierarchy_depth": [
+            "Document Section",
+            "Subsection Example"
+        ],
+        "title": "Subsection Example",
+        "content": "This is a subsection with some content including various elements.",
+        "images": [
+            {
+                "uuid": "ef56ab78-90cd-12ef-34ab-567890abcdef",
+                "src": "https://example.com/sample.png",
+                "alt": "Sample Image"
+            }
+        ],
+        "tests": [],
+        "tables": [
+            {
+                "uuid": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                "content": {
+                    "headers": [
+                        "Column 1",
+                        "Column 2"
+                    ],
+                    "rows": [
+                        [
+                            "Row 1, Col 1",
+                            "Row 1, Col 2"
+                        ],
+                        [
+                            "Row 2, Col 1",
+                            "Row 2, Col 2"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "code": [
+            {
+                "uuid": "90ab1234-56cd-78ef-90ab-cdef12345678",
+                "language": "python",
+                "content": "def example():\n    return \"Hello, world!\""
+            }
+        ]
+    }
+]

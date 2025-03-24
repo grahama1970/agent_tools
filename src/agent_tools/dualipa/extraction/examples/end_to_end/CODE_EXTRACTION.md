@@ -1,169 +1,82 @@
-# Code Extraction Modules
+# Code Extraction with Documentation Integration
 
-This document outlines how the code extraction modules work for Python (using AST) and other languages (using tree-sitter). These extractors transform source code into structured JSON objects following a similar format to the markdown extraction.
+This document describes the code extraction process with documentation integration implemented in DuaLipa.
 
-## Python AST Extraction
+## Overview
 
-The Python AST extractor uses Python's built-in Abstract Syntax Tree parser to extract structured information from Python files.
+The extraction pipeline processes source code files and optionally enhances them with external documentation. This integration provides a more comprehensive understanding of the codebase by including official documentation from sources like ReadTheDocs and ArangoDB documentation sites.
 
-### Input
-- Python source code files (`.py`)
+## Extraction Process
 
-### Output
-The output follows a similar structure to the markdown extraction, with sections being replaced by code entities:
+1. **Source File Discovery**: Find all source files in the repository
+2. **Language Detection**: Determine the language of each file
+3. **Block Extraction**: Extract code blocks (functions, classes, methods)
+4. **Documentation Detection**: Find documentation links in markdown files
+5. **Documentation Download**: Download and process external documentation
+6. **Format Integration**: Combine code and documentation blocks
+7. **Format Conversion**: Convert to QA-compatible format
 
-```json
-[
-  {
-    "uuid": "a1b2c3d4-e5f6-4a5b-9c3d-1e2f3a4b5c6d",
-    "type": "file",
-    "name": "example.py",
-    "language": "python",
-    "content": "...",
-    "imports": [...],
-    "classes": [...],
-    "functions": [...]
-  },
-  {
-    "uuid": "b2c3d4e5-f6a7-5b6c-0d1e-2f3a4b5c6d7e",
-    "type": "class",
-    "name": "ExampleClass",
-    "language": "python",
-    "content": "...",
-    "parent_uuid": "a1b2c3d4-e5f6-4a5b-9c3d-1e2f3a4b5c6d",
-    "methods": [...],
-    "properties": [...]
-  },
-  {
-    "uuid": "c3d4e5f6-a7b8-6c7d-1e2f-3a4b5c6d7e8f",
-    "type": "function",
-    "name": "example_function",
-    "language": "python",
-    "content": "...",
-    "parent_uuid": "a1b2c3d4-e5f6-4a5b-9c3d-1e2f3a4b5c6d",
-    "parameters": [...],
-    "return_type": "..."
-  }
-]
+## Documentation Integration
+
+The system automatically detects documentation links in markdown files and enhances the extraction with external documentation. This includes:
+
+- Reading documentation from ReadTheDocs (`*.readthedocs.io`)
+- Processing ArangoDB documentation (`docs.arangodb.com`)
+- Supporting other documentation sites with similar structure
+
+### Documentation Block Structure
+
+Documentation blocks follow this hierarchical structure:
+
+1. **Documentation Site**: Parent block representing the entire documentation site
+2. **Documentation Page**: Individual HTML pages from the site
+3. **Documentation Section**: Content sections based on headers
+4. **Special Elements**: Code blocks, tables, and images within sections
+
+Each block has proper metadata including:
+- Source URL
+- Documentation type (readthedocs, arangodb)
+- Section hierarchy
+- Position information
+- Special element indicators
+
+### Integration Process
+
+```python
+# Main integration function
+def integrate_docs_with_extraction(repo_path, output_blocks):
+    # 1. Detect documentation links
+    doc_links = detect_doc_links(repo_path)
+    
+    # 2. Download and process documentation
+    downloaded_sites = download_docs(doc_links, docs_dir)
+    processed_docs = process_docs(downloaded_sites)
+    
+    # 3. Convert to DuaLipa format
+    doc_blocks = convert_to_dualipa_format(processed_docs, repo_path)
+    
+    # 4. Append to extraction output
+    output_blocks.extend(doc_blocks)
+    
+    return output_blocks
 ```
 
-### Key Features
-1. **AST Parsing**: Uses Python's built-in `ast` module to parse Python code
-2. **Entity Extraction**: Identifies classes, functions, methods, and imports
-3. **Relationship Tracking**: Maintains parent-child relationships between entities
-4. **Docstring Extraction**: Preserves docstrings for documentation generation
-5. **Type Hints**: Extracts type hints from function signatures and return values
+## Format Validation
 
-### Customization (5%)
-- Conversion from AST node format to our unified JSON structure
-- Addition of UUIDs for database compatibility
-- Hierarchy tracking for nested entities
-- Extraction of metadata like line numbers and positions
+The extraction output is validated to ensure compatibility with the QA system. This includes:
 
-## Tree-Sitter Language Pack Extraction
-
-The tree-sitter extractor uses language-specific parsers to extract structured information from various programming languages.
-
-### Supported Languages
-- JavaScript/TypeScript
-- Java
-- C/C++
-- Go
-- Ruby
-- Rust
-- And others supported by tree-sitter
-
-### Input
-- Source code files in various languages
-
-### Output
-The output follows the same format as the Python AST extraction, adapted for each language's specific features:
-
-```json
-[
-  {
-    "uuid": "d4e5f6a7-b8c9-7d8e-2f3a-4b5c6d7e8f9a",
-    "type": "file",
-    "name": "example.js",
-    "language": "javascript",
-    "content": "...",
-    "imports": [...],
-    "classes": [...],
-    "functions": [...]
-  },
-  {
-    "uuid": "e5f6a7b8-c9d0-8e9f-3a4b-5c6d7e8f9a0b",
-    "type": "class",
-    "name": "ExampleClass",
-    "language": "javascript",
-    "content": "...",
-    "parent_uuid": "d4e5f6a7-b8c9-7d8e-2f3a-4b5c6d7e8f9a",
-    "methods": [...],
-    "properties": [...]
-  }
-]
-```
-
-### Key Features
-1. **Language-Specific Parsing**: Uses tree-sitter grammars for accurate parsing
-2. **Common Output Format**: Normalizes different language structures to a consistent output format
-3. **Cross-Language Linking**: Enables connections between entities in different languages
-4. **Preservation of Language Features**: Retains language-specific features while providing a unified view
-
-### Customization (5%)
-- Conversion from tree-sitter CST (Concrete Syntax Tree) to our JSON structure
-- Normalization of language-specific features to common patterns
-- Addition of UUIDs and relationship tracking
-- Metadata enrichment for database queries
-
-## Integration with ArangoDB
-
-Both extraction systems are designed to produce output that can be directly inserted into ArangoDB:
-
-1. **Document Collections**:
-   - Files become documents in a "files" collection
-   - Classes become documents in a "classes" collection
-   - Functions become documents in a "functions" collection
-   - Methods become documents in a "methods" collection
-
-2. **Edge Collections**:
-   - Parent-child relationships become edges in a "contains" collection
-   - Import relationships become edges in a "imports" collection
-   - Inheritance relationships become edges in a "extends" collection
-   - Function calls become edges in a "calls" collection
-
-3. **Query Examples**:
-   ```aql
-   // Find all methods in a class
-   FOR method IN methods
-     FILTER method.parent_type == 'class' AND method.parent_uuid == 'class-uuid'
-     RETURN method
-   
-   // Find all classes that inherit from a base class
-   FOR edge IN extends
-     FILTER edge._to == 'classes/base-class-uuid'
-     FOR class IN classes
-       FILTER class._id == edge._from
-       RETURN class
-   ```
+- Checking required fields and formats
+- Validating special elements (code blocks, tables, images)
+- Ensuring proper parent-child relationships
+- Verifying section hierarchy
 
 ## Usage Example
 
 ```python
-from pathlib import Path
-from code_extractors import extract_python_ast, extract_with_treesitter
+from agent_tools.dualipa.extraction.examples.end_to_end.extraction_blocks import extract_all_blocks
 
-# Extract from Python files
-py_blocks = extract_python_ast(Path("example.py"))
+# Extract code and documentation blocks
+blocks = extract_all_blocks("/path/to/repository")
 
-# Extract from TypeScript files
-ts_blocks = extract_with_treesitter(Path("example.ts"), language="typescript")
-
-# Combine all blocks
-all_blocks = py_blocks + ts_blocks
-
-# Write to JSON file
-import json
-with open("code_extraction.json", "w") as f:
-    json.dump(all_blocks, f, indent=2)
+# Blocks now include both code and documentation
 ```
