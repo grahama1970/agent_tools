@@ -27,6 +27,9 @@
    - [ ] Add test fixtures
    - [ ] Add test documentation
    - [ ] Add test coverage reports
+   - [ ] Implement frictionless validation framework
+   - [ ] Create validation example utilities
+   - [ ] Add collaborative validation patterns
 
 ### Medium Priority
 
@@ -134,6 +137,23 @@
    - [ ] Authentication
    - [ ] Webhook support
 
+### Website Download and Processing
+
+1. **Static Site Download**
+   - [x] wget integration
+   - [x] Rate limiting support
+   - [x] Error handling
+   - [ ] Improved retry logic
+   - [ ] Custom download parameters
+
+2. **JavaScript Rendering Support**
+   - [x] Playwright integration
+   - [x] Dynamic content rendering
+   - [x] Resource (CSS/JS) handling
+   - [x] Fallback mechanism
+   - [ ] Authentication support
+   - [ ] Complex interaction patterns
+
 ### Common Utilities
 
 1. **Language Utils**
@@ -148,9 +168,14 @@
    - [x] Metadata validation
    - [x] Field standardization
    - [x] Imports/exports validation
+   - [x] Frictionless validation framework
+   - [x] Complete structure validation
+   - [x] Parent-child relationship validation
    - [ ] Schema validation
    - [ ] Custom rules
    - [ ] Validation plugins
+   - [ ] Quick extract examples
+   - [ ] Visual validation tools
 
 3. **Stats Utils**
    - [x] Stats initialization

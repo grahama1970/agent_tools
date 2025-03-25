@@ -1,0 +1,17 @@
+services:
+  qwen-inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: grahamaco/qwen2-72b-inference:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model:/workspace/model
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    command: python /workspace/inference.py

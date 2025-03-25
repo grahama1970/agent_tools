@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "pages_downloaded": 1,
+  "errors": 0,
+  "pages": {
+    "https://www.arangodb.com/docs/stable/aql/": {
+      "path": "arangodb_playwright_test/original_html/www.arangodb.com/docs/stable/aql/index.html",
+      "size": 524578
+    }
+  }
+}

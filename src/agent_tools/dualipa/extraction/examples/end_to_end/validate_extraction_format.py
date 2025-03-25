@@ -1,300 +1,693 @@
 #!/usr/bin/env python3
 """
-Format Validation Script for Markdown Extraction.
+validate_extraction_format.py
 
-This script validates that markdown extraction outputs conform to the expected format
-by comparing against a sample template. It can be used as a standalone validation tool
-or integrated into test pipelines.
+This script validates the format of extraction blocks to ensure they follow
+the expected schema for the DuaLipa extraction system.
+
+Usage:
+    python validate_extraction_format.py path/to/extraction_blocks.json
+
+Example:
+    python validate_extraction_format.py test_results/arangodb_blocks.json
 """
 
-import os
 import sys
 import json
+import os
 import argparse
-import logging
+import datetime
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Set
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logger = logging.getLogger("validate_extraction_format")
+from typing import Dict, List, Any, Optional, Tuple, Union
 
 
-def load_json_file(file_path: Path) -> Any:
-    """Load a JSON file and return its contents."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception as e:
-        logger.error(f"Error loading JSON from {file_path}: {e}")
-        return None
-
-
-def validate_section_structure(section: Dict[str, Any], expected_section: Dict[str, Any]) -> List[str]:
+def validate_block(block: Dict[str, Any], block_idx: int) -> List[str]:
     """
-    Validate that a section follows the expected format.
+    Validate a single extraction block.
     
     Args:
-        section: The section to validate
-        expected_section: A template section with the expected format
+        block: The block to validate
+        block_idx: The index of the block in the array for error reporting
         
     Returns:
-        List of error messages, empty if valid
+        A list of error messages, empty if the block is valid
     """
     errors = []
     
-    # Check required keys
-    required_keys = {
-        "uuid", "title", "content", "section_hierarchy_depth",
-        "images", "tables", "code", "tests"
-    }
+    # Check required fields
+    required_fields = ["uuid", "type", "content"]
+    for field in required_fields:
+        if field not in block:
+            errors.append(f"Block {block_idx} is missing required field: {field}")
     
-    missing_keys = required_keys - set(section.keys())
-    if missing_keys:
-        errors.append(f"Missing required keys: {missing_keys}")
-    
-    # Check data types
-    if not isinstance(section.get("uuid", ""), str):
-        errors.append("uuid must be a string")
-        
-    if not isinstance(section.get("title", ""), str):
-        errors.append("title must be a string")
-        
-    if not isinstance(section.get("content", ""), str):
-        errors.append("content must be a string")
-        
-    if not isinstance(section.get("section_hierarchy_depth", []), list):
-        errors.append("section_hierarchy_depth must be a list")
-    else:
-        for item in section.get("section_hierarchy_depth", []):
-            if not isinstance(item, str):
-                errors.append("section_hierarchy_depth items must be strings")
-                break
-    
-    # Check children arrays
-    for child_type in ["images", "tables", "code", "tests"]:
-        if not isinstance(section.get(child_type, []), list):
-            errors.append(f"{child_type} must be a list")
-            continue
-        
-        # Validate each child if there are any
-        children = section.get(child_type, [])
-        if children and child_type in expected_section:
-            expected_children = expected_section[child_type]
-            if expected_children:
-                expected_child = expected_children[0]
-                for i, child in enumerate(children):
-                    child_errors = validate_child_structure(child, expected_child, child_type)
-                    for error in child_errors:
-                        errors.append(f"{child_type}[{i}]: {error}")
-    
-    return errors
-
-
-def validate_child_structure(child: Dict[str, Any], expected_child: Dict[str, Any], child_type: str) -> List[str]:
-    """
-    Validate that a child element follows the expected format.
-    
-    Args:
-        child: The child element to validate
-        expected_child: A template child with the expected format
-        child_type: Type of child element
-        
-    Returns:
-        List of error messages, empty if valid
-    """
-    errors = []
-    
-    # Check required keys
-    required_keys = {"uuid"}
-    
-    # Child-specific requirements
-    if child_type == "images":
-        required_keys.update({"src", "alt"})
-    elif child_type == "tables":
-        required_keys.add("content")
-    elif child_type == "code":
-        required_keys.update({"language", "content"})
-    
-    missing_keys = required_keys - set(child.keys())
-    if missing_keys:
-        errors.append(f"Missing required keys: {missing_keys}")
-    
-    # Check table content structure
-    if child_type == "tables" and "content" in child:
-        table_content = child["content"]
-        if not isinstance(table_content, dict):
-            errors.append("table content must be an object")
-        else:
-            if "headers" not in table_content:
-                errors.append("table content missing headers array")
-            elif not isinstance(table_content["headers"], list):
-                errors.append("table headers must be an array")
+    # Check type-specific requirements
+    block_type = block.get("type")
+    if block_type:
+        # Parent-child relationship checks
+        if block_type == "documentation":
+            if "child_uuids" not in block:
+                errors.append(f"Block {block_idx} (documentation) must have child_uuids")
                 
-            if "rows" not in table_content:
-                errors.append("table content missing rows array")
-            elif not isinstance(table_content["rows"], list):
-                errors.append("table rows must be an array")
-            else:
-                for i, row in enumerate(table_content["rows"]):
-                    if not isinstance(row, list):
-                        errors.append(f"table row {i} must be an array")
+        elif block_type == "doc_page":
+            if "parent_uuid" not in block:
+                errors.append(f"Block {block_idx} (doc_page) must have parent_uuid")
+                
+        elif block_type == "doc_section":
+            if "parent_uuid" not in block:
+                errors.append(f"Block {block_idx} (doc_section) must have parent_uuid")
+                
+        elif block_type in ["code_block", "table", "image"]:
+            if "parent_uuid" not in block:
+                errors.append(f"Block {block_idx} ({block_type}) must have parent_uuid")
+                
+        # Content type checks
+        if block_type == "table" and not isinstance(block.get("content"), list):
+            errors.append(f"Block {block_idx} (table) must have list content")
+            
+    # Check metadata
+    if "metadata" in block and not isinstance(block["metadata"], dict):
+        errors.append(f"Block {block_idx} metadata must be a dictionary")
     
     return errors
 
 
-def validate_extraction_output(output: List[Dict[str, Any]], expected_format: List[Dict[str, Any]]) -> Dict[str, Any]:
+def validate_block_relationships(blocks: List[Dict[str, Any]]) -> List[str]:
     """
-    Validate the extraction output against expected format.
+    Validate the relationships between blocks.
     
     Args:
-        output: The extraction output to validate
-        expected_format: A template output with the expected format
+        blocks: The list of blocks to validate
         
     Returns:
-        Dictionary with validation results
+        A list of error messages, empty if all relationships are valid
     """
-    if not output:
-        return {
-            "valid": False,
-            "errors": ["Empty output"]
-        }
+    errors = []
     
-    if not expected_format:
-        return {
-            "valid": False,
-            "errors": ["Empty expected format"]
-        }
+    # Build a map of UUID to block index for efficient lookup
+    uuid_to_idx = {block["uuid"]: idx for idx, block in enumerate(blocks) if "uuid" in block}
     
-    all_errors = []
-    
-    # Find a template section with tables, code, and images if possible
-    template_section = None
-    for section in expected_format:
-        has_tables = bool(section.get("tables"))
-        has_code = bool(section.get("code"))
-        has_images = bool(section.get("images"))
+    # Check parent-child relationships
+    for idx, block in enumerate(blocks):
+        # Check parent references
+        if "parent_uuid" in block:
+            parent_uuid = block["parent_uuid"]
+            if parent_uuid not in uuid_to_idx:
+                errors.append(f"Block {idx} references non-existent parent UUID: {parent_uuid}")
+            else:
+                # Check that parent has this child in its child_uuids list
+                parent_idx = uuid_to_idx[parent_uuid]
+                parent_block = blocks[parent_idx]
+                if "child_uuids" in parent_block and block["uuid"] not in parent_block["child_uuids"]:
+                    errors.append(f"Block {idx} parent (index {parent_idx}) does not list it as a child")
         
-        if has_tables or has_code or has_images:
-            template_section = section
-            break
+        # Check child references
+        if "child_uuids" in block:
+            child_uuids = block["child_uuids"]
+            for child_uuid in child_uuids:
+                if child_uuid not in uuid_to_idx:
+                    errors.append(f"Block {idx} references non-existent child UUID: {child_uuid}")
+                else:
+                    # Check that child has this block as its parent
+                    child_idx = uuid_to_idx[child_uuid]
+                    child_block = blocks[child_idx]
+                    if "parent_uuid" in child_block and child_block["parent_uuid"] != block["uuid"]:
+                        errors.append(f"Block {idx} child (index {child_idx}) does not reference it as parent")
     
-    # Use the first section as template if no better one found
-    if template_section is None:
-        template_section = expected_format[0]
-    
-    # Validate each section
-    for i, section in enumerate(output):
-        section_errors = validate_section_structure(section, template_section)
-        if section_errors:
-            all_errors.append(f"Section {i} ({section.get('title', 'unnamed')}): {', '.join(section_errors)}")
-    
-    # Success if no errors
-    return {
-        "valid": len(all_errors) == 0,
-        "errors": all_errors,
-        "stats": {
-            "total_sections": len(output),
-            "tables": sum(len(section.get("tables", [])) for section in output),
-            "code_blocks": sum(len(section.get("code", [])) for section in output),
-            "images": sum(len(section.get("images", [])) for section in output)
-        }
-    }
+    return errors
 
 
-def get_deepseek_extraction(repo_path: Path) -> Optional[List[Dict[str, Any]]]:
+def validate_extraction_blocks(blocks_file: Path) -> Tuple[bool, List[str], Dict[str, Any]]:
     """
-    Extract deepseek.md and return the formatted output.
+    Validate extraction blocks from a JSON file.
     
     Args:
-        repo_path: Path to the repository containing deepseek.md
+        blocks_file: Path to the JSON file containing blocks
         
     Returns:
-        Formatted extraction output or None if extraction fails
+        A tuple of (is_valid, error_messages, stats)
     """
     try:
-        # Add the parent directory to the path for imports
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        if current_dir not in sys.path:
-            sys.path.insert(0, current_dir)
+        with open(blocks_file, 'r', encoding='utf-8') as f:
+            blocks = json.load(f)
         
-        # Import extraction functions
-        from extraction_blocks import extract_all_blocks
-        from qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
+        if not isinstance(blocks, list):
+            return False, ["Blocks file must contain a JSON array"], {}
         
-        # Extract all blocks from the repository
-        blocks = extract_all_blocks(repo_path)
+        # Validate individual blocks
+        all_errors = []
+        for idx, block in enumerate(blocks):
+            if not isinstance(block, dict):
+                all_errors.append(f"Block {idx} must be a JSON object")
+                continue
+                
+            block_errors = validate_block(block, idx)
+            all_errors.extend(block_errors)
         
-        # Convert blocks to QA-compatible format
-        qa_blocks = create_qa_compatible_blocks(blocks)
+        # Validate relationships between blocks
+        relationship_errors = validate_block_relationships(blocks)
+        all_errors.extend(relationship_errors)
         
-        # Create output
-        output = create_qa_compatible_output(qa_blocks)
+        # Collect statistics
+        stats = {
+            "total_blocks": len(blocks),
+            "block_types": {},
+            "language_counts": {},
+            "doc_types": {},
+            "unique_parent_count": len(set(block["parent_uuid"] for block in blocks if "parent_uuid" in block)),
+            "orphaned_blocks": len([b for b in blocks if "parent_uuid" not in b and b.get("type") != "documentation"]),
+            "hierarchical_depth": calculate_hierarchical_depth(blocks),
+        }
         
-        return output
+        # Count by block type
+        for block in blocks:
+            block_type = block.get("type", "unknown")
+            stats["block_types"][block_type] = stats["block_types"].get(block_type, 0) + 1
+            
+            # Count by language
+            language = block.get("language", "unknown")
+            stats["language_counts"][language] = stats["language_counts"].get(language, 0) + 1
+            
+            # Count by doc_type
+            doc_type = block.get("metadata", {}).get("doc_type", "unknown")
+            stats["doc_types"][doc_type] = stats["doc_types"].get(doc_type, 0) + 1
+        
+        is_valid = len(all_errors) == 0
+        return is_valid, all_errors, stats
+    
+    except json.JSONDecodeError as e:
+        return False, [f"Invalid JSON: {e}"], {}
     except Exception as e:
-        logger.error(f"Error during extraction: {e}")
-        return None
+        return False, [f"Error validating blocks: {e}"], {}
+
+
+def calculate_hierarchical_depth(blocks: List[Dict[str, Any]]) -> int:
+    """
+    Calculate the maximum hierarchical depth of blocks.
+    
+    Args:
+        blocks: The list of blocks to analyze
+        
+    Returns:
+        The maximum depth of the hierarchy
+    """
+    # Build a map of UUID to block
+    uuid_to_block = {block["uuid"]: block for block in blocks if "uuid" in block}
+    
+    # Function to calculate depth of a block
+    def get_depth(block_uuid, visited=None):
+        if visited is None:
+            visited = set()
+        
+        if block_uuid in visited:  # Handle cycles
+            return 0
+        
+        visited.add(block_uuid)
+        
+        if block_uuid not in uuid_to_block:
+            return 0
+            
+        block = uuid_to_block[block_uuid]
+        
+        if "parent_uuid" not in block:
+            return 1  # Root level
+            
+        parent_uuid = block["parent_uuid"]
+        return 1 + get_depth(parent_uuid, visited)
+    
+    # Calculate depth for each block
+    depths = [get_depth(block["uuid"]) for block in blocks if "uuid" in block]
+    
+    # Return the maximum depth
+    return max(depths) if depths else 0
+
+
+def generate_html_report(blocks_file: Path, is_valid: bool, errors: List[str], stats: Dict[str, Any]) -> str:
+    """
+    Generate an HTML validation report.
+    
+    Args:
+        blocks_file: Path to the blocks file
+        is_valid: Whether the blocks are valid
+        errors: List of validation errors
+        stats: Block statistics
+        
+    Returns:
+        HTML report as a string
+    """
+    # Load the blocks for creating examples
+    try:
+        with open(blocks_file, 'r', encoding='utf-8') as f:
+            blocks = json.load(f)
+    except:
+        blocks = []
+    
+    # Get sample blocks of different types
+    sample_blocks = {}
+    for block_type in ["documentation", "doc_page", "doc_section", "code_block", "table", "image"]:
+        sample = next((b for b in blocks if b.get("type") == block_type), None)
+        if sample:
+            sample_blocks[block_type] = sample
+    
+    # Format block type counts
+    block_type_rows = ""
+    for block_type, count in sorted(stats.get("block_types", {}).items()):
+        block_type_rows += f"""
+        <tr>
+            <td>{block_type}</td>
+            <td>{count}</td>
+            <td>{count / stats["total_blocks"] * 100:.1f}%</td>
+        </tr>
+        """
+    
+    # Format language counts
+    language_rows = ""
+    for language, count in sorted(stats.get("language_counts", {}).items()):
+        language_rows += f"""
+        <tr>
+            <td>{language}</td>
+            <td>{count}</td>
+            <td>{count / stats["total_blocks"] * 100:.1f}%</td>
+        </tr>
+        """
+    
+    # Format doc type counts
+    doc_type_rows = ""
+    for doc_type, count in sorted(stats.get("doc_types", {}).items()):
+        doc_type_rows += f"""
+        <tr>
+            <td>{doc_type}</td>
+            <td>{count}</td>
+            <td>{count / stats["total_blocks"] * 100:.1f}%</td>
+        </tr>
+        """
+    
+    # Format errors
+    error_html = ""
+    if errors:
+        error_html = "<h3>Validation Errors</h3><ul>"
+        for error in errors[:100]:  # Limit to first 100 errors
+            error_html += f"<li>{error}</li>"
+        if len(errors) > 100:
+            error_html += f"<li>... and {len(errors) - 100} more errors</li>"
+        error_html += "</ul>"
+    
+    # Create sample block HTML
+    sample_blocks_html = ""
+    for block_type, block in sample_blocks.items():
+        sample_blocks_html += f"""
+        <div class="sample-block">
+            <h4>{block_type.replace('_', ' ').title()}</h4>
+            <pre>{json.dumps(block, indent=2)}</pre>
+        </div>
+        """
+    
+    # Create the HTML report
+    html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraction Format Validation: {blocks_file.name}</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+        }}
+        .header {{
+            background-color: {is_valid and '#e7f5e7' or '#f8e7e7'};
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid {is_valid and '#c3e6c3' or '#e6c3c3'};
+        }}
+        .valid-badge {{
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: white;
+            background-color: {is_valid and '#28a745' or '#dc3545'};
+            font-weight: bold;
+        }}
+        .section {{
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }}
+        .stats-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }}
+        .stat-card {{
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }}
+        .stat-value {{
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+        }}
+        .stat-label {{
+            font-size: 14px;
+            color: #666;
+        }}
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }}
+        th, td {{
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }}
+        th {{
+            background-color: #f2f2f2;
+        }}
+        pre {{
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+            font-size: 12px;
+        }}
+        .sample-blocks {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }}
+        .sample-block {{
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow: auto;
+        }}
+        .sample-block h4 {{
+            margin-top: 0;
+            color: #0066cc;
+        }}
+        h2 {{
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Extraction Format Validation</h1>
+            <p>File: <strong>{blocks_file.name}</strong></p>
+            <p>File size: <strong>{blocks_file.stat().st_size / 1024:.1f} KB</strong></p>
+            <p>Validation time: <strong>{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</strong></p>
+            <p>Status: <span class="valid-badge">{is_valid and 'VALID' or 'INVALID'}</span></p>
+        </div>
+
+        <div class="section">
+            <h2>Extraction Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">{stats.get("total_blocks", 0)}</div>
+                    <div class="stat-label">Total Blocks</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value">{len(stats.get("block_types", {}))}</div>
+                    <div class="stat-label">Block Types</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value">{len(stats.get("language_counts", {}))}</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value">{stats.get("hierarchical_depth", 0)}</div>
+                    <div class="stat-label">Max Hierarchical Depth</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value">{stats.get("unique_parent_count", 0)}</div>
+                    <div class="stat-label">Unique Parents</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value">{stats.get("orphaned_blocks", 0)}</div>
+                    <div class="stat-label">Orphaned Blocks</div>
+                </div>
+            </div>
+            
+            <h3>Block Types</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                    <th>Percentage</th>
+                </tr>
+                {block_type_rows}
+            </table>
+            
+            <h3>Languages</h3>
+            <table>
+                <tr>
+                    <th>Language</th>
+                    <th>Count</th>
+                    <th>Percentage</th>
+                </tr>
+                {language_rows}
+            </table>
+            
+            <h3>Document Types</h3>
+            <table>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Count</th>
+                    <th>Percentage</th>
+                </tr>
+                {doc_type_rows}
+            </table>
+        </div>
+        
+        {error_html}
+        
+        <div class="section">
+            <h2>Sample Blocks</h2>
+            <p>Examples of each block type found in the file:</p>
+            
+            <div class="sample-blocks">
+                {sample_blocks_html}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+"""
+    return html
+
+
+def create_extraction_dashboard(output_dir: Path):
+    """
+    Create an extraction dashboard HTML file with links to all validation reports.
+    
+    Args:
+        output_dir: Directory containing validation reports
+    """
+    # Find all HTML report files
+    reports = list(output_dir.glob("*.validation.html"))
+    
+    # Group by extraction type
+    report_groups = {}
+    for report in reports:
+        # Try to determine the extraction type from filename
+        name_parts = report.stem.split("_")
+        if len(name_parts) > 0:
+            extraction_type = name_parts[0]  # Use first part of filename
+            if extraction_type not in report_groups:
+                report_groups[extraction_type] = []
+            report_groups[extraction_type].append(report)
+    
+    # Create links for each report
+    report_sections = ""
+    for group_name, group_reports in sorted(report_groups.items()):
+        report_links = ""
+        for report in sorted(group_reports, key=lambda p: p.stat().st_mtime, reverse=True):
+            # Get file timestamp
+            timestamp = datetime.datetime.fromtimestamp(report.stat().st_mtime)
+            report_links += f"""
+            <li>
+                <a href="{report.name}">{report.name}</a>
+                <span class="timestamp">{timestamp.strftime('%Y-%m-%d %H:%M:%S')}</span>
+            </li>
+            """
+        
+        report_sections += f"""
+        <div class="report-section">
+            <h2>{group_name.title()} Extraction Reports</h2>
+            <ul class="report-list">
+                {report_links}
+            </ul>
+        </div>
+        """
+    
+    # Create dashboard HTML
+    dashboard_html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuaLipa Extraction Validation Dashboard</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+        }}
+        header {{
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }}
+        header h1 {{
+            margin: 0;
+        }}
+        .timestamp {{
+            color: #666;
+            font-size: 12px;
+            margin-left: 10px;
+        }}
+        .report-section {{
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }}
+        .report-list {{
+            list-style-type: none;
+            padding: 0;
+        }}
+        .report-list li {{
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }}
+        .report-list li:last-child {{
+            border-bottom: none;
+        }}
+        .report-list a {{
+            color: #0066cc;
+            text-decoration: none;
+        }}
+        .report-list a:hover {{
+            text-decoration: underline;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DuaLipa Extraction Validation Dashboard</h1>
+            <p>Last updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </header>
+        
+        {report_sections}
+        
+        <div class="report-section">
+            <h2>Run Validation</h2>
+            <p>To run validation on a new extraction file, use the following command:</p>
+            <pre>python validate_extraction_format.py path/to/extraction_blocks.json --output-dir validation_reports</pre>
+        </div>
+    </div>
+</body>
+</html>
+"""
+    
+    # Write dashboard HTML
+    dashboard_path = output_dir / "extraction_dashboard.html"
+    with open(dashboard_path, 'w', encoding='utf-8') as f:
+        f.write(dashboard_html)
+    
+    return dashboard_path
 
 
 def main():
-    """Main function."""
-    parser = argparse.ArgumentParser(description="Validate markdown extraction format")
-    parser.add_argument("--input", type=str, help="Path to extraction output JSON file")
-    parser.add_argument("--expected", type=str, 
-                        default="/home/grahama/workspace/experiments/agent_tools/test_repos/samples/deepseek_markdown_extraction_example.json",
-                        help="Path to expected format JSON template file")
-    parser.add_argument("--extract", type=str, help="Extract and validate from repository path")
+    parser = argparse.ArgumentParser(description="Validate extraction blocks format")
+    parser.add_argument("blocks_file", help="Path to the JSON file containing extraction blocks")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed error messages")
+    parser.add_argument("--output-dir", "-o", help="Directory to save HTML validation report")
+    parser.add_argument("--dashboard", "-d", action="store_true", help="Create or update dashboard")
     args = parser.parse_args()
     
-    # Load expected format
-    expected_format = load_json_file(Path(args.expected))
-    if expected_format is None:
-        logger.error(f"Failed to load expected format from {args.expected}")
+    blocks_file = Path(args.blocks_file)
+    if not blocks_file.exists():
+        print(f"Error: File not found: {blocks_file}")
         sys.exit(1)
     
-    # Either load input file or perform extraction
-    output = None
-    if args.input:
-        output = load_json_file(Path(args.input))
-        if output is None:
-            logger.error(f"Failed to load input from {args.input}")
-            sys.exit(1)
-    elif args.extract:
-        repo_path = Path(args.extract)
-        if not repo_path.exists() or not repo_path.is_dir():
-            logger.error(f"Repository path not found: {repo_path}")
-            sys.exit(1)
-            
-        logger.info(f"Extracting from repository: {repo_path}")
-        output = get_deepseek_extraction(repo_path)
-        if output is None:
-            logger.error("Extraction failed")
-            sys.exit(1)
+    # Get output directory
+    if args.output_dir:
+        output_dir = Path(args.output_dir)
     else:
-        logger.error("Either --input or --extract must be specified")
-        sys.exit(1)
+        output_dir = blocks_file.parent / "validation_reports"
     
-    # Validate output
-    logger.info("Validating extraction output")
-    results = validate_extraction_output(output, expected_format)
+    # Create output directory if it doesn't exist
+    output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Print results
-    if results["valid"]:
-        logger.info("✅ Validation successful")
-        logger.info(f"Statistics: {results['stats']}")
+    # Validate blocks
+    is_valid, errors, stats = validate_extraction_blocks(blocks_file)
+    
+    # Generate HTML report
+    html_report = generate_html_report(blocks_file, is_valid, errors, stats)
+    
+    # Save HTML report
+    report_filename = f"{blocks_file.stem}.validation.html"
+    report_path = output_dir / report_filename
+    
+    with open(report_path, 'w', encoding='utf-8') as f:
+        f.write(html_report)
+    
+    # Create or update dashboard
+    if args.dashboard:
+        dashboard_path = create_extraction_dashboard(output_dir)
+        print(f"📊 Updated dashboard: {dashboard_path}")
+    
+    # Print validation result
+    if is_valid:
+        print(f"✅ Validation passed: {blocks_file} contains valid extraction blocks")
+        print(f"📋 Statistics: {stats.get('total_blocks', 0)} blocks, {len(stats.get('block_types', {}))} block types")
+        print(f"📊 Report saved to: {report_path}")
+        sys.exit(0)
     else:
-        logger.error("❌ Validation failed")
-        for error in results["errors"]:
-            logger.error(f"  - {error}")
-        logger.info(f"Statistics: {results['stats']}")
+        print(f"❌ Validation failed: {blocks_file} contains {len(errors)} errors")
+        print(f"📊 Report saved to: {report_path}")
+        if args.verbose:
+            for error in errors[:10]:  # Show first 10 errors
+                print(f"  - {error}")
+            if len(errors) > 10:
+                print(f"  ... and {len(errors) - 10} more errors")
+        else:
+            print(f"  Run with --verbose to see detailed error messages")
         sys.exit(1)
-    
-    # Success
-    sys.exit(0)
 
 
 if __name__ == "__main__":

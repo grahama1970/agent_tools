@@ -1,0 +1,60 @@
+[
+  {
+    "uuid": "58977ff2-0d6d-4059-803f-50e45acf529c",
+    "type": "documentation",
+    "name": "Documentation: arangodb_data-types"
+  },
+  {
+    "uuid": "f065c9b5-5aa3-4330-a626-964e7c9e0d40",
+    "type": "doc_page",
+    "name": "index.html"
+  },
+  {
+    "uuid": "ae21614b-4328-4b6c-932c-dd6efb22dab2",
+    "type": "doc_section",
+    "name": "Data types in AQL",
+    "header_level": 1
+  },
+  {
+    "uuid": "a3092242-c8c8-4016-b04e-7f3b60a05a72",
+    "type": "doc_section",
+    "name": "Null value",
+    "header_level": 3
+  },
+  {
+    "uuid": "50b89c30-b5a9-420a-8ed1-904b4d732585",
+    "type": "doc_section",
+    "name": "Boolean data type",
+    "header_level": 3
+  },
+  {
+    "uuid": "1dbff04d-3494-457e-9cf5-2e703f4bf86d",
+    "type": "doc_section",
+    "name": "Numeric literals",
+    "header_level": 3
+  },
+  {
+    "uuid": "a03e02a4-3abb-4aa0-a343-695d48234334",
+    "type": "doc_section",
+    "name": "String literals",
+    "header_level": 3
+  },
+  {
+    "uuid": "d4187cf7-1636-4b4f-b77d-43e4a6385487",
+    "type": "doc_section",
+    "name": "Arrays / Lists",
+    "header_level": 3
+  },
+  {
+    "uuid": "a43a97f9-40ba-4ae9-8c14-9619de3fd661",
+    "type": "doc_section",
+    "name": "Objects / Documents",
+    "header_level": 3
+  },
+  {
+    "uuid": "59b34273-8389-400c-85d6-5ca4a5aafbf7",
+    "type": "table",
+    "name": "Table 1",
+    "content_preview": "{'headers': ['Data type', 'Description'], 'rows': [['null', 'An empty value, also: the absence of a ..."
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "title": "Data types in AQL",
+  "url": "https://docs.arangodb.com/stable/aql/fundamentals/data-types/",
+  "sections": [
+    {
+      "name": "Data types in AQL",
+      "level": 1
+    },
+    {
+      "name": "Null value",
+      "level": 3
+    },
+    {
+      "name": "Boolean data type",
+      "level": 3
+    },
+    {
+      "name": "Numeric literals",
+      "level": 3
+    },
+    {
+      "name": "String literals",
+      "level": 3
+    },
+    {
+      "name": "Arrays / Lists",
+      "level": 3
+    },
+    {
+      "name": "Objects / Documents",
+      "level": 3
+    }
+  ],
+  "data_type_table": {
+    "headers": [
+      "Data type",
+      "Description"
+    ],
+    "rows": [
+      [
+        "null",
+        "An empty value, also: the absence of a value"
+      ],
+      [
+        "boolean",
+        "Boolean truth value with possible values false and true"
+      ],
+      [
+        "number",
+        "Numeric integer or floating-point value"
+      ],
+      [
+        "string",
+        "UTF-8 encoded text value"
+      ],
+      [
+        "array / list",
+        "Sequence of values, referenced by their positions"
+      ],
+      [
+        "object / document",
+        "Collection of key/value pairs, referenced by their names"
+      ]
+    ]
+  },
+  "examples": {
+    "null": "null",
+    "boolean": "true, false",
+    "number": "1, -5, 1.23, 1e10",
+    "string": "foo, bar",
+    "array": "[1, 2, 3]",
+    "object": "{ \"name\": \"John\", \"age\": 30 }"
+  },
+  "type_categories": {
+    "primitive": [
+      "null",
+      "boolean",
+      "number",
+      "string"
+    ],
+    "compound": [
+      "array / list",
+      "object / document"
+    ]
+  }
+}

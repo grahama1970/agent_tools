@@ -150,16 +150,22 @@ def extract_generic_blocks(file_path: str) -> Tuple[List[Dict[str, Any]], Dict[s
                 func_content = _extract_block_content(content, match.start())
                 if func_content:
                     stats["functions"] = stats.get("functions", 0) + 1
+                    
+                    # Extract docstring
+                    docstring = _extract_generic_docstring(content, match.start())
+                    
                     blocks.append({
                         "uuid": str(uuid.uuid4()),
                         "type": "function",
                         "name": match.group(1),
                         "content": textwrap.dedent(func_content),
+                        "doc_string": docstring or "No documentation provided",
                         "metadata": {
                             "line_start": content.count('\n', 0, match.start()) + 1,
                             "line_end": content.count('\n', 0, match.start() + len(func_content)) + 1,
                             "imports": imports.copy(),
-                            "language": language
+                            "language": language,
+                            "has_docstring": docstring is not None
                         }
                     })
                     
@@ -170,16 +176,22 @@ def extract_generic_blocks(file_path: str) -> Tuple[List[Dict[str, Any]], Dict[s
                 class_content = _extract_block_content(content, match.start())
                 if class_content:
                     stats["classes"] = stats.get("classes", 0) + 1
+                    
+                    # Extract docstring
+                    docstring = _extract_generic_docstring(content, match.start())
+                    
                     blocks.append({
                         "uuid": str(uuid.uuid4()),
                         "type": "class",
                         "name": match.group(1),
                         "content": textwrap.dedent(class_content),
+                        "doc_string": docstring or "No documentation provided",
                         "metadata": {
                             "line_start": content.count('\n', 0, match.start()) + 1,
                             "line_end": content.count('\n', 0, match.start() + len(class_content)) + 1,
                             "imports": imports.copy(),
-                            "language": language
+                            "language": language,
+                            "has_docstring": docstring is not None
                         }
                     })
                     
@@ -194,6 +206,82 @@ def extract_generic_blocks(file_path: str) -> Tuple[List[Dict[str, Any]], Dict[s
     except Exception as e:
         logger.error(f"Error extracting blocks from {file_path}: {e}")
         return [], stats
+
+def _extract_generic_docstring(content: str, start_pos: int) -> Optional[str]:
+    """Extract potential docstring above a code block.
+    
+    Args:
+        content: Source code
+        start_pos: Starting position of block
+        
+    Returns:
+        Docstring if found, None otherwise
+    """
+    try:
+        # Look for comment lines above the block
+        line_start = content.rfind('\n', 0, start_pos)
+        if line_start == -1:  # Handle case where block is at the start of file
+            line_start = 0
+        else:
+            line_start += 1  # Move past the newline
+            
+        # Get the line where the block starts
+        block_line = content.count('\n', 0, start_pos) + 1
+        
+        # Check for JavaDoc or similar comment styles (/** ... */)
+        text_before = content[max(0, start_pos - 500):start_pos]
+        javadoc_pattern = r'/\*\*([^*]|\*[^/])*\*/'  # Match javadoc comment
+        match = list(re.finditer(javadoc_pattern, text_before, re.DOTALL))
+        if match:
+            last_match = match[-1]
+            # Clean up comment
+            comment = last_match.group(0)
+            lines = [line.strip().lstrip('* ') for line in comment.splitlines()[1:-1]]
+            return '\n'.join(line for line in lines if line)
+            
+        # Check for single-line comments above the block
+        if block_line > 1:
+            comment_lines = []
+            line_num = block_line - 1
+            comment_symbol = None
+            
+            # Go up to 10 lines before or until a non-comment line is found
+            while line_num > 0 and line_num >= block_line - 10:
+                line_start = content.rfind('\n', 0, line_start - 1)
+                if line_start == -1:  # Handle first line
+                    line_start = 0
+                else:
+                    line_start += 1  # Move past the newline
+                    
+                line = content[line_start:content.find('\n', line_start)].strip()
+                
+                # Detect comment style if not already determined
+                if comment_symbol is None:
+                    if line.startswith('//'):  # C-style
+                        comment_symbol = '//'
+                    elif line.startswith('#'):  # Python/Ruby style
+                        comment_symbol = '#'
+                    elif line.startswith('--'):  # SQL/Lua style
+                        comment_symbol = '--'
+                    elif line.startswith(';'):  # Assembly/Lisp style
+                        comment_symbol = ';'
+                    else:  # Not a comment line
+                        break
+                
+                # Check if this is still a comment
+                if line.startswith(comment_symbol):
+                    comment_lines.insert(0, line[len(comment_symbol):].strip())
+                    line_num -= 1
+                else:  # If not a comment, stop
+                    break
+                    
+            if comment_lines:
+                return '\n'.join(comment_lines)
+                
+        return None
+    except Exception as e:
+        logger.error(f"Error extracting generic docstring: {e}")
+        return None
 
 def _extract_block_content(content: str, start_pos: int) -> Optional[str]:
     """

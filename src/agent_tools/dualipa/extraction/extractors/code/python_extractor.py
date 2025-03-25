@@ -155,18 +155,23 @@ def extract_python_blocks(file_path: str) -> Tuple[List[Dict[str, Any]], Dict[st
                 if not class_content:
                     continue
                     
+                # Extract docstring
+                docstring = _extract_docstring(node)
+                
                 # Create class block
                 blocks.append({
                     "uuid": str(uuid.uuid4()),
                     "type": "class",
                     "name": node.name,
                     "content": class_content,
+                    "doc_string": docstring or "No documentation provided",
                     "metadata": {
                         "line_start": node.lineno,
                         "line_end": node.end_lineno,
                         "imports": imports.copy(),
                         "decorators": [_get_node_text(d, content) for d in node.decorator_list],
-                        "bases": [_get_node_text(b, content) for b in node.bases]
+                        "bases": [_get_node_text(b, content) for b in node.bases],
+                        "has_docstring": docstring is not None
                     }
                 })
                 continue
@@ -184,18 +189,23 @@ def extract_python_blocks(file_path: str) -> Tuple[List[Dict[str, Any]], Dict[st
                 is_method = current_class is not None and node in current_class.body
                 block_type = "method" if is_method else "function"
                 
+                # Extract docstring
+                docstring = _extract_docstring(node)
+                
                 # Create function/method block
                 block = {
                     "uuid": str(uuid.uuid4()),
                     "type": block_type,
                     "name": node.name,
                     "content": func_content,
+                    "doc_string": docstring or "No documentation provided",
                     "metadata": {
                         "line_start": node.lineno,
                         "line_end": node.end_lineno,
                         "imports": imports.copy(),
                         "decorators": [_get_node_text(d, content) for d in node.decorator_list],
-                        "returns": _get_return_annotation(node, content)
+                        "returns": _get_return_annotation(node, content),
+                        "has_docstring": docstring is not None
                     }
                 }
                 
@@ -235,6 +245,21 @@ def _get_node_text(node: ast.AST, source: str) -> Optional[str]:
         
     except Exception as e:
         logger.error(f"Error getting node text: {e}")
+        return None
+
+def _extract_docstring(node: ast.AST) -> Optional[str]:
+    """Extract docstring from AST node if available."""
+    try:
+        if isinstance(node, (ast.FunctionDef, ast.ClassDef, ast.Module)):
+            # Check for docstring (first statement in body is an Expr with a Str value)
+            if node.body and isinstance(node.body[0], ast.Expr) and isinstance(node.body[0].value, ast.Constant) and isinstance(node.body[0].value.value, str):
+                return node.body[0].value.value.strip()
+            # Handle older Python versions where docstrings might be ast.Str instead of ast.Constant
+            elif node.body and isinstance(node.body[0], ast.Expr) and hasattr(node.body[0].value, 's') and isinstance(node.body[0].value.s, str):
+                return node.body[0].value.s.strip()
+        return None
+    except Exception as e:
+        logger.error(f"Error extracting docstring: {e}")
         return None
 
 def _get_import_text(node: ast.AST, source: str) -> str:

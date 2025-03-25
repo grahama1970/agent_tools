@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "pages_downloaded": 1,
+  "errors": 0,
+  "pages": {
+    "https://example.com": {
+      "path": "playwright_test_output/example.com/index.html",
+      "size": 1248
+    }
+  }
+}

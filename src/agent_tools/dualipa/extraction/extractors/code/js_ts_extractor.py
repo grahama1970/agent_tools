@@ -12,6 +12,7 @@ Key Features:
 3. TypeScript type handling
 4. Class and method extraction
 5. Cascading parser approach for reliability
+6. JSDoc and comment extraction for docstrings (/** ... */ and // style)
 
 Dependencies:
 - tree-sitter: For JS/TS parsing (https://tree-sitter.github.io/tree-sitter/)
@@ -25,6 +26,7 @@ Documentation Links:
 - Loguru: https://loguru.readthedocs.io/
 - React Components: https://reactjs.org/docs/components-and-props.html
 - TypeScript Handbook: https://www.typescriptlang.org/docs/handbook/
+- JSDoc: https://jsdoc.app/
 
 Input/Output Specifications:
 
@@ -56,11 +58,13 @@ extract_js_ts_blocks(file_path: str, output_dir: Path = None) -> Tuple[List[Dict
                 "type": "function",
                 "name": "add",
                 "content": "function add(a, b) { return a + b; }",
+                "doc_string": "Adds two numbers together",
                 "line_start": 1,
                 "line_end": 1,
                 "metadata": {
                     "language": "javascript",
-                    "file": "src/utils/math.js"
+                    "file": "src/utils/math.js",
+                    "has_docstring": true
                 }
             }
         ],
@@ -70,6 +74,18 @@ extract_js_ts_blocks(file_path: str, output_dir: Path = None) -> Tuple[List[Dict
             "total_blocks": 1,
             "file_blocks": {"src/utils/math.js": [...]}
         })
+
+_extract_docstring_from_js(node: Any, source: str) -> Optional[str]:
+    Input:
+        - node: Tree-sitter node
+        - source: Original source code
+    Output:
+        - Extracted JSDoc or comment docstring if found, None otherwise
+    Example Input:
+        node = <tree-sitter node for function>
+        source = "/** Adds two numbers\n * @param {number} a First number\n * @param {number} b Second number\n * @returns {number} Sum\n */\nfunction add(a, b) { return a + b; }"
+    Example Output:
+        "Adds two numbers\n@param {number} a First number\n@param {number} b Second number\n@returns {number} Sum"
 
 _is_react_component(content: str) -> bool:
     Input:
@@ -98,11 +114,13 @@ _extract_react_component(file_path: str, content: str, language: str) -> Optiona
             "type": "react_component",
             "name": "Button",
             "content": "import React from 'react'; export function Button() { return <button>Click</button>; }",
+            "doc_string": "A button component",
             "metadata": {
                 "line_start": 1,
                 "line_end": 1,
                 "language": "javascript",
-                "framework": "react"
+                "framework": "react",
+                "has_docstring": true
             }
         }
 
@@ -165,13 +183,15 @@ _extract_method(node: Any, source: str, class_name: str, language: str, imports:
             "type": "method",
             "name": "add",
             "content": "add(a, b) { return a + b; }",
+            "doc_string": "No documentation provided",
             "metadata": {
                 "line_start": 1,
                 "line_end": 1,
                 "class_name": "Calculator",
                 "imports": ["import { sum } from './utils';"],
                 "exports": ["export class Calculator"],
-                "language": "javascript"
+                "language": "javascript",
+                "has_docstring": false
             }
         }
 
@@ -195,11 +215,13 @@ _fallback_to_generic_extractor(file_path: str, content: str, language: str) -> T
                 "type": "function",
                 "name": "add",
                 "content": "function add(a, b) { return a + b; }",
+                "doc_string": "No documentation provided",
                 "metadata": {
                     "line_start": 1,
                     "line_end": 1,
                     "imports": [],
-                    "language": "javascript"
+                    "language": "javascript",
+                    "has_docstring": false
                 }
             }
         ],
@@ -369,12 +391,16 @@ def extract_js_ts_blocks(file_path: str, output_dir: Path = None) -> Tuple[List[
                         if is_exported:
                             node_exports.append(f"export {block_type} {name}")
                         
+                        # Extract docstring
+                        docstring = _extract_docstring_from_js(node, content)
+                        
                         # Create block
                         block = {
                             'uuid': str(uuid.uuid4()),
                             'type': block_type,
                             'name': name,
                             'content': content[node.start_byte:node.end_byte],
+                            'doc_string': docstring or "No documentation provided",
                             'line_start': node.start_point[0] + 1,
                             'line_end': node.end_point[0] + 1,
                             'metadata': {
@@ -383,7 +409,8 @@ def extract_js_ts_blocks(file_path: str, output_dir: Path = None) -> Tuple[List[
                                 'extraction_method': 'tree_sitter',
                                 'extraction_quality': 'high',
                                 'imports': imports.copy(),
-                                'exports': exports.copy() if not node_exports else node_exports
+                                'exports': exports.copy() if not node_exports else node_exports,
+                                'has_docstring': docstring is not None
                             }
                         }
                         blocks.append(block)
@@ -433,6 +460,101 @@ def extract_js_ts_blocks(file_path: str, output_dir: Path = None) -> Tuple[List[
         except Exception as fallback_e:
             logger.error(f"Final fallback failed: {fallback_e}")
             return [], init_stats()
+
+def _extract_docstring_from_js(node: Any, source: str) -> Optional[str]:
+    """
+    Extract JSDoc or comment-style documentation for JavaScript/TypeScript nodes.
+    
+    Args:
+        node: Tree-sitter node
+        source: Original source code
+        
+    Returns:
+        Extracted docstring if found, None otherwise
+    """
+    try:
+        # Get node position information
+        start_byte = node.start_byte
+        start_line = node.start_point[0]
+        
+        # Convert bytes to string index for processing
+        # Look at up to 50 lines before the node or 1000 characters, whichever is smaller
+        max_lines_to_check = 50
+        max_chars_to_check = 1000
+        
+        # Find the line start
+        line_start = source.rfind('\n', max(0, start_byte - max_chars_to_check), start_byte)
+        if line_start == -1:  # Handle case where node is at the start of file
+            line_start = 0
+        else:
+            line_start += 1  # Move past the newline
+            
+        # Extract text before the node
+        text_before = source[max(0, line_start - max_chars_to_check):start_byte]
+        
+        # Check for JSDoc comments (/** ... */)
+        jsdoc_pattern = r'/\*\*([^*]|\*[^/])*\*/'
+        jsdoc_matches = list(re.finditer(jsdoc_pattern, text_before, re.DOTALL))
+        if jsdoc_matches:
+            # Get the last JSDoc comment before the node
+            jsdoc = jsdoc_matches[-1].group(0)
+            
+            # Clean up the JSDoc comment
+            # 1. Remove the /** and */ markers
+            # 2. Remove leading * from each line
+            # 3. Trim whitespace
+            lines = jsdoc.splitlines()
+            cleaned_lines = []
+            
+            for i, line in enumerate(lines):
+                if i == 0:  # First line with /**
+                    line = line.replace('/**', '').strip()
+                    if line:
+                        cleaned_lines.append(line)
+                elif i == len(lines) - 1:  # Last line with */
+                    line = line.replace('*/', '').strip()
+                    if line:
+                        cleaned_lines.append(line)
+                else:  # Middle lines with *
+                    line = line.strip()
+                    if line.startswith('*'):
+                        line = line[1:].strip()
+                    if line:
+                        cleaned_lines.append(line)
+            
+            if cleaned_lines:
+                return '\n'.join(cleaned_lines)
+        
+        # If no JSDoc found, check for single-line comments
+        comment_lines = []
+        
+        # Extract line by line, up to max_lines_to_check
+        lines = text_before.splitlines()
+        if not lines:
+            return None
+            
+        # Start from the end (closest to the node)
+        for line in reversed(lines[-max_lines_to_check:]):
+            line = line.strip()
+            
+            # Check if it's a comment
+            if line.startswith('//'):
+                # Remove comment marker and add to our collection
+                comment_line = line[2:].strip()
+                comment_lines.insert(0, comment_line)
+            else:
+                # If we hit a non-comment line, stop looking
+                # Unless it's just whitespace and we're still collecting
+                if line and comment_lines:
+                    break
+        
+        if comment_lines:
+            return '\n'.join(comment_lines)
+            
+        return None
+    except Exception as e:
+        logger.error(f"Error extracting JS docstring: {e}")
+        return None
 
 # React component extraction has been moved to react_extractor.py
 

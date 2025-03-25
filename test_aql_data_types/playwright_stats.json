@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "pages_downloaded": 1,
+  "errors": 0,
+  "pages": {
+    "https://docs.arangodb.com/stable/aql/fundamentals/data-types/": {
+      "path": "test_aql_data_types/docs.arangodb.com/stable/aql/fundamentals/data-types/index.html",
+      "size": 547220
+    }
+  }
+}
