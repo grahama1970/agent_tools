@@ -11,27 +11,8 @@ import redis
 import os
 import time
 from .initialize_litellm_cache import initialize_litellm_cache
-from contextlib import asynccontextmanager
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Initialize cache
-    initialize_litellm_cache()
-    
-    # Verify model loading
-    try:
-        # Check if SGLang is running
-        if not await check_sglang_health():
-            logger.error("SGLang server is not available. Ensure it's running on port 30000.")
-        else:
-            logger.info("SGLang server is running and healthy.")
-            
-        logger.info("Qwen2-72B inference server with SGLang and Redis started on RunPod.")
-    except Exception as e:
-        logger.error(f"Startup error: {e}")
-    yield
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 # Complete BatchRequest class definition
 class BatchRequest(BaseModel):
@@ -165,6 +146,23 @@ async def log_requests(request: Request, call_next):
     process_time = time.time() - start_time
     logger.info(f"{request.method} {request.url.path} completed in {process_time:.4f}s")
     return response
+
+@app.on_event("startup")
+async def startup_event():
+    # Initialize cache
+    initialize_litellm_cache()
+    
+    # Verify model loading
+    try:
+        # Check if SGLang is running
+        if not await check_sglang_health():
+            logger.error("SGLang server is not available. Ensure it's running on port 30000.")
+        else:
+            logger.info("SGLang server is running and healthy.")
+            
+        logger.info("Qwen2-72B inference server with SGLang and Redis started on RunPod.")
+    except Exception as e:
+        logger.error(f"Startup error: {e}")
 
 if __name__ == "__main__":
     import uvicorn
