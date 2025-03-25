@@ -67,9 +67,28 @@ python test_arangodb_extraction_transparent.py --playwright
 
 # Test all documentation extraction with Playwright
 python run_transparent_tests.py --playwright
+
+# Test a specific URL with Playwright
+python test_playwright_fetch.py https://example.com/docs --output-dir test_output
 ```
 
 This uses a headless browser to properly render JavaScript content before extraction. See `PLAYWRIGHT_SUPPORT.md` for detailed information.
+
+### Validation and Verification
+
+For validating extraction results and ensuring quality:
+
+```bash
+# Validate extraction against expected format
+python test_validation_framework.py --extraction output.json --expected expected_format.json
+
+# Run all validation tests
+python validate_all_tests.py --output-dir validation_results
+```
+
+For more information on validation approaches:
+- See `VALIDATION_FRAMEWORK.md` for the technical validation framework
+- See `FRICTIONLESS_VALIDATION.md` for best practices on verification and collaboration
 
 ### AQL-Specific Testing
 
