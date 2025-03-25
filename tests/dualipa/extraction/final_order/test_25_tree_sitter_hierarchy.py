@@ -132,7 +132,7 @@ that will be used for training data generation in Stage 3 of the DuaLipa pipelin
 
 import pytest
 from pathlib import Path
-from agent_tools.dualipa.code_hierarchy import _extract_hierarchical_structure_treesitter
+from agent_tools.dualipa.extraction.extractors.code.hierarchy import _extract_hierarchical_structure_treesitter
 
 def test_typescript_interface_hierarchy():
     """Test extraction of TypeScript interface with implementations."""

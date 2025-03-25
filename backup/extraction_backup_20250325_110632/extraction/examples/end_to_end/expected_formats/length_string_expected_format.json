@@ -1,0 +1,201 @@
+{
+  "description": "Expected format for LENGTH string function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "LENGTH",
+    "function_purpose": [
+      "returns the length of a string",
+      "calculates string length"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": [
+          "A string value",
+          "input string"
+        ]
+      }
+    ],
+    "return_type": "result",
+    "examples": [
+      {
+        "code": "RETURN LENGTH(\"hello world\")",
+        "output": "11"
+      }
+    ],
+    "required_keywords": [
+      "LENGTH",
+      "function",
+      "return",
+      "string"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "a3139384-4cb3-4475-92c2-5ecc35168a82",
+      "id": "docs_arangodb_length",
+      "name": "Documentation: arangodb_length",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/stable/aql/functions/string/#length",
+      "source_url": "https://docs.arangodb.com/stable/aql/functions/string/#length",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/string/#length",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_length_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page for LENGTH function",
+      "file_path": "/path/to/downloaded/arangodb/string/length.html",
+      "parent_uuid": "a3139384-4cb3-4475-92c2-5ecc35168a82",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/string/#length",
+        "relative_path": "aql/functions/string/length.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "function_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "functions_arangodb_length_function",
+      "name": "LENGTH",
+      "type": "doc_section",
+      "language": "markdown",
+      "content": "# LENGTH\n\nreturns the length of a string.",
+      "file_path": "/path/to/downloaded/arangodb/string/length.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "markdown",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "LENGTH"
+        ]
+      }
+    },
+    "syntax_table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "length_syntax_table",
+      "name": "LENGTH Function Syntax",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['LENGTH(value)', 'returns the length of a string']]}",
+      "file_path": "/path/to/downloaded/arangodb/string/length.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": [
+          "Syntax",
+          "Description"
+        ],
+        "rows": [
+          [
+            "LENGTH(value)",
+            "returns the length of a string"
+          ]
+        ]
+      }
+    },
+    "example_code": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "length_example",
+      "name": "LENGTH example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN LENGTH(\"hello world\") // returns 11",
+      "file_path": "/path/to/downloaded/arangodb/string/length.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "aql",
+        "source": "html"
+      }
+    }
+  }
+}

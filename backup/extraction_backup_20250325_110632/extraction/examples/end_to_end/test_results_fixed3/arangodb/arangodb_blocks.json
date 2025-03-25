@@ -1,0 +1,64 @@
+[
+  {
+    "uuid": "ff5d4d20-c5f1-4fa1-8d63-a502aa462bbc",
+    "id": "docs_arangodb_aql",
+    "name": "Documentation: arangodb_aql",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://www.arangodb.com/docs/stable/aql/",
+    "file_path": "/tmp/tmpax46e2k6",
+    "source_url": "https://www.arangodb.com/docs/stable/aql/",
+    "child_uuids": [
+      "b45722e8-e795-4250-b7bf-bae61ca47bb9"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "b45722e8-e795-4250-b7bf-bae61ca47bb9",
+    "id": "docs_arangodb_aql_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://www.arangodb.com/docs/stable/aql/",
+    "file_path": "/tmp/tmpax46e2k6/docs.arangodb.com/stable/aql/index.html",
+    "parent_uuid": "ff5d4d20-c5f1-4fa1-8d63-a502aa462bbc",
+    "child_uuids": [
+      "61b785a9-4b8b-4d0a-be54-81e748a633ee"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "relative_path": "index.html",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "61b785a9-4b8b-4d0a-be54-81e748a633ee",
+    "id": "docs_arangodb_aql_index.html_section_0",
+    "name": "AQL Documentation",
+    "type": "doc_section",
+    "language": "html",
+    "content": "\nThe ArangoDB Query Language (AQL) lets you store, retrieve, and modify data in various ways in ArangoDB\nAQL is mainly a declarative language, meaning that a query expresses what result\nshould be achieved but not how it should be achieved. AQL aims to be\nhuman-readable and therefore uses keywords from the English language. Another\ndesign goal of AQL was client independence, meaning that the language and syntax\nare the same for all clients, no matter what programming language the clients\nmay use. Further design goals of AQL were the support of complex query patterns\nand the different data models ArangoDB offers.\nIn its purpose, AQL is similar to the Structured Query Language (SQL). AQL supports\nreading and modifying collection data, but it doesn\u2019t support data-definition\noperations such as creating and dropping databases, collections and indexes.\nIt is a pure data manipulation language (DML), not a data definition language\n(DDL) or a data control language (DCL).\nThe syntax of AQL queries is different to SQL, even if some keywords overlap.\nNevertheless, AQL should be easy to understand for anyone with an SQL background.\nThe general workflow when executing a query is as follows:\nFor example queries, see theData QueriesandExamples & Query Patternschapters.",
+    "file_path": "/tmp/tmpax46e2k6/docs.arangodb.com/stable/aql/index.html",
+    "parent_uuid": "b45722e8-e795-4250-b7bf-bae61ca47bb9",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "position": 0,
+      "doc_type": "arangodb",
+      "header_level": 1,
+      "token_count": 256,
+      "section_hierarchy": [
+        "AQL Documentation"
+      ],
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false
+    }
+  }
+]

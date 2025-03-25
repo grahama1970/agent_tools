@@ -1,0 +1,47 @@
+{
+  "valid": true,
+  "overall_score": 97.6,
+  "structure_validation": {
+    "valid": true,
+    "score": 100.0,
+    "errors": [],
+    "successes": [],
+    "total_checks": 0,
+    "passed_checks": 0
+  },
+  "content_validation": {
+    "valid": true,
+    "score": 92.9,
+    "errors": [
+      "Missing example output: 11..."
+    ],
+    "successes": [
+      "Found function name: LENGTH",
+      "Found function purpose: returns the length of a string, returns the number of characters, length of a string or the number of elements in an array",
+      "Found parameter: value",
+      "Found parameter type: string|array for value",
+      "Found parameter description for value: string or array",
+      "Found return type: number",
+      "Found example code: LENGTH(\"hello world\")...",
+      "Found example code: LENGTH([1, 2, 3, 4, 5])...",
+      "Found example output: 5...",
+      "Found required keyword: LENGTH",
+      "Found required keyword: string",
+      "Found required keyword: array",
+      "Found required keyword: function"
+    ],
+    "total_checks": 14,
+    "passed_checks": 13
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": true,
+    "score": 100.0,
+    "errors": [],
+    "successes": [],
+    "total_checks": 0,
+    "passed_checks": 0
+  }
+}

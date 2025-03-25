@@ -1,0 +1,51 @@
+{
+  "https://python.readthedocs.io/en/latest/": [
+    {
+      "file": "/tmp/tmpyep5s8d2/python.readthedocs.io/en/latest/index.html",
+      "relative_path": "index.html",
+      "sections": [
+        {
+          "header": "Navigation",
+          "level": 3,
+          "content": "\n![Python logo](https://docs.python.org/3/_static/py.svg)",
+          "token_count": 8,
+          "file_meta": {
+            "file_path": "/tmp/tmpyep5s8d2/python.readthedocs.io/en/latest/index.html",
+            "file_name": "index"
+          },
+          "header_hierarchy": [
+            "### Navigation"
+          ]
+        },
+        {
+          "header": "Python 3.13.2 documentation",
+          "level": 1,
+          "content": "\nWelcome! This is the official documentation for Python 3.13.2.\nDocumentation sections:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/whatsnew/3.13.html\">What's new in Python 3.13?</a><br/>\n<span class=\"linkdescr\"> Or <a href=\"https://docs.python.org/3/whatsnew/index.html\">all \"What's new\" documents since Python 2.0</a></span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/tutorial/index.html\">Tutorial</a><br/>\n<span class=\"linkdescr\">Start here: a tour of Python's syntax and features</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/library/index.html\">Library reference</a><br/>\n<span class=\"linkdescr\">Standard library and builtins</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/reference/index.html\">Language reference</a><br/>\n<span class=\"linkdescr\">Syntax and language elements</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/using/index.html\">Python setup and usage</a><br/>\n<span class=\"linkdescr\">How to install, configure, and use Python</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/howto/index.html\">Python HOWTOs</a><br/>\n<span class=\"linkdescr\">In-depth topic manuals</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/installing/index.html\">Installing Python modules</a><br/>\n<span class=\"linkdescr\">Third-party modules and PyPI.org</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/distributing/index.html\">Distributing Python modules</a><br/>\n<span class=\"linkdescr\">Publishing modules for use by other people</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/extending/index.html\">Extending and embedding</a><br/>\n<span class=\"linkdescr\">For C/C++ programmers</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/c-api/index.html\">Python's C API</a><br/>\n<span class=\"linkdescr\">C API reference</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/faq/index.html\">FAQs</a><br/>\n<span class=\"linkdescr\">Frequently asked questions (with answers!)</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/deprecations/index.html\">Deprecations</a><br/>\n<span class=\"linkdescr\">Deprecated functionality</span></p>\n</td></tr>\n</table>\nWhat's new in Python 3.13?Orall \"What's new\" documents since Python 2.0\nTutorialStart here: a tour of Python's syntax and features\nLibrary referenceStandard library and builtins\nLanguage referenceSyntax and language elements\nPython setup and usageHow to install, configure, and use Python\nPython HOWTOsIn-depth topic manuals\nInstalling Python modulesThird-party modules and PyPI.org\nDistributing Python modulesPublishing modules for use by other people\nExtending and embeddingFor C/C++ programmers\nPython's C APIC API reference\nFAQsFrequently asked questions (with answers!)\nDeprecationsDeprecated functionality\nIndices, glossary, and search:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/py-modindex.html\">Global module index</a><br/>\n<span class=\"linkdescr\">All modules and libraries</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/genindex.html\">General index</a><br/>\n<span class=\"linkdescr\">All functions, classes, and terms</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/glossary.html\">Glossary</a><br/>\n<span class=\"linkdescr\">Terms explained</span></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/search.html\">Search page</a><br/>\n<span class=\"linkdescr\">Search this documentation</span></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/contents.html\">Complete table of contents</a><br/>\n<span class=\"linkdescr\">Lists all sections and subsections</span></p>\n</td></tr>\n</table>\nGlobal module indexAll modules and libraries\nGeneral indexAll functions, classes, and terms\nGlossaryTerms explained\nSearch pageSearch this documentation\nComplete table of contentsLists all sections and subsections\nProject information:\n<table align=\"center\" class=\"contentstable\"><tr>\n<td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/bugs.html\">Reporting issues</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://devguide.python.org/documentation/help-documenting/\">Contributing to Docs</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/download.html\">Download the documentation</a></p>\n</td><td width=\"50%\">\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/license.html\">History and license of Python</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/copyright.html\">Copyright</a></p>\n<p class=\"biglink\"><a class=\"biglink\" href=\"https://docs.python.org/3/about.html\">About the documentation</a></p>\n</td></tr>\n</table>\nReporting issues\nContributing to Docs\nDownload the documentation\nHistory and license of Python\nCopyright\nAbout the documentation\n\nDownload these documents\n\n",
+          "token_count": 751,
+          "file_meta": {
+            "file_path": "/tmp/tmpyep5s8d2/python.readthedocs.io/en/latest/index.html",
+            "file_name": "index"
+          },
+          "header_hierarchy": [
+            "# Python 3.13.2 documentation"
+          ]
+        },
+        {
+          "header": "Navigation",
+          "level": 3,
+          "content": "\n![Python logo](https://docs.python.org/3/_static/py.svg)",
+          "token_count": 8,
+          "file_meta": {
+            "file_path": "/tmp/tmpyep5s8d2/python.readthedocs.io/en/latest/index.html",
+            "file_name": "index"
+          },
+          "header_hierarchy": [
+            "### Navigation"
+          ]
+        }
+      ],
+      "doc_type": "python",
+      "source_url": "https://python.readthedocs.io/en/latest/"
+    }
+  ]
+}

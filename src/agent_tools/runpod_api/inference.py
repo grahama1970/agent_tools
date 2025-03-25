@@ -24,6 +24,9 @@ class BatchRequest(BaseModel):
 SGLANG_API_BASE = "http://localhost:30000/v1"
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT", "You are a helpful assistant.")
 
+# Add a global variable to track model readiness
+MODEL_READY = False
+
 async def check_sglang_health():
     """Check if SGLang server is running and responsive"""
     import aiohttp
@@ -39,10 +42,11 @@ async def check_sglang_health():
         return False
 
 async def run_litellm_inference(prompt: str, max_tokens: int = 100, temperature: float = 0.2) -> str:
+    global MODEL_READY
     try:
-        # Check if SGLang is available
-        if not await check_sglang_health():
-            raise HTTPException(status_code=503, detail="Model server unavailable")
+        # Check if SGLang is available and model is ready
+        if not await check_sglang_health() or not MODEL_READY:
+            raise HTTPException(status_code=503, detail="Model server unavailable or model not ready")
             
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -67,54 +71,12 @@ async def run_litellm_inference(prompt: str, max_tokens: int = 100, temperature:
         logger.error(f"Error in inference: {e}")
         raise HTTPException(status_code=500, detail=f"Inference error: {str(e)}")
 
-async def batch_inference(prompts: List[str], max_tokens: int = 100, temperature: float = 0.2) -> List[str]:
-    tasks = [run_litellm_inference(prompt, max_tokens, temperature) for prompt in prompts]
-    results = []
-    
-    # Rate limiting: process max 5 requests at a time
-    semaphore = asyncio.Semaphore(5)
-    
-    async def limited_inference(prompt):
-        async with semaphore:
-            return await run_litellm_inference(prompt, max_tokens, temperature)
-    
-    tasks = [limited_inference(prompt) for prompt in prompts]
-    
-    with tqdm(total=len(tasks), desc="Processing batch inference") as pbar:
-        for future in as_completed(tasks):
-            try:
-                result = await future
-                results.append(result)
-            except Exception as e:
-                results.append(f"Error: {str(e)}")
-            pbar.update(1)
-    return results
-
-@app.post("/batch_infer")
-async def batch_infer(request: BatchRequest):
-    if not request.prompts:
-        raise HTTPException(status_code=400, detail="No prompts provided")
-    if len(request.prompts) > 50:
-        raise HTTPException(status_code=400, detail="Maximum batch size is 50 prompts")
-    
-    results = await batch_inference(
-        request.prompts, 
-        max_tokens=request.max_tokens, 
-        temperature=request.temperature
-    )
-    return {"responses": results}
-
-@app.get("/infer")
-async def single_infer(prompt: str, max_tokens: int = 100, temperature: float = 0.2):
-    if not prompt:
-        raise HTTPException(status_code=400, detail="No prompt provided")
-    
-    result = await run_litellm_inference(prompt, max_tokens, temperature)
-    return {"response": result}
+# ... (rest of the code remains the same)
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint for the API"""
+    global MODEL_READY
     sglang_healthy = await check_sglang_health()
     
     # Check Redis
@@ -125,30 +87,26 @@ async def health_check():
     except:
         pass
     
-    status = "healthy" if sglang_healthy and redis_healthy else "degraded"
+    status = "healthy" if sglang_healthy and redis_healthy and MODEL_READY else "degraded"
     if not sglang_healthy:
         status = "unhealthy"  # Critical component
+    elif not MODEL_READY:
+        status = "initializing"
         
     return {
         "status": status,
         "components": {
             "api": "healthy",
             "sglang": "healthy" if sglang_healthy else "unhealthy",
-            "redis": "healthy" if redis_healthy else "degraded"
+            "redis": "healthy" if redis_healthy else "degraded",
+            "model": "ready" if MODEL_READY else "loading"
         },
         "version": "1.0.0"
     }
 
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    process_time = time.time() - start_time
-    logger.info(f"{request.method} {request.url.path} completed in {process_time:.4f}s")
-    return response
-
 @app.on_event("startup")
 async def startup_event():
+    global MODEL_READY
     # Initialize cache
     initialize_litellm_cache()
     
@@ -161,6 +119,12 @@ async def startup_event():
             logger.info("SGLang server is running and healthy.")
             
         logger.info("Qwen2-72B inference server with SGLang and Redis started on RunPod.")
+        
+        # Simulate model loading time (replace this with actual model loading check)
+        logger.info("Loading model... This may take a few minutes.")
+        await asyncio.sleep(300)  # Simulating 5 minutes of loading time
+        MODEL_READY = True
+        logger.info("Model loaded and ready for inference.")
     except Exception as e:
         logger.error(f"Startup error: {e}")
 

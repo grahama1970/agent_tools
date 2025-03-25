@@ -1,0 +1,88 @@
+{
+  "description": "Expected format for ArangoDB API documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["doc_section", "code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_url",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "AQL",
+    "function_purpose": [
+      "query language",
+      "data manipulation",
+      "data retrieval",
+      "database queries"
+    ],
+    "required_keywords": [
+      "AQL",
+      "query",
+      "collection",
+      "filter",
+      "data",
+      "database"
+    ],
+    "context_validation": [
+      {
+        "name": "syntax",
+        "patterns": ["FOR\\s+.*\\s+IN", "RETURN", "FILTER", "SORT", "LIMIT"]
+      },
+      {
+        "name": "collections",
+        "patterns": ["collection", "documents", "edges"]
+      }
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      },
+      {
+        "parent": "doc_section",
+        "children": ["code_block", "table"]
+      }
+    ],
+    "validation_threshold": 75
+  }
+}

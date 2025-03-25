@@ -1,0 +1,21 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "Child edeab348-dd49-4574-b992-954a20c178be doesn't reference parent 96710ddf-2c77-4ae4-9b1a-b653e83c5d20 in its parent_uuid field",
+    "Child 2e556b9a-0333-4a16-98da-bcf39709ae9e doesn't reference parent edeab348-dd49-4574-b992-954a20c178be in its parent_uuid field",
+    "Child 756b4010-a43d-4809-803c-fce24e38a6b4 doesn't reference parent edeab348-dd49-4574-b992-954a20c178be in its parent_uuid field",
+    "Child 28b05003-c918-436f-a786-6053d4258741 doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field",
+    "Child bfbfce3c-6618-4a7f-b2c6-512283dcaa0d doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field",
+    "Child 7515620a-b1f9-4b09-8b22-5d9da37bd26f doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field",
+    "Child 3b6cecf9-68f3-4b4b-bad6-a931fe3aff96 doesn't reference parent 756b4010-a43d-4809-803c-fce24e38a6b4 in its parent_uuid field"
+  ],
+  "stats": {
+    "total_blocks": 8,
+    "root_blocks": 1,
+    "child_blocks": 7,
+    "orphaned_blocks": 0,
+    "bidirectional_references": 0,
+    "missing_references": 0
+  }
+}

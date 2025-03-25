@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-03-24T10:14:55.968904",
+  "tests": {
+    "arangodb": {
+      "timestamp": "2025-03-24T10:14:55.974318",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "success": false,
+      "steps": [],
+      "output_files": {
+        "html": "test_results_module/arangodb/arangodb_aql.html"
+      },
+      "output_directory": "test_results_module/arangodb",
+      "error": "Failed to process ArangoDB documentation"
+    },
+    "readthedocs": {
+      "timestamp": "2025-03-24T10:14:55.510552",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "success": false,
+      "steps": [],
+      "output_files": {
+        "html": "test_results_module/readthedocs/readthedocs.html"
+      },
+      "output_directory": "test_results_module/readthedocs",
+      "error": "Failed to process ReadTheDocs documentation"
+    }
+  },
+  "success": false
+}

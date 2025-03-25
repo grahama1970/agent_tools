@@ -17,7 +17,7 @@ from pathlib import Path
 
 # Import the required modules
 try:
-    from agent_tools.dualipa.code_hierarchy import (
+    from agent_tools.dualipa.extraction.extractors.code.hierarchy import (
         build_code_hierarchy,
         extract_code_hierarchy,
         get_children,

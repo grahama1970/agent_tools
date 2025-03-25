@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "src"))
 
 # Import directly from the module
 try:
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         extract_repository, 
         _extract_python_blocks, 
         _extract_with_tree_sitter,

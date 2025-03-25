@@ -14,7 +14,7 @@ import tempfile
 import textwrap
 import pytest
 
-from agent_tools.dualipa.code_extractor import (
+from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
     _extract_js_ts_blocks,
     initialize_stats_dict
 )

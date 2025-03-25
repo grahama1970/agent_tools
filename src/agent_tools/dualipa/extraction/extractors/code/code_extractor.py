@@ -77,15 +77,17 @@ import re
 import uuid
 import json
 import textwrap
+import os
+import tempfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Union
 from loguru import logger
 
 from agent_tools.dualipa.extraction.extractors.code.hierarchy import analyze_code_hierarchy
 from agent_tools.dualipa.extraction.extractors.code.js_ts_extractor import extract_js_ts_blocks
 from agent_tools.dualipa.extraction.extractors.code.python_extractor import extract_python_blocks
 from agent_tools.dualipa.extraction.extractors.code.generic_extractor import extract_generic_blocks
-from agent_tools.dualipa.extraction.extractors.utils.stats_utils import init_stats, update_stats
+from agent_tools.dualipa.extraction.extractors.utils.stats_utils import init_stats, update_stats, initialize_stats_dict
 from agent_tools.dualipa.extraction.extractors.utils.language_utils import detect_language, get_language_info
 from agent_tools.dualipa.extraction.extractors.utils.tree_sitter_utils import get_parser
 from agent_tools.dualipa.extraction.extractors.utils.validation_utils import validate_block
@@ -95,6 +97,30 @@ from agent_tools.dualipa.extraction.extractors.utils.tree_sitter_helpers import 
     get_ts_return_type, get_extends_class, get_implements_interfaces,
     get_extends_interfaces, get_interface_properties
 )
+
+# For backward compatibility
+_extract_python_blocks = extract_python_blocks
+_extract_js_ts_blocks = extract_js_ts_blocks
+_extract_generic_blocks = extract_generic_blocks
+
+def _extract_with_tree_sitter(content: str, file_path: str, language: str, stats: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Extract code blocks using tree-sitter.
+    
+    This is a compatibility function to support older tests that expect this function.
+    It delegates to extract_js_ts_blocks which has the actual implementation.
+    
+    Args:
+        content: Source code content
+        file_path: Path to the source file
+        language: Programming language
+        stats: Statistics dictionary
+        
+    Returns:
+        List of extracted code blocks
+    """
+    # Provide backwards compatibility by delegating to the new implementation
+    return extract_js_ts_blocks(content, file_path, language, stats)
 
 # For JS/TS extraction, tree_sitter import is handled through tree_sitter_utils.py
 # tree-sitter is always available through tree-sitter-language-pack
@@ -466,5 +492,83 @@ def extract_generic_blocks(
 # - verification_utils.py: For verifying code syntax and semantics
 
 # Helper functions have been moved to tree_sitter_helpers.py
+
+def extract_repository(repo_path: Union[str, Path], output_dir: Optional[Union[str, Path]] = None) -> Dict[str, Any]:
+    """
+    Extract code blocks from a repository.
+    
+    Args:
+        repo_path: Path to the repository
+        output_dir: Optional output directory for extracted blocks
+        
+    Returns:
+        Dictionary containing extracted blocks and metadata
+    """
+    repo_path = Path(repo_path) if not isinstance(repo_path, Path) else repo_path
+    
+    if not repo_path.exists() or not repo_path.is_dir():
+        logger.error(f"Repository path not found: {repo_path}")
+        return {"error": f"Repository path not found: {repo_path}"}
+    
+    # Use temporary directory if not specified
+    if output_dir is None:
+        output_dir = Path(tempfile.mkdtemp(prefix="extraction_"))
+    else:
+        output_dir = Path(output_dir) if not isinstance(output_dir, Path) else output_dir
+        os.makedirs(output_dir, exist_ok=True)
+    
+    logger.info(f"Extracting from repository: {repo_path}")
+    logger.info(f"Output directory: {output_dir}")
+    
+    # Find Python files in the repository
+    blocks = []
+    stats = init_stats()
+    
+    try:
+        # Walk the repository directory
+        for root, dirs, files in os.walk(repo_path):
+            # Exclude hidden directories and venv directories
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d != 'venv' and d != 'node_modules' and d != '__pycache__']
+            
+            for file in files:
+                # Skip hidden files and non-source files
+                if file.startswith('.') or file.endswith(('.pyc', '.pyo', '.pyd', '.exe', '.dll', '.so')):
+                    continue
+                
+                file_path = os.path.join(root, file)
+                relative_path = os.path.relpath(file_path, repo_path)
+                
+                try:
+                    # Extract blocks from each file
+                    file_blocks = extract_code_blocks(file_path, output_dir)
+                    blocks.extend(file_blocks)
+                    
+                    # Update stats
+                    stats["files_processed"] += 1
+                    stats["blocks_extracted"] += len(file_blocks)
+                    
+                    logger.debug(f"Extracted {len(file_blocks)} blocks from {relative_path}")
+                    
+                except Exception as e:
+                    logger.warning(f"Error extracting from {relative_path}: {e}")
+                    stats["errors"].append(f"Error extracting from {relative_path}: {e}")
+    
+    except Exception as e:
+        logger.error(f"Error walking repository: {e}")
+        stats["errors"].append(f"Error walking repository: {e}")
+    
+    # Save stats
+    stats_file = output_dir / "extraction_stats.json"
+    try:
+        with open(stats_file, 'w', encoding='utf-8') as f:
+            json.dump(stats, f, indent=2)
+    except Exception as e:
+        logger.error(f"Error saving stats: {e}")
+    
+    return {
+        "blocks": blocks,
+        "stats": stats,
+        "output_dir": str(output_dir)
+    }
 
 # Usage examples moved to usage_examples.py 

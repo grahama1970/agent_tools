@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-03-25T07:21:56.882471",
+  "source_url": "https://www.arangodb.com/docs/stable/aql/",
+  "success": true,
+  "steps": [],
+  "output_files": {
+    "html": "test_results/all_docs_2025-03-25_072156/arangodb/arangodb_aql.html",
+    "blocks": "test_results/all_docs_2025-03-25_072156/arangodb/arangodb_blocks.json",
+    "summary": "test_results/all_docs_2025-03-25_072156/arangodb/extraction_summary.html"
+  },
+  "output_directory": "test_results/all_docs_2025-03-25_072156/arangodb",
+  "statistics": {
+    "total_blocks": 3,
+    "doc_blocks": 1,
+    "page_blocks": 1,
+    "section_blocks": 1,
+    "code_blocks": 0,
+    "table_blocks": 0,
+    "image_blocks": 0
+  }
+}

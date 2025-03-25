@@ -1,0 +1,19 @@
+{
+  "test_url": "https://docs.arangodb.com/3.12/aql/functions/array/#intersection",
+  "documentation_blocks_count": 2,
+  "array_function_blocks_count": 2,
+  "array_sections_count": 0,
+  "intersection_code_blocks_count": 2,
+  "intersection_tables_count": 2,
+  "success_indicators": [
+    "Found documentation block with intersection in URL or name",
+    "Found documentation block with intersection in URL or name",
+    "Found INTERSECTION code examples in markdown file",
+    "Found INTERSECTION code examples in markdown file",
+    "Found table markup in markdown file",
+    "Found table markup in markdown file",
+    "Found array function documentation"
+  ],
+  "errors": [],
+  "valid": true
+}

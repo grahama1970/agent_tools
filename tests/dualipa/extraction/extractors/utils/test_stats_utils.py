@@ -251,12 +251,12 @@ def test_initialize_stats_dict_consistency():
     
     # Import the function from multiple modules
     try:
-        from agent_tools.dualipa.code_extractor import initialize_stats_dict as code_extractor_init
-        from agent_tools.dualipa.extract_repo import initialize_stats_dict as extract_repo_init
+        from agent_tools.dualipa.extraction.extractors.code.code_extractor import initialize_stats_dict as code_extractor_init
+        from agent_tools.dualipa.extraction.extractors.github.repo_utils import initialize_stats_dict as extract_repo_init
         
         # Try importing from other modules that may use it
         try:
-            from agent_tools.dualipa.code_hierarchy import initialize_stats_dict as code_hierarchy_init
+            from agent_tools.dualipa.extraction.extractors.code.hierarchy import initialize_stats_dict as code_hierarchy_init
             modules_with_init = [
                 ("code_extractor", code_extractor_init),
                 ("extract_repo", extract_repo_init),

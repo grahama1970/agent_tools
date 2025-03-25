@@ -827,3 +827,38 @@ def save_validation_results(results: Dict[str, Any], output_path: Union[str, Pat
         logger.info(f"Validation results saved to {output_path}")
     except Exception as e:
         logger.error(f"Error saving validation results: {e}")
+
+
+def validate_extraction(extraction_result: Any, expected_format_path: Optional[Union[str, Path]] = None) -> Dict[str, Any]:
+    """
+    Validate extraction results against an expected format.
+    
+    Args:
+        extraction_result: The extraction result to validate (could be dict or list)
+        expected_format_path: Optional path to expected format JSON file
+        
+    Returns:
+        Dictionary with validation results
+        
+    Example:
+        >>> extraction_result = extract_repository('./test_repos/python-sample')
+        >>> validation = validate_extraction(extraction_result, 'expected_format.json')
+        >>> print(f"Validation {'passed' if validation['valid'] else 'failed'}")
+        Validation passed
+    """
+    logger.info("Validating extraction results")
+    
+    # First perform basic QA output validation
+    format_valid = validate_qa_output(extraction_result)
+    
+    # If expected format is provided, perform more detailed validation
+    if expected_format_path:
+        expected_format = load_expected_format(expected_format_path)
+        return validate_extraction_result(extraction_result, expected_format)
+    
+    # Return basic validation results if no expected format provided
+    return {
+        "valid": format_valid,
+        "overall_score": 100.0 if format_valid else 0.0,
+        "format_validation": {"valid": format_valid}
+    }

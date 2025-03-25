@@ -1,0 +1,16 @@
+{
+  "https://www.arangodb.com/docs/stable/aql/": [
+    {
+      "file": "/tmp/tmpmuu8ht56/docs.arangodb.com/stable/aql/index.html",
+      "relative_path": "index.html",
+      "sections": [
+        {
+          "title": "Sample Section",
+          "content": "Sample content"
+        }
+      ],
+      "doc_type": "arangodb",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/"
+    }
+  ]
+}

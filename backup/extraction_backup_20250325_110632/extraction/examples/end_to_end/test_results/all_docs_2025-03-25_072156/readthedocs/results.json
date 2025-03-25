@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-03-25T07:22:03.755805",
+  "source_url": "https://python.readthedocs.io/en/latest/",
+  "success": true,
+  "steps": [],
+  "output_files": {
+    "html": "test_results/all_docs_2025-03-25_072156/readthedocs/readthedocs.html",
+    "blocks": "test_results/all_docs_2025-03-25_072156/readthedocs/readthedocs_blocks.json",
+    "summary": "test_results/all_docs_2025-03-25_072156/readthedocs/extraction_summary.html"
+  },
+  "output_directory": "test_results/all_docs_2025-03-25_072156/readthedocs",
+  "statistics": {
+    "total_blocks": 8,
+    "doc_blocks": 1,
+    "page_blocks": 1,
+    "section_blocks": 3,
+    "code_blocks": 0,
+    "table_blocks": 3,
+    "image_blocks": 0
+  }
+}

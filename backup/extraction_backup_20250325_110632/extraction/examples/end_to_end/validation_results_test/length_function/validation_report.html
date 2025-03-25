@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Report - LENGTH Function</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css">
+    <style>
+        pre { white-space: pre-wrap; overflow-x: auto; }
+        .content-card { max-height: 500px; overflow-y: auto; }
+        .error-card { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">LENGTH Function - Validation Report</h1>
+            <div class="text-sm text-gray-500">Generated on 2025-03-24 13:34:30</div>
+        </div>
+        
+        <!-- Overall Results Card -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold">Overall Results</h2>
+                <div class="bg-red-100 text-red-800 px-4 py-2 rounded-full font-bold">
+                    FAILED
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold mb-1">39.7%</div>
+                    <div class="text-gray-600">Overall Score</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold mb-1">33.3%</div>
+                    <div class="text-gray-600">Structure Score</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-3xl font-bold mb-1">85.7%</div>
+                    <div class="text-gray-600">Content Score</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">Validation Components</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">
+                                <i class="lucide-check-circle"></i>
+                            </span>
+                            <span>Format Validation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-red-500 mr-2">
+                                <i class="lucide-x-circle"></i>
+                            </span>
+                            <span>Structure Validation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">
+                                <i class="lucide-check-circle"></i>
+                            </span>
+                            <span>Content Validation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-red-500 mr-2">
+                                <i class="lucide-x-circle"></i>
+                            </span>
+                            <span>Structure Consistency</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">Validation Statistics</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">Structure Checks</span>
+                                <span class="text-sm font-medium text-gray-700">4/12 (33.3%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 33.33333333333333%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">Content Checks</span>
+                                <span class="text-sm font-medium text-gray-700">12/14 (85.7%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85.71428571428571%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">Consistency Checks</span>
+                                <span class="text-sm font-medium text-gray-700">0/2 (0.0%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0.0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Errors Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Validation Errors</h2>
+            
+            <div class="grid grid-cols-1 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-red-700">Structure Errors (8)</h3>
+                    <div class="bg-red-50 p-4 rounded-lg error-card">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li class="text-red-700">Missing required block type: documentation</li><li class="text-red-700">Missing required block type: doc_page</li><li class="text-red-700">Missing required block type: doc_section</li><li class="text-red-700">Missing required block type: code_block</li><li class="text-red-700">Missing required block type: table</li><li class="text-red-700">Missing parent block type: documentation</li><li class="text-red-700">Missing parent block type: doc_page</li><li class="text-red-700">Missing parent block type: doc_section</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-red-700">Content Errors (2)</h3>
+                    <div class="bg-red-50 p-4 rounded-lg error-card">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li class="text-red-700">Missing parameter description for value, expected one of: [&apos;A string or array value&apos;, &apos;input string&apos;, &apos;input array&apos;]</li><li class="text-red-700">Missing example output: 11...</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2 text-red-700">Consistency Errors (2)</h3>
+                    <div class="bg-red-50 p-4 rounded-lg error-card">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li class="text-red-700">Missing required root block type: documentation</li><li class="text-red-700">No blocks have file paths in metadata</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content Comparison -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Content Comparison</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Extraction Content</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg content-card">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-blue-700">Section 1</h4>
+                            <pre class="text-sm mt-2 bg-gray-100 p-2 rounded"># ArangoDB LENGTH Function
+            
+            ## LENGTH()
+            
+            The `LENGTH()` function returns the length of a string or the number of elements in an array.
+            
+            ### Syntax
+            
+            ```
+            LENGTH(value)
+            ```
+            
+            ### Parameters
+            
+            | Parameter | Type | Description |
+            |-----------|------|-------------|
+            | value | string or array | A string or array to de...</pre>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-blue-700">Section 2</h4>
+                            <pre class="text-sm mt-2 bg-gray-100 p-2 rounded"># ArangoDB LENGTH Function
+            
+            ## LENGTH()
+            
+            The `LENGTH()` function returns the length of a string or the number of elements in an array.
+            
+            ### Syntax
+            
+            ```
+            LENGTH(value)
+            ```
+            
+            ### Parameters
+            
+            | Parameter | Type | Description |
+            |-----------|------|-------------|
+            | value | string or array | A string or array to de...</pre>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-blue-700">Section 3</h4>
+                            <pre class="text-sm mt-2 bg-gray-100 p-2 rounded">## LENGTH()
+            
+            The `LENGTH()` function returns the length of a string or the number of elements in an array.
+            
+            ### Syntax
+            
+            ```
+            LENGTH(value)
+            ```
+            
+            ### Parameters
+            
+            | Parameter | Type | Description |
+            |-----------|------|-------------|
+            | value | string or array | A string or array to determine the length of |
+            
+            ###...</pre>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-blue-700">Section 4</h4>
+                            <pre class="text-sm mt-2 bg-gray-100 p-2 rounded"># ArangoDB LENGTH Function Test
+            
+            ## String and Array Functions
+            
+            ArangoDB offers useful functions in AQL, including the 
+            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)
+            which returns the length of a string or array.
+            
+            ## Example Usage
+            
+            ```aql
+            // String length
+            RETURN LENGTH(&quot;hello world&quot;)
+            
+            // Array leng...</pre>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-blue-700">Section 5</h4>
+                            <pre class="text-sm mt-2 bg-gray-100 p-2 rounded"># ArangoDB LENGTH Function Test
+            
+            ## String and Array Functions
+            
+            ArangoDB offers useful functions in AQL, including the 
+            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)
+            which returns the length of a string or array.
+            
+            ## Example Usage
+            
+            ```aql
+            // String length
+            RETURN LENGTH(&quot;hello world&quot;)
+            
+            // Array leng...</pre>
+                        </div>
+                        <div class="text-gray-500 text-sm mt-4">
+                            ... and 5 more sections not shown
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Expected Format</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg content-card">
+                        <h4 class="font-semibold text-green-700 mb-2">Expected Structure</h4>
+                        <div class="mb-4">
+                            <h5 class="text-sm font-semibold">Required Block Types:</h5>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li class="text-sm">documentation</li><li class="text-sm">doc_page</li><li class="text-sm">doc_section</li><li class="text-sm">code_block</li><li class="text-sm">table</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-sm font-semibold">Hierarchical Relationships:</h5>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li class="text-sm">documentation &rarr; doc_page</li>
+                                <li class="text-sm">doc_page &rarr; doc_section</li>
+                                <li class="text-sm">doc_section &rarr; code_block, table</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-sm font-semibold">Validation Threshold: 75%</h5>
+                        </div>
+                        <h4 class="font-semibold text-green-700 mb-2 mt-4">Expected Content Validation</h4>
+                        <div class="mb-2">
+                            <h5 class="text-sm font-semibold">Function Name: LENGTH</h5>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="text-sm font-semibold">Function Purpose:</h5>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li class="text-sm">returns the length of a string</li><li class="text-sm">returns the length of an array</li><li class="text-sm">calculates string length</li><li class="text-sm">counts array elements</li>
+                            </ul>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="text-sm font-semibold">Parameters:</h5>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li class="text-sm">
+                                    <span class="font-semibold">value</span> (string|array)
+                                    <ul class="list-disc pl-5 space-y-1"><li class="text-xs">A string or array value</li><li class="text-xs">input string</li><li class="text-xs">input array</li></ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="text-sm font-semibold">Return Type: number</h5>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="text-sm font-semibold">Examples:</h5>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li class="text-sm">
+                                    <div><code class="bg-gray-100 px-1 py-0.5 rounded">LENGTH(&quot;hello world&quot;)</code></div>
+                                    <div>Output: <code class="bg-gray-100 px-1 py-0.5 rounded">11</code></div>
+                                </li>
+                                <li class="text-sm">
+                                    <div><code class="bg-gray-100 px-1 py-0.5 rounded">LENGTH([1, 2, 3, 4, 5])</code></div>
+                                    <div>Output: <code class="bg-gray-100 px-1 py-0.5 rounded">5</code></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="text-sm font-semibold">Validation Threshold: 85%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            const lucideIcons = document.querySelectorAll('[class^="lucide-"]');
+            lucideIcons.forEach(icon => {
+                const iconName = Array.from(icon.classList).find(cls => cls.startsWith('lucide-')).substring(7);
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '24');
+                svg.setAttribute('height', '24');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+                svg.setAttribute('stroke-width', '2');
+                svg.setAttribute('stroke-linecap', 'round');
+                svg.setAttribute('stroke-linejoin', 'round');
+                
+                if (iconName === 'check-circle') {
+                    svg.innerHTML = '<circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path>';
+                } else if (iconName === 'x-circle') {
+                    svg.innerHTML = '<circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path>';
+                }
+                
+                icon.appendChild(svg);
+            });
+        });
+    </script>
+</body>
+</html>

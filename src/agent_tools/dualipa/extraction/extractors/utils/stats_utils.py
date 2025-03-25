@@ -42,6 +42,33 @@ def init_stats() -> Dict[str, Any]:
         "file_blocks": {}
     }
 
+def initialize_stats_dict(source=None, output_dir=None) -> Dict[str, Any]:
+    """
+    Initialize statistics dictionary with source and output information.
+    
+    Args:
+        source: Source code or repository
+        output_dir: Output directory for extracted blocks
+        
+    Returns:
+        Statistics dictionary with source and output information
+    """
+    stats = init_stats()
+    
+    if source is not None:
+        stats["source"] = str(source)
+    
+    if output_dir is not None:
+        stats["output_dir"] = str(output_dir)
+    
+    # Add file_blocks for specific file tracking
+    stats["file_blocks"] = {}
+    
+    # Add code_blocks field for backward compatibility
+    stats["code_blocks"] = 0
+    
+    return stats
+
 def update_stats(
     stats: Dict[str, Any],
     blocks: List[Dict[str, Any]],

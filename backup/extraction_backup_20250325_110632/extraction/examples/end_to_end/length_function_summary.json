@@ -1,0 +1,128 @@
+{
+  "test_urls": [
+    "https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "https://docs.arangodb.com/3.12/aql/functions/array/#length"
+  ],
+  "documentation_blocks_count": 2,
+  "length_doc_blocks_count": 2,
+  "length_sections_count": 0,
+  "length_code_blocks_count": 2,
+  "length_tables_count": 3,
+  "success_indicators": [
+    "Found documentation with LENGTH in content or URL: https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "Found documentation with LENGTH in content or URL: https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "Found LENGTH code examples in markdown file",
+    "Found table markup in markdown file",
+    "Found LENGTH documentation"
+  ],
+  "errors": [],
+  "found_types": {
+    "length_doc_blocks": 2,
+    "length_sections": 0,
+    "length_code_blocks": 2,
+    "length_tables": 3
+  },
+  "code_blocks": [
+    {
+      "uuid": "b5e0a521-c283-459e-ba92-b703320a6a07",
+      "id": "length_string_example",
+      "name": "LENGTH with string example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN LENGTH(\"hello world\") // returns 11",
+      "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "metadata": {
+        "source": "markdown",
+        "synthetic": true,
+        "language": "aql"
+      }
+    },
+    {
+      "uuid": "4353b0fc-1782-4c94-80ac-2c40702d361a",
+      "id": "length_array_example",
+      "name": "LENGTH with array example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN LENGTH([1, 2, 3, 4, 5]) // returns 5",
+      "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "metadata": {
+        "source": "markdown",
+        "synthetic": true,
+        "language": "aql"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "uuid": "340fcc67-a895-4a2f-bb29-d75ce5647b94",
+      "id": "length_syntax_table",
+      "name": "LENGTH Function Syntax",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['LENGTH(value)', 'Returns the length of a string or number of elements in an array']]}",
+      "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "metadata": {
+        "source": "markdown",
+        "synthetic": true,
+        "headers": [
+          "Syntax",
+          "Description"
+        ],
+        "rows": [
+          [
+            "LENGTH(value)",
+            "Returns the length of a string or number of elements in an array"
+          ]
+        ]
+      }
+    },
+    {
+      "uuid": "e0984f17-9352-4d33-8778-3412546ea655",
+      "id": "length_params_table",
+      "name": "LENGTH Function Parameters",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Parameter', 'Type', 'Description'], 'rows': [['value', 'string|array', 'A string or array value']]}",
+      "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "metadata": {
+        "source": "markdown",
+        "synthetic": true,
+        "headers": [
+          "Parameter",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          [
+            "value",
+            "string|array",
+            "A string or array value"
+          ]
+        ]
+      }
+    },
+    {
+      "uuid": "edc0b132-8d66-4f27-bd44-f3a8a70f433c",
+      "id": "length_return_table",
+      "name": "LENGTH Function Return Value",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Return Type', 'Description'], 'rows': [['number', 'The length of the string or number of elements in the array']]}",
+      "file_path": "/tmp/length_function_test_0ylfel9f/functions.md",
+      "metadata": {
+        "source": "markdown",
+        "synthetic": true,
+        "headers": [
+          "Return Type",
+          "Description"
+        ],
+        "rows": [
+          [
+            "number",
+            "The length of the string or number of elements in the array"
+          ]
+        ]
+      }
+    }
+  ]
+}

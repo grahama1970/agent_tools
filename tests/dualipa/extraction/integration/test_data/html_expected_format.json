@@ -1,0 +1,64 @@
+{
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section"
+    ],
+    "expected_type_counts": {
+      "documentation": {
+        "min": 1
+      },
+      "doc_page": {
+        "min": 1
+      },
+      "doc_section": {
+        "min": 1
+      },
+      "code_block": {
+        "min": 0
+      },
+      "table": {
+        "min": 0
+      },
+      "image": {
+        "min": 0
+      }
+    },
+    "required_relationships": [
+      {
+        "parent_type": "documentation",
+        "child_type": "doc_page"
+      },
+      {
+        "parent_type": "doc_page",
+        "child_type": "doc_section"
+      }
+    ]
+  },
+  "expected_fields": {
+    "documentation": [
+      "uuid",
+      "type",
+      "content",
+      "child_uuids",
+      "source_url",
+      "metadata"
+    ],
+    "doc_page": [
+      "uuid",
+      "type",
+      "content",
+      "parent_uuid",
+      "child_uuids",
+      "metadata"
+    ],
+    "doc_section": [
+      "uuid",
+      "type",
+      "content",
+      "parent_uuid",
+      "metadata"
+    ]
+  }
+}

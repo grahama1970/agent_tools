@@ -26,7 +26,7 @@ print(f"Python path: {sys.path}")
 
 try:
     # Try direct import first
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_js_ts_blocks,
         _get_language_for_file_ext,
         _process_code_file,

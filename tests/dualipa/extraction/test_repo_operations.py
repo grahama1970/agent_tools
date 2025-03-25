@@ -24,15 +24,15 @@ from unittest.mock import patch, MagicMock
 
 # Import directly from the package
 try:
-    from agent_tools.dualipa.extract_repo import extract_from_repo
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.github.repo_utils import extract_from_repo
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         extract_repository,
         _extract_python_blocks,
         _extract_js_ts_blocks,
         _extract_markdown_blocks,
         _extract_generic_blocks
     )
-    from agent_tools.dualipa.github_utils import download_github_repo, clone_github_repo
+    from agent_tools.dualipa.extraction.extractors.github.repo_utils import download_github_repo, clone_github_repo
     HAS_DEPENDENCIES = True
 except ImportError as e:
     import traceback

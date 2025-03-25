@@ -1,0 +1,96 @@
+{
+  "description": "Expected format for documentation extraction validation",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["doc_section", "code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_file",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "type",
+        "requirement": "one_of:documentation,doc_page,doc_section,code_block,table"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "LENGTH",
+    "function_purpose": [
+      "returns the length of a string",
+      "calculates string length",
+      "returns number of characters"
+    ],
+    "parameters": [
+      {
+        "name": "str",
+        "type": "string",
+        "description": [
+          "input string",
+          "string to measure"
+        ]
+      }
+    ],
+    "return_type": "number",
+    "examples": [
+      {
+        "code": "LENGTH(\"foobar\")",
+        "output": "6"
+      },
+      {
+        "code": "LENGTH('')",
+        "output": "0"
+      }
+    ],
+    "required_keywords": [
+      "LENGTH",
+      "string",
+      "characters",
+      "returned"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      }
+    ],
+    "validation_threshold": 75
+  }
+}

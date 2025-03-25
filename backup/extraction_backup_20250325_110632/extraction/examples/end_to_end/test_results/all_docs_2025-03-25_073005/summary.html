@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Extraction Test Dashboard</title>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .icon {
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div class="container max-w-7xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Documentation Extraction Dashboard</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Test run: 2025-03-25 07:30:14</p>
+                </div>
+                <div class="flex items-center">
+                    <span class="flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
+                        <span class="font-medium">All Tests Passed</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Test Summary -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- ArangoDB Test Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="px-6 py-4 bg-indigo-50 dark:bg-indigo-900 border-b border-indigo-100 dark:border-indigo-800">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-indigo-700 dark:text-indigo-300">ArangoDB Documentation</h2>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                            <i data-lucide="check" class="w-4 h-4 mr-1"></i>
+                            Passed
+                        </span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-indigo-600 dark:text-indigo-400">3</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Total Blocks</span>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-indigo-600 dark:text-indigo-400">1</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Sections</span>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-indigo-600 dark:text-indigo-400">0</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Code & Tables</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-2">
+                        <a href="arangodb/extraction_summary.html" class="flex items-center px-4 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900 dark:hover:bg-indigo-800 rounded-md text-indigo-700 dark:text-indigo-300 transition">
+                            <i data-lucide="file-text" class="w-5 h-5 mr-2"></i>
+                            <span>View Report Summary</span>
+                        </a>
+                        <a href="arangodb/arangodb_aql.html" class="flex items-center px-4 py-2 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md text-gray-700 dark:text-gray-300 transition">
+                            <i data-lucide="code" class="w-5 h-5 mr-2"></i>
+                            <span>Original HTML</span>
+                        </a>
+                        <a href="arangodb/arangodb_blocks.json" class="flex items-center px-4 py-2 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md text-gray-700 dark:text-gray-300 transition">
+                            <i data-lucide="database" class="w-5 h-5 mr-2"></i>
+                            <span>Extracted Blocks (JSON)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ReadTheDocs Test Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="px-6 py-4 bg-purple-50 dark:bg-purple-900 border-b border-purple-100 dark:border-purple-800">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-purple-700 dark:text-purple-300">ReadTheDocs Documentation</h2>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                            <i data-lucide="check" class="w-4 h-4 mr-1"></i>
+                            Passed
+                        </span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-purple-600 dark:text-purple-400">8</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Total Blocks</span>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-purple-600 dark:text-purple-400">3</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Sections</span>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center">
+                            <span class="block text-2xl font-bold text-purple-600 dark:text-purple-400">3</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Code & Tables</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-2">
+                        <a href="readthedocs/extraction_summary.html" class="flex items-center px-4 py-2 bg-purple-50 hover:bg-purple-100 dark:bg-purple-900 dark:hover:bg-purple-800 rounded-md text-purple-700 dark:text-purple-300 transition">
+                            <i data-lucide="file-text" class="w-5 h-5 mr-2"></i>
+                            <span>View Report Summary</span>
+                        </a>
+                        <a href="readthedocs/readthedocs.html" class="flex items-center px-4 py-2 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md text-gray-700 dark:text-gray-300 transition">
+                            <i data-lucide="code" class="w-5 h-5 mr-2"></i>
+                            <span>Original HTML</span>
+                        </a>
+                        <a href="readthedocs/readthedocs_blocks.json" class="flex items-center px-4 py-2 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md text-gray-700 dark:text-gray-300 transition">
+                            <i data-lucide="database" class="w-5 h-5 mr-2"></i>
+                            <span>Extracted Blocks (JSON)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block Type Analysis -->
+        <div class="grid grid-cols-1 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="px-6 py-4 bg-green-50 dark:bg-green-900 border-b border-green-100 dark:border-green-800">
+                    <h2 class="text-lg font-semibold text-green-700 dark:text-green-300">Block Type Analysis</h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- ArangoDB Block Types -->
+                        <div>
+                            <h3 class="text-md font-medium text-gray-700 dark:text-gray-300 mb-3">ArangoDB Blocks</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="layout" class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                                        <span>Documentation</span>
+                                    </div>
+                                    <span class="font-semibold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="file" class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                                        <span>Pages</span>
+                                    </div>
+                                    <span class="font-semibold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="book-open" class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                                        <span>Sections</span>
+                                    </div>
+                                    <span class="font-semibold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="code" class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                                        <span>Code Blocks</span>
+                                    </div>
+                                    <span class="font-semibold">0</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="table" class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400"></i>
+                                        <span>Tables</span>
+                                    </div>
+                                    <span class="font-semibold">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ReadTheDocs Block Types -->
+                        <div>
+                            <h3 class="text-md font-medium text-gray-700 dark:text-gray-300 mb-3">ReadTheDocs Blocks</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="layout" class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400"></i>
+                                        <span>Documentation</span>
+                                    </div>
+                                    <span class="font-semibold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="file" class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400"></i>
+                                        <span>Pages</span>
+                                    </div>
+                                    <span class="font-semibold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="book-open" class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400"></i>
+                                        <span>Sections</span>
+                                    </div>
+                                    <span class="font-semibold">3</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="code" class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400"></i>
+                                        <span>Code Blocks</span>
+                                    </div>
+                                    <span class="font-semibold">0</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                    <div class="flex items-center">
+                                        <i data-lucide="table" class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400"></i>
+                                        <span>Tables</span>
+                                    </div>
+                                    <span class="font-semibold">3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Commands -->
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden mb-8">
+            <div class="px-6 py-4 bg-yellow-50 dark:bg-yellow-900 border-b border-yellow-100 dark:border-yellow-800">
+                <h2 class="text-lg font-semibold text-yellow-700 dark:text-yellow-300">Quick Commands</h2>
+            </div>
+            <div class="p-6">
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Here are some useful commands to analyze the extraction results:</p>
+                <div class="space-y-3">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-md p-3">
+                        <p class="text-sm font-mono"># Count blocks by type</p>
+                        <code class="block mt-1 p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm overflow-x-auto">
+                            cat arangodb/arangodb_blocks.json | grep "type" | sort | uniq -c
+                        </code>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-md p-3">
+                        <p class="text-sm font-mono"># Examine documentation hierarchy</p>
+                        <code class="block mt-1 p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm overflow-x-auto">
+                            cat arangodb/arangodb_blocks.json | grep -E "uuid|type|parent_uuid|child_uuids"
+                        </code>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-md p-3">
+                        <p class="text-sm font-mono"># Check for orphaned blocks (no parent)</p>
+                        <code class="block mt-1 p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm overflow-x-auto">
+                            cat arangodb/arangodb_blocks.json | jq '.[] | select(.type != "documentation" and (.parent_uuid == null or .parent_uuid == ""))'
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 dark:text-gray-400 text-sm">
+            <p>Test results created at 2025-03-25 07:30:14</p>
+            <p class="mt-1">DuaLiPA Documentation Extraction Testing Framework</p>
+        </footer>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

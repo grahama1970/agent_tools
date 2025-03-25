@@ -631,12 +631,112 @@ def create_extraction_dashboard(output_dir: Path):
     return dashboard_path
 
 
+def validate_extraction_output(blocks: List[Dict[str, Any]], expected_format: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Validate extraction output blocks against an expected format template.
+    
+    Args:
+        blocks: A list of extraction blocks (dictionaries) to validate
+        expected_format: A template/reference format to validate against
+        
+    Returns:
+        Dictionary with validation results containing:
+        - valid: Boolean indicating if validation passed
+        - errors: List of error messages if validation failed
+        - stats: Statistics about the blocks like counts by type, language, etc.
+    """
+    errors = []
+    stats = {
+        "total_blocks": len(blocks),
+        "block_types": {},
+        "language_counts": {},
+        "doc_types": {},
+        "unique_parent_count": len(set(block["parent_uuid"] for block in blocks if "parent_uuid" in block)),
+        "orphaned_blocks": len([b for b in blocks if "parent_uuid" not in b and b.get("type") != "documentation"]),
+        "hierarchical_depth": calculate_hierarchical_depth(blocks),
+    }
+    
+    # Count by block type
+    for block in blocks:
+        block_type = block.get("type", "unknown")
+        stats["block_types"][block_type] = stats["block_types"].get(block_type, 0) + 1
+        
+        # Count by language
+        language = block.get("language", "unknown")
+        stats["language_counts"][language] = stats["language_counts"].get(language, 0) + 1
+        
+        # Count by doc_type
+        doc_type = block.get("metadata", {}).get("doc_type", "unknown")
+        stats["doc_types"][doc_type] = stats["doc_types"].get(doc_type, 0) + 1
+    
+    # Check required block types
+    required_types = expected_format.get("expected_structure", {}).get("required_block_types", [])
+    actual_types = set(block["type"] for block in blocks)
+    
+    for req_type in required_types:
+        if req_type not in actual_types:
+            errors.append(f"Missing required block type: {req_type}")
+    
+    # Validate individual blocks
+    for idx, block in enumerate(blocks):
+        if not isinstance(block, dict):
+            errors.append(f"Block {idx} must be a JSON object")
+            continue
+            
+        block_errors = validate_block(block, idx)
+        errors.extend(block_errors)
+    
+    # Validate relationships between blocks
+    relationship_errors = validate_block_relationships(blocks)
+    errors.extend(relationship_errors)
+    
+    # Check expected type counts
+    expected_counts = expected_format.get("expected_structure", {}).get("expected_type_counts", {})
+    for type_name, count_range in expected_counts.items():
+        actual_count = stats["block_types"].get(type_name, 0)
+        min_count = count_range.get("min", 0)
+        max_count = count_range.get("max", float("inf"))
+        
+        if actual_count < min_count:
+            errors.append(f"Too few {type_name} blocks: {actual_count} (expected at least {min_count})")
+        elif max_count != float("inf") and actual_count > max_count:
+            errors.append(f"Too many {type_name} blocks: {actual_count} (expected at most {max_count})")
+    
+    # Check any required parent-child relationships
+    required_relationships = expected_format.get("expected_structure", {}).get("required_relationships", [])
+    for relationship in required_relationships:
+        parent_type = relationship.get("parent_type")
+        child_type = relationship.get("child_type")
+        
+        # Find all parents of the specified type
+        parent_blocks = [b for b in blocks if b.get("type") == parent_type]
+        
+        # Check each parent for at least one child of the required type
+        for parent in parent_blocks:
+            if "child_uuids" not in parent:
+                errors.append(f"{parent_type} block {parent.get('uuid')} has no child_uuids")
+                continue
+                
+            child_uuids = parent.get("child_uuids", [])
+            child_blocks = [b for b in blocks if b.get("uuid") in child_uuids]
+            
+            if not any(b.get("type") == child_type for b in child_blocks):
+                errors.append(f"{parent_type} block {parent.get('uuid')} has no child of type {child_type}")
+    
+    return {
+        "valid": len(errors) == 0,
+        "errors": errors,
+        "stats": stats
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Validate extraction blocks format")
     parser.add_argument("blocks_file", help="Path to the JSON file containing extraction blocks")
     parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed error messages")
     parser.add_argument("--output-dir", "-o", help="Directory to save HTML validation report")
     parser.add_argument("--dashboard", "-d", action="store_true", help="Create or update dashboard")
+    parser.add_argument("--expected-format", "-e", help="Path to expected format JSON file")
     args = parser.parse_args()
     
     blocks_file = Path(args.blocks_file)
@@ -655,6 +755,32 @@ def main():
     
     # Validate blocks
     is_valid, errors, stats = validate_extraction_blocks(blocks_file)
+    
+    # If expected format is provided, validate against it
+    if args.expected_format:
+        expected_format_path = Path(args.expected_format)
+        if expected_format_path.exists():
+            try:
+                with open(expected_format_path, 'r', encoding='utf-8') as f:
+                    expected_format = json.load(f)
+                
+                # Load blocks for validation
+                with open(blocks_file, 'r', encoding='utf-8') as f:
+                    blocks = json.load(f)
+                
+                # Validate against expected format
+                results = validate_extraction_output(blocks, expected_format)
+                
+                # Update validation results
+                is_valid = is_valid and results["valid"]
+                errors.extend(results["errors"])
+                
+                # Update stats with any additional information
+                for key, value in results["stats"].items():
+                    if key not in stats:
+                        stats[key] = value
+            except Exception as e:
+                print(f"Error validating against expected format: {e}")
     
     # Generate HTML report
     html_report = generate_html_report(blocks_file, is_valid, errors, stats)

@@ -37,7 +37,7 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
 try:
-    from agent_tools.dualipa.code_extractor import initialize_stats_dict
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import initialize_stats_dict
     IMPORTS_AVAILABLE = True
 except ImportError as import_error:
     import traceback

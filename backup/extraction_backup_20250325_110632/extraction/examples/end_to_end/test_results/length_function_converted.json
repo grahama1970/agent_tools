@@ -1,0 +1,69 @@
+[
+  {
+    "uuid": "d79f7905-3ad6-4dc3-9491-23fc795e4fdd",
+    "title": "index.html",
+    "content": "Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "section_hierarchy_depth": [
+      "Documentation: arangodb_#length",
+      "index.html"
+    ],
+    "images": [],
+    "tables": [],
+    "code": [],
+    "tests": []
+  },
+  {
+    "uuid": "2ce7134b-467a-485f-b2ed-9fa553709212",
+    "title": "index.html",
+    "content": "Documentation page from https://docs.arangodb.com/3.12/aql/functions/string/#length",
+    "section_hierarchy_depth": [
+      "Documentation: arangodb_#length",
+      "index.html"
+    ],
+    "images": [],
+    "tables": [],
+    "code": [],
+    "tests": []
+  },
+  {
+    "uuid": "14282c50-2350-402b-ad84-13f569f44e0b",
+    "title": "ArangoDB LENGTH Function",
+    "content": "# ArangoDB LENGTH Function\n            \n            ## LENGTH()\n            \n            The `LENGTH()` function returns the length of a string or the number of elements in an array.\n            \n            ### Syntax\n            \n            ```\n            LENGTH(value)\n            ```\n            \n            ### Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | A string or array to determine the length of |\n            \n            ### Returns\n            \n            | Return Type | Description |\n            |-------------|-------------|\n            | number | Length (number of characters or elements) |\n            \n            ### Examples\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4\n            ```\n            \n            ### Notes\n            \n            - LENGTH() can be used with both strings and arrays\n            - For strings, it returns the number of characters\n            - For arrays, it returns the number of array elements\n            - Works with nested arrays (counts the nested array as one element)",
+    "section_hierarchy_depth": [
+      "ArangoDB LENGTH Function"
+    ],
+    "images": [],
+    "tables": [],
+    "code": [
+      {
+        "uuid": "14282c50-2350-402b-ad84-13f569f44e0b_code_1",
+        "language": "text",
+        "content": "LENGTH(value)"
+      },
+      {
+        "uuid": "14282c50-2350-402b-ad84-13f569f44e0b_code_3",
+        "language": "aql",
+        "content": "// String length\n            RETURN LENGTH(\"abcdef\")\n            // Returns: 6\n            \n            // Array length \n            RETURN LENGTH([ \"foo\", \"bar\", \"baz\" ])\n            // Returns: 3\n            \n            // Nested arrays\n            RETURN LENGTH([1, 2, [3, 4], 5])\n            // Returns: 4"
+      }
+    ],
+    "tests": []
+  },
+  {
+    "uuid": "88cbd82c-9c5d-49be-841b-172a23fbfaa0",
+    "title": "ArangoDB LENGTH Function Test",
+    "content": "# ArangoDB LENGTH Function Test\n            \n            ## String and Array Functions\n            \n            ArangoDB offers useful functions in AQL, including the \n            [LENGTH function](https://docs.arangodb.com/3.12/aql/functions/string/#length)\n            which returns the length of a string or array.\n            \n            ## Example Usage\n            \n            ```aql\n            // String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])\n            ```\n            \n            ## Function Signature\n            \n            | Function | Description |\n            |---------|-------------|\n            | LENGTH(value) | Returns the length of a string or the number of elements in an array |\n            \n            ## Parameters\n            \n            | Parameter | Type | Description |\n            |-----------|------|-------------|\n            | value | string or array | The string or array to measure |\n            \n            ## Return Type\n            \n            | Type | Description |\n            |------|-------------|\n            | number | Length of the string or number of array elements |",
+    "section_hierarchy_depth": [
+      "ArangoDB LENGTH Function Test"
+    ],
+    "images": [],
+    "tables": [],
+    "code": [
+      {
+        "uuid": "88cbd82c-9c5d-49be-841b-172a23fbfaa0_code_1",
+        "language": "aql",
+        "content": "// String length\n            RETURN LENGTH(\"hello world\")\n            \n            // Array length\n            RETURN LENGTH([1, 2, 3, 4, 5])"
+      }
+    ],
+    "tests": []
+  }
+]

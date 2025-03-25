@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-03-24T10:37:10.084038",
+  "tests": {
+    "arangodb": {
+      "timestamp": "2025-03-24T10:37:10.090303",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "success": true,
+      "steps": [],
+      "output_files": {
+        "html": "test_results_dashboard/arangodb/arangodb_aql.html",
+        "blocks": "test_results_dashboard/arangodb/arangodb_blocks.json",
+        "summary": "test_results_dashboard/arangodb/extraction_summary.html"
+      },
+      "output_directory": "test_results_dashboard/arangodb",
+      "statistics": {
+        "total_blocks": 3,
+        "doc_blocks": 1,
+        "page_blocks": 1,
+        "section_blocks": 1,
+        "code_blocks": 0,
+        "table_blocks": 0,
+        "image_blocks": 0
+      }
+    },
+    "readthedocs": {
+      "timestamp": "2025-03-24T10:37:16.449164",
+      "source_url": "https://python.readthedocs.io/en/latest/",
+      "success": true,
+      "steps": [],
+      "output_files": {
+        "html": "test_results_dashboard/readthedocs/readthedocs.html",
+        "blocks": "test_results_dashboard/readthedocs/readthedocs_blocks.json",
+        "summary": "test_results_dashboard/readthedocs/extraction_summary.html"
+      },
+      "output_directory": "test_results_dashboard/readthedocs",
+      "statistics": {
+        "total_blocks": 8,
+        "doc_blocks": 1,
+        "page_blocks": 1,
+        "section_blocks": 3,
+        "code_blocks": 0,
+        "table_blocks": 3,
+        "image_blocks": 0
+      }
+    }
+  },
+  "success": true
+}

@@ -1,0 +1,52 @@
+{
+  "description": "Expected format for LENGTH function documentation extraction in deepseek format",
+  "version": "1.0",
+  "expected_structure": {
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "LENGTH",
+    "function_purpose": [
+      "returns the length of a string",
+      "returns the length of an array",
+      "returns the number of elements",
+      "returns the number of characters",
+      "length of a string or the number of elements in an array"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "string|array",
+        "description": [
+          "string or array",
+          "a string or array to determine",
+          "the string or array to measure"
+        ]
+      }
+    ],
+    "return_type": "number",
+    "examples": [
+      {
+        "code": "LENGTH(\"hello world\")",
+        "output": "11"
+      },
+      {
+        "code": "LENGTH([1, 2, 3, 4, 5])",
+        "output": "5"
+      }
+    ],
+    "required_keywords": [
+      "LENGTH",
+      "string",
+      "array",
+      "function"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "validation_threshold": 75,
+    "skip_metadata_checks": true,
+    "skip_root_checks": true,
+    "required_root_blocks": []
+  }
+}

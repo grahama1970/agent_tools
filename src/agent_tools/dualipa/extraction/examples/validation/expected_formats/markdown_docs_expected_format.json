@@ -1,0 +1,92 @@
+{
+  "description": "Expected format for Markdown documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["doc_section", "code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "type",
+        "requirement": "one_of:documentation,doc_page,doc_section,code_block,table,text"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": [
+      "markdown",
+      "#",
+      "```"
+    ],
+    "markdown_elements": [
+      "heading",
+      "code block",
+      "list",
+      "table"
+    ],
+    "context_validation": [
+      {
+        "name": "headings",
+        "patterns": ["#.*", "==+", "--+"]
+      },
+      {
+        "name": "code_blocks",
+        "patterns": ["```[a-z]*\n", "~~~[a-z]*\n", "    "]
+      },
+      {
+        "name": "tables",
+        "patterns": ["\\|.*\\|", "---\\|"]
+      },
+      {
+        "name": "lists",
+        "patterns": ["- ", "\\* ", "\\d+\\. "]
+      }
+    ],
+    "validation_threshold": 80
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      }
+    ],
+    "markdown_structure": {
+      "heading_levels": [1, 2, 3, 4, 5, 6],
+      "heading_patterns": ["#+ ", "=+", "-+"],
+      "code_block_patterns": ["```", "~~~", "    "]
+    },
+    "validation_threshold": 75
+  }
+}

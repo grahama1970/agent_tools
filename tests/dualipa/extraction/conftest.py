@@ -1,141 +1,60 @@
 """
-Common test configuration and fixtures.
+Test fixtures for extraction module.
 
-This module provides shared fixtures and configuration for all tests.
+This file contains pytest fixtures used across multiple test files.
 """
 
 import os
 import sys
 import pytest
 from pathlib import Path
-import tempfile
-import shutil
 
-# Configure path correctly
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-# Test repository paths
-REPOS_DIR = project_root / "test_repos"
-REQUESTS_REPO = REPOS_DIR / "requests"
-REACT_REPO = REPOS_DIR / "react"
-RUST_ANALYZER_REPO = REPOS_DIR / "rust-analyzer"
-
-@pytest.fixture(scope="session")
-def project_root():
-    """Fixture to provide the project root path."""
-    return project_root
-
-@pytest.fixture(scope="session")
-def test_repos_dir():
-    """Fixture to provide the test repositories directory."""
-    return REPOS_DIR
-
-@pytest.fixture(scope="session")
-def requests_repo():
-    """Fixture to provide the requests repository path."""
-    if not REQUESTS_REPO.exists():
-        pytest.skip("Requests repository not available")
-    return REQUESTS_REPO
-
-@pytest.fixture(scope="session")
-def react_repo():
-    """Fixture to provide the React repository path."""
-    if not REACT_REPO.exists():
-        pytest.skip("React repository not available")
-    return REACT_REPO
-
-@pytest.fixture(scope="session")
-def rust_analyzer_repo():
-    """Fixture to provide the Rust Analyzer repository path."""
-    if not RUST_ANALYZER_REPO.exists():
-        pytest.skip("Rust Analyzer repository not available")
-    return RUST_ANALYZER_REPO
+# Add parent directory to path to allow imports
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.insert(0, str(project_root / "src"))
 
 @pytest.fixture
-def temp_dir():
-    """Fixture to provide a temporary directory."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        yield Path(temp_dir)
+def sample_code_file(tmp_path):
+    """Create a sample Python file for testing."""
+    file_path = tmp_path / "sample.py"
+    with open(file_path, "w") as f:
+        f.write("""
+def example_function():
+    \"\"\"Example function for testing.\"\"\"
+    return 42
 
-@pytest.fixture
-def stats_dict():
-    """Fixture to provide an initialized stats dictionary."""
-    from agent_tools.dualipa.extraction.extractors.utils.stats_utils import init_stats
-    return init_stats()
-
-@pytest.fixture
-def python_sample():
-    """Fixture to provide sample Python code."""
-    return '''
-def hello_world():
-    """Simple function that returns a greeting."""
-    return "Hello, world!"
-
-class SampleClass:
-    """A sample class with methods."""
+class ExampleClass:
+    \"\"\"Example class for testing.\"\"\"
     
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.value = 10
         
-    def greet(self):
-        return f"Hello, {self.name}!"
-'''
+    def get_value(self):
+        \"\"\"Get the value.\"\"\"
+        return self.value
+""")
+    return file_path
 
 @pytest.fixture
-def javascript_sample():
-    """Fixture to provide sample JavaScript code."""
-    return '''
-/**
- * Simple function that returns a greeting.
- */
-function helloWorld() {
-    return "Hello, world!";
-}
+def sample_markdown_file(tmp_path):
+    """Create a sample Markdown file for testing."""
+    file_path = tmp_path / "sample.md"
+    with open(file_path, "w") as f:
+        f.write("""# Sample Markdown
+        
+This is a sample markdown file for testing.
 
-/**
- * A sample class for greeting.
- */
-class Greeter {
-    constructor(name) {
-        this.name = name;
-    }
-    
-    greet() {
-        return `Hello, ${this.name}!`;
-    }
-}
+## Section 1
 
-// Export the function and class
-module.exports = {
-    helloWorld,
-    Greeter
-};
-'''
-
-@pytest.fixture
-def markdown_sample():
-    """Fixture to provide sample Markdown content."""
-    return '''
-# Sample Document
-
-This is a sample markdown document.
-
-## Code Section
-
-Here's a Python code block:
+Some content in section 1.
 
 ```python
-def example_function(x: int, y: int) -> int:
-    """Add two numbers."""
-    return x + y
+def example():
+    return "Hello World"
 ```
 
-And a JavaScript block:
+## Section 2
 
-```javascript
-function example() {
-    return "Hello, world!";
-}
-```
-''' 
+More content in section 2.
+""")
+    return file_path

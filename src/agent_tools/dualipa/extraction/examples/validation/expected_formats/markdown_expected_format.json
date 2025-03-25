@@ -1,0 +1,188 @@
+{
+  "description": "Expected format for generic documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "doc_section",
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      },
+      {
+        "field": "metadata.source_url",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "required_keywords": [
+      "documentation",
+      "reference",
+      "guide",
+      "tutorial"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "skip_metadata_checks": false,
+    "skip_root_checks": false,
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "978977f2-a530-454f-8beb-5b14d478157c",
+      "id": "docs_markdown",
+      "name": "Documentation: markdown",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://example.com/docs/",
+      "source_url": "https://example.com/docs/",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.com/docs/",
+        "doc_type": "markdown"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_markdown_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page from https://example.com/docs/",
+      "file_path": "/path/to/downloaded/markdown/index.html",
+      "parent_uuid": "978977f2-a530-454f-8beb-5b14d478157c",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://example.com/docs/",
+        "relative_path": "index.html",
+        "doc_type": "markdown"
+      }
+    },
+    "doc_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "markdown_section_0",
+      "name": "Main Section",
+      "type": "doc_section",
+      "language": "html",
+      "content": "Main section content",
+      "file_path": "/path/to/downloaded/markdown/index.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "Main Section"
+        ]
+      }
+    },
+    "code_block": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "markdown_code_0",
+      "name": "Example Code",
+      "type": "code_block",
+      "language": "javascript",
+      "content": "console.log('Hello, world!');",
+      "file_path": "/path/to/downloaded/markdown/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "javascript"
+      }
+    },
+    "table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "markdown_table_0",
+      "name": "Example Table",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Column 1', 'Column 2'], 'rows': [['Value 1', 'Value 2'], ['Value 3', 'Value 4']]}",
+      "file_path": "/path/to/downloaded/markdown/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "headers": [
+          "Column 1",
+          "Column 2"
+        ],
+        "rows": [
+          [
+            "Value 1",
+            "Value 2"
+          ],
+          [
+            "Value 3",
+            "Value 4"
+          ]
+        ]
+      }
+    }
+  }
+}

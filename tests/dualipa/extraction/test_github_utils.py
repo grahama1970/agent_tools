@@ -26,7 +26,7 @@ from pathlib import Path
 
 # Import directly from the package
 try:
-    from agent_tools.dualipa.github_utils import (
+    from agent_tools.dualipa.extraction.extractors.github.repo_utils import (
         parse_github_url,
         clone_github_repo,
         fetch_repo_contents_async,

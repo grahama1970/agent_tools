@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  validation-server:
+    image: python:3.9-slim
+    container_name: dualipa-validation-server
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT:-8000}:8000"
+    command: >
+      bash -c "
+        apt-get update &&
+        apt-get install -y --no-install-recommends python3-pip &&
+        pip install markdown &&
+        chmod +x ./docker-validation.sh &&
+        ./docker-validation.sh &&
+        python ./simple_server.py
+      "
+    environment:
+      - PYTHONUNBUFFERED=1

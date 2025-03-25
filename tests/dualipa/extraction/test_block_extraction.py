@@ -17,13 +17,13 @@ sys.path.insert(0, str(project_root / "src"))
 
 # Import required modules, fail loudly if they're not available
 try:
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_python_blocks,
         _extract_js_ts_blocks,
         _extract_markdown_blocks,
         _extract_generic_blocks
     )
-    from agent_tools.dualipa.github_utils import clone_github_repo
+    from agent_tools.dualipa.extraction.extractors.github.repo_utils import clone_github_repo
     
     # Define helper function that doesn't exist in the codebase
     def find_files_by_extension(directory, extension, limit=None):

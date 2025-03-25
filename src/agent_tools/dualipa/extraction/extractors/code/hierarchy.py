@@ -21,6 +21,9 @@ from agent_tools.dualipa.extraction.extractors.hierarchy.js_ts.parser import ana
 from agent_tools.dualipa.extraction.extractors.hierarchy.generic.parser import analyze_generic_hierarchy
 from agent_tools.dualipa.extraction.extractors.utils.block_metadata import initialize_stats_dict
 
+# Import stats_utils for init_stats
+from agent_tools.dualipa.extraction.extractors.utils.stats_utils import init_stats
+
 # Re-export all the functions for backward compatibility
 __all__ = [
     'analyze_code_hierarchy', 
@@ -28,5 +31,6 @@ __all__ = [
     'initialize_stats_dict',
     'analyze_python_hierarchy',
     'analyze_js_ts_hierarchy',
-    'analyze_generic_hierarchy'
+    'analyze_generic_hierarchy',
+    'init_stats'
 ]

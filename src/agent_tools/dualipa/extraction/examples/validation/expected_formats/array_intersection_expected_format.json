@@ -1,0 +1,274 @@
+{
+  "description": "Expected format for INTERSECTION function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": ["doc_page"]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": ["doc_section"]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": ["code_block", "table"]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "INTERSECTION",
+    "function_purpose": [
+      "returns the intersection of arrays",
+      "returns common elements of arrays",
+      "finds values present in all arrays"
+    ],
+    "parameters": [
+      {
+        "name": "array1",
+        "type": "array",
+        "description": [
+          "first array",
+          "input array"
+        ]
+      },
+      {
+        "name": "array2",
+        "type": "array", 
+        "description": [
+          "second array",
+          "input array"
+        ]
+      },
+      {
+        "name": "...",
+        "type": "array",
+        "description": [
+          "additional arrays",
+          "more input arrays"
+        ]
+      }
+    ],
+    "return_type": "array",
+    "examples": [
+      {
+        "code": "RETURN INTERSECTION([1, 2, 3], [2, 3, 4])",
+        "output": "[2, 3]"
+      },
+      {
+        "code": "RETURN INTERSECTION([1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6])",
+        "output": "[3, 4]"
+      }
+    ],
+    "required_keywords": [
+      "INTERSECTION",
+      "array",
+      "returns",
+      "common",
+      "elements",
+      "intersection"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": ["documentation"],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": ["doc_page"]
+      },
+      {
+        "parent": "doc_page",
+        "children": ["doc_section"]
+      },
+      {
+        "parent": "doc_section",
+        "children": ["code_block", "table"]
+      }
+    ],
+    "validation_threshold": 75
+  },
+  
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "arangodb-uuid-placeholder",
+      "id": "docs_arangodb_aql_functions_array",
+      "name": "Documentation: ArangoDB AQL Array Functions",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/3.12/aql/functions/array/",
+      "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+      "child_uuids": ["doc-page-uuid-placeholder"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_aql_functions_array_index.html",
+      "name": "Array Functions",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page about array functions in AQL",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "arangodb-uuid-placeholder",
+      "child_uuids": ["section-uuid-placeholder"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "relative_path": "index.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "intersection_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection",
+      "name": "INTERSECTION",
+      "type": "doc_section",
+      "language": "html",
+      "content": "<h3>INTERSECTION</h3><p>Returns the intersection of arrays</p>",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": ["code-block-uuid-placeholder", "table-uuid-placeholder"],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 0,
+        "doc_type": "arangodb",
+        "header_level": 3,
+        "token_count": 25,
+        "section_hierarchy": ["Array Functions", "INTERSECTION"],
+        "has_code": true,
+        "has_tables": true,
+        "has_images": false
+      }
+    },
+    "code_block": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection_code_0",
+      "name": "INTERSECTION Example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN INTERSECTION([1, 2, 3], [2, 3, 4])",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "child_uuids": [],
+      "metadata": {
+        "language": "aql",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 100,
+        "doc_type": "arangodb",
+        "element_type": "code_block",
+        "is_embedded": true,
+        "section_hierarchy": ["Array Functions", "INTERSECTION"]
+      }
+    },
+    "table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection_table_0",
+      "name": "INTERSECTION Function Signature",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['INTERSECTION(array1, array2, ... arrayN)', 'Returns the intersection of multiple arrays']]}",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 200,
+        "doc_type": "arangodb",
+        "element_type": "table",
+        "is_embedded": true,
+        "headers": ["Syntax", "Description"],
+        "rows": [["INTERSECTION(array1, array2, ... arrayN)", "Returns the intersection of multiple arrays"]],
+        "section_hierarchy": ["Array Functions", "INTERSECTION"]
+      }
+    },
+    "params_table": {
+      "uuid": "table-uuid-placeholder-2",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection_table_1",
+      "name": "INTERSECTION Function Parameters",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Parameter', 'Type', 'Description'], 'rows': [['array1, array2, ... arrayN', 'array', 'Arrays to find intersection of']]}",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 300,
+        "doc_type": "arangodb",
+        "element_type": "table",
+        "is_embedded": true,
+        "headers": ["Parameter", "Type", "Description"],
+        "rows": [["array1, array2, ... arrayN", "array", "Arrays to find intersection of"]],
+        "section_hierarchy": ["Array Functions", "INTERSECTION"]
+      }
+    },
+    "return_table": {
+      "uuid": "table-uuid-placeholder-3",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection_table_2",
+      "name": "INTERSECTION Function Return Value",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Return Type', 'Description'], 'rows': [['array', 'New array with elements that exist in all arguments']]}",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "child_uuids": [],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 400,
+        "doc_type": "arangodb",
+        "element_type": "table",
+        "is_embedded": true,
+        "headers": ["Return Type", "Description"],
+        "rows": [["array", "New array with elements that exist in all arguments"]],
+        "section_hierarchy": ["Array Functions", "INTERSECTION"]
+      }
+    },
+    "multi_array_example": {
+      "uuid": "code-block-uuid-placeholder-2",
+      "id": "docs_arangodb_aql_functions_array_index.html_section_intersection_code_1",
+      "name": "INTERSECTION Example with Multiple Arrays",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN INTERSECTION([1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6])",
+      "file_path": "/path/to/downloaded/site/index.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "child_uuids": [],
+      "metadata": {
+        "language": "aql",
+        "source_url": "https://docs.arangodb.com/3.12/aql/functions/array/",
+        "position": 150,
+        "doc_type": "arangodb",
+        "element_type": "code_block",
+        "is_embedded": true,
+        "section_hierarchy": ["Array Functions", "INTERSECTION"]
+      }
+    }
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "description": "Expected format for ATTRIBUTES function documentation extraction",
+  "version": "1.0",
+  "expected_structure": {
+    "required_block_types": [
+      "documentation",
+      "doc_page",
+      "doc_section",
+      "code_block",
+      "table"
+    ],
+    "hierarchy": [
+      {
+        "parent_type": "documentation",
+        "child_types": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent_type": "doc_page",
+        "child_types": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent_type": "doc_section",
+        "child_types": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "metadata_checks": [
+      {
+        "field": "uuid",
+        "requirement": "uuid_format"
+      },
+      {
+        "field": "metadata.language",
+        "requirement": "not_empty"
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "expected_content_validation": {
+    "function_name": "ATTRIBUTES",
+    "function_purpose": [
+      "performs a function",
+      "processes data"
+    ],
+    "parameters": [
+      {
+        "name": "value",
+        "type": "any",
+        "description": [
+          "A any value",
+          "input any"
+        ]
+      }
+    ],
+    "return_type": "result",
+    "examples": [
+      {
+        "code": "RETURN ATTRIBUTES(value)",
+        "output": "result"
+      }
+    ],
+    "required_keywords": [
+      "ATTRIBUTES",
+      "function",
+      "return",
+      "any"
+    ],
+    "validation_threshold": 85
+  },
+  "structure_consistency": {
+    "required_root_blocks": [
+      "documentation"
+    ],
+    "hierarchical_types": [
+      {
+        "parent": "documentation",
+        "children": [
+          "doc_page"
+        ]
+      },
+      {
+        "parent": "doc_page",
+        "children": [
+          "doc_section"
+        ]
+      },
+      {
+        "parent": "doc_section",
+        "children": [
+          "code_block",
+          "table"
+        ]
+      }
+    ],
+    "validation_threshold": 75
+  },
+  "sample_blocks": {
+    "documentation": {
+      "uuid": "860d1395-5a62-43c9-bded-201119dc9b80",
+      "id": "docs_arangodb_attributes",
+      "name": "Documentation: arangodb_attributes",
+      "type": "documentation",
+      "language": "html",
+      "content": "Documentation site: https://docs.arangodb.com/stable/aql/functions/document/#attributes",
+      "source_url": "https://docs.arangodb.com/stable/aql/functions/document/#attributes",
+      "child_uuids": [
+        "doc-page-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/document/#attributes",
+        "doc_type": "arangodb"
+      }
+    },
+    "doc_page": {
+      "uuid": "doc-page-uuid-placeholder",
+      "id": "docs_arangodb_attributes_index.html",
+      "name": "index.html",
+      "type": "doc_page",
+      "language": "html",
+      "content": "Documentation page for ATTRIBUTES function",
+      "file_path": "/path/to/downloaded/arangodb/document/attributes.html",
+      "parent_uuid": "860d1395-5a62-43c9-bded-201119dc9b80",
+      "child_uuids": [
+        "section-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "html",
+        "source_url": "https://docs.arangodb.com/stable/aql/functions/document/#attributes",
+        "relative_path": "aql/functions/document/attributes.html",
+        "doc_type": "arangodb"
+      }
+    },
+    "function_section": {
+      "uuid": "section-uuid-placeholder",
+      "id": "functions_arangodb_attributes_function",
+      "name": "ATTRIBUTES",
+      "type": "doc_section",
+      "language": "markdown",
+      "content": "# ATTRIBUTES\n\nperforms a function.",
+      "file_path": "/path/to/downloaded/arangodb/document/attributes.html",
+      "parent_uuid": "doc-page-uuid-placeholder",
+      "child_uuids": [
+        "code-block-uuid-placeholder",
+        "table-uuid-placeholder"
+      ],
+      "metadata": {
+        "language": "markdown",
+        "level": 1,
+        "has_code": true,
+        "has_tables": true,
+        "section_hierarchy": [
+          "ATTRIBUTES"
+        ]
+      }
+    },
+    "syntax_table": {
+      "uuid": "table-uuid-placeholder",
+      "id": "attributes_syntax_table",
+      "name": "ATTRIBUTES Function Syntax",
+      "type": "table",
+      "language": "html",
+      "content": "{'headers': ['Syntax', 'Description'], 'rows': [['ATTRIBUTES(value)', 'performs a function']]}",
+      "file_path": "/path/to/downloaded/arangodb/document/attributes.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "source": "markdown",
+        "headers": [
+          "Syntax",
+          "Description"
+        ],
+        "rows": [
+          [
+            "ATTRIBUTES(value)",
+            "performs a function"
+          ]
+        ]
+      }
+    },
+    "example_code": {
+      "uuid": "code-block-uuid-placeholder",
+      "id": "attributes_example",
+      "name": "ATTRIBUTES example",
+      "type": "code_block",
+      "language": "aql",
+      "content": "RETURN ATTRIBUTES(value) // returns result",
+      "file_path": "/path/to/downloaded/arangodb/document/attributes.html",
+      "parent_uuid": "section-uuid-placeholder",
+      "metadata": {
+        "language": "aql",
+        "source": "html"
+      }
+    }
+  }
+}

@@ -74,7 +74,7 @@ if not HAS_TEST_REPOS:
 try:
     # Try to import the module
     from agent_tools.dualipa import code_extractor
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_python_blocks,
         _extract_js_ts_blocks,
         _extract_markdown_blocks,

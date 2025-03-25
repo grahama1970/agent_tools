@@ -1,0 +1,53 @@
+{
+  "valid": false,
+  "overall_score": 19.4,
+  "structure_validation": {
+    "valid": false,
+    "score": 33.3,
+    "errors": [
+      "Missing required block type: documentation",
+      "Missing required block type: doc_page",
+      "Missing required block type: doc_section",
+      "Missing required block type: code_block",
+      "Missing required block type: table",
+      "Missing parent block type: documentation",
+      "Missing parent block type: doc_page",
+      "Missing parent block type: doc_section"
+    ],
+    "successes": [],
+    "total_checks": 12,
+    "passed_checks": 4
+  },
+  "content_validation": {
+    "valid": false,
+    "score": 25.0,
+    "errors": [
+      "Missing function purpose, expected one of: ['query language', 'data manipulation', 'data retrieval', 'database queries']",
+      "Missing required keyword: query",
+      "Missing required keyword: collection",
+      "Missing required keyword: filter",
+      "Missing required keyword: data",
+      "Missing required keyword: database"
+    ],
+    "successes": [
+      "Found function name: AQL",
+      "Found required keyword: AQL"
+    ],
+    "total_checks": 8,
+    "passed_checks": 2
+  },
+  "format_validation": {
+    "valid": true
+  },
+  "structure_consistency": {
+    "valid": false,
+    "score": 0.0,
+    "errors": [
+      "Missing required root block type: documentation",
+      "No blocks have file paths in metadata"
+    ],
+    "successes": [],
+    "total_checks": 2,
+    "passed_checks": 0
+  }
+}

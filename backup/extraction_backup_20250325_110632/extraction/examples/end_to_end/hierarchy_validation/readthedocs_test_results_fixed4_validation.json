@@ -1,0 +1,21 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "Child d6bf4abe-86af-40cf-a6b1-9901defa79cf doesn't reference parent ffedbde4-82da-45ed-80a9-8ff27292b41a in its parent_uuid field",
+    "Child 3961eea2-8716-4f1f-8245-e139f74c8885 doesn't reference parent d6bf4abe-86af-40cf-a6b1-9901defa79cf in its parent_uuid field",
+    "Child 78e7de9d-0216-4af3-8eee-4153f9c00711 doesn't reference parent d6bf4abe-86af-40cf-a6b1-9901defa79cf in its parent_uuid field",
+    "Child 15e29ac6-dfc9-468b-a27a-1d7740e33995 doesn't reference parent 78e7de9d-0216-4af3-8eee-4153f9c00711 in its parent_uuid field",
+    "Child 73e03ffd-24fd-4378-aa57-918c864a73a5 doesn't reference parent 78e7de9d-0216-4af3-8eee-4153f9c00711 in its parent_uuid field",
+    "Child 46f8597b-50a0-45b6-a28b-f59d7f167cdd doesn't reference parent 78e7de9d-0216-4af3-8eee-4153f9c00711 in its parent_uuid field",
+    "Child 92bc0190-3f41-4153-b1d9-0e5a967f46ea doesn't reference parent 78e7de9d-0216-4af3-8eee-4153f9c00711 in its parent_uuid field"
+  ],
+  "stats": {
+    "total_blocks": 8,
+    "root_blocks": 1,
+    "child_blocks": 7,
+    "orphaned_blocks": 0,
+    "bidirectional_references": 0,
+    "missing_references": 0
+  }
+}

@@ -102,7 +102,7 @@ sys.path.insert(0, str(project_root / "src"))
 
 # Flag to track if dependencies are available
 try:
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_python_blocks,
         _extract_js_ts_blocks,
         _extract_markdown_blocks,

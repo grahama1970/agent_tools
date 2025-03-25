@@ -27,7 +27,7 @@ print(f"Current directory: {os.getcwd()}")
 HAS_DEPENDENCIES = False
 try:
     # Import modules directly from package
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_python_blocks,
         _extract_js_ts_blocks,
         _extract_markdown_blocks,

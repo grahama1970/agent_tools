@@ -126,7 +126,7 @@ try:
         return files
         
     # Patch the github_utils module to use our custom discover_files function
-    import agent_tools.dualipa.github_utils
+    import agent_tools.dualipa.extraction.extractors.github.repo_utils
     agent_tools.dualipa.github_utils.discover_files = custom_discover_files
     
     IMPORTS_AVAILABLE = True

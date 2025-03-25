@@ -37,7 +37,7 @@ HAS_DEPENDENCIES = False
 # Import directly from the package
 try:
     # Import the markdown parser module
-    from agent_tools.dualipa.markdown_parser import (
+    from agent_tools.dualipa.extraction.extractors.markdown.markdown_extractor import (
         extract_sections_from_markdown,
         extract_code_blocks as extract_blocks_mistune,
         process_markdown_file,

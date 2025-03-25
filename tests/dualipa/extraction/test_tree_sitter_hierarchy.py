@@ -26,8 +26,8 @@ print(f"Current directory: {os.getcwd()}")
 HAS_DEPENDENCIES = False
 print("Trying to import hierarchy modules...")
 try:
-    print("Importing from agent_tools.dualipa.code_hierarchy...")
-    from agent_tools.dualipa.code_hierarchy import (
+    print("Importing from agent_tools.dualipa.extraction.extractors.code.hierarchy...")
+    from agent_tools.dualipa.extraction.extractors.code.hierarchy import (
         extract_code_structure,
         _extract_hierarchical_structure_treesitter,
         write_code_entities

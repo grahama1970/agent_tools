@@ -22,7 +22,7 @@ sys.path.insert(0, str(src_path))
 # Add debugging for import locations
 try:
     # Import the python extractor module from code_extractor
-    from agent_tools.dualipa.code_extractor import (
+    from agent_tools.dualipa.extraction.extractors.code.code_extractor import (
         _extract_python_blocks,
         initialize_stats_dict
     )
