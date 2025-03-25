@@ -38,3 +38,16 @@ python blind_test.py --test-markdown-extraction
 ```
 
 This test checks the extraction of sections and other elements (text blocks, code blocks, tables, images) from the sample MARKDOWN_EXTRACTION.md file.
+
+To run the comprehensive ultimate test that combines code, markdown, and documentation extraction:
+```bash
+python blind_test.py --ultimate-test
+```
+
+This test extracts and validates:
+1. Python code hierarchy from nested_classes.py
+2. Markdown sections and elements from MARKDOWN_EXTRACTION.md
+3. Documentation blocks from ArangoDB AQL docs
+4. Combines all blocks and validates the entire extraction pipeline
+
+An HTML report is automatically generated showing detailed extraction statistics, block types, and validation results.

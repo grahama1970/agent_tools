@@ -192,6 +192,9 @@ if __name__ == "__main__":
         elif sys.argv[1] == "--test-markdown-extraction":
             from test_markdown_extraction import run_test
             sys.exit(run_test())
+        elif sys.argv[1] == "--ultimate-test":
+            import test_ultimate_extraction
+            sys.exit(test_ultimate_extraction.main())
     else:
         # Run all blind tests
         sys.exit(run_blind_test())
