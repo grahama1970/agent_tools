@@ -52,7 +52,24 @@ python blind_test.py --aql-main-page-only
 
 # Run all blind tests
 python blind_test.py
+
+# Run transparent tests with Playwright support for JavaScript-rendered sites
+python run_transparent_tests.py --playwright
 ```
+
+### JavaScript-Rendered Websites
+
+For JavaScript-heavy websites where content is dynamically generated on the client side, use the `--playwright` flag to enable browser-based extraction:
+
+```bash
+# Test ArangoDB extraction with Playwright
+python test_arangodb_extraction_transparent.py --playwright
+
+# Test all documentation extraction with Playwright
+python run_transparent_tests.py --playwright
+```
+
+This uses a headless browser to properly render JavaScript content before extraction. See `PLAYWRIGHT_SUPPORT.md` for detailed information.
 
 ### AQL-Specific Testing
 

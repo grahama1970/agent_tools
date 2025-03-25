@@ -61,12 +61,13 @@ def create_results_directory(output_dir: Optional[Path] = None) -> Path:
     return output_dir
 
 
-def run_test_modules(output_dir: Path) -> Dict[str, Any]:
+def run_test_modules(output_dir: Path, use_playwright: bool = False) -> Dict[str, Any]:
     """
     Run all transparent validation test modules.
     
     Args:
         output_dir: Directory to save the results
+        use_playwright: Whether to use Playwright for downloading
         
     Returns:
         Dictionary of test results
@@ -75,6 +76,9 @@ def run_test_modules(output_dir: Path) -> Dict[str, Any]:
         "timestamp": datetime.datetime.now().isoformat(),
         "tests": {},
         "success": True,
+        "config": {
+            "use_playwright": use_playwright
+        }
     }
     
     # Import the test modules
@@ -83,12 +87,31 @@ def run_test_modules(output_dir: Path) -> Dict[str, Any]:
         from test_arangodb_extraction_transparent import run_test as run_arangodb_test
         from test_readthedocs_extraction_transparent import run_test as run_readthedocs_test
         
+        # Set Playwright flag in modules if possible
+        import sys
+        import importlib
+        try:
+            import test_arangodb_extraction_transparent
+            test_arangodb_extraction_transparent.USE_PLAYWRIGHT = use_playwright
+            logger.info(f"Set Playwright flag in ArangoDB test module: {use_playwright}")
+        except (ImportError, AttributeError) as e:
+            logger.warning(f"Could not set Playwright flag in ArangoDB test module: {e}")
+        
+        try:
+            import test_readthedocs_extraction_transparent
+            if hasattr(test_readthedocs_extraction_transparent, 'USE_PLAYWRIGHT'):
+                test_readthedocs_extraction_transparent.USE_PLAYWRIGHT = use_playwright
+                logger.info(f"Set Playwright flag in ReadTheDocs test module: {use_playwright}")
+        except (ImportError, AttributeError) as e:
+            logger.warning(f"Could not set Playwright flag in ReadTheDocs test module: {e}")
+        
         # Create subdirectories for each test
         arangodb_dir = output_dir / "arangodb"
         readthedocs_dir = output_dir / "readthedocs"
         
         # Run the ArangoDB test
         logger.info("\n===== Running ArangoDB Documentation Test =====")
+        logger.info(f"Using Playwright: {use_playwright}")
         arangodb_results = run_arangodb_test(arangodb_dir)
         results["tests"]["arangodb"] = arangodb_results
         
@@ -98,6 +121,7 @@ def run_test_modules(output_dir: Path) -> Dict[str, Any]:
             
         # Run the ReadTheDocs test
         logger.info("\n===== Running ReadTheDocs Documentation Test =====")
+        logger.info(f"Using Playwright: {use_playwright}")
         readthedocs_results = run_readthedocs_test(readthedocs_dir)
         results["tests"]["readthedocs"] = readthedocs_results
         
@@ -873,6 +897,7 @@ def main():
     parser.add_argument("--serve", action="store_true", help="Start a web server to view results")
     parser.add_argument("--docker-serve", action="store_true", help="Start a Docker container to serve results (preferred method)")
     parser.add_argument("--port", type=int, default=12345, help="Port to use for web server (default: 12345)")
+    parser.add_argument("--playwright", action="store_true", help="Use Playwright for downloading (for JavaScript-heavy sites)")
     args = parser.parse_args()
     
     output_dir = Path(args.output_dir) if args.output_dir else None
@@ -881,10 +906,11 @@ def main():
     results_dir = create_results_directory(output_dir)
     
     print(f"Starting all documentation extraction tests...")
+    print(f"Using Playwright: {'Yes' if args.playwright else 'No'}")
     print(f"Results will be saved to: {results_dir}\n")
     
     # Run all tests
-    results = run_test_modules(results_dir)
+    results = run_test_modules(results_dir, args.playwright)
     
     # Print overall result
     if results.get("success"):

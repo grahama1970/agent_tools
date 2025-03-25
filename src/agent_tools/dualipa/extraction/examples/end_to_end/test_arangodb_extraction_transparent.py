@@ -41,6 +41,7 @@ logger = logging.getLogger("test_arangodb_extraction_transparent")
 # Constants
 ARANGODB_AQL_URL = "https://www.arangodb.com/docs/stable/aql/"
 TEST_RESULTS_DIR = Path("test_results")
+USE_PLAYWRIGHT = False  # Global flag to control Playwright usage
 
 
 def create_results_directory(output_dir: Optional[Path] = None) -> Path:
@@ -82,10 +83,11 @@ def download_arangodb_docs(output_dir: Path) -> Optional[Path]:
     logger.info(f"Downloading ArangoDB AQL documentation from {ARANGODB_AQL_URL}")
     
     try:
-        # Import the download_site function
+        # Import the download functions
         try:
             # Try to import from fetch_docs module
-            from agent_tools.fetch_docs.download_site import download_site
+            from agent_tools.fetch_docs.download_site import download_site, download_site_with_playwright
+            logger.info("Successfully imported download functions from fetch_docs module")
         except ImportError:
             # Try to import from local patch
             current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -97,11 +99,32 @@ def download_arangodb_docs(output_dir: Path) -> Optional[Path]:
                 download_site_patch = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(download_site_patch)
                 download_site = download_site_patch.download_site
+                logger.info("Using patched download_site function")
+                
+                # No Playwright in the patch
+                def download_site_with_playwright(*args, **kwargs):
+                    logger.warning("Playwright not available in patched version")
+                    return None
             else:
                 raise ImportError("Could not find download_site function")
         
         # Download the documentation
-        download_site(ARANGODB_AQL_URL, str(download_dir), recursive=False)
+        if USE_PLAYWRIGHT:
+            logger.info(f"Using Playwright to download {ARANGODB_AQL_URL}")
+            stats = download_site_with_playwright(ARANGODB_AQL_URL, str(download_dir), recursive=False)
+            success = stats.get("success", False) if stats else False
+            
+            # Save stats for inspection
+            stats_file = output_dir / "playwright_stats.json"
+            with open(stats_file, 'w', encoding='utf-8') as f:
+                json.dump(stats, f, indent=2)
+            
+            if not success:
+                logger.warning(f"Playwright download failed: {stats.get('error_message', 'Unknown error')}")
+                logger.info("Falling back to wget-based download")
+                download_site(ARANGODB_AQL_URL, str(download_dir), recursive=False)
+        else:
+            download_site(ARANGODB_AQL_URL, str(download_dir), recursive=False)
         
         # Find the downloaded HTML file (usually index.html)
         html_files = list(download_dir.glob("**/*.html"))
@@ -769,11 +792,19 @@ def main():
     """Main function."""
     parser = argparse.ArgumentParser(description="Run ArangoDB extraction test with transparent output.")
     parser.add_argument("--output-dir", type=str, help="Directory to save test results.")
+    parser.add_argument("--playwright", action="store_true", help="Use Playwright for downloading (for JavaScript-heavy sites)")
     args = parser.parse_args()
     
     output_dir = Path(args.output_dir) if args.output_dir else None
     
+    # Set global Playwright flag
+    global USE_PLAYWRIGHT
+    USE_PLAYWRIGHT = args.playwright
+    
+    # Print configuration
     print("Starting ArangoDB extraction test...")
+    print(f"Using Playwright: {'Yes' if USE_PLAYWRIGHT else 'No'}")
+    
     results = run_test(output_dir)
     
     if results.get("success"):
