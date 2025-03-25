@@ -185,6 +185,13 @@ if __name__ == "__main__":
             sys.exit(run_length_function_test_only())
         elif sys.argv[1] == "--repo-only":
             sys.exit(0 if run_repository_tests() else 1)
+        elif sys.argv[1] == "--markdown-only":
+            from repository_test import RepositoryTester
+            tester = RepositoryTester()
+            sys.exit(0 if tester.test_arangodb_md() else 1)
+        elif sys.argv[1] == "--test-markdown-extraction":
+            from test_markdown_extraction import run_test
+            sys.exit(run_test())
     else:
         # Run all blind tests
         sys.exit(run_blind_test())

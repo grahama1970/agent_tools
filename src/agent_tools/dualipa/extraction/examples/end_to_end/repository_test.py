@@ -53,6 +53,11 @@ class RepositoryTester:
                 "/home/grahama/workspace/experiments/agent_tools/test_repos/sglang/examples/runtime/engine/embedding.py",
                 "/home/grahama/workspace/experiments/agent_tools/test_repos/sglang/examples/runtime/engine/custom_server.py",
                 "/home/grahama/workspace/experiments/agent_tools/test_repos/sglang/examples/runtime/engine/offline_batch_inference_async.py"
+            ],
+            # Markdown files
+            "arangodb_md": [
+                "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/ERROR_LEVELS.md",
+                "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/README.md"
             ]
         }
         
@@ -65,6 +70,12 @@ class RepositoryTester:
                 {"functions": 3, "classes": 0},
             "/home/grahama/workspace/experiments/agent_tools/test_repos/sglang/examples/runtime/engine/offline_batch_inference_async.py": 
                 {"functions": 1, "classes": 1},
+                
+            # Expected section counts for markdown files
+            "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/ERROR_LEVELS.md":
+                {"sections": 6},  # 6 main sections for the error levels
+            "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/README.md":
+                {"sections": 2}  # 2 sections detected in the README
         }
     
     def test_repository(self, repo_path: Path, repo_key: str) -> bool:
@@ -110,17 +121,38 @@ class RepositoryTester:
         if file_path in self.expected_counts:
             expected = self.expected_counts[file_path]
             
-            # Check function count
-            function_count = block_types.get("function", 0) + block_types.get("method", 0)
-            if function_count < expected["functions"]:
-                logger.error(f"Expected at least {expected['functions']} functions, found {function_count}")
-                return False
+            # Check for markdown sections
+            if "sections" in expected:
+                section_count = block_types.get("section", 0)
+                if section_count < expected["sections"]:
+                    logger.error(f"Expected at least {expected['sections']} sections, found {section_count}")
+                    return False
                 
-            # Check class count
-            class_count = block_types.get("class", 0)
-            if class_count < expected["classes"]:
-                logger.error(f"Expected at least {expected['classes']} classes, found {class_count}")
-                return False
+                # If it's a markdown file, also check for text blocks, code blocks, etc.
+                has_text_blocks = block_types.get("text", 0) > 0
+                if not has_text_blocks and file_path.endswith(".md"):
+                    logger.warning(f"Markdown file {file_path} has no text blocks")
+                
+                # Check for other markdown elements
+                if file_path.endswith(".md"):
+                    logger.info(f"Checking markdown elements in {Path(file_path).name}")
+                    # List child UUIDs of the file block
+                    child_uuids = file_block.get("child_uuids", [])
+                    # Count child blocks
+                    child_blocks = [b for b in all_blocks if b.get("uuid") in child_uuids]
+                    logger.info(f"Found {len(child_blocks)} child blocks for {Path(file_path).name}")
+            else:
+                # Check function count for code files
+                function_count = block_types.get("function", 0) + block_types.get("method", 0)
+                if "functions" in expected and function_count < expected["functions"]:
+                    logger.error(f"Expected at least {expected['functions']} functions, found {function_count}")
+                    return False
+                    
+                # Check class count for code files
+                class_count = block_types.get("class", 0)
+                if "classes" in expected and class_count < expected["classes"]:
+                    logger.error(f"Expected at least {expected['classes']} classes, found {class_count}")
+                    return False
         
         logger.info(f"✅ Successfully verified {Path(file_path).name}")
         return True
@@ -136,6 +168,12 @@ class RepositoryTester:
         logger.info("Testing Python extraction")
         repo_path = Path("/home/grahama/workspace/experiments/agent_tools/test_repos/sglang")
         return self.test_repository(repo_path, "sglang_py")
+        
+    def test_arangodb_md(self) -> bool:
+        """Test Markdown extraction from ArangoDB repo."""
+        logger.info("Testing Markdown extraction")
+        repo_path = Path("/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb")
+        return self.test_repository(repo_path, "arangodb_md")
 
 
 def run_repository_tests():
@@ -148,6 +186,9 @@ def run_repository_tests():
     
     # Test Python extraction
     success &= tester.test_sglang_py()
+    
+    # Test Markdown extraction
+    success &= tester.test_arangodb_md()
     
     return success
 
