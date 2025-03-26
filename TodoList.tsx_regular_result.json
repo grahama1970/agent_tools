@@ -1,0 +1,15 @@
+{
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/react/fixtures/flight-parcel/src/TodoList.tsx",
+  "language": "typescript",
+  "classes": [],
+  "functions": [
+    {
+      "name": "TodoList",
+      "line": 4,
+      "is_async": true
+    }
+  ],
+  "interfaces": [],
+  "imports": [],
+  "exports": []
+}

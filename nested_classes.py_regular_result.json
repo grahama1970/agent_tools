@@ -1,0 +1,126 @@
+{
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+  "language": "python",
+  "classes": [
+    {
+      "name": "OuterClass",
+      "line": 8,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "Parent",
+      "line": 46,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "InnerClass",
+      "line": 21,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "StaticNested",
+      "line": 54,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "DeepNestedClass",
+      "line": 34,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    }
+  ],
+  "functions": [
+    {
+      "name": "example_usage",
+      "line": 64,
+      "docstring": null,
+      "decorators": [],
+      "parameters": []
+    },
+    {
+      "name": "__init__",
+      "line": 13,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "name"
+      ]
+    },
+    {
+      "name": "outer_method",
+      "line": 16,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ]
+    },
+    {
+      "name": "parent_method",
+      "line": 49,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ]
+    },
+    {
+      "name": "__init__",
+      "line": 26,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "value"
+      ]
+    },
+    {
+      "name": "inner_method",
+      "line": 29,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ]
+    },
+    {
+      "name": "static_method",
+      "line": 58,
+      "docstring": null,
+      "decorators": [
+        "staticmethod"
+      ],
+      "parameters": []
+    },
+    {
+      "name": "__init__",
+      "line": 37,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "id"
+      ]
+    },
+    {
+      "name": "deep_method",
+      "line": 40,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ]
+    }
+  ],
+  "imports": []
+}

@@ -1,0 +1,328 @@
+[
+  {
+    "type": "class",
+    "name": "OuterClass",
+    "start_line": 8,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 13,
+        "end_line": 14,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "0a18f60a-e867-4b55-84dc-3766df804912",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      },
+      {
+        "type": "method",
+        "name": "outer_method",
+        "start_line": 16,
+        "end_line": 18,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "e09701cf-f28b-4036-aac5-21f9b9764afe",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      },
+      {
+        "type": "class",
+        "name": "InnerClass",
+        "start_line": 21,
+        "end_line": 32,
+        "children": [
+          {
+            "type": "method",
+            "name": "__init__",
+            "start_line": 26,
+            "end_line": 27,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "b89765a9-c9e3-47ea-a78e-06a3e40d1905",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            }
+          },
+          {
+            "type": "method",
+            "name": "inner_method",
+            "start_line": 29,
+            "end_line": 31,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "d7808be9-ac78-4f91-bc29-2a691d69967b",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            }
+          }
+        ],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "963598cc-45e9-4130-b3e6-60d4336bf162",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      },
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "d55a9327-fc12-4a78-89f4-91e71a18eee4",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "6b82cfa9-3202-4c5c-8926-55645042ffcc",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 13,
+    "end_line": 14,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "0a18f60a-e867-4b55-84dc-3766df804912",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "outer_method",
+    "start_line": 16,
+    "end_line": 18,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e09701cf-f28b-4036-aac5-21f9b9764afe",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "class",
+    "name": "InnerClass",
+    "start_line": 21,
+    "end_line": 32,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 26,
+        "end_line": 27,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "b89765a9-c9e3-47ea-a78e-06a3e40d1905",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      },
+      {
+        "type": "method",
+        "name": "inner_method",
+        "start_line": 29,
+        "end_line": 31,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "d7808be9-ac78-4f91-bc29-2a691d69967b",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "963598cc-45e9-4130-b3e6-60d4336bf162",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 26,
+    "end_line": 27,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "b89765a9-c9e3-47ea-a78e-06a3e40d1905",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "inner_method",
+    "start_line": 29,
+    "end_line": 31,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "d7808be9-ac78-4f91-bc29-2a691d69967b",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "class",
+    "name": "DeepNestedClass",
+    "start_line": 34,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "d55a9327-fc12-4a78-89f4-91e71a18eee4",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        }
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "b90aa520-ee39-4484-b777-dd42af5ca0e0",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 37,
+    "end_line": 38,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "d55a9327-fc12-4a78-89f4-91e71a18eee4",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "deep_method",
+    "start_line": 40,
+    "end_line": 42,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e8ee8394-b475-40d9-8d41-3d238148ba95",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "class",
+    "name": "Parent",
+    "start_line": 46,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "d48c92d2-b862-46c6-8020-dc08a9718bd9",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "parent_method",
+    "start_line": 49,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "f861a711-0f88-4094-9860-21079a6185c3",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "class",
+    "name": "StaticNested",
+    "start_line": 54,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "325cffdd-9a07-485b-ba08-c91c7fd5356d",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "method",
+    "name": "static_method",
+    "start_line": 58,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "b0cad0bc-2b25-463d-8ca6-af7bcd65f53d",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  },
+  {
+    "type": "function",
+    "name": "example_usage",
+    "start_line": 64,
+    "end_line": 76,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "6175e4f5-e984-4ca9-b1b0-6105b538fcdd",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    }
+  }
+]

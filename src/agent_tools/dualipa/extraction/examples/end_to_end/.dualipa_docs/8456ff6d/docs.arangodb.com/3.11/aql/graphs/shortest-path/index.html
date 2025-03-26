@@ -1,0 +1,338 @@
+<!doctype html><html lang=en><head><link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel=stylesheet><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel=stylesheet><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet></noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet></noscript><link href="../../../../css/nucleus.css" rel=stylesheet><link href="../../../../css/fonts.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fonts.css" rel=stylesheet></noscript><link href="../../../../css/theme.css" rel=stylesheet><link href="../../../../css/theme-relearn-light.css" rel=stylesheet id=variant-style><link href="../../../../css/print.css" rel=stylesheet media=print><script src="../../../../js/variant.js@1741627052"></script>
+<script>var root_url="/",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="",window.T_Copied_to_clipboard="",window.T_Copy_link_to_clipboard="",window.T_Link_copied_to_clipboard="",baseUriFull="https://docs.arangodb.com/",window.variants&&variants.init(["relearn-light"])</script><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.119.0"><meta itemprop=description property="description" content="With the shortest path algorithm, you can find one shortest path between two vertices using AQL"><meta property="og:url" content="https://docs.arangodb.com/3.11/aql/graphs/shortest-path/"><meta property="og:title" content="Shortest Path in AQL"><meta property="og:type" content="website"><meta property="og:description" content="With the shortest path algorithm, you can find one shortest path between two vertices using AQL"><meta name=docsearch:version content="3.11"><title>Shortest Path in AQL | ArangoDB Documentation</title><link href="../../../../images/favicon.png" rel=icon type=image/png><script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/clipboard.min.js@1741627052" defer></script>
+<script src="../../../../js/featherlight.min.js@1741627052" defer></script>
+<script>var versions=[{alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"},{alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"},{alias:"3.11",deprecated:!1,name:"3.11",version:"3.11.13"},{alias:"3.10",deprecated:!0,name:"3.10",version:"3.10.14"}]</script><script>var develVersion={alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"}</script><script>var stableVersion={alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"}</script><script src="../../../../js/codeblocks.js@1741627052" defer></script>
+<script src="../../../../js/theme.js@1741627052" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PSX8LKTTJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-6PSX8LKTTJ")</script><script>!function(e,t,n,s,o,i){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],o=t.createElement(n),o.async=!0,o.src="//static.ads-twitter.com/uwt.js",i=t.getElementsByTagName(n)[0],i.parentNode.insertBefore(o,i))}(window,document,"script"),twq("init","nz793"),twq("track","PageView")</script><script>_linkedin_partner_id="499017",window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[],window._linkedin_data_partner_ids.push(_linkedin_partner_id)</script><script>(function(){var t=document.getElementsByTagName("script")[0],e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://snap.licdn.com/li.lms-analytics/insight.min.js",t.parentNode.insertBefore(e,t)})()</script></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-6PSX8LKTTJ" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><noscript><img height=1 width=1 style=display:none alt src="https://dc.ads.linkedin.com/collect/?pid=499017&fmt=gif"></noscript><noscript>You need to enable JavaScript to use the ArangoDB documentation.</noscript><div id=page-wrapper class=page_content_splash style=height:auto;opacity:0><section id=page-main><section class=page-container id=page-container><header id=header style="transition:.5s padding ease-out,.15s" class="zn_header_white header-splash-new nav-down header-splash-wrap header1"><div class=header-block-left><div class=mobile-menu-toggle><button id=sidebar-toggle-navigation onclick=showSidebarHandler()><svg width="1.33em" height="1.33em" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div><div class=version-logo-container><div class="logo-container hasinfocard_img arangodb-logo-large"><div class=logo><a href=https://www.arangodb.com/><img src="../../../../images/logo_main.png" alt=ArangoDB title></a></div></div><div class=arangodb-logo-small><a href=https://arangodb.com/><img alt="ArangoDB Logo" src="../../../../images/ArangoDB_Logo_White_small.png"></a></div></div></div><div class=container-right style=display:hidden></div><div class=search-and-version-container><a href="index.html#" class="home-link is-current" aria-label="Go to home page" onclick=goToHomepage(event)></a><div id=searchbox></div><script type=text/javascript>const SCRIPT_SRC="https://unpkg.com/@inkeep/widgets-embed@0.2.290/dist/embed.js";function loadAndInitializeInkeep(){if(document.querySelector(`script[src="${SCRIPT_SRC}]"`))return;const e=document.createElement("script");e.type="module",e.src=SCRIPT_SRC,e.onload=initializeInkeep,document.head.appendChild(e)}function initializeInkeep(){const e=Inkeep({integrationId:"clo4lx6jk0000s601cp21x2ok",apiKey:"13b4e56966a76e86c6ff359cd795ee6a0412f751d75d6383",organizationId:"org_HGBkkzGAa4KeGJGh",organizationDisplayName:"ArangoDB",primaryBrandColor:"#80a54d",stringReplacementRules:[{matchingRule:{ruleType:"Substring",string:"Arangograph"},replaceWith:"ArangoGraph"},{matchingRule:{ruleType:"Substring",string:"Aql"},replaceWith:"AQL"},{matchingRule:{ruleType:"Substring",string:"Arangodb"},replaceWith:"ArangoDB"}],customCardSettings:[{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"docs.arangodb.com"}},searchTabLabel:"Official Docs"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"developer.arangodb.com"}},searchTabLabel:"Developer Hub"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"arangodb.com"}},searchTabLabel:"Home"}]}),t=e.embed({componentType:"ChatButton",properties:{stylesheetUrls:["/css/fonts.css"],fixedPositionXOffset:"52px",baseSettings:{theme:{primaryColors:{textColorOnPrimary:"white"},tokens:{fonts:{body:"'Inter'",heading:"'Inter'"},zIndex:{overlay:1e4,modal:11e3,popover:12e3,skipLink:13e3,toast:14e3,tooltip:15e3}}}},aiChatSettings:{botAvatarSrcUrl:"/images/ArangoDB_Logo_White_small.png",quickQuestions:["What can you do with AQL that is not feasible with SQL?","How do I search for objects within arrays?","Where can I deploy my ArangoDB instance?"],getHelpCallToActions:[{icon:{builtIn:"FaSlack"},name:"Slack",url:"https://arangodb-community.slack.com/"}]},searchSettings:{tabSettings:{isAllTabEnabled:!1,alwaysDisplayedTabs:["Official Docs","Developer Hub","Home"]}}}})}loadAndInitializeInkeep()</script><div class=version-selector><select id=arangodb-version onchange=changeVersion()><option value=3.13>3.13</option><option value=3.12>3.12</option><option value=3.11>3.11</option><option value=3.10>3.10</option><option value=3.9>3.9</option><option value=3.8>3.8</option></select></div></div></header><iframe src="https://docs.arangodb.com/nav.html" title=description id=menu-iframe class="menu-iframe active" style=opacity:0></iframe><div class=container-main><div class=row-main><nav id=breadcrumbs><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><meta itemprop=itemListOrder content="Descending"><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="3.11"><a itemprop=item class=link href="https://docs.arangodb.com/3.11/"><span itemprop=name class=breadcrumb-entry>3.11.13</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="AQL"><a itemprop=item class=link href="../../index.html"><span itemprop=name class=breadcrumb-entry>AQL</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Graphs"><a itemprop=item class=link href="../index.html"><span itemprop=name class=breadcrumb-entry>Graphs</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Shortest Path"><a itemprop=item class=link href="index.html"><span itemprop=name class=breadcrumb-entry>Shortest Path</span></a></li></ol></nav><article class=default><hgroup><h1>Shortest Path in AQL</h1><p class=lead>With the shortest path algorithm, you can find one shortest path between two vertices using AQL</p></hgroup><h2 id=general-query-idea>General query idea <a href="index.html#general-query-idea" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>This type of query is supposed to find the shortest path between two given documents
+(<em>startVertex</em> and <em>targetVertex</em>) in your graph. For all vertices on this shortest
+path you will get a result in form of a set with two items:</p><ol><li>The vertex on this path.</li><li>The edge pointing to it.</li></ol><h3 id=example-execution>Example execution <a href="index.html#example-execution" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Let&rsquo;s take a look at a simple example to explain how it works.
+This is the graph that you are going to find a shortest path on:</p><p><figure class=image-caption><img alt="traversal graph" src="../../../../images/traversal_graph.png"><figcaption></figcaption></figure></p><p>You can use the following parameters for the query:</p><ol><li>You start at the vertex <strong>A</strong>.</li><li>You finish with the vertex <strong>D</strong>.</li></ol><p>So, obviously, you have the vertices <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong> on the
+shortest path in exactly this order. Then, the shortest path statement
+returns the following pairs:</p><table><thead><tr><th>Vertex</th><th>Edge</th></tr></thead><tbody><tr><td>A</td><td>null</td></tr><tr><td>B</td><td>A → B</td></tr><tr><td>C</td><td>B → C</td></tr><tr><td>D</td><td>C → D</td></tr></tbody></table><p>Note that the first edge is always <code>null</code> because there is no edge pointing
+to the <em>startVertex</em>.</p><h2 id=syntax>Syntax <a href="index.html#syntax" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>The next step is to see how you can write a shortest path query.
+You have two options here, you can either use a named graph or a set of edge
+collections (anonymous graph).</p><h3 id=working-with-named-graphs>Working with named graphs <a href="index.html#working-with-named-graphs" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span><span class=p>[,</span> <span class=n>edge</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=kr>SHORTEST_PATH</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=kr>GRAPH</span> <span class=n>graphName</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=n>OPTIONS</span> <span class=n>options</span><span class=p>]</span></span></span></code></pre></div><ul><li><code>FOR</code>: Emits up to two variables:<ul><li><strong>vertex</strong> (object): The current vertex on the shortest path</li><li><strong>edge</strong> (object, <em>optional</em>): The edge pointing to the vertex</li></ul></li><li><code>IN</code> <code>OUTBOUND|INBOUND|ANY</code>: Defines in which direction edges are followed
+(outgoing, incoming, or both)</li><li><strong>startVertex</strong> <code>TO</code> <strong>targetVertex</strong> (both string|object): The two vertices between
+which the shortest path will be computed. This can be specified in the form of
+an ID string or in the form of a document with the attribute <code>_id</code>. All other
+values will lead to a warning and an empty result. If one of the specified
+documents does not exist, the result is empty as well and there is no warning.</li><li><code>GRAPH</code> <strong>graphName</strong> (string): The name identifying the named graph. Its vertex and
+edge collections will be looked up.</li><li><code>OPTIONS</code> <strong>options</strong> (object, <em>optional</em>):
+See the <a href="index.html#path-search-options" class=link>path search options</a>.</li></ul><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text>Shortest Path traversals do not support negative weights. If a document
+attribute (as specified by <code>weightAttribute</code>) with a negative value is
+encountered during traversal, or if <code>defaultWeight</code> is set to a negative
+number, then the query is aborted with an error.</div></div></div></div><h3 id=working-with-collection-sets>Working with collection sets <a href="index.html#working-with-collection-sets" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span><span class=p>[,</span> <span class=n>edge</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=kr>SHORTEST_PATH</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edgeCollection1</span><span class=p>,</span> <span class=o>..</span><span class=p>.,</span> <span class=n>edgeCollectionN</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=n>OPTIONS</span> <span class=n>options</span><span class=p>]</span></span></span></code></pre></div><p>Instead of <code>GRAPH graphName</code> you may specify a list of edge collections (anonymous
+graph). The involved vertex collections are determined by the edges of the given
+edge collections. The rest of the behavior is similar to the named version.</p><h3 id=path-search-options>Path search options <a href="index.html#path-search-options" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>You can optionally specify the following options to modify the execution of a
+graph path search. If you specify unknown options, query warnings are raised.</p><h4 id=weightattribute><code>weightAttribute</code> <a href="index.html#weightattribute" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A top-level edge attribute that should be used to read the edge weight (string).</p><p>If the attribute does not exist or is not numeric, the <code>defaultWeight</code> is used
+instead.</p><p>The attribute value must not be negative.</p><h4 id=defaultweight><code>defaultWeight</code> <a href="index.html#defaultweight" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>This value is used as fallback if there is no <code>weightAttribute</code> in the
+edge document, or if it&rsquo;s not a number (number).</p><p>The value must not be negative. The default is <code>1</code>.</p><h3 id=traversing-in-mixed-directions>Traversing in mixed directions <a href="index.html#traversing-in-mixed-directions" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>For shortest path with a list of edge collections you can optionally specify the
+direction for some of the edge collections. Say for example you have three edge
+collections <em>edges1</em>, <em>edges2</em> and <em>edges3</em>, where in <em>edges2</em> the direction
+has no relevance, but in <em>edges1</em> and <em>edges3</em> the direction should be taken into
+account. In this case you can use <code>OUTBOUND</code> as general search direction and <code>ANY</code>
+specifically for <em>edges2</em> as follows:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>SHORTEST_PATH</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edges1</span><span class=p>,</span> <span class=kr>ANY</span> <span class=n>edges2</span><span class=p>,</span> <span class=n>edges3</span></span></span></code></pre></div><p>All collections in the list that do not specify their own direction will use the
+direction defined after <code>IN</code> (here: <code>OUTBOUND</code>). This allows to use a different
+direction for each collection in your path search.</p><h2 id=conditional-shortest-path>Conditional shortest path <a href="index.html#conditional-shortest-path" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>The <code>SHORTEST_PATH</code> computation only finds an unconditioned shortest path.
+With this construct it is not possible to define a condition like: &ldquo;Find the
+shortest path where all edges are of type <em>X</em>&rdquo;. If you want to do this, use a
+normal <a href="../traversals/index.html" class=link>Traversal</a> instead with the option
+<code>{order: "bfs"}</code> in combination with <code>LIMIT 1</code>.</p><p>Please also consider using <a href="../../high-level-operations/with/index.html" class=link><code>WITH</code></a> to specify the
+collections you expect to be involved.</p><h2 id=examples>Examples <a href="index.html#examples" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>Creating a simple symmetric traversal demonstration graph:</p><p><figure class=image-caption><img alt="traversal graph" src="../../../../images/traversal_graph.png"><figcaption></figcaption></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>graph</span> <span class=o>=</span> <span class=nx>examples</span><span class=p>.</span><span class=nx>loadGraph</span><span class=p>(</span><span class=s2>&#34;traversalGraph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>circles</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>edges</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqK---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;1&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqK--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;2&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;3&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;4&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;5&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;6&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;7&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;8&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;9&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqO--F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;10&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;11&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64555&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64555&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_bar&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64557&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64557&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blarg&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64559&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64559&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blorg&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64561&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64561&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blub&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64563&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64563&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_schubi&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64565&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64565&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqS--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64567&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64567&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqW---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64569&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64569&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqW--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64571&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64571&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqW--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;64573&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/64573&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XqW--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Start with the shortest path from <strong>A</strong> to <strong>D</strong> as above:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>_query</span><span class=p>(</span><span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>  FOR v, e IN OUTBOUND SHORTEST_PATH &#39;circles/A&#39; TO &#39;circles/D&#39; GRAPH &#39;traversalGraph&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>    RETURN [v._key, e._key]
+</span></span></span><span class=line><span class=cl><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>_query</span><span class=p>(</span><span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>  FOR v, e IN OUTBOUND SHORTEST_PATH &#39;circles/A&#39; TO &#39;circles/D&#39; edges
+</span></span></span><span class=line><span class=cl><span class=sb>    RETURN [v._key, e._key]
+</span></span></span><span class=line><span class=cl><span class=sb>`</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=p>[</span><span class=nx>object</span> <span class=nx>ArangoQueryCursor</span><span class=p>,</span> <span class=nx>count</span><span class=o>:</span> <span class=mi>4</span><span class=p>,</span> <span class=nx>cached</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span> <span class=nx>hasMore</span><span class=o>:</span> <span class=kc>false</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=kc>null</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64555&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64557&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64559&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>]</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>object</span> <span class=nx>ArangoQueryCursor</span><span class=p>,</span> <span class=nx>count</span><span class=o>:</span> <span class=mi>4</span><span class=p>,</span> <span class=nx>cached</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span> <span class=nx>hasMore</span><span class=o>:</span> <span class=kc>false</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=kc>null</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64555&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64557&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64559&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>]</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>You can see that expectations are fulfilled. You find the vertices in the
+correct ordering and the first edge is <em>null</em>, because no edge is pointing
+to the start vertex on this path.</p><p>You can also compute shortest paths based on documents found in collections:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>_query</span><span class=p>(</span><span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>  FOR a IN circles
+</span></span></span><span class=line><span class=cl><span class=sb>    FILTER a._key == &#39;A&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>    FOR d IN circles
+</span></span></span><span class=line><span class=cl><span class=sb>      FILTER d._key == &#39;D&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>      FOR v, e IN OUTBOUND SHORTEST_PATH a TO d GRAPH &#39;traversalGraph&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>        RETURN [v._key, e._key]
+</span></span></span><span class=line><span class=cl><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>_query</span><span class=p>(</span><span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>  FOR a IN circles
+</span></span></span><span class=line><span class=cl><span class=sb>    FILTER a._key == &#39;A&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>    FOR d IN circles
+</span></span></span><span class=line><span class=cl><span class=sb>      FILTER d._key == &#39;D&#39;
+</span></span></span><span class=line><span class=cl><span class=sb>      FOR v, e IN OUTBOUND SHORTEST_PATH a TO d edges
+</span></span></span><span class=line><span class=cl><span class=sb>        RETURN [v._key, e._key]
+</span></span></span><span class=line><span class=cl><span class=sb>`</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=p>[</span><span class=nx>object</span> <span class=nx>ArangoQueryCursor</span><span class=p>,</span> <span class=nx>count</span><span class=o>:</span> <span class=mi>4</span><span class=p>,</span> <span class=nx>cached</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span> <span class=nx>hasMore</span><span class=o>:</span> <span class=kc>false</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=kc>null</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64555&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64557&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64559&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>]</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>object</span> <span class=nx>ArangoQueryCursor</span><span class=p>,</span> <span class=nx>count</span><span class=o>:</span> <span class=mi>4</span><span class=p>,</span> <span class=nx>cached</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span> <span class=nx>hasMore</span><span class=o>:</span> <span class=kc>false</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=kc>null</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64555&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64557&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>],</span> 
+</span></span><span class=line><span class=cl>  <span class=p>[</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;64559&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>]</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>And finally clean it up again:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>examples</span><span class=p>.</span><span class=nx>dropGraph</span><span class=p>(</span><span class=s2>&#34;traversalGraph&#34;</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>Empty</span> <span class=nx>Output</span></span></span></code></pre></div></div></div><br><nav class=pagination><span class=prev><a class="nav nav-prev link" href="../traversals/index.html"><i class="fas fa-chevron-left fa-fw"></i><p>Traversals</p></a></span><span class=next><a class="nav nav-next link" href="../all-shortest-paths/index.html"><p>All Shortest Paths</p><i class="fas fa-chevron-right fa-fw"></i></a></span></nav></article><div class=toc-container><a class=edit-page aria-label href=https://github.com/arangodb/docs-hugo/edit/main/site/content/3.11/aql/graphs/shortest-path.md target=_blank><i class="fab fa-fw fa-github edit-page-icon"></i></a><div class=toc><div class=toc-content><div class=toc-header><p>On this page</p></div><nav id=TableOfContents><div class=level-2><a href="index.html#general-query-idea">General query idea</a></div><div class=level-3><a href="index.html#example-execution">Example execution</a></div><div class=level-2><a href="index.html#syntax">Syntax</a></div><div class=level-3><a href="index.html#working-with-named-graphs">Working with named graphs</a></div><div class=level-3><a href="index.html#working-with-collection-sets">Working with collection sets</a></div><div class=level-3><a href="index.html#path-search-options">Path search options</a></div><div class=level-4><a href="index.html#weightattribute"><code>weightAttribute</code></a></div><div class=level-4><a href="index.html#defaultweight"><code>defaultWeight</code></a></div><div class=level-3><a href="index.html#traversing-in-mixed-directions">Traversing in mixed directions</a></div><div class=level-2><a href="index.html#conditional-shortest-path">Conditional shortest path</a></div><div class=level-2><a href="index.html#examples">Examples</a></div></nav></div></div></div></div></div></section></section></div><button class="back-to-top hidden" onclick=goToTop(event) href=#><i class="fa fa-arrow-up"></i></button><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@docsearch/css@3>
+<script src=https://cdn.jsdelivr.net/npm/@docsearch/js@3></script>
+<script type=text/javascript>window.setupDocSearch=function(e){if(!window.docsearch)return;docsearch({appId:"OK3ZBQ5982",apiKey:"500c85ccecb335d507fe4449aed12e1d",indexName:"arangodbdocs",insights:!0,container:"#searchbox",debug:!1,maxResultsPerGroup:10,searchParameters:{facetFilters:[`version:${e}`]}})}</script></body></html>

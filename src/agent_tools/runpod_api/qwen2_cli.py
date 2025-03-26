@@ -199,5 +199,75 @@ def takedown(pod_id):
         logger.error(f"Takedown failed: {str(e)}")
         click.echo("❌ Takedown failed - check logs for details")
 
+
+@cli.command()
+@click.option('--pod-ip', required=True, help='Pod IP address')
+@click.option('--mode', type=click.Choice(['standard', 'stress']), default='standard', 
+              help='Benchmark mode: standard (single requests) or stress (concurrent load)')
+@click.option('--iterations', default=5, help='Number of iterations for standard benchmark')
+@click.option('--concurrent', default=10, help='Number of concurrent requests for stress test')
+@click.option('--duration', default=60, help='Duration in seconds for stress test')
+@click.option('--output', default='benchmark_results.json', help='Output file for results')
+def benchmark(pod_ip, mode, iterations, concurrent, duration, output):
+    """Run performance benchmark and cost analysis"""
+    try:
+        click.echo(f"🔍 Running {mode} benchmark on pod {pod_ip}...")
+        
+        # Import benchmark module
+        from benchmark import run_benchmark, run_stress_test, analyze_optimal_setup, save_benchmark_results
+        
+        # Run the appropriate benchmark
+        if mode == 'standard':
+            click.echo(f"Running standard benchmark with {iterations} iterations per prompt...")
+            benchmark_results = asyncio.run(run_benchmark(pod_ip, iterations))
+        else:
+            click.echo(f"Running stress test with {concurrent} concurrent requests for {duration} seconds...")
+            benchmark_results = asyncio.run(run_stress_test(pod_ip, concurrent, duration))
+        
+        if "error" in benchmark_results:
+            click.echo(f"❌ Benchmark failed: {benchmark_results['error']}")
+            return
+        
+        # Analyze results to determine optimal setup
+        analysis = analyze_optimal_setup(benchmark_results)
+        benchmark_results["optimization_analysis"] = analysis
+        
+        # Save results to file
+        save_benchmark_results(benchmark_results, output)
+        
+        # Display summary
+        if mode == 'standard':
+            tps = benchmark_results["overall_avg_tokens_per_second"]
+            click.echo(f"✅ Average throughput: {tps:.2f} tokens/second ({tps*3600:.0f} tokens/hour)")
+        else:
+            tps = benchmark_results["stress_test_results"]["tokens_per_second"]
+            rps = benchmark_results["stress_test_results"]["requests_per_second"]
+            click.echo(f"✅ Sustained throughput: {tps:.2f} tokens/second ({tps*3600:.0f} tokens/hour)")
+            click.echo(f"  Request rate: {rps:.2f} requests/second")
+        
+        # Display optimal setup
+        optimal = analysis["optimal_setup"]
+        click.echo(f"💰 Optimal GPU configuration: {optimal['configuration']} ({optimal['description']})")
+        click.echo(f"  Cost per million tokens: ${optimal['cost_per_million_tokens']:.4f}")
+        
+        # Show comparison table
+        click.echo("\n📊 Configuration Comparison:")
+        click.echo("┌─────────┬────────────┬─────────────┬────────────────┐")
+        click.echo("│ Config  │ Cost/hour  │ Tokens/hour │ Cost/M tokens  │")
+        click.echo("├─────────┼────────────┼─────────────┼────────────────┤")
+        
+        for config, details in analysis["all_configurations"].items():
+            cost = details["hourly_cost"]
+            tokens = details["projected_tokens_per_hour"]
+            cost_per_m = details["cost_per_million_tokens"]
+            click.echo(f"│ {config:7} │ ${cost:8.2f} │ {tokens:9.0f} │ ${cost_per_m:12.4f} │")
+        
+        click.echo("└─────────┴────────────┴─────────────┴────────────────┘")
+        click.echo(f"\nDetailed results saved to {output}")
+        
+    except Exception as e:
+        logger.error(f"Benchmark failed: {str(e)}")
+        click.echo("❌ Benchmark failed - check logs for details")
+
 if __name__ == "__main__":
     cli()

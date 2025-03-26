@@ -1,0 +1,637 @@
+<!doctype html><html lang=en><head><link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel=stylesheet><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel=stylesheet><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet></noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet></noscript><link href="../../../../css/nucleus.css" rel=stylesheet><link href="../../../../css/fonts.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fonts.css" rel=stylesheet></noscript><link href="../../../../css/theme.css" rel=stylesheet><link href="../../../../css/theme-relearn-light.css" rel=stylesheet id=variant-style><link href="../../../../css/print.css" rel=stylesheet media=print><script src="../../../../js/variant.js@1741627052"></script>
+<script>var root_url="/",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="",window.T_Copied_to_clipboard="",window.T_Copy_link_to_clipboard="",window.T_Link_copied_to_clipboard="",baseUriFull="https://docs.arangodb.com/",window.variants&&variants.init(["relearn-light"])</script><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.119.0"><meta itemprop=description property="description" content="AQL supports functions for geo-spatial queries and a subset of calls can be accelerated by geo-spatial indexes"><meta property="og:url" content="https://docs.arangodb.com/3.11/aql/functions/geo/"><meta property="og:title" content="Geo-spatial functions in AQL"><meta property="og:type" content="website"><meta property="og:description" content="AQL supports functions for geo-spatial queries and a subset of calls can be accelerated by geo-spatial indexes"><meta name=docsearch:version content="3.11"><title>Geo-spatial functions in AQL | ArangoDB Documentation</title><link href="../../../../images/favicon.png" rel=icon type=image/png><script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/clipboard.min.js@1741627052" defer></script>
+<script src="../../../../js/featherlight.min.js@1741627052" defer></script>
+<script>var versions=[{alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"},{alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"},{alias:"3.11",deprecated:!1,name:"3.11",version:"3.11.13"},{alias:"3.10",deprecated:!0,name:"3.10",version:"3.10.14"}]</script><script>var develVersion={alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"}</script><script>var stableVersion={alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"}</script><script src="../../../../js/codeblocks.js@1741627052" defer></script>
+<script src="../../../../js/theme.js@1741627052" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PSX8LKTTJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-6PSX8LKTTJ")</script><script>!function(e,t,n,s,o,i){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],o=t.createElement(n),o.async=!0,o.src="//static.ads-twitter.com/uwt.js",i=t.getElementsByTagName(n)[0],i.parentNode.insertBefore(o,i))}(window,document,"script"),twq("init","nz793"),twq("track","PageView")</script><script>_linkedin_partner_id="499017",window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[],window._linkedin_data_partner_ids.push(_linkedin_partner_id)</script><script>(function(){var t=document.getElementsByTagName("script")[0],e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://snap.licdn.com/li.lms-analytics/insight.min.js",t.parentNode.insertBefore(e,t)})()</script></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-6PSX8LKTTJ" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><noscript><img height=1 width=1 style=display:none alt src="https://dc.ads.linkedin.com/collect/?pid=499017&fmt=gif"></noscript><noscript>You need to enable JavaScript to use the ArangoDB documentation.</noscript><div id=page-wrapper class=page_content_splash style=height:auto;opacity:0><section id=page-main><section class=page-container id=page-container><header id=header style="transition:.5s padding ease-out,.15s" class="zn_header_white header-splash-new nav-down header-splash-wrap header1"><div class=header-block-left><div class=mobile-menu-toggle><button id=sidebar-toggle-navigation onclick=showSidebarHandler()><svg width="1.33em" height="1.33em" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div><div class=version-logo-container><div class="logo-container hasinfocard_img arangodb-logo-large"><div class=logo><a href=https://www.arangodb.com/><img src="../../../../images/logo_main.png" alt=ArangoDB title></a></div></div><div class=arangodb-logo-small><a href=https://arangodb.com/><img alt="ArangoDB Logo" src="../../../../images/ArangoDB_Logo_White_small.png"></a></div></div></div><div class=container-right style=display:hidden></div><div class=search-and-version-container><a href="index.html#" class="home-link is-current" aria-label="Go to home page" onclick=goToHomepage(event)></a><div id=searchbox></div><script type=text/javascript>const SCRIPT_SRC="https://unpkg.com/@inkeep/widgets-embed@0.2.290/dist/embed.js";function loadAndInitializeInkeep(){if(document.querySelector(`script[src="${SCRIPT_SRC}]"`))return;const e=document.createElement("script");e.type="module",e.src=SCRIPT_SRC,e.onload=initializeInkeep,document.head.appendChild(e)}function initializeInkeep(){const e=Inkeep({integrationId:"clo4lx6jk0000s601cp21x2ok",apiKey:"13b4e56966a76e86c6ff359cd795ee6a0412f751d75d6383",organizationId:"org_HGBkkzGAa4KeGJGh",organizationDisplayName:"ArangoDB",primaryBrandColor:"#80a54d",stringReplacementRules:[{matchingRule:{ruleType:"Substring",string:"Arangograph"},replaceWith:"ArangoGraph"},{matchingRule:{ruleType:"Substring",string:"Aql"},replaceWith:"AQL"},{matchingRule:{ruleType:"Substring",string:"Arangodb"},replaceWith:"ArangoDB"}],customCardSettings:[{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"docs.arangodb.com"}},searchTabLabel:"Official Docs"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"developer.arangodb.com"}},searchTabLabel:"Developer Hub"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"arangodb.com"}},searchTabLabel:"Home"}]}),t=e.embed({componentType:"ChatButton",properties:{stylesheetUrls:["/css/fonts.css"],fixedPositionXOffset:"52px",baseSettings:{theme:{primaryColors:{textColorOnPrimary:"white"},tokens:{fonts:{body:"'Inter'",heading:"'Inter'"},zIndex:{overlay:1e4,modal:11e3,popover:12e3,skipLink:13e3,toast:14e3,tooltip:15e3}}}},aiChatSettings:{botAvatarSrcUrl:"/images/ArangoDB_Logo_White_small.png",quickQuestions:["What can you do with AQL that is not feasible with SQL?","How do I search for objects within arrays?","Where can I deploy my ArangoDB instance?"],getHelpCallToActions:[{icon:{builtIn:"FaSlack"},name:"Slack",url:"https://arangodb-community.slack.com/"}]},searchSettings:{tabSettings:{isAllTabEnabled:!1,alwaysDisplayedTabs:["Official Docs","Developer Hub","Home"]}}}})}loadAndInitializeInkeep()</script><div class=version-selector><select id=arangodb-version onchange=changeVersion()><option value=3.13>3.13</option><option value=3.12>3.12</option><option value=3.11>3.11</option><option value=3.10>3.10</option><option value=3.9>3.9</option><option value=3.8>3.8</option></select></div></div></header><iframe src="https://docs.arangodb.com/nav.html" title=description id=menu-iframe class="menu-iframe active" style=opacity:0></iframe><div class=container-main><div class=row-main><nav id=breadcrumbs><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><meta itemprop=itemListOrder content="Descending"><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="3.11"><a itemprop=item class=link href="https://docs.arangodb.com/3.11/"><span itemprop=name class=breadcrumb-entry>3.11.13</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="AQL"><a itemprop=item class=link href="../../index.html"><span itemprop=name class=breadcrumb-entry>AQL</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Functions"><a itemprop=item class=link href="../index.html"><span itemprop=name class=breadcrumb-entry>Functions</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Geo"><a itemprop=item class=link href="index.html"><span itemprop=name class=breadcrumb-entry>Geo</span></a></li></ol></nav><article class=default><hgroup><h1>Geo-spatial functions in AQL</h1><p class=lead>AQL supports functions for geo-spatial queries and a subset of calls can be accelerated by geo-spatial indexes</p></hgroup><h2 id=geo-spatial-data-representations>Geo-spatial data representations <a href="index.html#geo-spatial-data-representations" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>You can model geo-spatial information in different ways using the data types
+available in ArangoDB. The recommended way is to use objects with <strong>GeoJSON</strong>
+geometry but you can also use <strong>longitude and latitude coordinate pairs</strong>
+for points. Both models are supported by
+<a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>Geo-Spatial Indexes</a>.</p><h3 id=coordinate-pairs>Coordinate pairs <a href="index.html#coordinate-pairs" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Longitude and latitude coordinates are numeric values and can be stored in the
+following ways:</p><ul><li><p>Coordinates using an array with two numbers in <code>[longitude, latitude]</code> order,
+for example, in a user-chosen attribute called <code>location</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;location&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=mf>-73.983</span><span class=p>,</span> <span class=mf>40.764</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div></li><li><p>Coordinates using an array with two numbers in <code>[latitude, longitude]</code> order,
+for example, in a user-chosen attribute called <code>location</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;location&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=mf>40.764</span><span class=p>,</span> <span class=mf>-73.983</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div></li><li><p>Coordinates using two separate numeric attributes, for example, in two
+user-chosen attributes called <code>lat</code> and <code>lng</code> as sub-attributes of a <code>location</code>
+attribute:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;location&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;lat&#34;</span><span class=p>:</span> <span class=mf>40.764</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;lng&#34;</span><span class=p>:</span> <span class=mf>-73.983</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div></li></ul><h3 id=geojson>GeoJSON <a href="index.html#geojson" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>GeoJSON is a geospatial data format based on JSON. It defines several different
+types of JSON objects and the way in which they can be combined to represent
+data about geographic shapes on the Earth surface.</p><p>Example of a document with a GeoJSON Point stored in a user-chosen attribute
+called <code>location</code> (with coordinates in <code>[longitude, latitude]</code> order):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;location&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Point&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=mf>-73.983</span><span class=p>,</span> <span class=mf>40.764</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>GeoJSON uses a geographic coordinate reference system,
+World Geodetic System 1984 (WGS 84), and units of decimal degrees.</p><p>Internally ArangoDB maps all coordinate pairs onto a unit sphere. Distances are
+projected onto a sphere with the Earth&rsquo;s <em>Volumetric mean radius</em> of <em>6371
+km</em>. ArangoDB implements a useful subset of the GeoJSON format
+<a href=https://tools.ietf.org/html/rfc7946 target=_blank rel="noopener noreferrer" class=link>(RFC 7946)</a>&nbsp;<i class="fas fa-external-link-alt"></i>.
+Feature Objects and the GeometryCollection type are not supported.
+Supported geometry object types are:</p><ul><li>Point</li><li>MultiPoint</li><li>LineString</li><li>MultiLineString</li><li>Polygon</li><li>MultiPolygon</li></ul><h4 id=point>Point <a href="index.html#point" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.2 target=_blank rel="noopener noreferrer" class=link>GeoJSON Point</a>&nbsp;<i class="fas fa-external-link-alt"></i> is a
+<a href=https://tools.ietf.org/html/rfc7946#section-3.1.1 target=_blank rel="noopener noreferrer" class=link>position</a>&nbsp;<i class="fas fa-external-link-alt"></i> comprised of
+a longitude and a latitude:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Point&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h4 id=multipoint>MultiPoint <a href="index.html#multipoint" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.7 target=_blank rel="noopener noreferrer" class=link>GeoJSON MultiPoint</a>&nbsp;<i class="fas fa-external-link-alt"></i> is
+an array of positions:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;MultiPoint&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h4 id=linestring>LineString <a href="index.html#linestring" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.4 target=_blank rel="noopener noreferrer" class=link>GeoJSON LineString</a>&nbsp;<i class="fas fa-external-link-alt"></i> is
+an array of two or more positions:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;LineString&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h4 id=multilinestring>MultiLineString <a href="index.html#multilinestring" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.5 target=_blank rel="noopener noreferrer" class=link>GeoJSON MultiLineString</a>&nbsp;<i class="fas fa-external-link-alt"></i> is
+an array of LineString coordinate arrays:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;MultiLineString&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>102.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>103.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h4 id=polygon>Polygon <a href="index.html#polygon" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.6 target=_blank rel="noopener noreferrer" class=link>GeoJSON Polygon</a>&nbsp;<i class="fas fa-external-link-alt"></i> consists
+of a series of closed <code>LineString</code> objects (ring-like). These <em>Linear Ring</em>
+objects consist of four or more coordinate pairs with the first and last
+coordinate pair being equal. Coordinate pairs of a Polygon are an array of
+linear ring coordinate arrays. The first element in the array represents
+the exterior ring. Any subsequent elements represent interior rings
+(holes within the surface).</p><p>The orientation of the first linear ring is crucial: the right-hand-rule
+is applied, so that the area to the left of the path of the linear ring
+(when walking on the surface of the Earth) is considered to be the
+&ldquo;interior&rdquo; of the polygon. All other linear rings must be contained
+within this interior. According to the GeoJSON standard, the subsequent
+linear rings must be oriented following the right-hand-rule, too,
+that is, they must run <strong>clockwise</strong> around the hole (viewed from
+above). However, ArangoDB is tolerant here (as suggested by the
+<a href=https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6 target=_blank rel="noopener noreferrer" class=link>GeoJSON standard</a>&nbsp;<i class="fas fa-external-link-alt"></i>),
+all but the first linear ring are inverted if the orientation is wrong.</p><p>In the end, a point is considered to be in the interior of the polygon,
+if and only if one has to cross an odd number of linear rings to reach the
+exterior of the polygon prescribed by the first linear ring.</p><p>A number of additional rules apply (and are enforced by the GeoJSON
+parser):</p><ul><li>A polygon must contain at least one linear ring, i.e., it must not be
+empty.</li><li>A linear ring may not be empty, it needs at least three <em>distinct</em>
+coordinate pairs, that is, at least 4 coordinate pairs (since the first and
+last must be the same).</li><li>No two edges of linear rings in the polygon must intersect, in
+particular, no linear ring may be self-intersecting.</li><li>Within the same linear ring, consecutive coordinate pairs may be the same,
+otherwise all coordinate pairs need to be distinct (except the first and last one).</li><li>Linear rings of a polygon must not share edges, but they may share coordinate pairs.</li><li>A linear ring defines two regions on the sphere. ArangoDB always
+interprets the region that lies to the left of the boundary ring (in
+the direction of its travel on the surface of the Earth) as the
+interior of the ring. This is in contrast to earlier versions of
+ArangoDB before 3.10, which always took the <strong>smaller</strong> of the two
+regions as the interior. Therefore, from 3.10 on one can now have
+polygons whose outer ring encloses more than half the Earth&rsquo;s surface.</li><li>The interior rings must be contained in the (interior) of the outer ring.</li><li>Interior rings should follow the above rule for orientation
+(counterclockwise external rings, clockwise internal rings, interior
+always to the left of the line).</li></ul><p>Here is an example with no holes:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>Here is an example with a hole:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.8</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.8</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.2</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=mf>100.8</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h4 id=multipolygon>MultiPolygon <a href="index.html#multipolygon" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>A <a href=https://tools.ietf.org/html/rfc7946#section-3.1.6 target=_blank rel="noopener noreferrer" class=link>GeoJSON MultiPolygon</a>&nbsp;<i class="fas fa-external-link-alt"></i> consists
+of multiple polygons. The &ldquo;coordinates&rdquo; member is an array of
+<em>Polygon</em> coordinate arrays. See <a href="index.html#polygon" class=link>above</a> for the rules and
+the meaning of polygons.</p><p>If the polygons in a MultiPolygon are disjoint, then a point is in the
+interior of the MultiPolygon if and only if it is
+contained in one of the polygons. If some polygon P2 in a MultiPolygon
+is contained in another polygon P1, then P2 is treated like a hole
+in P1 and containment of points is defined with the even-odd-crossings rule
+(see <a href="index.html#polygon" class=link>Polygon</a>).</p><p>Additionally, the following rules apply and are enforced for
+MultiPolygons:</p><ul><li>No two edges in the linear rings of the polygons of a MultiPolygon
+may intersect.</li><li>Polygons in the same MultiPolygon may not share edges, but they may share
+coordinate pairs.</li></ul><p>Example with two polygons, the second one with a hole:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;MultiPolygon&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>102.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>103.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>103.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>102.0</span><span class=p>,</span> <span class=mf>3.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>102.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>],</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>101.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.2</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.8</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.8</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=p>[</span><span class=mf>100.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=geojson-interpretation>GeoJSON interpretation <a href="index.html#geojson-interpretation" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>Note the following technical detail about GeoJSON: The
+<a href=https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1 target=_blank rel="noopener noreferrer" class=link>GeoJSON standard, Section 3.1.1 Position</a>&nbsp;<i class="fas fa-external-link-alt"></i>
+prescribes that lines are <strong>cartesian lines in cylindrical coordinates</strong>
+(longitude/latitude). However, this definition is inconvenient in practice,
+since such lines are not geodesic on the surface of the Earth.
+Furthermore, the best available algorithms for geospatial computations on Earth
+typically use geodesic lines as the boundaries of polygons on Earth.</p><p>Therefore, ArangoDB uses the <strong>syntax of the GeoJSON</strong> standard,
+but then interprets lines (and boundaries of polygons) as
+<strong>geodesic lines (pieces of great circles) on Earth</strong>. This is a
+violation of the GeoJSON standard, but serving a practical purpose.</p><p>Note in particular that this can sometimes lead to unexpected results.
+Consider the following polygon (remember that GeoJSON has
+<strong>longitude before latitude</strong> in coordinate pairs):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span> <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span> <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[[</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>]]</span> <span class=p>}</span>
+</span></span></code></pre></div><p><figure class=image-caption><img alt="GeoJSON Polygon Geodesic" src="../../../../images/geojson-polygon-geodesic.webp"><figcaption></figcaption></figure></p><p>It does not contain the point <code>[10, 47]</code> since the shortest path (geodesic)
+from <code>[4, 47]</code> to <code>[16, 47]</code> lies North relative to the parallel of latitude at
+47 degrees. On the contrary, the polygon does contain the point <code>[10, 54]</code> as it
+lies South of the parallel of latitude at 54 degrees.</p><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text>ArangoDB version before 3.10 did an inconsistent special detection of &ldquo;rectangle&rdquo;
+polygons that later versions from 3.10 onward no longer do, see
+<a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/#legacy-polygons" class=link>Legacy Polygons</a>.</div></div></div></div><p>Furthermore, there is an issue with the interpretation of linear rings
+(boundaries of polygons) according to
+<a href=https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6 target=_blank rel="noopener noreferrer" class=link>GeoJSON standard, Section 3.1.6 Polygon</a>&nbsp;<i class="fas fa-external-link-alt"></i>.
+This section states explicitly:</p><blockquote><p>A linear ring MUST follow the right-hand rule with respect to the
+area it bounds, i.e., exterior rings are counter-clockwise, and
+holes are clockwise.</p></blockquote><p>This rather misleading phrase means that when a linear ring is used as
+the boundary of a polygon, the &ldquo;interior&rdquo; of the polygon lies <strong>to the left</strong>
+of the boundary when one travels on the surface of the Earth and
+along the linear ring. For
+example, the polygon below travels <strong>counter-clockwise</strong> around the point
+<code>[10, 50]</code>, and thus the interior of the polygon contains this point and
+its surroundings, but not, for example, the North Pole and the South
+Pole.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span> <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span> <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[[</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>]]</span> <span class=p>}</span>
+</span></span></code></pre></div><p><figure class=image-caption><img alt="GeoJSON Polygon Counter-clockwise" src="../../../../images/geojson-polygon-ccw.webp"><figcaption></figcaption></figure></p><p>On the other hand, the following polygon travels <strong>clockwise</strong> around the point
+<code>[10, 50]</code>, and thus its &ldquo;interior&rdquo; does not contain <code>[10, 50]</code>, but does
+contain the North Pole and the South Pole:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span> <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span> <span class=nt>&#34;coordinates&#34;</span><span class=p>:</span> <span class=p>[[</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>54</span><span class=p>],</span> <span class=p>[</span><span class=mi>16</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>47</span><span class=p>],</span> <span class=p>[</span><span class=mi>4</span><span class=p>,</span> <span class=mi>54</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>]]</span> <span class=p>}</span>
+</span></span></code></pre></div><p><figure class=image-caption><img alt="GeoJSON Polygon Clockwise" src="../../../../images/geojson-polygon-cw.webp"><figcaption></figcaption></figure></p><p>Remember that the &ldquo;interior&rdquo; is to the left of the given
+linear ring, so this second polygon is basically the complement on Earth
+of the previous polygon!</p><p>ArangoDB versions before 3.10 did not follow this rule and always took the
+&ldquo;smaller&rdquo; connected component of the surface as the &ldquo;interior&rdquo; of the polygon.
+This made it impossible to specify polygons which covered more than half of the
+sphere. From version 3.10 onward, ArangoDB recognizes this correctly.
+See <a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/#legacy-polygons" class=link>Legacy Polygons</a>
+for how to deal with this issue.</p><h2 id=geo-utility-functions>Geo utility functions <a href="index.html#geo-utility-functions" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>The following helper functions <strong>can</strong> use geo indexes, but do not have to in
+all cases. You can use all of these functions in combination with each other,
+and if you have configured a geo index it may be utilized,
+see <a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>Geo Indexing</a>.</p><h3 id=distance>DISTANCE() <a href="index.html#distance" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>DISTANCE(latitude1, longitude1, latitude2, longitude2) → distance</code></p><p>Calculate the distance between two arbitrary points in meters (as birds
+would fly). The value is computed using the haversine formula, which is based
+on a spherical Earth model. It&rsquo;s fast to compute and is accurate to around 0.3%,
+which is sufficient for most use cases such as location-aware services.</p><ul><li><strong>latitude1</strong> (number): the latitude of the first point</li><li><strong>longitude1</strong> (number): the longitude of the first point</li><li><strong>latitude2</strong> (number): the latitude of the second point</li><li><strong>longitude2</strong> (number): the longitude of the second point</li><li>returns <strong>distance</strong> (number): the distance between both points in <strong>meters</strong></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=c1>// Distance from Brandenburg Gate (Berlin) to ArangoDB headquarters (Cologne)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nf>DISTANCE</span><span class=p>(</span><span class=mi>5</span><span class=mf>2.5163</span><span class=p>,</span> <span class=mi>1</span><span class=mf>3.3777</span><span class=p>,</span> <span class=mi>5</span><span class=mf>0.9322</span><span class=p>,</span> <span class=mf>6.94</span><span class=p>)</span> <span class=c1>// 476918.89688380965 (~477km)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// Sort a small number of documents based on distance to Central Park (New York)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span> <span class=c1>// e.g. documents returned by a traversal
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>SORT</span> <span class=nf>DISTANCE</span><span class=p>(</span><span class=n>doc</span><span class=p>.</span><span class=n>latitude</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>longitude</span><span class=p>,</span> <span class=mi>4</span><span class=mf>0.78</span><span class=p>,</span> <span class=o>-</span><span class=mi>7</span><span class=mf>3.97</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>doc</span></span></span></code></pre></div><h3 id=geo_contains>GEO_CONTAINS() <a href="index.html#geo_contains" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_CONTAINS(geoJsonA, geoJsonB) → bool</code></p><p>Checks whether the <a href="index.html#geojson" class=link>GeoJSON object</a> <code>geoJsonA</code>
+fully contains <code>geoJsonB</code> (every point in B is also in A). The object <code>geoJsonA</code>
+has to be of type <em>Polygon</em> or <em>MultiPolygon</em>. For other types containment is
+not well-defined because of numerical stability problems.</p><ul><li><strong>geoJsonA</strong> (object): first GeoJSON object</li><li><strong>geoJsonB</strong> (object): second GeoJSON object, or a coordinate array in
+<code>[longitude, latitude]</code> order</li><li>returns <strong>bool</strong> (bool): <code>true</code> if every point in B is also contained in A,
+otherwise <code>false</code></li></ul><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text><p>ArangoDB follows and exposes the same behavior as the underlying
+S2 geometry library. As stated in the S2 documentation:</p><blockquote><p>Point containment is defined such that if the sphere is subdivided
+into faces (loops), every point is contained by exactly one face.
+This implies that linear rings do not necessarily contain their vertices.</p></blockquote><p>As a consequence, a linear ring or polygon does not necessarily contain its
+boundary edges!</p></div></div></div></div><p>You can optimize queries that contain a <code>FILTER</code> expression of the following
+form with an S2-based <a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>geospatial index</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=nf>GEO_CONTAINS</span><span class=p>(</span><span class=n>geoJson</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>geo</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=o>..</span><span class=p>.</span></span></span></code></pre></div><p>In this example, you would create the index for the collection <code>coll</code>, on the
+attribute <code>geo</code>. You need to set the <code>geoJson</code> index option to <code>true</code>.
+The <code>geoJson</code> variable needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute <code>doc.geo</code> is passed as the
+second argument. Passing it as the first argument, like
+<code>FILTER GEO_CONTAINS(doc.geo, geoJson)</code> to test whether <code>doc.geo</code> contains
+<code>geoJson</code>, cannot utilize the index.</p><h3 id=geo_distance>GEO_DISTANCE() <a href="index.html#geo_distance" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance</code></p><p>Return the distance between two GeoJSON objects in meters, measured from the
+<strong>centroid</strong> of each shape. For a list of supported types see the
+<a href="index.html#geojson" class=link>geo index page</a>.</p><ul><li><strong>geoJsonA</strong> (object): first GeoJSON object, or a coordinate array in
+<code>[longitude, latitude]</code> order</li><li><strong>geoJsonB</strong> (object): second GeoJSON object, or a coordinate array in
+<code>[longitude, latitude]</code> order</li><li><strong>ellipsoid</strong> (string, <em>optional</em>): reference ellipsoid to use.
+Supported are <code>"sphere"</code> (default) and <code>"wgs84"</code>.</li><li>returns <strong>distance</strong> (number): the distance between the centroid points of
+the two objects on the reference ellipsoid in <strong>meters</strong></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygon</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>type</span><span class=o>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=n>coordinates</span><span class=o>:</span> <span class=p>[[[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>]]]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>collectionName</span>
+</span></span><span class=line><span class=cl>  <span class=kd>LET</span> <span class=n>distance</span> <span class=o>=</span> <span class=nf>GEO_DISTANCE</span><span class=p>(</span><span class=n>doc</span><span class=p>.</span><span class=n>geometry</span><span class=p>,</span> <span class=n>polygon</span><span class=p>)</span> <span class=c1>// calculates the distance
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>RETURN</span> <span class=n>distance</span></span></span></code></pre></div><p>You can optimize queries that contain a <code>FILTER</code> expression of the following
+form with an S2-based <a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>geospatial index</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=nf>GEO_DISTANCE</span><span class=p>(</span><span class=n>geoJson</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>geo</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=kr>limit</span>
+</span></span><span class=line><span class=cl>  <span class=o>..</span><span class=p>.</span></span></span></code></pre></div><p>In this example, you would create the index for the collection <code>coll</code>, on the
+attribute <code>geo</code>. You need to set the <code>geoJson</code> index option to <code>true</code>.
+<code>geoJson</code> needs to evaluate to a valid GeoJSON object. <code>limit</code> must be a
+distance in meters; it cannot be an expression. An upper bound with <code>&lt;</code>,
+a lower bound with <code>></code> or <code>>=</code>, or both, are equally supported.</p><p>You can also optimize queries that use a <code>SORT</code> condition of the following form
+with a geospatial index:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl>  <span class=kr>SORT</span> <span class=nf>GEO_DISTANCE</span><span class=p>(</span><span class=n>geoJson</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>geo</span><span class=p>)</span></span></span></code></pre></div><p>The index covers returning matches from closest to furthest away, or vice versa.
+You may combine such a <code>SORT</code> with a <code>FILTER</code> expression that utilizes the
+geospatial index, too, via the <a href="index.html#geo_distance" class=link><code>GEO_DISTANCE()</code></a>,
+<a href="index.html#geo_contains" class=link><code>GEO_CONTAINS()</code></a>, and <a href="index.html#geo_intersects" class=link><code>GEO_INTERSECTS()</code></a>
+functions.</p><h3 id=geo_area>GEO_AREA() <a href="index.html#geo_area" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_AREA(geoJson, ellipsoid) → area</code></p><p>Return the area for a <a href="index.html#polygon" class=link>Polygon</a> or <a href="index.html#multipolygon" class=link>MultiPolygon</a>
+on a sphere with the average Earth radius, or an ellipsoid.</p><ul><li><strong>geoJson</strong> (object): a GeoJSON object</li><li><strong>ellipsoid</strong> (string, <em>optional</em>): reference ellipsoid to use.
+Supported are <code>"sphere"</code> (default) and <code>"wgs84"</code>.</li><li>returns <strong>area</strong> (number): the area of the polygon in <strong>square meters</strong></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygon</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>type</span><span class=o>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=n>coordinates</span><span class=o>:</span> <span class=p>[[[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>]]]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_AREA</span><span class=p>(</span><span class=n>polygon</span><span class=p>,</span> <span class=s2>&#34;wgs84&#34;</span><span class=p>)</span></span></span></code></pre></div><h3 id=geo_equals>GEO_EQUALS() <a href="index.html#geo_equals" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_EQUALS(geoJsonA, geoJsonB) → bool</code></p><p>Checks whether two <a href="index.html#geojson" class=link>GeoJSON objects</a> are equal or not.</p><ul><li><strong>geoJsonA</strong> (object): first GeoJSON object.</li><li><strong>geoJsonB</strong> (object): second GeoJSON object.</li><li>returns <strong>bool</strong> (bool): <code>true</code> if they are equal, otherwise <code>false</code>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygonA</span> <span class=o>=</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygonB</span> <span class=o>=</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_EQUALS</span><span class=p>(</span><span class=n>polygonA</span><span class=p>,</span> <span class=n>polygonB</span><span class=p>)</span> <span class=c1>// true
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygonA</span> <span class=o>=</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.1</span><span class=p>,</span> <span class=mi>2</span><span class=mf>4.0</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.1</span><span class=p>,</span> <span class=mi>2</span><span class=mf>4.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>LET</span> <span class=n>polygonB</span> <span class=o>=</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>6.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.2</span><span class=p>,</span> <span class=mi>2</span><span class=mf>7.1</span><span class=p>],</span> <span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=mf>1.5</span><span class=p>,</span> <span class=mi>2</span><span class=mf>3.5</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_EQUALS</span><span class=p>(</span><span class=n>polygonA</span><span class=p>,</span> <span class=n>polygonB</span><span class=p>)</span> <span class=c1>// false
+</span></span></span></code></pre></div><h3 id=geo_intersects>GEO_INTERSECTS() <a href="index.html#geo_intersects" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_INTERSECTS(geoJsonA, geoJsonB) → bool</code></p><p>Checks whether the <a href="index.html#geojson" class=link>GeoJSON object</a> <code>geoJsonA</code>
+intersects with <code>geoJsonB</code> (i.e. at least one point in B is also in A or vice-versa).</p><ul><li><strong>geoJsonA</strong> (object): first GeoJSON object</li><li><strong>geoJsonB</strong> (object): second GeoJSON object, or a coordinate array in
+<code>[longitude, latitude]</code> order</li><li>returns <strong>bool</strong> (bool): true if B intersects A, false otherwise</li></ul><p>You can optimize queries that contain a <code>FILTER</code> expression of the following
+form with an S2-based <a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>geospatial index</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=nf>GEO_INTERSECTS</span><span class=p>(</span><span class=n>geoJson</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>geo</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=o>..</span><span class=p>.</span></span></span></code></pre></div><p>In this example, you would create the index for the collection <code>coll</code>, on the
+attribute <code>geo</code>. You need to set the <code>geoJson</code> index option to <code>true</code>.
+<code>geoJson</code> needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute <code>doc.geo</code> is passed as the
+second argument. Passing it as the first argument, like
+<code>FILTER GEO_INTERSECTS(doc.geo, geoJson)</code> to test whether <code>doc.geo</code> intersects
+<code>geoJson</code>, cannot utilize the index.</p><h3 id=geo_in_range>GEO_IN_RANGE() <a href="index.html#geo_in_range" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><small>Introduced in: v3.8.0</small></p><p><code>GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool</code></p><p>Checks whether the distance between two <a href="index.html#geojson" class=link>GeoJSON objects</a>
+lies within a given interval. The distance is measured from the <strong>centroid</strong> of
+each shape.</p><ul><li><strong>geoJsonA</strong> (object|array): first GeoJSON object, or a coordinate array
+in <code>[longitude, latitude]</code> order</li><li><strong>geoJsonB</strong> (object|array): second GeoJSON object, or a coordinate array
+in <code>[longitude, latitude]</code> order</li><li><strong>low</strong> (number): minimum value of the desired range</li><li><strong>high</strong> (number): maximum value of the desired range</li><li><strong>includeLow</strong> (bool, optional): whether the minimum value shall be included
+in the range (left-closed interval) or not (left-open interval). The default
+value is <code>true</code></li><li><strong>includeHigh</strong> (bool): whether the maximum value shall be included in the
+range (right-closed interval) or not (right-open interval). The default value
+is <code>true</code></li><li>returns <strong>bool</strong> (bool): whether the evaluated distance lies within the range</li></ul><h3 id=is_in_polygon>IS_IN_POLYGON() <a href="index.html#is_in_polygon" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Determine whether a point is inside a polygon.</p><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text>The <code>IS_IN_POLYGON()</code> AQL function is <strong>deprecated</strong> as of ArangoDB 3.4.0 in
+favor of the new <a href="index.html#geo_contains" class=link><code>GEO_CONTAINS()</code> AQL function</a>, which works with
+<a href=https://tools.ietf.org/html/rfc7946 target=_blank rel="noopener noreferrer" class=link>GeoJSON</a>&nbsp;<i class="fas fa-external-link-alt"></i> Polygons and MultiPolygons.</div></div></div></div><p><code>IS_IN_POLYGON(polygon, latitude, longitude) → bool</code></p><ul><li><strong>polygon</strong> (array): an array of arrays with 2 elements each, representing the
+points of the polygon in the format <code>[latitude, longitude]</code></li><li><strong>latitude</strong> (number): the latitude of the point to search</li><li><strong>longitude</strong> (number): the longitude of the point to search</li><li>returns <strong>bool</strong> (bool): <code>true</code> if the point (<code>[latitude, longitude]</code>) is
+inside the <code>polygon</code> or <code>false</code> if it&rsquo;s not. The result is undefined (can be
+<code>true</code> or <code>false</code>) if the specified point is exactly on a boundary of the
+polygon.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=c1>// checks if the point (latitude 4, longitude 7) is contained inside the polygon
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nf>IS_IN_POLYGON</span><span class=p>(</span> <span class=p>[</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>10</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>10</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>0</span> <span class=p>]</span> <span class=p>],</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>7</span> <span class=p>)</span></span></span></code></pre></div><hr><p><code>IS_IN_POLYGON(polygon, coord, useLonLat) → bool</code></p><p>The 2nd parameter can alternatively be specified as an array with two values.</p><p>By default, each array element in <code>polygon</code> is expected to be in the format
+<code>[latitude, longitude]</code>. This can be changed by setting the 3rd parameter to <code>true</code> to
+interpret the points as <code>[longitude, latitude]</code>. <code>coord</code> is then also interpreted in
+the same way.</p><ul><li><strong>polygon</strong> (array): an array of arrays with 2 elements each, representing the
+points of the polygon</li><li><strong>coord</strong> (array): the point to search as a numeric array with two elements</li><li><strong>useLonLat</strong> (bool, <em>optional</em>): if set to <code>true</code>, the coordinates in
+<code>polygon</code> and the coordinate pair <code>coord</code> are interpreted as
+<code>[longitude, latitude]</code> (like in GeoJSON). The default is <code>false</code> and the
+format <code>[latitude, longitude]</code> is expected.</li><li>returns <strong>bool</strong> (bool): <code>true</code> if the point <code>coord</code> is inside the <code>polygon</code>
+or <code>false</code> if it&rsquo;s not. The result is undefined (can be <code>true</code> or <code>false</code>) if
+the specified point is exactly on a boundary of the polygon.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=c1>// checks if the point (lat 4, lon 7) is contained inside the polygon
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nf>IS_IN_POLYGON</span><span class=p>(</span> <span class=p>[</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>10</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>10</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>0</span> <span class=p>]</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>7</span> <span class=p>]</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// checks if the point (lat 4, lon 7) is contained inside the polygon
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nf>IS_IN_POLYGON</span><span class=p>(</span> <span class=p>[</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>0</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>10</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>10</span> <span class=p>]</span> <span class=p>],</span> <span class=p>[</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>4</span> <span class=p>],</span> <span class=kc>true</span> <span class=p>)</span></span></span></code></pre></div><h2 id=geojson-constructors>GeoJSON Constructors <a href="index.html#geojson-constructors" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>The following helper functions are available to easily create valid GeoJSON
+output. In all cases you can write equivalent JSON yourself, but these functions
+will help you to make all your AQL queries shorter and easier to read.</p><h3 id=geo_linestring>GEO_LINESTRING() <a href="index.html#geo_linestring" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_LINESTRING(points) → geoJson</code></p><p>Construct a GeoJSON LineString.
+Needs at least two longitude/latitude pairs.</p><ul><li><strong>points</strong> (array): an array of <code>[longitude, latitude]</code> pairs</li><li>returns <strong>geoJson</strong> (object): a valid GeoJSON LineString</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_LINESTRING</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mi>35</span><span class=p>,</span> <span class=mi>10</span><span class=p>],</span> <span class=p>[</span><span class=mi>45</span><span class=p>,</span> <span class=mi>45</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;LineString&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>35</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>10</span> 
+</span></span><span class=line><span class=cl>      <span class=p>],</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>45</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>45</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h3 id=geo_multilinestring>GEO_MULTILINESTRING() <a href="index.html#geo_multilinestring" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_MULTILINESTRING(points) → geoJson</code></p><p>Construct a GeoJSON MultiLineString.
+Needs at least two elements consisting valid LineStrings coordinate arrays.</p><ul><li><strong>points</strong> (array): array of LineStrings</li><li>returns <strong>geoJson</strong> (object): a valid GeoJSON MultiLineString</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_MULTILINESTRING</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=mi>10</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span> <span class=p>[</span><span class=mi>10</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=mi>10</span><span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>],</span> <span class=p>[</span><span class=mi>10</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>2.3</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;MultiLineString&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>100</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>101</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>],</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>102</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>2</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>101</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mf>2.3</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h3 id=geo_multipoint>GEO_MULTIPOINT() <a href="index.html#geo_multipoint" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_MULTIPOINT(points) → geoJson</code></p><p>Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.</p><ul><li><strong>points</strong> (array): an array of <code>[longitude, latitude]</code> pairs</li><li>returns <strong>geoJson</strong> (object): a valid GeoJSON Point</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_MULTIPOINT</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mi>35</span><span class=p>,</span> <span class=mi>10</span><span class=p>],</span> <span class=p>[</span><span class=mi>45</span><span class=p>,</span> <span class=mi>45</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;MultiPoint&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>35</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>10</span> 
+</span></span><span class=line><span class=cl>      <span class=p>],</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>45</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>        <span class=mi>45</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h3 id=geo_point>GEO_POINT() <a href="index.html#geo_point" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_POINT(longitude, latitude) → geoJson</code></p><p>Construct a valid GeoJSON Point.</p><ul><li><strong>longitude</strong> (number): the longitude portion of the point</li><li><strong>latitude</strong> (number): the latitude portion of the point</li><li>returns <strong>geoJson</strong> (object): a GeoJSON Point</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_POINT</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>)</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;Point&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=mi>1</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=mi>2</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h3 id=geo_polygon>GEO_POLYGON() <a href="index.html#geo_polygon" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_POLYGON(points) → geoJson</code></p><p>Construct a GeoJSON Polygon. Needs at least one array representing
+a linear ring. Each linear ring consists of an array with at least four
+longitude/latitude pairs. The first linear ring must be the outermost, while
+any subsequent linear ring will be interpreted as holes.</p><p>For details about the rules, see <a href="index.html#polygon" class=link>GeoJSON polygons</a>.</p><ul><li><strong>points</strong> (array): an array of (arrays of) <code>[longitude, latitude]</code> pairs</li><li>returns <strong>geoJson</strong> (object|null): a valid GeoJSON Polygon</li></ul><p>A validation step is performed using the S2 geometry library. If the
+validation is not successful, an AQL warning is issued and <code>null</code> is
+returned.</p><p>Simple Polygon:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span> <span class=p>[</span><span class=mf>7.5</span><span class=p>,</span> <span class=mf>2.5</span><span class=p>],</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>5.0</span><span class=p>],</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mf>7.5</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mf>2.5</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>5</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>0</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Advanced Polygon with a hole inside:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=mi>35</span><span class=p>,</span> <span class=mi>10</span><span class=p>],</span> <span class=p>[</span><span class=mi>45</span><span class=p>,</span> <span class=mi>45</span><span class=p>],</span> <span class=p>[</span><span class=mi>15</span><span class=p>,</span> <span class=mi>40</span><span class=p>],</span> <span class=p>[</span><span class=mi>10</span><span class=p>,</span> <span class=mi>20</span><span class=p>],</span> <span class=p>[</span><span class=mi>35</span><span class=p>,</span> <span class=mi>10</span><span class=p>]],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>30</span><span class=p>],</span> <span class=p>[</span><span class=mi>30</span><span class=p>,</span> <span class=mi>20</span><span class=p>],</span> <span class=p>[</span><span class=mi>35</span><span class=p>,</span> <span class=mi>35</span><span class=p>],</span> <span class=p>[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>30</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;Polygon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>35</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>10</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>45</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>45</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>15</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>40</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>10</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>20</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>35</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>10</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>],</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>30</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>30</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>20</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>35</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>35</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>          <span class=mi>30</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h3 id=geo_multipolygon>GEO_MULTIPOLYGON() <a href="index.html#geo_multipolygon" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p><code>GEO_MULTIPOLYGON(polygons) → geoJson</code></p><p>Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
+See <a href="index.html#geo_polygon" class=link><code>GEO_POLYGON()</code></a> and <a href="index.html#multipolygon" class=link>GeoJSON MultiPolygon</a>
+for the rules of Polygon and MultiPolygon construction.</p><ul><li><strong>polygons</strong> (array): an array of arrays of arrays of <code>[longitude, latitude]</code> pairs</li><li>returns <strong>geoJson</strong> (object|null): a valid GeoJSON MultiPolygon</li></ul><p>A validation step is performed using the S2 geometry library, if the
+validation is not successful, an AQL warning is issued and <code>null</code> is
+returned.</p><p>MultiPolygon comprised of a simple Polygon and a Polygon with hole:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>RETURN</span> <span class=nf>GEO_MULTIPOLYGON</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>[[</span><span class=mi>40</span><span class=p>,</span> <span class=mi>40</span><span class=p>],</span> <span class=p>[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>45</span><span class=p>],</span> <span class=p>[</span><span class=mi>45</span><span class=p>,</span> <span class=mi>30</span><span class=p>],</span> <span class=p>[</span><span class=mi>40</span><span class=p>,</span> <span class=mi>40</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>[[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>35</span><span class=p>],</span> <span class=p>[</span><span class=mi>10</span><span class=p>,</span> <span class=mi>30</span><span class=p>],</span> <span class=p>[</span><span class=mi>10</span><span class=p>,</span> <span class=mi>10</span><span class=p>],</span> <span class=p>[</span><span class=mi>30</span><span class=p>,</span> <span class=mi>5</span><span class=p>],</span> <span class=p>[</span><span class=mi>45</span><span class=p>,</span> <span class=mi>20</span><span class=p>],</span> <span class=p>[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>35</span><span class=p>]],</span>
+</span></span><span class=line><span class=cl>        <span class=p>[[</span><span class=mi>30</span><span class=p>,</span> <span class=mi>20</span><span class=p>],</span> <span class=p>[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>15</span><span class=p>],</span> <span class=p>[</span><span class=mi>20</span><span class=p>,</span> <span class=mi>25</span><span class=p>],</span> <span class=p>[</span><span class=mi>30</span><span class=p>,</span> <span class=mi>20</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>])</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;MultiPolygon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;coordinates&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>40</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>40</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>45</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>45</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>30</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>40</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>40</span> 
+</span></span><span class=line><span class=cl>          <span class=p>]</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>],</span> 
+</span></span><span class=line><span class=cl>      <span class=p>[</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>35</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>10</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>30</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>10</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>10</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>30</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>5</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>45</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>35</span> 
+</span></span><span class=line><span class=cl>          <span class=p>]</span> 
+</span></span><span class=line><span class=cl>        <span class=p>],</span> 
+</span></span><span class=line><span class=cl>        <span class=p>[</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>30</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>15</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>25</span> 
+</span></span><span class=line><span class=cl>          <span class=p>],</span> 
+</span></span><span class=line><span class=cl>          <span class=p>[</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>30</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>            <span class=mi>20</span> 
+</span></span><span class=line><span class=cl>          <span class=p>]</span> 
+</span></span><span class=line><span class=cl>        <span class=p>]</span> 
+</span></span><span class=line><span class=cl>      <span class=p>]</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h2 id=geo-index-functions>Geo Index Functions <a href="index.html#geo-index-functions" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text>The AQL functions <code>NEAR()</code>, <code>WITHIN()</code> and <code>WITHIN_RECTANGLE()</code> are
+deprecated starting from version 3.4.0.
+Please use the <a href="index.html#geo-utility-functions" class=link>Geo utility functions</a> instead.</div></div></div></div><p>AQL offers the following functions to filter data based on
+<a href="https://docs.arangodb.com/3.11/index-and-search/indexing/working-with-indexes/geo-spatial-indexes/" class=link>geo indexes</a>. These functions require the collection
+to have at least one geo index. If no geo index can be found, calling this
+function will fail with an error at runtime. There is no error when explaining
+the query however.</p><h3 id=near>NEAR() <a href="index.html#near" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text><p><code>NEAR()</code> is a deprecated AQL function from version 3.4.0 on.
+Use <a href="index.html#distance" class=link><code>DISTANCE()</code></a> in a query like this instead:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kr>SORT</span> <span class=nf>DISTANCE</span><span class=p>(</span><span class=n>doc</span><span class=p>.</span><span class=n>latitude</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>longitude</span><span class=p>,</span> <span class=n>paramLatitude</span><span class=p>,</span> <span class=n>paramLongitude</span><span class=p>)</span> <span class=kr>ASC</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>doc</span></span></span></code></pre></div><p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+optimizer will recognize it and accelerate the query.</p></div></div></div></div><p><code>NEAR(coll, latitude, longitude, limit, distanceName) → docArray</code></p><p>Return at most <em>limit</em> documents from collection <em>coll</em> that are near
+<em>latitude</em> and <em>longitude</em>. The result contains at most <em>limit</em> documents,
+returned sorted by distance, with closest distances being returned first.
+Optionally, the distances in meters between the specified coordinate pair
+(<em>latitude</em> and <em>longitude</em>) and the stored coordinate pairs can be returned as
+well. To make use of that, the desired attribute name for the distance result
+has to be specified in the <em>distanceName</em> argument. The result documents will
+contain the distance value in an attribute of that name.</p><ul><li><strong>coll</strong> (collection): a collection</li><li><strong>latitude</strong> (number): the latitude of the point to search</li><li><strong>longitude</strong> (number): the longitude of the point to search</li><li><strong>limit</strong> (number, <em>optional</em>): cap the result to at most this number of
+documents. The default is 100. If more documents than <em>limit</em> are found,
+it is undefined which ones will be returned.</li><li><strong>distanceName</strong> (string, <em>optional</em>): include the distance (in meters)
+between the reference point and the stored point in the result, using the
+attribute name <em>distanceName</em></li><li>returns <strong>docArray</strong> (array): an array of documents, sorted by distance
+(shortest distance first)</li></ul><h3 id=within>WITHIN() <a href="index.html#within" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text><p><code>WITHIN()</code> is a deprecated AQL function from version 3.4.0 on.
+Use <a href="index.html#distance" class=link><code>DISTANCE()</code></a> in a query like this instead:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kd>LET</span> <span class=n>d</span> <span class=o>=</span> <span class=nf>DISTANCE</span><span class=p>(</span><span class=n>doc</span><span class=p>.</span><span class=n>latitude</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>longitude</span><span class=p>,</span> <span class=n>paramLatitude</span><span class=p>,</span> <span class=n>paramLongitude</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=n>d</span> <span class=o>&lt;=</span> <span class=n>radius</span>
+</span></span><span class=line><span class=cl>  <span class=kr>SORT</span> <span class=n>d</span> <span class=kr>ASC</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>doc</span></span></span></code></pre></div><p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+optimizer will recognize it and accelerate the query.</p></div></div></div></div><p><code>WITHIN(coll, latitude, longitude, radius, distanceName) → docArray</code></p><p>Return all documents from collection <em>coll</em> that are within a radius of <em>radius</em>
+around the specified coordinate pair (<em>latitude</em> and <em>longitude</em>). The documents
+returned are sorted by distance to the reference point, with the closest
+distances being returned first. Optionally, the distance (in meters) between the
+reference point and the stored point can be returned as well. To make
+use of that, an attribute name for the distance result has to be specified in
+the <em>distanceName</em> argument. The result documents will contain the distance
+value in an attribute of that name.</p><ul><li><strong>coll</strong> (collection): a collection</li><li><strong>latitude</strong> (number): the latitude of the point to search</li><li><strong>longitude</strong> (number): the longitude of the point to search</li><li><strong>radius</strong> (number): radius in meters</li><li><strong>distanceName</strong> (string, <em>optional</em>): include the distance (in meters)
+between the reference point and stored point in the result, using the
+attribute name <em>distanceName</em></li><li>returns <strong>docArray</strong> (array): an array of documents, sorted by distance
+(shortest distance first)</li></ul><h3 id=within_rectangle>WITHIN_RECTANGLE() <a href="index.html#within_rectangle" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text><p><code>WITHIN_RECTANGLE()</code> is a deprecated AQL function from version 3.4.0 on. Use
+<a href="index.html#geo_contains" class=link><code>GEO_CONTAINS()</code></a> and a GeoJSON polygon instead - but note that
+this uses geodesic lines from version 3.10.0 onward
+(see <a href="index.html#geojson-interpretation" class=link>GeoJSON interpretation</a>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kd>LET</span> <span class=n>rect</span> <span class=o>=</span> <span class=nf>GEO_POLYGON</span><span class=p>([</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=n>longitude1</span><span class=p>,</span> <span class=n>latitude1</span><span class=p>],</span> <span class=c1>// bottom-left
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>[</span><span class=n>longitude2</span><span class=p>,</span> <span class=n>latitude1</span><span class=p>],</span> <span class=c1>// bottom-right
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>[</span><span class=n>longitude2</span><span class=p>,</span> <span class=n>latitude2</span><span class=p>],</span> <span class=c1>// top-right
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>[</span><span class=n>longitude1</span><span class=p>,</span> <span class=n>latitude2</span><span class=p>],</span> <span class=c1>// top-left
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>[</span><span class=n>longitude1</span><span class=p>,</span> <span class=n>latitude1</span><span class=p>],</span> <span class=c1>// bottom-left
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>]</span> <span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>doc</span> <span class=kr>IN</span> <span class=n>coll</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=nf>GEO_CONTAINS</span><span class=p>(</span><span class=n>rect</span><span class=p>,</span> <span class=p>[</span><span class=n>doc</span><span class=p>.</span><span class=n>longitude</span><span class=p>,</span> <span class=n>doc</span><span class=p>.</span><span class=n>latitude</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>doc</span></span></span></code></pre></div><p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+optimizer will recognize it and accelerate the query.</p></div></div></div></div><p><code>WITHIN_RECTANGLE(coll, latitude1, longitude1, latitude2, longitude2) → docArray</code></p><p>Return all documents from collection <em>coll</em> that are positioned inside the
+bounding rectangle with the points (<em>latitude1</em>, <em>longitude1</em>) and (<em>latitude2</em>,
+<em>longitude2</em>). There is no guaranteed order in which the documents are returned.</p><ul><li><strong>coll</strong> (collection): a collection</li><li><strong>latitude1</strong> (number): the latitude of the bottom-left point to search</li><li><strong>longitude1</strong> (number): the longitude of the bottom-left point to search</li><li><strong>latitude2</strong> (number): the latitude of the top-right point to search</li><li><strong>longitude2</strong> (number): the longitude of the top-right point to search</li><li>returns <strong>docArray</strong> (array): an array of documents, in random order</li></ul><nav class=pagination><span class=prev><a class="nav nav-prev link" href="https://docs.arangodb.com/3.11/aql/functions/fulltext/"><i class="fas fa-chevron-left fa-fw"></i><p>Fulltext</p></a></span><span class=next><a class="nav nav-next link" href="../miscellaneous/index.html"><p>Miscellaneous</p><i class="fas fa-chevron-right fa-fw"></i></a></span></nav></article><div class=toc-container><a class=edit-page aria-label href=https://github.com/arangodb/docs-hugo/edit/main/site/content/3.11/aql/functions/geo.md target=_blank><i class="fab fa-fw fa-github edit-page-icon"></i></a><div class=toc><div class=toc-content><div class=toc-header><p>On this page</p></div><nav id=TableOfContents><div class=level-2><a href="index.html#geo-spatial-data-representations">Geo-spatial data representations</a></div><div class=level-3><a href="index.html#coordinate-pairs">Coordinate pairs</a></div><div class=level-3><a href="index.html#geojson">GeoJSON</a></div><div class=level-4><a href="index.html#point">Point</a></div><div class=level-4><a href="index.html#multipoint">MultiPoint</a></div><div class=level-4><a href="index.html#linestring">LineString</a></div><div class=level-4><a href="index.html#multilinestring">MultiLineString</a></div><div class=level-4><a href="index.html#polygon">Polygon</a></div><div class=level-4><a href="index.html#multipolygon">MultiPolygon</a></div><div class=level-2><a href="index.html#geojson-interpretation">GeoJSON interpretation</a></div><div class=level-2><a href="index.html#geo-utility-functions">Geo utility functions</a></div><div class=level-3><a href="index.html#distance">DISTANCE()</a></div><div class=level-3><a href="index.html#geo_contains">GEO_CONTAINS()</a></div><div class=level-3><a href="index.html#geo_distance">GEO_DISTANCE()</a></div><div class=level-3><a href="index.html#geo_area">GEO_AREA()</a></div><div class=level-3><a href="index.html#geo_equals">GEO_EQUALS()</a></div><div class=level-3><a href="index.html#geo_intersects">GEO_INTERSECTS()</a></div><div class=level-3><a href="index.html#geo_in_range">GEO_IN_RANGE()</a></div><div class=level-3><a href="index.html#is_in_polygon">IS_IN_POLYGON()</a></div><div class=level-2><a href="index.html#geojson-constructors">GeoJSON Constructors</a></div><div class=level-3><a href="index.html#geo_linestring">GEO_LINESTRING()</a></div><div class=level-3><a href="index.html#geo_multilinestring">GEO_MULTILINESTRING()</a></div><div class=level-3><a href="index.html#geo_multipoint">GEO_MULTIPOINT()</a></div><div class=level-3><a href="index.html#geo_point">GEO_POINT()</a></div><div class=level-3><a href="index.html#geo_polygon">GEO_POLYGON()</a></div><div class=level-3><a href="index.html#geo_multipolygon">GEO_MULTIPOLYGON()</a></div><div class=level-2><a href="index.html#geo-index-functions">Geo Index Functions</a></div><div class=level-3><a href="index.html#near">NEAR()</a></div><div class=level-3><a href="index.html#within">WITHIN()</a></div><div class=level-3><a href="index.html#within_rectangle">WITHIN_RECTANGLE()</a></div></nav></div></div></div></div></div></section></section></div><button class="back-to-top hidden" onclick=goToTop(event) href=#><i class="fa fa-arrow-up"></i></button><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@docsearch/css@3>
+<script src=https://cdn.jsdelivr.net/npm/@docsearch/js@3></script>
+<script type=text/javascript>window.setupDocSearch=function(e){if(!window.docsearch)return;docsearch({appId:"OK3ZBQ5982",apiKey:"500c85ccecb335d507fe4449aed12e1d",indexName:"arangodbdocs",insights:!0,container:"#searchbox",debug:!1,maxResultsPerGroup:10,searchParameters:{facetFilters:[`version:${e}`]}})}</script></body></html>

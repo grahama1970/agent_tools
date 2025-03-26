@@ -1,0 +1,517 @@
+<!doctype html><html lang=en><head><link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel=stylesheet><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel=stylesheet><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet></noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet></noscript><link href="../../../../css/nucleus.css" rel=stylesheet><link href="../../../../css/fonts.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fonts.css" rel=stylesheet></noscript><link href="../../../../css/theme.css" rel=stylesheet><link href="../../../../css/theme-relearn-light.css" rel=stylesheet id=variant-style><link href="../../../../css/print.css" rel=stylesheet media=print><script src="../../../../js/variant.js@1741627052"></script>
+<script>var root_url="/",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="",window.T_Copied_to_clipboard="",window.T_Copy_link_to_clipboard="",window.T_Link_copied_to_clipboard="",baseUriFull="https://docs.arangodb.com/",window.variants&&variants.init(["relearn-light"])</script><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.119.0"><meta itemprop=description property="description" content="Find all paths of shortest length between a start and target vertex"><meta property="og:url" content="https://docs.arangodb.com/3.11/aql/graphs/all-shortest-paths/"><meta property="og:title" content="All Shortest Paths in AQL"><meta property="og:type" content="website"><meta property="og:description" content="Find all paths of shortest length between a start and target vertex"><meta name=docsearch:version content="3.11"><title>All Shortest Paths in AQL | ArangoDB Documentation</title><link href="../../../../images/favicon.png" rel=icon type=image/png><script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/clipboard.min.js@1741627052" defer></script>
+<script src="../../../../js/featherlight.min.js@1741627052" defer></script>
+<script>var versions=[{alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"},{alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"},{alias:"3.11",deprecated:!1,name:"3.11",version:"3.11.13"},{alias:"3.10",deprecated:!0,name:"3.10",version:"3.10.14"}]</script><script>var develVersion={alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"}</script><script>var stableVersion={alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"}</script><script src="../../../../js/codeblocks.js@1741627052" defer></script>
+<script src="../../../../js/theme.js@1741627052" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PSX8LKTTJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-6PSX8LKTTJ")</script><script>!function(e,t,n,s,o,i){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],o=t.createElement(n),o.async=!0,o.src="//static.ads-twitter.com/uwt.js",i=t.getElementsByTagName(n)[0],i.parentNode.insertBefore(o,i))}(window,document,"script"),twq("init","nz793"),twq("track","PageView")</script><script>_linkedin_partner_id="499017",window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[],window._linkedin_data_partner_ids.push(_linkedin_partner_id)</script><script>(function(){var t=document.getElementsByTagName("script")[0],e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://snap.licdn.com/li.lms-analytics/insight.min.js",t.parentNode.insertBefore(e,t)})()</script></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-6PSX8LKTTJ" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><noscript><img height=1 width=1 style=display:none alt src="https://dc.ads.linkedin.com/collect/?pid=499017&fmt=gif"></noscript><noscript>You need to enable JavaScript to use the ArangoDB documentation.</noscript><div id=page-wrapper class=page_content_splash style=height:auto;opacity:0><section id=page-main><section class=page-container id=page-container><header id=header style="transition:.5s padding ease-out,.15s" class="zn_header_white header-splash-new nav-down header-splash-wrap header1"><div class=header-block-left><div class=mobile-menu-toggle><button id=sidebar-toggle-navigation onclick=showSidebarHandler()><svg width="1.33em" height="1.33em" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div><div class=version-logo-container><div class="logo-container hasinfocard_img arangodb-logo-large"><div class=logo><a href=https://www.arangodb.com/><img src="../../../../images/logo_main.png" alt=ArangoDB title></a></div></div><div class=arangodb-logo-small><a href=https://arangodb.com/><img alt="ArangoDB Logo" src="../../../../images/ArangoDB_Logo_White_small.png"></a></div></div></div><div class=container-right style=display:hidden></div><div class=search-and-version-container><a href="index.html#" class="home-link is-current" aria-label="Go to home page" onclick=goToHomepage(event)></a><div id=searchbox></div><script type=text/javascript>const SCRIPT_SRC="https://unpkg.com/@inkeep/widgets-embed@0.2.290/dist/embed.js";function loadAndInitializeInkeep(){if(document.querySelector(`script[src="${SCRIPT_SRC}]"`))return;const e=document.createElement("script");e.type="module",e.src=SCRIPT_SRC,e.onload=initializeInkeep,document.head.appendChild(e)}function initializeInkeep(){const e=Inkeep({integrationId:"clo4lx6jk0000s601cp21x2ok",apiKey:"13b4e56966a76e86c6ff359cd795ee6a0412f751d75d6383",organizationId:"org_HGBkkzGAa4KeGJGh",organizationDisplayName:"ArangoDB",primaryBrandColor:"#80a54d",stringReplacementRules:[{matchingRule:{ruleType:"Substring",string:"Arangograph"},replaceWith:"ArangoGraph"},{matchingRule:{ruleType:"Substring",string:"Aql"},replaceWith:"AQL"},{matchingRule:{ruleType:"Substring",string:"Arangodb"},replaceWith:"ArangoDB"}],customCardSettings:[{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"docs.arangodb.com"}},searchTabLabel:"Official Docs"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"developer.arangodb.com"}},searchTabLabel:"Developer Hub"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"arangodb.com"}},searchTabLabel:"Home"}]}),t=e.embed({componentType:"ChatButton",properties:{stylesheetUrls:["/css/fonts.css"],fixedPositionXOffset:"52px",baseSettings:{theme:{primaryColors:{textColorOnPrimary:"white"},tokens:{fonts:{body:"'Inter'",heading:"'Inter'"},zIndex:{overlay:1e4,modal:11e3,popover:12e3,skipLink:13e3,toast:14e3,tooltip:15e3}}}},aiChatSettings:{botAvatarSrcUrl:"/images/ArangoDB_Logo_White_small.png",quickQuestions:["What can you do with AQL that is not feasible with SQL?","How do I search for objects within arrays?","Where can I deploy my ArangoDB instance?"],getHelpCallToActions:[{icon:{builtIn:"FaSlack"},name:"Slack",url:"https://arangodb-community.slack.com/"}]},searchSettings:{tabSettings:{isAllTabEnabled:!1,alwaysDisplayedTabs:["Official Docs","Developer Hub","Home"]}}}})}loadAndInitializeInkeep()</script><div class=version-selector><select id=arangodb-version onchange=changeVersion()><option value=3.13>3.13</option><option value=3.12>3.12</option><option value=3.11>3.11</option><option value=3.10>3.10</option><option value=3.9>3.9</option><option value=3.8>3.8</option></select></div></div></header><iframe src="https://docs.arangodb.com/nav.html" title=description id=menu-iframe class="menu-iframe active" style=opacity:0></iframe><div class=container-main><div class=row-main><nav id=breadcrumbs><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><meta itemprop=itemListOrder content="Descending"><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="3.11"><a itemprop=item class=link href="https://docs.arangodb.com/3.11/"><span itemprop=name class=breadcrumb-entry>3.11.13</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="AQL"><a itemprop=item class=link href="../../index.html"><span itemprop=name class=breadcrumb-entry>AQL</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Graphs"><a itemprop=item class=link href="../index.html"><span itemprop=name class=breadcrumb-entry>Graphs</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="All Shortest Paths"><a itemprop=item class=link href="index.html"><span itemprop=name class=breadcrumb-entry>All Shortest Paths</span></a></li></ol></nav><article class=default><hgroup><h1>All Shortest Paths in AQL</h1><p class=lead>Find all paths of shortest length between a start and target vertex</p></hgroup><h2 id=general-query-idea>General query idea <a href="index.html#general-query-idea" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>This type of query finds all paths of shortest length between two given
+documents (<em>startVertex</em> and <em>targetVertex</em>) in your graph.</p><p>Every returned path is a JSON object with two attributes:</p><ul><li>An array containing the <code>vertices</code> on the path.</li><li>An array containing the <code>edges</code> on the path.</li></ul><p><strong>Example</strong></p><p>A visual representation of the example graph:</p><p><figure class=image-caption><img alt="Train Connection Map" src="../../../../images/train_map.png"><figcaption></figcaption></figure></p><p>Each ellipse stands for a train station with the name of the city written inside
+of it. They are the vertices of the graph. Arrows represent train connections
+between cities and are the edges of the graph.</p><p>Assuming that you want to go from <strong>Carlisle</strong> to <strong>London</strong> by train, the
+expected two shortest paths are:</p><ol><li>Carlisle – Birmingham – London</li><li>Carlisle – York – London</li></ol><p>Another path that connects Carlisle and London is
+Carlisle – Glasgow – Edinburgh – York – London, but it is has two more stops and
+is therefore not a path of the shortest length.</p><h2 id=syntax>Syntax <a href="index.html#syntax" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>The syntax for All Shortest Paths queries is similar to the one for
+<a href="../shortest-path/index.html" class=link>Shortest Path</a> and there are also two options to
+either use a named graph or a set of edge collections. It only emits a path
+variable however, whereas <code>SHORTEST_PATH</code> emits a vertex and an edge variable.</p><h3 id=working-with-named-graphs>Working with named graphs <a href="index.html#working-with-named-graphs" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>path</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=kr>ALL_SHORTEST_PATHS</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=kr>GRAPH</span> <span class=n>graphName</span></span></span></code></pre></div><ul><li><code>FOR</code>: Emits the variable <strong>path</strong> which contains one shortest path as an
+object, with the <code>vertices</code> and <code>edges</code> of the path.</li><li><code>IN</code> <code>OUTBOUND|INBOUND|ANY</code>: Defines in which direction
+edges are followed (outgoing, incoming, or both)</li><li><code>ALL_SHORTEST_PATHS</code>: The keyword to compute All Shortest Paths</li><li><strong>startVertex</strong> <code>TO</code> <strong>targetVertex</strong> (both string|object): The two vertices between
+which the paths will be computed. This can be specified in the form of
+a ID string or in the form of a document with the attribute <code>_id</code>. All other
+values result in a warning and an empty result. If one of the specified
+documents does not exist, the result is empty as well and there is no warning.</li><li><code>GRAPH</code> <strong>graphName</strong> (string): The name identifying the named graph. Its vertex and
+edge collections will be looked up.</li></ul><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text>All Shortest Paths traversals do not support edge weights.</div></div></div></div><h3 id=working-with-collection-sets>Working with collection sets <a href="index.html#working-with-collection-sets" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>path</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=kr>ALL_SHORTEST_PATHS</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edgeCollection1</span><span class=p>,</span> <span class=o>..</span><span class=p>.,</span> <span class=n>edgeCollectionN</span></span></span></code></pre></div><p>Instead of <code>GRAPH graphName</code> you can specify a list of edge collections.
+The involved vertex collections are determined by the edges of the given
+edge collections.</p><h3 id=traversing-in-mixed-directions>Traversing in mixed directions <a href="index.html#traversing-in-mixed-directions" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>For All Shortest Paths with a list of edge collections, you can optionally specify the
+direction for some of the edge collections. Say, for example, you have three edge
+collections <em>edges1</em>, <em>edges2</em> and <em>edges3</em>, where in <em>edges2</em> the direction
+has no relevance, but in <em>edges1</em> and <em>edges3</em> the direction should be taken into
+account. In this case you can use <code>OUTBOUND</code> as a general search direction and <code>ANY</code>
+specifically for <em>edges2</em> as follows:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>path</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>ALL_SHORTEST_PATHS</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span> <span class=kp>TO</span> <span class=n>targetVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edges1</span><span class=p>,</span> <span class=kr>ANY</span> <span class=n>edges2</span><span class=p>,</span> <span class=n>edges3</span></span></span></code></pre></div><p>All collections in the list that do not specify their own direction will use the
+direction defined after <code>IN</code> (here: <code>OUTBOUND</code>). This allows using a different
+direction for each collection in your path search.</p><h2 id=examples>Examples <a href="index.html#examples" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>Load an example graph to get a named graph that reflects some possible
+train connections in Europe and North America:</p><p><figure class=image-caption><img alt="Train Connection Map" src="../../../../images/train_map.png"><figcaption></figcaption></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>graph</span> <span class=o>=</span> <span class=nx>examples</span><span class=p>.</span><span class=nx>loadGraph</span><span class=p>(</span><span class=s2>&#34;kShortestPathsGraph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>places</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>connections</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Inverness&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Inverness&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW2--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Inverness&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Aberdeen&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Leuchars&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;StAndrews&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/StAndrews&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;StAndrews&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Edinburgh&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Glasgow&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XW6--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;York&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX----&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Carlisle&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Birmingham&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Brussels&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Cologne&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Toronto&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Toronto&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Toronto&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XX---E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Winnipeg&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Saskatoon&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Edmonton&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Jasper&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;Vancouver&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Vancouver&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;Vancouver&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62740&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62740&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Inverness&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>3</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62742&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62742&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Inverness&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>2.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62744&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62744&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXC--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>1.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62746&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62746&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Aberdeen&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62748&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62748&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>1.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62750&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62750&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>3</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62752&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62752&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62754&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62754&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62756&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62756&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>3.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62758&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62758&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXG--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>4</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62760&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62760&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62762&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62762&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62764&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62764&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>2.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62766&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62766&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>3.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62768&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62768&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>2</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62770&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62770&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXK--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>1</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62772&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62772&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>1.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62774&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62774&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>2.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62776&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62776&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/StAndrews&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>0.2</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62778&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62778&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/StAndrews&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>0.2</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62780&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62780&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>1.8</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62782&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62782&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>2</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62784&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62784&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXO--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>2.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62786&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62786&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/London&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>3.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62788&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62788&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>2</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62790&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62790&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Brussels&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mf>1.5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62792&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62792&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Toronto&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>36</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62794&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62794&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Toronto&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>35</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62796&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62796&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>12</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62798&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62798&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXS--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62800&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62800&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>12</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62802&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62802&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>17</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62804&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62804&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>6</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62806&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62806&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Edmonton&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>5</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62808&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62808&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Vancouver&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>12</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;62810&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;connections/62810&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Vancouver&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;places/Jasper&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2XXW--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;travelTime&#34;</span> <span class=o>:</span> <span class=mi>13</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Suppose you want to query a route from <strong>Carlisle</strong> to <strong>London</strong>, and
+compare the outputs of <code>SHORTEST_PATH</code>, <code>K_SHORTEST_PATHS</code> and <code>ALL_SHORTEST_PATHS</code>.
+Note that <code>SHORTEST_PATH</code> returns any of the shortest paths, whereas
+<code>ALL_SHORTEST_PATHS</code> returns all of them. <code>K_SHORTEST_PATHS</code> returns the
+shortest paths first but continues with longer paths, until it found all routes
+or reaches the defined limit (the number of paths).</p><p>Using <code>SHORTEST_PATH</code> to get one shortest path:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>SHORTEST_PATH</span> <span class=s1>&#39;places/Carlisle&#39;</span> <span class=kp>TO</span> <span class=s1>&#39;places/London&#39;</span>
+</span></span><span class=line><span class=cl><span class=kr>GRAPH</span> <span class=s1>&#39;kShortestPathsGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>place</span><span class=o>:</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;place&#34;</span> <span class=o>:</span> <span class=s2>&#34;Carlisle&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;place&#34;</span> <span class=o>:</span> <span class=s2>&#34;York&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;place&#34;</span> <span class=o>:</span> <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Using <code>ALL_SHORTEST_PATHS</code> to get both shortest paths:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>p</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>ALL_SHORTEST_PATHS</span> <span class=s1>&#39;places/Carlisle&#39;</span> <span class=kp>TO</span> <span class=s1>&#39;places/London&#39;</span>
+</span></span><span class=line><span class=cl><span class=kr>GRAPH</span> <span class=s1>&#39;kShortestPathsGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>places</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;places&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;places&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Using <code>K_SHORTEST_PATHS</code> without a limit to get all paths in order of
+increasing length:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>p</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>K_SHORTEST_PATHS</span> <span class=s1>&#39;places/Carlisle&#39;</span> <span class=kp>TO</span> <span class=s1>&#39;places/London&#39;</span>
+</span></span><span class=line><span class=cl><span class=kr>GRAPH</span> <span class=s1>&#39;kShortestPathsGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>places</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;places&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;places&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;places&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;London&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>If you ask for routes that don&rsquo;t exist, you get an empty result
+(from <strong>Carlisle</strong> to <strong>Toronto</strong>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>p</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span> <span class=kr>ALL_SHORTEST_PATHS</span> <span class=s1>&#39;places/Carlisle&#39;</span> <span class=kp>TO</span> <span class=s1>&#39;places/Toronto&#39;</span>
+</span></span><span class=line><span class=cl><span class=kr>GRAPH</span> <span class=s1>&#39;kShortestPathsGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>places</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> <span class=p>]</span></span></span></code></pre></div></div></div><br><p>And finally clean up by removing the named graph:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>examples</span><span class=p>.</span><span class=nx>dropGraph</span><span class=p>(</span><span class=s2>&#34;kShortestPathsGraph&#34;</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>Empty</span> <span class=nx>Output</span></span></span></code></pre></div></div></div><br><nav class=pagination><span class=prev><a class="nav nav-prev link" href="../shortest-path/index.html"><i class="fas fa-chevron-left fa-fw"></i><p>Shortest Path</p></a></span><span class=next><a class="nav nav-next link" href="../k-shortest-paths/index.html"><p>k Shortest Paths</p><i class="fas fa-chevron-right fa-fw"></i></a></span></nav></article><div class=toc-container><a class=edit-page aria-label href=https://github.com/arangodb/docs-hugo/edit/main/site/content/3.11/aql/graphs/all-shortest-paths.md target=_blank><i class="fab fa-fw fa-github edit-page-icon"></i></a><div class=toc><div class=toc-content><div class=toc-header><p>On this page</p></div><nav id=TableOfContents><div class=level-2><a href="index.html#general-query-idea">General query idea</a></div><div class=level-2><a href="index.html#syntax">Syntax</a></div><div class=level-3><a href="index.html#working-with-named-graphs">Working with named graphs</a></div><div class=level-3><a href="index.html#working-with-collection-sets">Working with collection sets</a></div><div class=level-3><a href="index.html#traversing-in-mixed-directions">Traversing in mixed directions</a></div><div class=level-2><a href="index.html#examples">Examples</a></div></nav></div></div></div></div></div></section></section></div><button class="back-to-top hidden" onclick=goToTop(event) href=#><i class="fa fa-arrow-up"></i></button><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@docsearch/css@3>
+<script src=https://cdn.jsdelivr.net/npm/@docsearch/js@3></script>
+<script type=text/javascript>window.setupDocSearch=function(e){if(!window.docsearch)return;docsearch({appId:"OK3ZBQ5982",apiKey:"500c85ccecb335d507fe4449aed12e1d",indexName:"arangodbdocs",insights:!0,container:"#searchbox",debug:!1,maxResultsPerGroup:10,searchParameters:{facetFilters:[`version:${e}`]}})}</script></body></html>

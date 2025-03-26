@@ -1,0 +1,15 @@
+2025-03-25 17:51:21,829 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:51:22,459 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:51:25,021 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:51:26,536 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:51:37,613 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:51:38,008 - extraction_example - INFO - Starting extraction from /home/grahama/workspace/experiments/agent_tools/test_repos/python-sample
+2025-03-25 17:51:38,008 - extraction_example - INFO - Scanning repository structure...
+2025-03-25 17:51:37,687 - extraction_example - INFO - Identifying target files...
+2025-03-25 17:51:38,688 - extraction_example - ERROR - Error: Failed to access directory with insufficient permissions
+2025-03-25 17:51:39,011 - extraction_example - INFO - Found 1 similar errors with recovery suggestions
+2025-03-25 17:51:39,011 - extraction_example - INFO -   - Run with elevated permissions or skip restricted directories
+2025-03-25 17:51:39,266 - extraction_example - INFO - Extracting code structures...
+2025-03-25 17:51:41,270 - extraction_example - ERROR - Error: Complex nested class structure could not be parsed
+2025-03-25 17:51:42,172 - extraction_example - INFO - Formatting extraction results...
+2025-03-25 17:51:43,441 - extraction_example - INFO - Extraction completed successfully

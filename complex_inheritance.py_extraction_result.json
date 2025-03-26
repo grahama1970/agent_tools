@@ -1,0 +1,298 @@
+{
+  "file_path": "test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+  "language": "python",
+  "classes": [
+    {
+      "name": "BaseMixin",
+      "line": 17,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 20,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "mixin_method",
+          "line": 25,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "LoggingMixin",
+      "line": 30,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "log",
+          "line": 33,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "SerializableMixin",
+      "line": 38,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "to_dict",
+          "line": 41,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "from_dict",
+          "line": 46,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "BaseModel",
+      "line": 52,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 55,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": [
+        "ABC"
+      ]
+    },
+    {
+      "name": "Repository",
+      "line": 65,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 68,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "add",
+          "line": 72,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "get",
+          "line": 76,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "list_all",
+          "line": 80,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "UserModel",
+      "line": 85,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 92,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "validate",
+          "line": 100,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "deactivate",
+          "line": 104,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": [
+        "BaseModel",
+        "SerializableMixin",
+        "LoggingMixin"
+      ]
+    },
+    {
+      "name": "AdminUser",
+      "line": 110,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 117,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "grant_permission",
+          "line": 123,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": [
+        "UserModel"
+      ]
+    },
+    {
+      "name": "UserRepository",
+      "line": 130,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 137,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "find_by_username",
+          "line": 142,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "find_active_users",
+          "line": 149,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": [
+        "BaseMixin"
+      ]
+    }
+  ],
+  "functions": [],
+  "imports": [
+    {
+      "text": "from abc import ABC, abstractmethod",
+      "line": 7,
+      "column": 0
+    },
+    {
+      "text": "from typing import Dict, List, Optional, TypeVar, Generic, Any",
+      "line": 8,
+      "column": 0
+    }
+  ],
+  "docstring": "\nExample of complex inheritance hierarchies and mixin patterns.\nThis tests the AST extractor's ability to track inheritance relationships.\n"
+}

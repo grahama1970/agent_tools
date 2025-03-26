@@ -1,0 +1,80 @@
+{
+  "results": [
+    {
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py",
+      "language": "python",
+      "classes": [
+        {
+          "name": "OuterClass",
+          "line": 23,
+          "column": 0,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "line": 32,
+              "column": 4,
+              "decorators": [],
+              "parameters": [
+                "self"
+              ],
+              "docstring": null
+            }
+          ],
+          "attributes": [
+            {
+              "name": "class_variable",
+              "line": 30,
+              "column": 4
+            }
+          ],
+          "inner_classes": [
+            {
+              "name": "InnerClass",
+              "line": 50,
+              "column": 4,
+              "docstring": null
+            },
+            {
+              "name": "AnotherInnerClass",
+              "line": 87,
+              "column": 4,
+              "docstring": null
+            }
+          ],
+          "inherits_from": []
+        }
+      ],
+      "functions": [
+        {
+          "name": "debug_method",
+          "line": 12,
+          "column": 0,
+          "decorators": [],
+          "parameters": [
+            "func"
+          ],
+          "docstring": null
+        }
+      ],
+      "imports": [
+        {
+          "text": "import typing",
+          "line": 7,
+          "column": 0
+        },
+        {
+          "text": "from typing import Optional, List, Dict, Any, Callable",
+          "line": 8,
+          "column": 0
+        },
+        {
+          "text": "from functools import wraps",
+          "line": 9,
+          "column": 0
+        }
+      ],
+      "docstring": "\nExample of complex nested class structures with decorators and docstrings.\nThis tests the AST extractor's ability to accurately parse nested structures.\n"
+    }
+  ]
+}

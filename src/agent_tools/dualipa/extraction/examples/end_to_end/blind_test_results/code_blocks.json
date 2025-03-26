@@ -1,0 +1,142 @@
+[
+  {
+    "type": "function",
+    "name": "update_line_chart",
+    "start_line": 98,
+    "end_line": 153,
+    "children": [],
+    "uuid": "00f2f326-4dd0-4262-9add-a624618e48c0",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+    "content": "def update_line_chart(gauge_select):\n    # Create figure with secondary y-axis\n    fig = make_subplots(specs=[[{\"secondary_y\": True}]])\n    # Add traces\n    fig.add_trace(\n        go.Scatter(x=df_load['Date'], y=df_load['load'], # replace with your own data source\n        name=\"Load\"), secondary_y=False,\n    )\n    if 'netio' in gauge_select:\n        fig.add_trace(\n            go.Scatter(x=df_load['Date'], y=df_load['netio'], # replace with your own data source\n                       name=\"NetIO\"), secondary_y=True\n        )\n    # Add figure title\n    fig.update_layout(title_text=\"Load graph\")\n    # Set x-axis title\n    fig.update_xaxes(title_text=\"Date\")\n    # Set y-axes titles\n    fig.update_yaxes(\n        title_text=\"<b>Load</b>\",\n        secondary_y=False)\n    fig.update_yaxes(\n        title_text=\"<b>Net IO LO</b>\",\n        secondary_y=True)\n\n    fig.update_layout(\n        xaxis=dict(\n            rangeselector=dict(\n                buttons=list([\n                    dict(count=1,\n                         label=\"1m\",\n                         step=\"month\",\n                         stepmode=\"backward\"),\n                    dict(count=6,\n                         label=\"6m\",\n                         step=\"month\",\n                         stepmode=\"backward\"),\n                    dict(count=1,\n                         label=\"YTD\",\n                         step=\"year\",\n                         stepmode=\"todate\"),\n                    dict(count=1,\n                         label=\"1y\",\n                         step=\"year\",\n                         stepmode=\"backward\"),\n                    dict(step=\"all\")\n                ])\n            ),\n            rangeslider=dict(\n                visible=True\n            ),\n            type=\"date\"\n        )\n    )\n\n    return fig"
+  },
+  {
+    "type": "function",
+    "name": "update_stacked_alltests_chart",
+    "start_line": 195,
+    "end_line": 229,
+    "children": [],
+    "uuid": "55bc86a6-4515-4f22-8dd5-24c5a7ec9886",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+    "content": "def update_stacked_alltests_chart(time_range_raw, chosen_gauge, relative):\n    global CURRENT_TESTS\n    fig = go.Figure()\n    if (time_range_raw and\n        not 'autosize' in time_range_raw and\n        not 'xaxis.autorange' in time_range_raw):\n        if \"xaxis.range\" in time_range_raw:\n            date_range = [\n                pd.to_datetime(time_range_raw['xaxis.range'][0]),\n                pd.to_datetime(time_range_raw['xaxis.range'][1]),\n            ]\n        if \"xaxis.range[0]\" in time_range_raw:\n            date_range = [\n                pd.to_datetime(time_range_raw['xaxis.range[0]']),\n                pd.to_datetime(time_range_raw['xaxis.range[1]']),\n            ]\n        relative = relative == RELABS[0]\n        info = load_db_stacked_jobs(date_range, chosen_gauge, relative)\n        df = pd.DataFrame(info[1])\n        CURRENT_TESTS=info[0]\n        fig = go.Figure()\n        for column in info[0]:\n            fig.add_trace(go.Scatter(\n                x=df[\"Date\"], y=df[column],\n                hoverinfo='x+y',\n                mode='lines',\n                line=dict(width=0.5#, color='rgb(131, 90, 241)'\n                          ),\n                stackgroup='one' if relative else None, # define stack group\n                name=column\n            ))\n        fig.update_layout(yaxis_range=(0, 100))\n        return (fig, CURRENT_TESTS)\n    fig.update_layout(yaxis_range=(0, 100))\n    return (fig, CURRENT_TESTS)"
+  },
+  {
+    "type": "function",
+    "name": "update_stacked_onetest_chart",
+    "start_line": 237,
+    "end_line": 277,
+    "children": [],
+    "uuid": "ab0d1419-109c-47a7-b43b-f50316f96bb5",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+    "content": "def update_stacked_onetest_chart(chosen_test, time_range_raw, chosen_gauge, relative):\n    global CURRENT_TESTS\n    fig = go.Figure()\n    if (chosen_test and chosen_test != ['none'] and\n        time_range_raw and\n        not 'autosize' in time_range_raw and\n        not 'xaxis.autorange' in time_range_raw):\n        choosen_pid = df_jobs[df_jobs[\"Task\"] == chosen_test][\"PID\"].values[0]\n        if \"xaxis.range\" in time_range_raw:\n            date_range = [\n                pd.to_datetime(time_range_raw['xaxis.range'][0]),\n                pd.to_datetime(time_range_raw['xaxis.range'][1]),\n            ]\n        if \"xaxis.range[0]\" in time_range_raw:\n            date_range = [\n                pd.to_datetime(time_range_raw['xaxis.range[0]']),\n                pd.to_datetime(time_range_raw['xaxis.range[1]']),\n            ]\n        relative = relative == RELABS[0]\n        info = load_db_stacked_test(date_range,\n                                    choosen_pid,\n                                    chosen_gauge,\n                                    relative)\n        df = pd.DataFrame(info[1])\n        print(df)\n        CURRENT_TESTS=info[0]\n        fig = go.Figure()\n        for column in info[0]:\n            fig.add_trace(go.Scatter(\n                x=df[\"Date\"], y=df[column],\n                hoverinfo='x+y',\n                mode='lines',\n                line=dict(width=0.5#, color='rgb(131, 90, 241)'\n                          ),\n                stackgroup='one' if relative else None, # define stack group\n                name=column\n            ))\n        fig.update_layout(yaxis_range=(0, 100))\n        return fig\n    fig.update_layout(yaxis_range=(0, 100))\n    return fig"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 46,
+    "children": [],
+    "uuid": "d77d4fb0-c0b2-45b8-a034-d4ef9ed777ab",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/821e2c45_buildUnittestBashCompletion.bash",
+    "content": "#!/bin/bash\n\n# Generates a stand-alone bash script which installs completions for\n# `./scripts/unittest`.\n# Save it like\n#   ./scripts/buildUnittestBashCompletion.bash > ~/arango_unittest_comp.bash\n# and run\n#   . ~/arango_unittest_comp.bash\n# to install completions, probably in your .bashrc.\n#\n# You can also install completions directly by running\n#   eval \"$(./scripts/buildUnittestBashCompletion.bash)\"\n# in your shell, or .bashrc, but note that it has to be executed in the arangodb\n# directory, so ./scripts/unittest can be found.\n\ntest -e ./scripts/unittest || exit 1\n\ncat <<'PRINT'\n_unittest_complete()\n{\nPRINT\n\ncat <<PRINT\n    COMPINFO=$(printf '%q' \"$(./scripts/unittest --dump-completions 2> /dev/null)\")\nPRINT\n\ncat <<'PRINT'\n    local cur prev\n    COMPREPLY=()\n    prev=(\"${COMP_WORDS[@]:1:COMP_CWORD-1}\")\n    cur=\"${COMP_WORDS[COMP_CWORD]}\"\n\n    if [ \"$COMP_CWORD\" = \"1\" ]; then\n        SUITES=( $( jq -r '.suites[]' <<<\"$COMPINFO\" ) )\n        COMPREPLY=( $(compgen -W \"${SUITES[*]}\" -- \"${cur}\" ) )\n    else\n        OPTIONS=( $( jq -r '.options[]' <<<\"$COMPINFO\" ) )\n        COMPREPLY=( $(compgen -W \"${OPTIONS[*]}\" -- \"${cur}\" ) )\n    fi\n\n    return 0\n}\n\ncomplete -F _unittest_complete ./scripts/unittest\nPRINT"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "uuid": "bb58fd4c-36a6-4ed9-8066-d5e5b9737f8e",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/1887a680_ArangoQuery.types.ts",
+    "content": "import { CursorExtras } from \"arangojs/cursor\";\n\n\nexport type QueryResultType<ResultType extends any = any> = {\n  type: \"query\" | \"profile\" | \"explain\";\n  queryValue: string;\n  queryBindParams?: { [key: string]: string; };\n  result?: ResultType;\n  extra?: CursorExtras;\n  status: \"success\" | \"error\" | \"loading\";"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "uuid": "77e4b14b-1f2d-41b1-a4cd-f00ae67c3150",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/1887a680_ArangoQuery.types.ts",
+    "content": "  asyncJobId: string;\n  profile?: any;\n  stats?: any;\n  warnings?: {\n    code: number;\n    message: string;\n  }[];\n  errorMessage?: string;\n  queryLimit?: number | \"all\";\n};"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "uuid": "44aa08fc-aa57-48ff-9fd8-c31404af2654",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/1887a680_ArangoQuery.types.ts",
+    "content": "function 'processEmployee'"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "uuid": "37a13e9b-bd62-4c8f-8ba2-005789f28e6a",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/673ddd83_ViewsList.tsx",
+    "content": "import { Box, useDisclosure } from \"@chakra-ui/react\";\nimport React from \"react\";\nimport { ListHeader } from \"../../components/table/ListHeader\";\nimport { AddNewViewModal } from \"./viewsList/addNewViewForm/AddNewViewModal\";\nimport { ViewsTable } from \"./viewsList/ViewsTable\";\n\nexport const ViewsList = () => {\n  const { isOpen, onOpen, onClose } = useDisclosure();\n  return (\n    <Box padding=\"4\" width=\"100%\">"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "uuid": "fed7103e-b4bf-4bbf-aa5e-1cd80599ad18",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/673ddd83_ViewsList.tsx",
+    "content": "      <ViewListHeader onOpen={onOpen} />\n      <ViewsTable />\n      <AddNewViewModal isOpen={isOpen} onClose={onClose} />\n    </Box>\n  );\n};\n\nconst ViewListHeader = ({ onOpen }: { onOpen: () => void }) => {\n  return (\n    <ListHeader onButtonClick={onOpen} heading=\"Views\" buttonText=\"Add view\" />\n  );\n};"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "uuid": "70899e81-f6f4-4c19-810a-a4677c762176",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/673ddd83_ViewsList.tsx",
+    "content": "function 'processEmployee'"
+  },
+  {
+    "type": "function",
+    "name": "executePipeline",
+    "start_line": 9,
+    "end_line": 40,
+    "children": [],
+    "uuid": "dbcb1aea-cee5-4658-9c35-dd61ca280212",
+    "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/9323100b_Pipeline.py",
+    "content": "def executePipeline(cfg, args, fileName):\n    if fileName is None:\n        raise Exception(\"No pipeline file given.\")\n\n    with open(fileName, 'r') as f:\n        pipeline = json.load(f)\n        print(\"Executing pipeline:\")\n        print(pipeline)\n\n        for element in pipeline:\n            parameters = None\n            if \"parameters\" in element:\n                parameters = element[\"parameters\"]\n\n            # Start Cluster Component\n            if element[\"component\"] == \"startCluster\":\n                ArangoDBInstanceManager.startCluster()\n\n            # Stop Cluster Component\n            elif element[\"component\"] == \"stopCluster\":\n                ArangoDBInstanceManager.stopCluster()\n\n            # Feed Data Insertion Component\n            elif element[\"component\"] == \"feed\":\n                assert (\"folderName\" in parameters)\n                folderName = parameters[\"folderName\"] + \"/input.feed\"\n                Feed.startFromFile(cfg, folderName)\n\n            # JSTest Component\n            elif element[\"component\"] == \"test\":\n                assert (\"folderName\" in parameters)\n                JSTest.start(parameters, cfg)"
+  }
+]

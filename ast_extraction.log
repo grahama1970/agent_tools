@@ -1,0 +1,156 @@
+2025-03-25 18:30:41,764 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 18:30:42,379 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 18:30:42,396 - ai_memory - INFO - Documentation automatically loaded 0.50 hours ago. Skipping.
+2025-03-25 18:30:44,027 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 18:30:56,602 - ai_memory - INFO - Initialized vector store with 38 existing documents
+2025-03-25 18:30:56,821 - ai_memory - INFO - Documentation automatically loaded 0.51 hours ago. Skipping.
+2025-03-25 18:30:56,998 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 18:30:57,161 - ast_extraction - INFO - Starting AST extraction for /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample
+2025-03-25 18:30:57,161 - ast_extraction - INFO - Languages: python
+2025-03-25 18:30:57,162 - ast_extraction - INFO - Output: ast_extraction_results.json
+2025-03-25 18:30:57,314 - ast_extractor - INFO - Found 3 files to process in /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample
+2025-03-25 18:30:59,493 - ast_extractor - INFO - Extraction completed: 3 files extracted with 0 errors
+2025-03-25 18:30:59,493 - ast_extractor - INFO - Total extraction time: 2.18 seconds
+2025-03-25 18:30:59,853 - ast_extraction - INFO - Extraction completed in 2.50 seconds
+2025-03-25 18:30:59,854 - ast_extraction - INFO - Processed 3 files
+2025-03-25 18:30:59,854 - ast_extraction - INFO - Successfully extracted 3 files
+2025-03-25 18:30:59,854 - ast_extraction - INFO - Encountered 0 errors
+2025-03-25 18:30:59,854 - ast_extraction - INFO - Results saved to ast_extraction_results.json
+2025-03-25 18:32:07,037 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 18:32:07,539 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 18:32:07,565 - ai_memory - INFO - Documentation automatically loaded 0.53 hours ago. Skipping.
+2025-03-25 18:32:09,379 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 18:32:21,998 - ai_memory - INFO - Initialized vector store with 41 existing documents
+2025-03-25 18:32:22,155 - ai_memory - INFO - Documentation automatically loaded 0.53 hours ago. Skipping.
+2025-03-25 18:32:22,345 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 18:32:22,563 - ast_extraction - INFO - Starting AST extraction for /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample
+2025-03-25 18:32:22,563 - ast_extraction - INFO - Languages: python
+2025-03-25 18:32:22,563 - ast_extraction - INFO - Output: ast_extraction_qa.json
+2025-03-25 18:32:22,763 - ast_extractor - INFO - Found 3 files to process in /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample
+2025-03-25 18:32:24,658 - ast_extractor - INFO - Extraction completed: 3 files extracted with 0 errors
+2025-03-25 18:32:24,658 - ast_extractor - INFO - Total extraction time: 1.90 seconds
+2025-03-25 18:32:24,960 - ast_extraction - INFO - Extraction completed in 2.26 seconds
+2025-03-25 18:32:24,960 - ast_extraction - INFO - Processed 3 files
+2025-03-25 18:32:24,960 - ast_extraction - INFO - Successfully extracted 3 files
+2025-03-25 18:32:24,960 - ast_extraction - INFO - Encountered 0 errors
+2025-03-25 18:32:24,960 - ast_extraction - INFO - Results saved to ast_extraction_qa.json
+2025-03-25 18:52:31,661 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 18:52:32,024 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 18:52:32,047 - ai_memory - INFO - Documentation automatically loaded 0.87 hours ago. Skipping.
+2025-03-25 18:52:33,921 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 18:52:47,090 - ai_memory - INFO - Initialized vector store with 41 existing documents
+2025-03-25 18:52:47,264 - ai_memory - INFO - Documentation automatically loaded 0.87 hours ago. Skipping.
+2025-03-25 18:52:47,412 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 18:52:47,559 - ast_extraction - INFO - Starting AST extraction for /home/grahama/workspace/experiments/agent_tools/test_repos/arangodb
+2025-03-25 18:52:47,559 - ast_extraction - INFO - Languages: python, javascript, typescript, go, rust
+2025-03-25 18:52:47,559 - ast_extraction - INFO - Output: arangodb_ast_extraction.json
+2025-03-25 18:52:51,849 - ast_extractor - INFO - Found 5526 files to process in /home/grahama/workspace/experiments/agent_tools/test_repos/arangodb
+2025-03-25 18:52:56,460 - ast_extractor - INFO - Processed 10/5526 files
+2025-03-25 18:53:00,279 - ast_extractor - INFO - Processed 20/5526 files
+2025-03-25 18:53:04,193 - ast_extractor - INFO - Processed 30/5526 files
+2025-03-25 18:53:08,344 - ast_extractor - INFO - Processed 40/5526 files
+2025-03-25 18:53:13,812 - ast_extractor - INFO - Processed 50/5526 files
+2025-03-25 18:53:18,783 - ast_extractor - INFO - Processed 60/5526 files
+2025-03-25 18:53:23,593 - ast_extractor - INFO - Processed 70/5526 files
+2025-03-25 18:53:26,027 - ast_extractor - INFO - Processed 80/5526 files
+2025-03-25 18:53:31,548 - ast_extractor - INFO - Processed 90/5526 files
+2025-03-25 18:53:38,596 - ast_extractor - INFO - Processed 100/5526 files
+2025-03-25 18:53:45,491 - ast_extractor - INFO - Processed 110/5526 files
+2025-03-25 18:53:52,852 - ast_extractor - INFO - Processed 120/5526 files
+2025-03-25 18:53:59,513 - ast_extractor - INFO - Processed 130/5526 files
+2025-03-25 18:54:06,137 - ast_extractor - INFO - Processed 140/5526 files
+2025-03-25 18:54:12,303 - ast_extractor - INFO - Processed 150/5526 files
+2025-03-25 18:54:18,621 - ast_extractor - INFO - Processed 160/5526 files
+2025-03-25 18:54:24,162 - ast_extractor - INFO - Processed 170/5526 files
+2025-03-25 20:08:51,659 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:08:52,021 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:09:06,815 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:09:07,258 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:09:07,263 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:09:07,286 - ai_memory - INFO - Documentation automatically loaded 2.14 hours ago. Skipping.
+2025-03-25 20:09:08,944 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:09:21,123 - ai_memory - INFO - Initialized vector store with 41 existing documents
+2025-03-25 20:09:21,267 - ai_memory - INFO - Documentation automatically loaded 2.15 hours ago. Skipping.
+2025-03-25 20:09:21,477 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:09:21,664 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py
+2025-03-25 20:09:22,498 - ast_extraction - INFO - Extraction completed in 0.83 seconds
+2025-03-25 20:09:22,032 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:09:22,032 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:09:22,033 - ast_extraction - INFO - Saved QA-compatible output to qa_compatible_output.json
+2025-03-25 20:09:22,033 - ast_extraction - INFO - Extraction completed successfully
+2025-03-25 20:09:41,590 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:09:42,120 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:09:42,125 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:09:42,138 - ai_memory - INFO - Documentation automatically loaded 2.15 hours ago. Skipping.
+2025-03-25 20:09:44,012 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:09:56,763 - ai_memory - INFO - Initialized vector store with 41 existing documents
+2025-03-25 20:09:56,926 - ai_memory - INFO - Documentation automatically loaded 2.16 hours ago. Skipping.
+2025-03-25 20:09:57,060 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:09:57,215 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py
+2025-03-25 20:09:57,790 - ast_extraction - INFO - Extraction completed in 0.58 seconds
+2025-03-25 20:09:57,943 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:09:57,943 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:09:57,944 - ast_extraction - INFO - Saved QA-compatible output to qa_compatible_output.json
+2025-03-25 20:09:57,944 - ast_extraction - INFO - Extraction completed successfully
+2025-03-25 20:10:16,933 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:10:17,396 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:10:17,402 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:10:17,425 - ai_memory - INFO - Documentation automatically loaded 2.16 hours ago. Skipping.
+2025-03-25 20:10:19,289 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:10:30,280 - ai_memory - INFO - Initialized vector store with 41 existing documents
+2025-03-25 20:10:30,467 - ai_memory - INFO - Documentation automatically loaded 2.17 hours ago. Skipping.
+2025-03-25 20:10:30,620 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:10:30,784 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py
+2025-03-25 20:10:31,437 - ast_extraction - INFO - Extraction completed in 0.65 seconds
+2025-03-25 20:10:31,627 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:10:31,627 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:10:31,628 - ast_extraction - INFO - Saved QA-compatible output to qa_compatible_output.json
+2025-03-25 20:10:31,628 - ast_extraction - INFO - Extraction completed successfully
+2025-03-25 20:21:14,019 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:21:14,494 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:21:14,502 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:21:14,528 - ai_memory - INFO - Documentation automatically loaded 2.35 hours ago. Skipping.
+2025-03-25 20:21:16,320 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:21:28,029 - ai_memory - INFO - Initialized vector store with 43 existing documents
+2025-03-25 20:21:28,184 - ai_memory - INFO - Documentation automatically loaded 2.35 hours ago. Skipping.
+2025-03-25 20:21:28,331 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:21:28,486 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py
+2025-03-25 20:21:29,347 - ast_extraction - INFO - Extraction completed in 0.86 seconds
+2025-03-25 20:21:29,617 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:21:29,618 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:21:29,618 - ast_extraction - INFO - Saved QA-compatible output to qa_nested.json
+2025-03-25 20:21:29,618 - ast_extraction - INFO - Extraction completed successfully
+2025-03-25 20:22:30,734 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:22:31,170 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:22:31,174 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:22:31,197 - ai_memory - INFO - Documentation automatically loaded 2.37 hours ago. Skipping.
+2025-03-25 20:22:33,114 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:22:44,350 - ai_memory - INFO - Initialized vector store with 43 existing documents
+2025-03-25 20:22:44,524 - ai_memory - INFO - Documentation automatically loaded 2.37 hours ago. Skipping.
+2025-03-25 20:22:44,706 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:22:44,888 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py
+2025-03-25 20:22:45,672 - ast_extraction - INFO - Extraction completed in 0.78 seconds
+2025-03-25 20:22:45,814 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:22:45,814 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:22:45,815 - ast_extraction - INFO - Saved QA-compatible output to qa_nested_improved.json
+2025-03-25 20:22:45,815 - ast_extraction - INFO - Extraction completed successfully
+2025-03-25 20:31:24,782 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 20:31:25,266 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 20:31:25,273 - ast_extraction - INFO - Initializing memory with database: extraction_memory.db
+2025-03-25 20:31:25,298 - ai_memory - INFO - Documentation automatically loaded 2.51 hours ago. Skipping.
+2025-03-25 20:31:27,031 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 20:31:39,534 - ai_memory - INFO - Initialized vector store with 43 existing documents
+2025-03-25 20:31:39,693 - ai_memory - INFO - Documentation automatically loaded 2.52 hours ago. Skipping.
+2025-03-25 20:31:39,831 - ast_extractor - INFO - Memory system initialized with database: extraction_memory.db
+2025-03-25 20:31:39,975 - ast_extraction - INFO - Extracting from file: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py
+2025-03-25 20:31:40,647 - ast_extraction - INFO - Extraction completed in 0.67 seconds
+2025-03-25 20:31:40,795 - ast_extraction - INFO - Saved extraction output to extraction_output.json
+2025-03-25 20:31:40,796 - ast_extraction - INFO - Converting to QA-compatible format
+2025-03-25 20:31:40,796 - ast_extraction - INFO - Saved QA-compatible output to qa_compatible_output.json
+2025-03-25 20:31:40,797 - agent_memory - INFO - Memory store initialized with database at ast_agent_memory.db
+2025-03-25 20:31:40,810 - agent_memory - INFO - Stored memory: ast_extraction:file_count
+2025-03-25 20:31:40,822 - agent_memory - INFO - Stored memory: ast_extraction:files_processed
+2025-03-25 20:31:40,841 - agent_memory - INFO - Stored memory: ast_extraction:file:nested_example.py
+2025-03-25 20:31:40,853 - agent_memory - INFO - Stored memory: ast_extraction:patterns
+2025-03-25 20:31:40,853 - ast_extraction - INFO - Updated agent memory for nested_example.py
+2025-03-25 20:31:40,853 - ast_extraction - INFO - Extraction completed successfully

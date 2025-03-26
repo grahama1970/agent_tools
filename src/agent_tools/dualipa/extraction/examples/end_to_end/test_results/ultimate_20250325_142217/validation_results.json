@@ -1,0 +1,30 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "stats": {
+    "block_types": {
+      "class": 5,
+      "method": 8,
+      "function": 1,
+      "file": 1,
+      "section": 8,
+      "text": 9,
+      "code_block": 1,
+      "table": 1,
+      "image": 2,
+      "documentation": 1,
+      "doc_page": 1,
+      "doc_section": 1
+    },
+    "language_types": {
+      "python": 15,
+      "markdown": 21,
+      "html": 3
+    },
+    "total_blocks": 39,
+    "code_blocks": 14,
+    "markdown_blocks": 22,
+    "doc_blocks": 3
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "pages_downloaded": 1,
+  "errors": 0,
+  "pages": {
+    "https://docs.arangodb.com/stable/aql/data-queries/": {
+      "path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/docs/0d9e8aa7/docs.arangodb.com/stable/aql/data-queries/index.html",
+      "size": 580583
+    }
+  }
+}

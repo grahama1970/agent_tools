@@ -1,0 +1,51 @@
+{
+  "valid": false,
+  "errors": [
+    "Block 0 (type: block) is missing required fields: ['content']",
+    "Block 1 (type: block) is missing required fields: ['content']",
+    "Block 2 (type: block) is missing required fields: ['content']",
+    "Block 3 (type: block) is missing required fields: ['content']",
+    "Block 4 (type: block) is missing required fields: ['content']",
+    "Block 5 (type: block) is missing required fields: ['content']",
+    "Block 6 (type: block) is missing required fields: ['content']",
+    "Block 7 (type: block) is missing required fields: ['content']",
+    "Block 8 (type: block) is missing required fields: ['content']",
+    "Block 9 (type: block) is missing required fields: ['content']",
+    "Block 10 (type: block) is missing required fields: ['content']",
+    "Block 11 (type: block) is missing required fields: ['content']",
+    "Block 12 (type: block) is missing required fields: ['content']",
+    "Block 13 (type: block) is missing required fields: ['content']",
+    "Block 14 (type: block) is missing required fields: ['content']",
+    "Block 15 (type: block) is missing required fields: ['content']",
+    "Block 16 (type: function) is missing required fields: ['content']",
+    "Block 17 (type: function) is missing required fields: ['content']",
+    "Block 18 (type: function) is missing required fields: ['content']",
+    "Block 19 (type: block) is missing required fields: ['content']",
+    "Block 20 (type: block) is missing required fields: ['content']",
+    "Block 21 (type: block) is missing required fields: ['content']"
+  ],
+  "warnings": [],
+  "stats": {
+    "block_types": {
+      "block": 19,
+      "function": 3,
+      "file": 3,
+      "section": 68,
+      "text": 81,
+      "code_block": 20,
+      "table": 2
+    },
+    "language_types": {
+      "cpp": 19,
+      "python": 3,
+      "markdown": 157,
+      "text": 11,
+      "bash": 5,
+      "js": 1
+    },
+    "total_blocks": 196,
+    "code_blocks": 22,
+    "markdown_blocks": 174,
+    "doc_blocks": 0
+  }
+}

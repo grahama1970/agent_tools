@@ -19,11 +19,33 @@ project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 # Import the script we want to test
-sys.path.append(str(project_root / "src" / "agent_tools" / "dualipa" / "extraction" / "examples"))
+sys.path.append(str(project_root / "src"))
 try:
-    import agent_tools.dualipa.extraction.examples.end_to_end.main as end_to_end_extraction
+    # Import functions directly from main module
+    from agent_tools.dualipa.extraction.examples.end_to_end.main import main
+    
+    # Import required functions directly
+    from agent_tools.dualipa.extraction.examples.end_to_end.extraction_blocks import find_source_files, extract_all_blocks
+    from agent_tools.dualipa.extraction.examples.end_to_end.hierarchy_analyzer import analyze_hierarchies, enrich_blocks_with_hierarchy
+    from agent_tools.dualipa.extraction.examples.end_to_end.qa_formatter import create_qa_compatible_blocks, create_qa_compatible_output
+    from agent_tools.dualipa.extraction.examples.end_to_end.validation import validate_qa_output
+    
+    # Create a wrapper object to organize all imported functions
+    class EndToEndExtraction:
+        def __init__(self):
+            self.find_source_files = find_source_files
+            self.extract_all_blocks = extract_all_blocks
+            self.analyze_hierarchies = analyze_hierarchies
+            self.enrich_blocks_with_hierarchy = enrich_blocks_with_hierarchy
+            self.create_qa_compatible_blocks = create_qa_compatible_blocks
+            self.create_qa_compatible_output = create_qa_compatible_output
+            self.validate_qa_output = validate_qa_output
+            self.main = main
+    
+    end_to_end_extraction = EndToEndExtraction()
+    
 except ImportError as e:
-    pytest.fail(f"Failed to import agent_tools.dualipa.extraction.examples.end_to_end.main as end_to_end_extraction: {e}")
+    pytest.fail(f"Failed to import extraction modules: {e}")
 
 
 @pytest.fixture

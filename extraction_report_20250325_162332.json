@@ -1,0 +1,690 @@
+{
+  "timestamp": "2025-03-25T16:23:32.408062",
+  "extraction_stats": {
+    "total_files": 5279,
+    "extracted_files": 70,
+    "included_files": 70,
+    "extraction_rate": 1.3260087137715477,
+    "inclusion_rate": 100.0,
+    "by_type": {
+      ".cpp": {
+        "total": 1603,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      },
+      ".h": {
+        "total": 1554,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      },
+      ".js": {
+        "total": 1794,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      },
+      ".json": {
+        "total": 164,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      },
+      ".md": {
+        "total": 24,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      },
+      ".py": {
+        "total": 70,
+        "extracted": 70,
+        "included": 70,
+        "extraction_rate": 100.0
+      },
+      ".ts": {
+        "total": 70,
+        "extracted": 0,
+        "included": 0,
+        "extraction_rate": 0.0
+      }
+    }
+  },
+  "repo_stats": {
+    ".json": {
+      "count": 164,
+      "extracted": 0,
+      "percentage": 2.440113078410951,
+      "extraction_rate": 0.0
+    },
+    ".md": {
+      "count": 24,
+      "extracted": 0,
+      "percentage": 0.3570897187918465,
+      "extraction_rate": 0.0
+    },
+    ".txt": {
+      "count": 129,
+      "extracted": 0,
+      "percentage": 1.9193572385061746,
+      "extraction_rate": 0.0
+    },
+    ".h": {
+      "count": 1554,
+      "extracted": 0,
+      "percentage": 23.121559291772055,
+      "extraction_rate": 0.0
+    },
+    ".cpp": {
+      "count": 1603,
+      "extracted": 0,
+      "percentage": 23.85061746763874,
+      "extraction_rate": 0.0
+    },
+    ".ld": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".c": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".tpp": {
+      "count": 16,
+      "extracted": 0,
+      "percentage": 0.23805981252789762,
+      "extraction_rate": 0.0
+    },
+    ".in": {
+      "count": 26,
+      "extracted": 0,
+      "percentage": 0.3868471953578337,
+      "extraction_rate": 0.0
+    },
+    ".dat": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".ps1": {
+      "count": 5,
+      "extracted": 0,
+      "percentage": 0.074393691414968,
+      "extraction_rate": 0.0
+    },
+    ".js": {
+      "count": 1794,
+      "extracted": 0,
+      "percentage": 26.692456479690524,
+      "extraction_rate": 0.0
+    },
+    ".html": {
+      "count": 7,
+      "extracted": 0,
+      "percentage": 0.10415116798095521,
+      "extraction_rate": 0.0
+    },
+    ".css": {
+      "count": 22,
+      "extracted": 0,
+      "percentage": 0.32733224222585927,
+      "extraction_rate": 0.0
+    },
+    ".png": {
+      "count": 64,
+      "extracted": 0,
+      "percentage": 0.9522392501115905,
+      "extraction_rate": 0.0
+    },
+    ".map": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".ejs": {
+      "count": 60,
+      "extracted": 0,
+      "percentage": 0.8927242969796162,
+      "extraction_rate": 0.0
+    },
+    ".otf": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".woff2": {
+      "count": 9,
+      "extracted": 0,
+      "percentage": 0.1339086445469424,
+      "extraction_rate": 0.0
+    },
+    ".eot": {
+      "count": 6,
+      "extracted": 0,
+      "percentage": 0.08927242969796162,
+      "extraction_rate": 0.0
+    },
+    ".svg": {
+      "count": 14,
+      "extracted": 0,
+      "percentage": 0.20830233596191042,
+      "extraction_rate": 0.0
+    },
+    ".woff": {
+      "count": 12,
+      "extracted": 0,
+      "percentage": 0.17854485939592324,
+      "extraction_rate": 0.0
+    },
+    ".ttf": {
+      "count": 8,
+      "extracted": 0,
+      "percentage": 0.11902990626394881,
+      "extraction_rate": 0.0
+    },
+    ".gif": {
+      "count": 14,
+      "extracted": 0,
+      "percentage": 0.20830233596191042,
+      "extraction_rate": 0.0
+    },
+    ".scss": {
+      "count": 92,
+      "extracted": 0,
+      "percentage": 1.3688439220354114,
+      "extraction_rate": 0.0
+    },
+    ".yml": {
+      "count": 4,
+      "extracted": 0,
+      "percentage": 0.059514953131974406,
+      "extraction_rate": 0.0
+    },
+    ".development": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".ts": {
+      "count": 70,
+      "extracted": 0,
+      "percentage": 1.0415116798095523,
+      "extraction_rate": 0.0
+    },
+    ".production": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".lock": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".ico": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".gz": {
+      "count": 7,
+      "extracted": 0,
+      "percentage": 0.10415116798095521,
+      "extraction_rate": 0.0
+    },
+    ".tsx": {
+      "count": 286,
+      "extracted": 0,
+      "percentage": 4.25531914893617,
+      "extraction_rate": 0.0
+    },
+    ".jsx": {
+      "count": 11,
+      "extracted": 0,
+      "percentage": 0.16366612111292964,
+      "extraction_rate": 0.0
+    },
+    ".patch": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".tmpl": {
+      "count": 9,
+      "extracted": 0,
+      "percentage": 0.1339086445469424,
+      "extraction_rate": 0.0
+    },
+    ".json-no-eslint": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".cmake": {
+      "count": 40,
+      "extracted": 0,
+      "percentage": 0.595149531319744,
+      "extraction_rate": 0.0
+    },
+    ".py": {
+      "count": 70,
+      "extracted": 70,
+      "percentage": 1.0415116798095523,
+      "extraction_rate": 100.0
+    },
+    ".sh": {
+      "count": 45,
+      "extracted": 0,
+      "percentage": 0.669543222734712,
+      "extraction_rate": 0.0
+    },
+    ".gdbscript": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".OpenSuSE_13": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".Centos": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".OpenSuSE": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".install": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".dirs": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".init": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".sysv": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".systemd": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".arangodb": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".feed": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".inc": {
+      "count": 22,
+      "extracted": 0,
+      "percentage": 0.32733224222585927,
+      "extraction_rate": 0.0
+    },
+    ".csv": {
+      "count": 16,
+      "extracted": 0,
+      "percentage": 0.23805981252789762,
+      "extraction_rate": 0.0
+    },
+    ".tsv": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".markdown": {
+      "count": 20,
+      "extracted": 0,
+      "percentage": 0.297574765659872,
+      "extraction_rate": 0.0
+    },
+    ".jpg": {
+      "count": 8,
+      "extracted": 0,
+      "percentage": 0.11902990626394881,
+      "extraction_rate": 0.0
+    },
+    ".bin": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".js_DISABLED": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".DISABLED": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".testcases": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".rc": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".conf": {
+      "count": 28,
+      "extracted": 0,
+      "percentage": 0.41660467192382084,
+      "extraction_rate": 0.0
+    },
+    ".crt": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".key": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".pem": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".keyfile": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".yaml": {
+      "count": 389,
+      "extracted": 0,
+      "percentage": 5.787829192084511,
+      "extraction_rate": 0.0
+    },
+    ".1": {
+      "count": 6,
+      "extracted": 0,
+      "percentage": 0.08927242969796162,
+      "extraction_rate": 0.0
+    },
+    ".8": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".sed": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".y": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".ll": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".hpp": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".bt": {
+      "count": 3,
+      "extracted": 0,
+      "percentage": 0.04463621484898081,
+      "extraction_rate": 0.0
+    },
+    ".bash": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".sources": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".Dockerfile": {
+      "count": 2,
+      "extracted": 0,
+      "percentage": 0.029757476565987203,
+      "extraction_rate": 0.0
+    },
+    ".bat": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".x86-64": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".arm64": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".pat": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    },
+    ".dockerfile": {
+      "count": 1,
+      "extracted": 0,
+      "percentage": 0.014878738282993602,
+      "extraction_rate": 0.0
+    }
+  },
+  "verifications": [
+    {
+      "checkpoint": "analyze_repository",
+      "step": "python_file_count",
+      "expected": 70,
+      "actual": 70,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:27"
+    },
+    {
+      "checkpoint": "extract_python_files",
+      "step": "python_files_exist",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:27"
+    },
+    {
+      "checkpoint": "extract_python_files",
+      "step": "all_python_files_extracted",
+      "expected": 70,
+      "actual": 70,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:29"
+    },
+    {
+      "checkpoint": "extract_python_files",
+      "step": "important_file_gantt.py_extracted",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:30"
+    },
+    {
+      "checkpoint": "extract_python_files",
+      "step": "important_file_generate_ii_sa_dataset.py_extracted",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:30"
+    },
+    {
+      "checkpoint": "create_qa_output",
+      "step": "output_file_created",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_has_sections",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_has_section_relationships",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_has_extraction_metadata",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "sections_have_required_fields",
+      "expected": 0,
+      "actual": 0,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_includes_gantt.py",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_includes_generate_ii_sa_dataset.py",
+      "expected": true,
+      "actual": true,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    },
+    {
+      "checkpoint": "validate_output",
+      "step": "output_section_count",
+      "expected": 70,
+      "actual": 70,
+      "passed": 1,
+      "timestamp": "2025-03-25 20:23:32"
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "analyze_repository",
+      "timestamp": "2025-03-25 20:21:49",
+      "description": "Analyzing repository structure"
+    },
+    {
+      "name": "extract_python_files",
+      "timestamp": "2025-03-25 20:23:27",
+      "description": "Extracting Python files"
+    },
+    {
+      "name": "create_qa_output",
+      "timestamp": "2025-03-25 20:23:30",
+      "description": "Creating QA-compatible output"
+    },
+    {
+      "name": "validate_output",
+      "timestamp": "2025-03-25 20:23:32",
+      "description": "Validating output file"
+    }
+  ],
+  "metadata": {
+    "creation_timestamp": "2025-03-25T16:21:49.333873",
+    "important_files": [
+      "utils/gantt.py",
+      "tests/js/common/test-data/search/docs/generate_ii_sa_dataset.py"
+    ],
+    "total_files": 6721,
+    "output_stats": {
+      "sections": 70,
+      "timestamp": "2025-03-25T16:23:32.133087",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/extraction_with_state_output.json"
+    },
+    "validation_passed": true
+  }
+}

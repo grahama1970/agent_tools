@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /nav.html
+Disallow: /hooks

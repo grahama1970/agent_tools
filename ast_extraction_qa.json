@@ -1,0 +1,580 @@
+{
+  "blocks": [
+    {
+      "id": "class_LazyProperty_-2184967542200595783",
+      "type": "class",
+      "language": "python",
+      "name": "LazyProperty",
+      "content": "class LazyProperty",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 89,
+      "docstring": null
+    },
+    {
+      "id": "method_LazyProperty___init___-2184967542200595783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 96,
+      "docstring": null
+    },
+    {
+      "id": "method_LazyProperty___get___-2184967542200595783",
+      "type": "method",
+      "language": "python",
+      "name": "__get__",
+      "content": "def __get__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 107,
+      "docstring": null
+    },
+    {
+      "id": "class_CachedDecorator_-2184967542200595783",
+      "type": "class",
+      "language": "python",
+      "name": "CachedDecorator",
+      "content": "class CachedDecorator",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 126,
+      "docstring": null
+    },
+    {
+      "id": "method_CachedDecorator___init___-2184967542200595783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 129,
+      "docstring": null
+    },
+    {
+      "id": "method_CachedDecorator___call___-2184967542200595783",
+      "type": "method",
+      "language": "python",
+      "name": "__call__",
+      "content": "def __call__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 133,
+      "docstring": null
+    },
+    {
+      "id": "class_ComplexClass_-2184967542200595783",
+      "type": "class",
+      "language": "python",
+      "name": "ComplexClass",
+      "content": "class ComplexClass",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 157,
+      "docstring": null
+    },
+    {
+      "id": "method_ComplexClass___init___-2184967542200595783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 160,
+      "docstring": null
+    },
+    {
+      "id": "function_timing_decorator_-2184967542200595783",
+      "type": "function",
+      "language": "python",
+      "name": "timing_decorator",
+      "content": "def timing_decorator()",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 16,
+      "docstring": null
+    },
+    {
+      "id": "function_retry_-2184967542200595783",
+      "type": "function",
+      "language": "python",
+      "name": "retry",
+      "content": "def retry()",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 36,
+      "docstring": null
+    },
+    {
+      "id": "function_validate_types_-2184967542200595783",
+      "type": "function",
+      "language": "python",
+      "name": "validate_types",
+      "content": "def validate_types()",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+      "line": 62,
+      "docstring": null
+    },
+    {
+      "id": "class_OuterClass_7313896779005440577",
+      "type": "class",
+      "language": "python",
+      "name": "OuterClass",
+      "content": "class OuterClass",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py",
+      "line": 23,
+      "docstring": null
+    },
+    {
+      "id": "method_OuterClass___init___7313896779005440577",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py",
+      "line": 32,
+      "docstring": null
+    },
+    {
+      "id": "function_debug_method_7313896779005440577",
+      "type": "function",
+      "language": "python",
+      "name": "debug_method",
+      "content": "def debug_method(func)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py",
+      "line": 12,
+      "docstring": null
+    },
+    {
+      "id": "class_BaseMixin_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "BaseMixin",
+      "content": "class BaseMixin",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 17,
+      "docstring": null
+    },
+    {
+      "id": "method_BaseMixin___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 20,
+      "docstring": null
+    },
+    {
+      "id": "method_BaseMixin_mixin_method_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "mixin_method",
+      "content": "def mixin_method(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 25,
+      "docstring": null
+    },
+    {
+      "id": "class_LoggingMixin_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "LoggingMixin",
+      "content": "class LoggingMixin",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 30,
+      "docstring": null
+    },
+    {
+      "id": "method_LoggingMixin_log_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "log",
+      "content": "def log(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 33,
+      "docstring": null
+    },
+    {
+      "id": "class_SerializableMixin_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "SerializableMixin",
+      "content": "class SerializableMixin",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 38,
+      "docstring": null
+    },
+    {
+      "id": "method_SerializableMixin_to_dict_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "to_dict",
+      "content": "def to_dict(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 41,
+      "docstring": null
+    },
+    {
+      "id": "method_SerializableMixin_from_dict_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "from_dict",
+      "content": "def from_dict(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 46,
+      "docstring": null
+    },
+    {
+      "id": "class_BaseModel_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "BaseModel",
+      "content": "class BaseModel",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 52,
+      "docstring": null
+    },
+    {
+      "id": "method_BaseModel___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 55,
+      "docstring": null
+    },
+    {
+      "id": "class_ABC_-401487471141212783",
+      "type": "class_ref",
+      "language": "python",
+      "name": "ABC",
+      "content": "class ABC",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py"
+    },
+    {
+      "id": "class_Repository_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "Repository",
+      "content": "class Repository",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 65,
+      "docstring": null
+    },
+    {
+      "id": "method_Repository___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 68,
+      "docstring": null
+    },
+    {
+      "id": "method_Repository_add_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "add",
+      "content": "def add(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 72,
+      "docstring": null
+    },
+    {
+      "id": "method_Repository_get_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "get",
+      "content": "def get(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 76,
+      "docstring": null
+    },
+    {
+      "id": "method_Repository_list_all_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "list_all",
+      "content": "def list_all(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 80,
+      "docstring": null
+    },
+    {
+      "id": "class_UserModel_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "UserModel",
+      "content": "class UserModel",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 85,
+      "docstring": null
+    },
+    {
+      "id": "method_UserModel___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 92,
+      "docstring": null
+    },
+    {
+      "id": "method_UserModel_validate_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "validate",
+      "content": "def validate(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 100,
+      "docstring": null
+    },
+    {
+      "id": "method_UserModel_deactivate_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "deactivate",
+      "content": "def deactivate(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 104,
+      "docstring": null
+    },
+    {
+      "id": "class_AdminUser_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "AdminUser",
+      "content": "class AdminUser",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 110,
+      "docstring": null
+    },
+    {
+      "id": "method_AdminUser___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 117,
+      "docstring": null
+    },
+    {
+      "id": "method_AdminUser_grant_permission_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "grant_permission",
+      "content": "def grant_permission(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 123,
+      "docstring": null
+    },
+    {
+      "id": "class_UserRepository_-401487471141212783",
+      "type": "class",
+      "language": "python",
+      "name": "UserRepository",
+      "content": "class UserRepository",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 130,
+      "docstring": null
+    },
+    {
+      "id": "method_UserRepository___init___-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "__init__",
+      "content": "def __init__(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 137,
+      "docstring": null
+    },
+    {
+      "id": "method_UserRepository_find_by_username_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "find_by_username",
+      "content": "def find_by_username(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 142,
+      "docstring": null
+    },
+    {
+      "id": "method_UserRepository_find_active_users_-401487471141212783",
+      "type": "method",
+      "language": "python",
+      "name": "find_active_users",
+      "content": "def find_active_users(self)",
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/inheritance/complex_inheritance.py",
+      "line": 149,
+      "docstring": null
+    }
+  ],
+  "relationships": [
+    {
+      "source": "class_LazyProperty_-2184967542200595783",
+      "target": "method_LazyProperty___init___-2184967542200595783",
+      "type": "contains"
+    },
+    {
+      "source": "class_LazyProperty_-2184967542200595783",
+      "target": "method_LazyProperty___get___-2184967542200595783",
+      "type": "contains"
+    },
+    {
+      "source": "class_CachedDecorator_-2184967542200595783",
+      "target": "method_CachedDecorator___init___-2184967542200595783",
+      "type": "contains"
+    },
+    {
+      "source": "class_CachedDecorator_-2184967542200595783",
+      "target": "method_CachedDecorator___call___-2184967542200595783",
+      "type": "contains"
+    },
+    {
+      "source": "class_ComplexClass_-2184967542200595783",
+      "target": "method_ComplexClass___init___-2184967542200595783",
+      "type": "contains"
+    },
+    {
+      "source": "class_OuterClass_7313896779005440577",
+      "target": "method_OuterClass___init___7313896779005440577",
+      "type": "contains"
+    },
+    {
+      "source": "class_BaseMixin_-401487471141212783",
+      "target": "method_BaseMixin___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_BaseMixin_-401487471141212783",
+      "target": "method_BaseMixin_mixin_method_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_LoggingMixin_-401487471141212783",
+      "target": "method_LoggingMixin_log_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_SerializableMixin_-401487471141212783",
+      "target": "method_SerializableMixin_to_dict_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_SerializableMixin_-401487471141212783",
+      "target": "method_SerializableMixin_from_dict_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_BaseModel_-401487471141212783",
+      "target": "method_BaseModel___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_BaseModel_-401487471141212783",
+      "target": "class_ABC_-401487471141212783",
+      "type": "inherits"
+    },
+    {
+      "source": "class_Repository_-401487471141212783",
+      "target": "method_Repository___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_Repository_-401487471141212783",
+      "target": "method_Repository_add_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_Repository_-401487471141212783",
+      "target": "method_Repository_get_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_Repository_-401487471141212783",
+      "target": "method_Repository_list_all_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "method_UserModel___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "method_UserModel_validate_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "method_UserModel_deactivate_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "class_BaseModel_-401487471141212783",
+      "type": "inherits"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "class_SerializableMixin_-401487471141212783",
+      "type": "inherits"
+    },
+    {
+      "source": "class_UserModel_-401487471141212783",
+      "target": "class_LoggingMixin_-401487471141212783",
+      "type": "inherits"
+    },
+    {
+      "source": "class_AdminUser_-401487471141212783",
+      "target": "method_AdminUser___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_AdminUser_-401487471141212783",
+      "target": "method_AdminUser_grant_permission_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_AdminUser_-401487471141212783",
+      "target": "class_UserModel_-401487471141212783",
+      "type": "inherits"
+    },
+    {
+      "source": "class_UserRepository_-401487471141212783",
+      "target": "method_UserRepository___init___-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserRepository_-401487471141212783",
+      "target": "method_UserRepository_find_by_username_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserRepository_-401487471141212783",
+      "target": "method_UserRepository_find_active_users_-401487471141212783",
+      "type": "contains"
+    },
+    {
+      "source": "class_UserRepository_-401487471141212783",
+      "target": "class_BaseMixin_-401487471141212783",
+      "type": "inherits"
+    }
+  ],
+  "metadata": {
+    "files_processed": 3,
+    "files_extracted": 3,
+    "extraction_errors": 0,
+    "languages": {
+      "python": {
+        "files": 3,
+        "success": 3,
+        "errors": 0
+      }
+    },
+    "start_time": 1742941942.7614326,
+    "end_time": 1742941944.6582265,
+    "duration_seconds": 1.8967938423156738,
+    "total_files": 3
+  }
+}

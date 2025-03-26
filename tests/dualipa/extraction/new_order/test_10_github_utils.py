@@ -24,9 +24,9 @@ from pathlib import Path
 # if str(parent_dir) not in sys.path:
 #     sys.path.append(str(parent_dir))
 
-# Import directly from the package
+# Import directly from the compatibility layer to match test expectations
 try:
-    from agent_tools.dualipa.extraction.extractors.github.repo_utils import (
+    from agent_tools.dualipa.github_utils import (
         parse_github_url,
         clone_github_repo,
         fetch_repo_contents_async,
@@ -169,7 +169,7 @@ def test_clone_github_repo(mock_repo, tmpdir):
         pytest.fail("GitPython not installed. Install it to run these tests.")
     
     # We'll use a mock for git.Repo.clone_from to avoid actual cloning
-    with patch('agent_tools.dualipa.github_utils.git.Repo.clone_from') as mock_clone:
+    with patch('git.Repo.clone_from') as mock_clone:
         # Set up a temporary directory
         temp_dir = tempfile.mkdtemp()
         try:

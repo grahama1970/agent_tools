@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "timestamp": 1742940045.4171846,
+  "extraction_type": "code_structures",
+  "structures": [
+    {
+      "type": "class",
+      "name": "DataProcessor",
+      "language": "python",
+      "file_path": "test_repos/python-sample/sample.py",
+      "line": 39,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 42
+        },
+        {
+          "type": "method",
+          "name": "process_item",
+          "line": 54
+        },
+        {
+          "type": "method",
+          "name": "get_stats",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "AdvancedProcessor",
+      "language": "python",
+      "file_path": "test_repos/python-sample/sample.py",
+      "line": 87,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 90
+        },
+        {
+          "type": "method",
+          "name": "process_item",
+          "line": 103
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "calculate_sum",
+      "language": "python",
+      "file_path": "test_repos/python-sample/sample.py",
+      "line": 11
+    },
+    {
+      "type": "function",
+      "name": "find_max",
+      "language": "python",
+      "file_path": "test_repos/python-sample/sample.py",
+      "line": 24
+    }
+  ]
+}

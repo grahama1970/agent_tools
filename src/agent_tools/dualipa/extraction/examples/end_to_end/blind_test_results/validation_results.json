@@ -1,0 +1,21 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "stats": {
+    "total_blocks": 152,
+    "block_types": {
+      "function": 6,
+      "block": 1,
+      "interface": 2,
+      "class": 2,
+      "documentation": 3,
+      "doc_page": 3,
+      "doc_section": 62,
+      "code_block": 70,
+      "table": 3
+    },
+    "code_blocks": 8,
+    "doc_blocks": 68
+  }
+}

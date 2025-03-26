@@ -1,0 +1,30 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "stats": {
+    "block_types": {
+      "block": 66,
+      "function": 92,
+      "file": 21,
+      "class": 43,
+      "interface": 15,
+      "section": 106,
+      "text": 120,
+      "code_block": 21,
+      "table": 2
+    },
+    "language_types": {
+      "cpp": 39,
+      "python": 79,
+      "javascript": 30,
+      "typescript": 45,
+      "json": 15,
+      "bash": 20,
+      "markdown": 245,
+      "text": 12,
+      "js": 1
+    },
+    "total_blocks": 486
+  }
+}

@@ -1,0 +1,374 @@
+[
+  {
+    "type": "class",
+    "name": "OuterClass",
+    "start_line": 8,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 13,
+        "end_line": 14,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "42ce6cb8-112a-40c2-a9d3-e32f16521bb2",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    def __init__(self, name):\n        self.name = name",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "outer_method",
+        "start_line": 16,
+        "end_line": 18,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "7be7abfc-64eb-479f-b967-5f717cf0f8ba",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"",
+        "child_uuids": []
+      },
+      {
+        "type": "class",
+        "name": "InnerClass",
+        "start_line": 21,
+        "end_line": 32,
+        "children": [
+          {
+            "type": "method",
+            "name": "__init__",
+            "start_line": 26,
+            "end_line": 27,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "e70a009c-bce5-4334-a65c-2b1002fde5f5",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            },
+            "content": "        def __init__(self, value):\n            self.value = value",
+            "child_uuids": []
+          },
+          {
+            "type": "method",
+            "name": "inner_method",
+            "start_line": 29,
+            "end_line": 31,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "a4c102f8-4c89-4956-8633-8b5167247599",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            },
+            "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+            "child_uuids": []
+          }
+        ],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "e3d22873-9c43-4d7a-a12a-12df17b72961",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        ",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "84200a19-1c32-489c-a934-36656b6beef5",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "            def __init__(self, id):\n                self.id = id",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "198bb208-7496-4da5-88f9-7aa518be1a99",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "class OuterClass:\n    \"\"\"Example of a class containing nested classes.\"\"\"\n    \n    class_var = \"outer class variable\"\n    \n    def __init__(self, name):\n        self.name = name\n    \n    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"\n    \n    # Nested class example\n    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        \n        # Double-nested class example\n        class DeepNestedClass:\n            \"\"\"Second level nested class (very uncommon in Python).\"\"\"\n            \n            def __init__(self, id):\n                self.id = id\n            \n            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 13,
+    "end_line": 14,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "42ce6cb8-112a-40c2-a9d3-e32f16521bb2",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def __init__(self, name):\n        self.name = name",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "outer_method",
+    "start_line": 16,
+    "end_line": 18,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "7be7abfc-64eb-479f-b967-5f717cf0f8ba",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "InnerClass",
+    "start_line": 21,
+    "end_line": 32,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 26,
+        "end_line": 27,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "e70a009c-bce5-4334-a65c-2b1002fde5f5",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "        def __init__(self, value):\n            self.value = value",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "inner_method",
+        "start_line": 29,
+        "end_line": 31,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "a4c102f8-4c89-4956-8633-8b5167247599",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e3d22873-9c43-4d7a-a12a-12df17b72961",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        ",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 26,
+    "end_line": 27,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e70a009c-bce5-4334-a65c-2b1002fde5f5",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def __init__(self, value):\n            self.value = value",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "inner_method",
+    "start_line": 29,
+    "end_line": 31,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "a4c102f8-4c89-4956-8633-8b5167247599",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "DeepNestedClass",
+    "start_line": 34,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "84200a19-1c32-489c-a934-36656b6beef5",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "            def __init__(self, id):\n                self.id = id",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "0bb0545d-0895-406a-9455-83b4940f054d",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        class DeepNestedClass:\n            \"\"\"Second level nested class (very uncommon in Python).\"\"\"\n            \n            def __init__(self, id):\n                self.id = id\n            \n            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 37,
+    "end_line": 38,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "84200a19-1c32-489c-a934-36656b6beef5",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "            def __init__(self, id):\n                self.id = id",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "deep_method",
+    "start_line": 40,
+    "end_line": 42,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "135b9ccf-02e4-47db-857d-3d031c538c97",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "Parent",
+    "start_line": 46,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "d32d33ae-b9e0-44e1-acf5-0e139611ba72",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "class Parent:\n    \"\"\"Parent class with nested components.\"\"\"\n    \n    def parent_method(self):\n        \"\"\"Parent method.\"\"\"\n        return \"Parent method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "parent_method",
+    "start_line": 49,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "ecf733d0-ff7e-4cd2-9b73-4a9318d818e2",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def parent_method(self):\n        \"\"\"Parent method.\"\"\"\n        return \"Parent method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "StaticNested",
+    "start_line": 54,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "7c099530-b07a-46a9-a332-c69df6d78f7b",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    class StaticNested:\n        \"\"\"Static nested class example.\"\"\"\n        \n        @staticmethod\n        def static_method():\n            \"\"\"Static method in nested class.\"\"\"\n            return \"Static nested method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "static_method",
+    "start_line": 58,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e4ab63b6-27f3-4053-839c-74a0983baf60",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def static_method():\n            \"\"\"Static method in nested class.\"\"\"\n            return \"Static nested method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "function",
+    "name": "example_usage",
+    "start_line": 64,
+    "end_line": 76,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "4e38fd95-62b3-46b8-aebf-61271a8a3bec",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "def example_usage():\n    # Create instances\n    outer = OuterClass(\"Test\")\n    inner = OuterClass.InnerClass(42)\n    deep = OuterClass.InnerClass.DeepNestedClass(100)\n    \n    # Call methods\n    print(outer.outer_method())  # \"Outer method from Test\"\n    print(inner.inner_method())  # \"Inner method with 42\"\n    print(deep.deep_method())    # \"Deep method with ID 100\"\n    \n    # Static nested example\n    print(Parent.StaticNested.static_method())  # \"Static nested method\"",
+    "child_uuids": []
+  }
+]

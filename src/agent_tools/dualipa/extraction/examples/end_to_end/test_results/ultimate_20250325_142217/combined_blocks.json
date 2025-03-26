@@ -1,0 +1,989 @@
+[
+  {
+    "type": "class",
+    "name": "OuterClass",
+    "start_line": 8,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 13,
+        "end_line": 14,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "def624c4-53be-4414-8a33-df512534524d",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    def __init__(self, name):\n        self.name = name",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "outer_method",
+        "start_line": 16,
+        "end_line": 18,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "45e68548-e62a-4dd8-960e-7293c83d17b8",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"",
+        "child_uuids": []
+      },
+      {
+        "type": "class",
+        "name": "InnerClass",
+        "start_line": 21,
+        "end_line": 32,
+        "children": [
+          {
+            "type": "method",
+            "name": "__init__",
+            "start_line": 26,
+            "end_line": 27,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "902cf3e6-ecc9-4ad0-9261-9343d89c7eaa",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            },
+            "content": "        def __init__(self, value):\n            self.value = value",
+            "child_uuids": []
+          },
+          {
+            "type": "method",
+            "name": "inner_method",
+            "start_line": 29,
+            "end_line": 31,
+            "children": [],
+            "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+            "uuid": "f12f8b53-1510-4115-8f05-fe5dfce292ff",
+            "language": "python",
+            "metadata": {
+              "language": "python",
+              "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+            },
+            "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+            "child_uuids": []
+          }
+        ],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "a930048f-2df3-4cf2-ad3e-f2b57fddea3a",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        ",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "e2bf2753-fe7c-4ff5-abab-aba600388fa2",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "            def __init__(self, id):\n                self.id = id",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "b8dc79bc-4772-4a70-a913-1ae5d7fcc9bb",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "class OuterClass:\n    \"\"\"Example of a class containing nested classes.\"\"\"\n    \n    class_var = \"outer class variable\"\n    \n    def __init__(self, name):\n        self.name = name\n    \n    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"\n    \n    # Nested class example\n    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        \n        # Double-nested class example\n        class DeepNestedClass:\n            \"\"\"Second level nested class (very uncommon in Python).\"\"\"\n            \n            def __init__(self, id):\n                self.id = id\n            \n            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 13,
+    "end_line": 14,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "def624c4-53be-4414-8a33-df512534524d",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def __init__(self, name):\n        self.name = name",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "outer_method",
+    "start_line": 16,
+    "end_line": 18,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "45e68548-e62a-4dd8-960e-7293c83d17b8",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "InnerClass",
+    "start_line": 21,
+    "end_line": 32,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 26,
+        "end_line": 27,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "902cf3e6-ecc9-4ad0-9261-9343d89c7eaa",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "        def __init__(self, value):\n            self.value = value",
+        "child_uuids": []
+      },
+      {
+        "type": "method",
+        "name": "inner_method",
+        "start_line": 29,
+        "end_line": 31,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "f12f8b53-1510-4115-8f05-fe5dfce292ff",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "a930048f-2df3-4cf2-ad3e-f2b57fddea3a",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        ",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 26,
+    "end_line": 27,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "902cf3e6-ecc9-4ad0-9261-9343d89c7eaa",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def __init__(self, value):\n            self.value = value",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "inner_method",
+    "start_line": 29,
+    "end_line": 31,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "f12f8b53-1510-4115-8f05-fe5dfce292ff",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "DeepNestedClass",
+    "start_line": 34,
+    "end_line": 42,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 37,
+        "end_line": 38,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+        "uuid": "e2bf2753-fe7c-4ff5-abab-aba600388fa2",
+        "language": "python",
+        "metadata": {
+          "language": "python",
+          "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+        },
+        "content": "            def __init__(self, id):\n                self.id = id",
+        "child_uuids": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "91818677-e03f-4262-9fd4-44df3fbc7bde",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        class DeepNestedClass:\n            \"\"\"Second level nested class (very uncommon in Python).\"\"\"\n            \n            def __init__(self, id):\n                self.id = id\n            \n            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "__init__",
+    "start_line": 37,
+    "end_line": 38,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "e2bf2753-fe7c-4ff5-abab-aba600388fa2",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "            def __init__(self, id):\n                self.id = id",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "deep_method",
+    "start_line": 40,
+    "end_line": 42,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "2140902d-5d10-4db8-a762-e2ad67209285",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "Parent",
+    "start_line": 46,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "da06b7fd-c66d-45b1-85c1-aaf8601725fc",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "class Parent:\n    \"\"\"Parent class with nested components.\"\"\"\n    \n    def parent_method(self):\n        \"\"\"Parent method.\"\"\"\n        return \"Parent method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "parent_method",
+    "start_line": 49,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "22792f39-be42-49eb-9487-a69e100168ee",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    def parent_method(self):\n        \"\"\"Parent method.\"\"\"\n        return \"Parent method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "StaticNested",
+    "start_line": 54,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "55c6613f-610c-4740-9ea2-eee1b845ee9f",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "    class StaticNested:\n        \"\"\"Static nested class example.\"\"\"\n        \n        @staticmethod\n        def static_method():\n            \"\"\"Static method in nested class.\"\"\"\n            return \"Static nested method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "method",
+    "name": "static_method",
+    "start_line": 58,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "64462fb2-4da0-4810-b43b-a34e1e92f86a",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "        def static_method():\n            \"\"\"Static method in nested class.\"\"\"\n            return \"Static nested method\"",
+    "child_uuids": []
+  },
+  {
+    "type": "function",
+    "name": "example_usage",
+    "start_line": 64,
+    "end_line": 76,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+    "uuid": "5f8c6191-1ad2-49b3-a919-d0057d85c8a9",
+    "language": "python",
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+    },
+    "content": "def example_usage():\n    # Create instances\n    outer = OuterClass(\"Test\")\n    inner = OuterClass.InnerClass(42)\n    deep = OuterClass.InnerClass.DeepNestedClass(100)\n    \n    # Call methods\n    print(outer.outer_method())  # \"Outer method from Test\"\n    print(inner.inner_method())  # \"Inner method with 42\"\n    print(deep.deep_method())    # \"Deep method with ID 100\"\n    \n    # Static nested example\n    print(Parent.StaticNested.static_method())  # \"Static nested method\"",
+    "child_uuids": []
+  },
+  {
+    "uuid": "e89dd4d4-5933-46a6-bd6b-d11d3e2d2c9d",
+    "id": "MARKDOWN_EXTRACTION",
+    "name": "MARKDOWN_EXTRACTION.md",
+    "type": "file",
+    "language": "markdown",
+    "content": "# Markdown Extraction\n\nThis document describes the markdown extraction functionality in the DuaLipa extraction module.\n\n## Overview\n\nThe markdown extraction system in DuaLipa processes markdown files and extracts structured information such as:\n\n1. Hierarchical sections based on heading levels\n2. Text blocks \n3. Code blocks with their language specifiers\n4. Tables with rows and columns\n5. Images with alt text and URLs\n\n## Implementation Details\n\n### Section Extraction\n\nSections are extracted based on heading levels (# for h1, ## for h2, etc.) with proper hierarchical relationships maintained.\n\n```python\ndef extract_markdown_sections(content: str, file_path: str, parent_uuid: str) -> List[Dict[str, Any]]:\n    \"\"\"Extract sections from markdown files based on headings.\"\"\"\n    # Implementation details...\n    return sections\n```\n\n### Element Extraction\n\nSpecial elements like code blocks, tables, and images are extracted with their metadata.\n\n| Element Type | Detection Method | Metadata Extracted |\n|--------------|------------------|-------------------|\n| Code Blocks | Triple backtick | Language, content |\n| Tables | Pipe character rows | Row count, column count |\n| Images | ![alt](url) syntax | Alt text, URL |\n\n## Testing\n\nThe extraction process is tested using both unit tests and integration tests:\n\n1. Unit tests verify the individual extraction functions\n2. Integration tests process real-world markdown files\n3. Blind tests validate the extraction on unseen files\n\n![Extraction Process](https://example.com/extraction.png)\n\n## Performance Considerations\n\n- Efficient regex patterns for section matching\n- Single-pass processing for optimal performance\n- Proper handling of large files\n\n## Future Improvements\n\n* Better handling of nested formatting\n* More robust table extraction with cell merging\n* Support for more markdown extensions",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "child_uuids": [
+      "3296a852-7077-4d88-b87b-ca4233187ecc"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md"
+    }
+  },
+  {
+    "uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "id": "MARKDOWN_EXTRACTION_markdown_extraction",
+    "name": "Markdown Extraction",
+    "type": "section",
+    "language": "markdown",
+    "content": "# Markdown Extraction\n\nThis document describes the markdown extraction functionality in the DuaLipa extraction module.",
+    "pure_content": "This document describes the markdown extraction functionality in the DuaLipa extraction module.",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "e89dd4d4-5933-46a6-bd6b-d11d3e2d2c9d",
+    "child_uuids": [
+      "868803e7-7c1b-40ae-9fd1-fd9a3faf13c5"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 1,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false,
+      "position": 0,
+      "section_hierarchy": [
+        "Markdown Extraction"
+      ],
+      "section_start": 0,
+      "section_end": 120
+    }
+  },
+  {
+    "uuid": "868803e7-7c1b-40ae-9fd1-fd9a3faf13c5",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "This document describes the markdown extraction functionality in the DuaLipa extraction module.",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 22,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "749bd4c0-41a7-44ce-8a8c-933705931d8a",
+    "id": "MARKDOWN_EXTRACTION_overview",
+    "name": "Overview",
+    "type": "section",
+    "language": "markdown",
+    "content": "## Overview\n\nThe markdown extraction system in DuaLipa processes markdown files and extracts structured information such as:\n\n1. Hierarchical sections based on heading levels\n2. Text blocks \n3. Code blocks with their language specifiers\n4. Tables with rows and columns\n5. Images with alt text and URLs",
+    "pure_content": "The markdown extraction system in DuaLipa processes markdown files and extracts structured information such as:\n\n1. Hierarchical sections based on heading levels\n2. Text blocks \n3. Code blocks with their language specifiers\n4. Tables with rows and columns\n5. Images with alt text and URLs",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [
+      "df9cbda1-86dd-4b0a-849f-5fba6bdf00a0"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 2,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false,
+      "position": 120,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Overview"
+      ],
+      "section_start": 120,
+      "section_end": 423
+    }
+  },
+  {
+    "uuid": "df9cbda1-86dd-4b0a-849f-5fba6bdf00a0",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "The markdown extraction system in DuaLipa processes markdown files and extracts structured information such as:\n\n1. Hierarchical sections based on heading levels\n2. Text blocks \n3. Code blocks with their language specifiers\n4. Tables with rows and columns\n5. Images with alt text and URLs",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "749bd4c0-41a7-44ce-8a8c-933705931d8a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 132,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Overview"
+      ]
+    }
+  },
+  {
+    "uuid": "e39bfb63-df68-44ba-8511-0a097cd78a8a",
+    "id": "MARKDOWN_EXTRACTION_implementation_details",
+    "name": "Implementation Details",
+    "type": "section",
+    "language": "markdown",
+    "content": "## Implementation Details",
+    "pure_content": "",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 2,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false,
+      "position": 423,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details"
+      ],
+      "section_start": 423,
+      "section_end": 450
+    }
+  },
+  {
+    "uuid": "b63be4bc-fc1f-42fa-8198-ca7dedac18df",
+    "id": "MARKDOWN_EXTRACTION_section_extraction",
+    "name": "Section Extraction",
+    "type": "section",
+    "language": "markdown",
+    "content": "### Section Extraction\n\nSections are extracted based on heading levels (# for h1, ## for h2, etc.) with proper hierarchical relationships maintained.\n\n```python\ndef extract_markdown_sections(content: str, file_path: str, parent_uuid: str) -> List[Dict[str, Any]]:\n    \"\"\"Extract sections from markdown files based on headings.\"\"\"\n    # Implementation details...\n    return sections\n```",
+    "pure_content": "Sections are extracted based on heading levels (# for h1, ## for h2, etc.) with proper hierarchical relationships maintained.\n\n```python\ndef extract_markdown_sections(content: str, file_path: str, parent_uuid: str) -> List[Dict[str, Any]]:\n    \"\"\"Extract sections from markdown files based on headings.\"\"\"\n    # Implementation details...\n    return sections\n```",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "e39bfb63-df68-44ba-8511-0a097cd78a8a",
+    "child_uuids": [
+      "bcf60fe1-4c17-43a7-8dc8-7cee676aae81",
+      "3dde9d70-8282-43ee-a3d8-68afabfd0762"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 3,
+      "has_code": true,
+      "has_tables": false,
+      "has_images": false,
+      "position": 450,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Section Extraction"
+      ],
+      "section_start": 450,
+      "section_end": 837
+    }
+  },
+  {
+    "uuid": "bcf60fe1-4c17-43a7-8dc8-7cee676aae81",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "Sections are extracted based on heading levels (# for h1, ## for h2, etc.) with proper hierarchical relationships maintained.",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "b63be4bc-fc1f-42fa-8198-ca7dedac18df",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 473,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Section Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "3dde9d70-8282-43ee-a3d8-68afabfd0762",
+    "id": "MARKDOWN_EXTRACTION_code_0",
+    "name": "Code Block 1",
+    "type": "code_block",
+    "language": "python",
+    "content": "def extract_markdown_sections(content: str, file_path: str, parent_uuid: str) -> List[Dict[str, Any]]:\n    \"\"\"Extract sections from markdown files based on headings.\"\"\"\n    # Implementation details...\n    return sections",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "b63be4bc-fc1f-42fa-8198-ca7dedac18df",
+    "child_uuids": [],
+    "metadata": {
+      "language": "python",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 600,
+      "element_type": "code_block",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Section Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "id": "MARKDOWN_EXTRACTION_element_extraction",
+    "name": "Element Extraction",
+    "type": "section",
+    "language": "markdown",
+    "content": "### Element Extraction\n\nSpecial elements like code blocks, tables, and images are extracted with their metadata.\n\n| Element Type | Detection Method | Metadata Extracted |\n|--------------|------------------|-------------------|\n| Code Blocks | Triple backtick | Language, content |\n| Tables | Pipe character rows | Row count, column count |\n| Images | ![alt](url) syntax | Alt text, URL |",
+    "pure_content": "Special elements like code blocks, tables, and images are extracted with their metadata.\n\n| Element Type | Detection Method | Metadata Extracted |\n|--------------|------------------|-------------------|\n| Code Blocks | Triple backtick | Language, content |\n| Tables | Pipe character rows | Row count, column count |\n| Images | ![alt](url) syntax | Alt text, URL |",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "e39bfb63-df68-44ba-8511-0a097cd78a8a",
+    "child_uuids": [
+      "3bbb10ee-da8a-4cc6-9081-e5e13287c097",
+      "0b03a646-36b1-49f6-8df8-a1e3e0f263d0",
+      "5065252f-a7eb-4009-9966-e1c5ed108105",
+      "311f065d-fd85-4e6c-809c-4ff5dc885737",
+      "310a68b5-191d-4abe-92a3-43ebe48d005a"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 3,
+      "has_code": false,
+      "has_tables": true,
+      "has_images": true,
+      "position": 837,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ],
+      "section_start": 837,
+      "section_end": 1226
+    }
+  },
+  {
+    "uuid": "3bbb10ee-da8a-4cc6-9081-e5e13287c097",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "Special elements like code blocks, tables, and images are extracted with their metadata.",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 860,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "0b03a646-36b1-49f6-8df8-a1e3e0f263d0",
+    "id": "MARKDOWN_EXTRACTION_table_0",
+    "name": "Special elements like code blocks, tables, and images are extracted with their metadata.",
+    "type": "table",
+    "language": "markdown",
+    "content": "| Element Type | Detection Method | Metadata Extracted |\n|--------------|",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 950,
+      "element_type": "table",
+      "row_count": 1,
+      "col_count": 3,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "5065252f-a7eb-4009-9966-e1c5ed108105",
+    "id": "MARKDOWN_EXTRACTION_text_2",
+    "name": "Text Block 3",
+    "type": "text",
+    "language": "markdown",
+    "content": "------------------|-------------------|\n| Code Blocks | Triple backtick | Language, content |\n| Tables | Pipe character rows | Row count, column count |\n| Images |",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1023,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "311f065d-fd85-4e6c-809c-4ff5dc885737",
+    "id": "MARKDOWN_EXTRACTION_image_0",
+    "name": "alt",
+    "type": "image",
+    "language": "markdown",
+    "content": "![alt](url)",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1187,
+      "element_type": "image",
+      "alt_text": "alt",
+      "image_url": "url",
+      "is_html": false,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "310a68b5-191d-4abe-92a3-43ebe48d005a",
+    "id": "MARKDOWN_EXTRACTION_text_4",
+    "name": "Text Block 5",
+    "type": "text",
+    "language": "markdown",
+    "content": "syntax | Alt text, URL |",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "776e47ab-a568-4600-bbf2-951704b1313a",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1198,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Implementation Details",
+        "Element Extraction"
+      ]
+    }
+  },
+  {
+    "uuid": "d15dbf13-7480-4011-827d-bbf8649e6bec",
+    "id": "MARKDOWN_EXTRACTION_testing",
+    "name": "Testing",
+    "type": "section",
+    "language": "markdown",
+    "content": "## Testing\n\nThe extraction process is tested using both unit tests and integration tests:\n\n1. Unit tests verify the individual extraction functions\n2. Integration tests process real-world markdown files\n3. Blind tests validate the extraction on unseen files\n\n![Extraction Process](https://example.com/extraction.png)",
+    "pure_content": "The extraction process is tested using both unit tests and integration tests:\n\n1. Unit tests verify the individual extraction functions\n2. Integration tests process real-world markdown files\n3. Blind tests validate the extraction on unseen files\n\n![Extraction Process](https://example.com/extraction.png)",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [
+      "0aa303f6-76e2-4b34-89ff-ff4ac8f8f73d",
+      "9aa514aa-c46e-4cf0-a02d-2ff553e722a3"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 2,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": true,
+      "position": 1226,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Testing"
+      ],
+      "section_start": 1226,
+      "section_end": 1544
+    }
+  },
+  {
+    "uuid": "0aa303f6-76e2-4b34-89ff-ff4ac8f8f73d",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "The extraction process is tested using both unit tests and integration tests:\n\n1. Unit tests verify the individual extraction functions\n2. Integration tests process real-world markdown files\n3. Blind tests validate the extraction on unseen files",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "d15dbf13-7480-4011-827d-bbf8649e6bec",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1237,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Testing"
+      ]
+    }
+  },
+  {
+    "uuid": "9aa514aa-c46e-4cf0-a02d-2ff553e722a3",
+    "id": "MARKDOWN_EXTRACTION_image_0",
+    "name": "Extraction Process",
+    "type": "image",
+    "language": "markdown",
+    "content": "![Extraction Process](https://example.com/extraction.png)",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "d15dbf13-7480-4011-827d-bbf8649e6bec",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1484,
+      "element_type": "image",
+      "alt_text": "Extraction Process",
+      "image_url": "https://example.com/extraction.png",
+      "is_html": false,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Testing"
+      ]
+    }
+  },
+  {
+    "uuid": "a08a6f54-4fbe-4252-bc1f-f27bef6915a7",
+    "id": "MARKDOWN_EXTRACTION_performance_considerations",
+    "name": "Performance Considerations",
+    "type": "section",
+    "language": "markdown",
+    "content": "## Performance Considerations\n\n- Efficient regex patterns for section matching\n- Single-pass processing for optimal performance\n- Proper handling of large files",
+    "pure_content": "- Efficient regex patterns for section matching\n- Single-pass processing for optimal performance\n- Proper handling of large files",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [
+      "0f7864fc-9423-4450-ae71-422ce516b30c"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 2,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false,
+      "position": 1544,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Performance Considerations"
+      ],
+      "section_start": 1544,
+      "section_end": 1706
+    }
+  },
+  {
+    "uuid": "0f7864fc-9423-4450-ae71-422ce516b30c",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "- Efficient regex patterns for section matching\n- Single-pass processing for optimal performance\n- Proper handling of large files",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "a08a6f54-4fbe-4252-bc1f-f27bef6915a7",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1574,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Performance Considerations"
+      ]
+    }
+  },
+  {
+    "uuid": "f08e7cb1-4773-459e-83f4-9c5094cf98bc",
+    "id": "MARKDOWN_EXTRACTION_future_improvements",
+    "name": "Future Improvements",
+    "type": "section",
+    "language": "markdown",
+    "content": "## Future Improvements\n\n* Better handling of nested formatting\n* More robust table extraction with cell merging\n* Support for more markdown extensions",
+    "pure_content": "* Better handling of nested formatting\n* More robust table extraction with cell merging\n* Support for more markdown extensions",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "3296a852-7077-4d88-b87b-ca4233187ecc",
+    "child_uuids": [
+      "3f6cbcab-eb9b-424b-8b09-b0c9a644a4ef"
+    ],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "level": 2,
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false,
+      "position": 1706,
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Future Improvements"
+      ],
+      "section_start": 1706,
+      "section_end": 1856
+    }
+  },
+  {
+    "uuid": "3f6cbcab-eb9b-424b-8b09-b0c9a644a4ef",
+    "id": "MARKDOWN_EXTRACTION_text_0",
+    "name": "Text Block 1",
+    "type": "text",
+    "language": "markdown",
+    "content": "* Better handling of nested formatting\n* More robust table extraction with cell merging\n* Support for more markdown extensions",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "parent_uuid": "f08e7cb1-4773-459e-83f4-9c5094cf98bc",
+    "child_uuids": [],
+    "metadata": {
+      "language": "markdown",
+      "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+      "is_embedded": true,
+      "position": 1729,
+      "element_type": "text",
+      "section_hierarchy": [
+        "Markdown Extraction",
+        "Future Improvements"
+      ]
+    }
+  },
+  {
+    "uuid": "1954168b-bcf9-4d2c-8ac7-934c0e601b29",
+    "id": "docs_arangodb_aql",
+    "name": "Documentation: arangodb_aql",
+    "type": "documentation",
+    "language": "html",
+    "content": "Documentation site: https://www.arangodb.com/docs/stable/aql/",
+    "file_path": "/tmp/tmp3jpo_fof",
+    "source_url": "https://www.arangodb.com/docs/stable/aql/",
+    "child_uuids": [
+      "b0866688-10ba-4547-89ab-811e814ad861"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "b0866688-10ba-4547-89ab-811e814ad861",
+    "id": "docs_arangodb_aql_index.html",
+    "name": "index.html",
+    "type": "doc_page",
+    "language": "html",
+    "content": "Documentation page from https://www.arangodb.com/docs/stable/aql/",
+    "file_path": "/tmp/tmp3jpo_fof/docs.arangodb.com/stable/aql/index.html",
+    "parent_uuid": "1954168b-bcf9-4d2c-8ac7-934c0e601b29",
+    "child_uuids": [
+      "21451d5d-43f6-4858-8cff-b246f9c6e473"
+    ],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "relative_path": "index.html",
+      "doc_type": "arangodb"
+    }
+  },
+  {
+    "uuid": "21451d5d-43f6-4858-8cff-b246f9c6e473",
+    "id": "docs_arangodb_aql_index.html_section_0",
+    "name": "AQL Documentation",
+    "type": "doc_section",
+    "language": "html",
+    "content": "\nThe ArangoDB Query Language (AQL) lets you store, retrieve, and modify data in various ways in ArangoDB\nAQL is mainly a declarative language, meaning that a query expresses what result\nshould be achieved but not how it should be achieved. AQL aims to be\nhuman-readable and therefore uses keywords from the English language. Another\ndesign goal of AQL was client independence, meaning that the language and syntax\nare the same for all clients, no matter what programming language the clients\nmay use. Further design goals of AQL were the support of complex query patterns\nand the different data models ArangoDB offers.\nIn its purpose, AQL is similar to the Structured Query Language (SQL). AQL supports\nreading and modifying collection data, but it doesn\u2019t support data-definition\noperations such as creating and dropping databases, collections and indexes.\nIt is a pure data manipulation language (DML), not a data definition language\n(DDL) or a data control language (DCL).\nThe syntax of AQL queries is different to SQL, even if some keywords overlap.\nNevertheless, AQL should be easy to understand for anyone with an SQL background.\nThe general workflow when executing a query is as follows:\nFor example queries, see theData QueriesandExamples & Query Patternschapters.",
+    "file_path": "/tmp/tmp3jpo_fof/docs.arangodb.com/stable/aql/index.html",
+    "parent_uuid": "b0866688-10ba-4547-89ab-811e814ad861",
+    "child_uuids": [],
+    "metadata": {
+      "language": "html",
+      "source_url": "https://www.arangodb.com/docs/stable/aql/",
+      "position": 0,
+      "doc_type": "arangodb",
+      "header_level": 1,
+      "token_count": 256,
+      "section_hierarchy": [
+        "AQL Documentation"
+      ],
+      "has_code": false,
+      "has_tables": false,
+      "has_images": false
+    }
+  }
+]

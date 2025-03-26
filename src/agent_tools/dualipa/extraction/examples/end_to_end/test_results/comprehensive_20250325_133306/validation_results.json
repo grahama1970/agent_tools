@@ -1,0 +1,18 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "stats": {
+    "block_types": {
+      "class": 5,
+      "method": 8,
+      "function": 1,
+      "documentation": 1,
+      "doc_page": 1,
+      "doc_section": 1
+    },
+    "total_blocks": 17,
+    "code_blocks": 14,
+    "doc_blocks": 3
+  }
+}

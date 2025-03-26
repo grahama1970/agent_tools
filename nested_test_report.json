@@ -1,0 +1,216 @@
+{
+  "file_path": "test_repos/complex_python_sample/nested_classes/nested_example.py",
+  "extraction_result": {
+    "file_path": "test_repos/complex_python_sample/nested_classes/nested_example.py",
+    "language": "python",
+    "classes": [
+      {
+        "name": "OuterClass",
+        "line": 23,
+        "column": 0,
+        "docstring": null,
+        "methods": [
+          {
+            "name": "__init__",
+            "line": 32,
+            "column": 4,
+            "decorators": [],
+            "parameters": [
+              "self"
+            ],
+            "docstring": null
+          }
+        ],
+        "attributes": [
+          {
+            "name": "class_variable",
+            "line": 30,
+            "column": 4
+          }
+        ],
+        "inner_classes": [
+          {
+            "name": "InnerClass",
+            "line": 50,
+            "column": 4,
+            "docstring": null
+          },
+          {
+            "name": "AnotherInnerClass",
+            "line": 87,
+            "column": 4,
+            "docstring": null
+          }
+        ],
+        "inherits_from": []
+      }
+    ],
+    "functions": [
+      {
+        "name": "debug_method",
+        "line": 12,
+        "column": 0,
+        "decorators": [],
+        "parameters": [
+          "func"
+        ],
+        "docstring": null
+      }
+    ],
+    "imports": [
+      {
+        "text": "import typing",
+        "line": 7,
+        "column": 0
+      },
+      {
+        "text": "from typing import Optional, List, Dict, Any, Callable",
+        "line": 8,
+        "column": 0
+      },
+      {
+        "text": "from functools import wraps",
+        "line": 9,
+        "column": 0
+      }
+    ],
+    "docstring": "\nExample of complex nested class structures with decorators and docstrings.\nThis tests the AST extractor's ability to accurately parse nested structures.\n"
+  },
+  "initial_context": {
+    "task": "Extraction initialization",
+    "goal": "Set up memory for extraction operations",
+    "progress": "Memory system initialized",
+    "next_steps": "Begin extraction process",
+    "priority": 5,
+    "tags": [
+      "extraction",
+      "initialization"
+    ],
+    "key": "memory-20250325-201750"
+  },
+  "final_context": {
+    "task": "Extraction from nested_example.py completed",
+    "goal": "Successfully extract and process repository content",
+    "progress": "Completed: Completed test extraction of nested_example.py",
+    "next_steps": "Proceed to QA generation or additional processing",
+    "priority": 8,
+    "tags": [
+      "extraction",
+      "completion",
+      "nested_example.py"
+    ],
+    "key": "memory-20250325-201751",
+    "notes": "Final Statistics:\n{\n  \"files_processed\": 1,\n  \"files_extracted\": 1,\n  \"extraction_errors\": 0,\n  \"languages\": {\n    \"python\": {\n      \"files\": 1,\n      \"success\": 1,\n      \"errors\": 0\n    }\n  },\n  \"start_time\": 1742948270.801342,\n  \"success_rate\": 100.0\n}"
+  },
+  "related_knowledge": [
+    {
+      "topic": "ast_pattern_python_function",
+      "content": "# Successful python function extraction\n\nFile: test_repos/complex_python_sample/nested_classes/nested_example.py\n\nComplex structures: nested_class:OuterClass\n\nExample count: 1",
+      "summary": "Successful python function extraction pattern",
+      "source": "",
+      "examples": "",
+      "related_topics": "ast_pattern_python_class,ast_pattern_python_import,ast_pattern_python_function",
+      "importance": 7,
+      "created_at": "2025-03-26 00:17:51",
+      "updated_at": "2025-03-26 00:17:51",
+      "similarity": 0.7519260913735717,
+      "tags": [
+        "extraction",
+        "ast",
+        "extraction",
+        "python",
+        "function"
+      ]
+    },
+    {
+      "topic": "ast_pattern_python_class",
+      "content": "# Successful python class extraction\n\nFile: test_repos/complex_python_sample/nested_classes/nested_example.py\n\nComplex structures: nested_class:OuterClass\n\nExample count: 0",
+      "summary": "Successful python class extraction pattern",
+      "source": "",
+      "examples": "",
+      "related_topics": "ast_pattern_python_function,ast_pattern_python_import,ast_pattern_python_class",
+      "importance": 7,
+      "created_at": "2025-03-26 00:17:51",
+      "updated_at": "2025-03-26 00:17:51",
+      "similarity": 0.7442058981241759,
+      "tags": [
+        "extraction",
+        "ast",
+        "extraction",
+        "python",
+        "class"
+      ]
+    },
+    {
+      "topic": "ast_pattern_python_import",
+      "content": "# Successful python import extraction\n\nFile: test_repos/complex_python_sample/nested_classes/nested_example.py\n\nComplex structures: nested_class:OuterClass\n\nExample count: 3",
+      "summary": "Successful python import extraction pattern",
+      "source": "",
+      "examples": "",
+      "related_topics": "ast_pattern_python_function,ast_pattern_python_class,ast_pattern_python_import",
+      "importance": 7,
+      "created_at": "2025-03-26 00:17:51",
+      "updated_at": "2025-03-26 00:17:51",
+      "similarity": 0.7312861225496536,
+      "tags": [
+        "extraction",
+        "ast",
+        "extraction",
+        "python",
+        "import"
+      ]
+    },
+    {
+      "topic": "ast_pattern_python_function",
+      "content": "# Successful python function extraction\n\nFile: test_repos/complex_python_sample/nested_classes/nested_example.py\n\nComplex structures: nested_class:OuterClass\n\nExample count: 1",
+      "summary": "Successful python function extraction pattern",
+      "source": "",
+      "examples": "",
+      "related_topics": "ast_pattern_python_class,ast_pattern_python_import,ast_pattern_python_function",
+      "importance": 7,
+      "created_at": "2025-03-26 00:17:51",
+      "updated_at": "2025-03-26 00:17:51",
+      "similarity": 0.6619726383452762,
+      "tags": [
+        "extraction",
+        "ast",
+        "extraction",
+        "python",
+        "function"
+      ]
+    },
+    {
+      "topic": "ast_pattern_python_class",
+      "content": "# Successful python class extraction\n\nFile: test_repos/complex_python_sample/nested_classes/nested_example.py\n\nComplex structures: nested_class:OuterClass\n\nExample count: 0",
+      "summary": "Successful python class extraction pattern",
+      "source": "",
+      "examples": "",
+      "related_topics": "ast_pattern_python_function,ast_pattern_python_import,ast_pattern_python_class",
+      "importance": 7,
+      "created_at": "2025-03-26 00:17:51",
+      "updated_at": "2025-03-26 00:17:51",
+      "similarity": 0.6598103326727819,
+      "tags": [
+        "extraction",
+        "ast",
+        "extraction",
+        "python",
+        "class"
+      ]
+    }
+  ],
+  "statistics": {
+    "files_processed": 1,
+    "files_extracted": 1,
+    "extraction_errors": 0,
+    "languages": {
+      "python": {
+        "files": 1,
+        "success": 1,
+        "errors": 0
+      }
+    },
+    "start_time": 1742948270.801342,
+    "success_rate": 100.0
+  }
+}

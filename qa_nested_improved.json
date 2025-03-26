@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "uuid": "1a62b196-27a8-4de8-9981-e427ab88128e",
+      "type": "code_file",
+      "title": "nested_example.py",
+      "content": "# nested_example.py\n\nFile: /home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/nested_classes/nested_example.py\nLanguage: python\n\nDocstring:\n\nExample of complex nested class structures with decorators and docstrings.\nThis tests the AST extractor's ability to accurately parse nested structures.\n\n",
+      "extraction_focus": "code structure",
+      "summary_instructions": "Generate QA pairs about the structure of nested_example.py",
+      "breadcrumb": [
+        "nested_example.py"
+      ]
+    },
+    {
+      "uuid": "e48edabb-116e-49cf-a338-99bca0527025",
+      "type": "code_structure",
+      "title": "Classes in nested_example.py",
+      "content": "# Classes\n\n## OuterClass\n\nInner classes: InnerClass, AnotherInnerClass\n\n### Methods:\n\n- __init__(self)\n\n",
+      "extraction_focus": "class structures",
+      "summary_instructions": "Generate QA pairs about classes in nested_example.py",
+      "breadcrumb": [
+        "nested_example.py",
+        "Classes"
+      ]
+    },
+    {
+      "uuid": "21b81f4b-fcb9-4d18-b7d2-085c06c3ad10",
+      "type": "code_structure",
+      "title": "Functions in nested_example.py",
+      "content": "# Functions\n\n## debug_method(func)\n\n",
+      "extraction_focus": "function usage",
+      "summary_instructions": "Generate QA pairs about functions in nested_example.py",
+      "breadcrumb": [
+        "nested_example.py",
+        "Functions"
+      ]
+    },
+    {
+      "uuid": "40b15a47-56fb-40d9-ac73-299970ae5b20",
+      "type": "code_structure",
+      "title": "Imports in nested_example.py",
+      "content": "# Imports\n\n- import typing\n- from typing import Optional, List, Dict, Any, Callable\n- from functools import wraps\n",
+      "extraction_focus": "dependencies",
+      "summary_instructions": "Generate QA pairs about dependencies in nested_example.py",
+      "breadcrumb": [
+        "nested_example.py",
+        "Imports"
+      ]
+    }
+  ],
+  "extraction_metadata": {
+    "model_used": "ast-extraction-model",
+    "timestamp": "1742948565.8055847",
+    "source": "extraction_output.json",
+    "statistics": {}
+  }
+}

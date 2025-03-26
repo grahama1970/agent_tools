@@ -1,0 +1,203 @@
+{
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+  "language": "python",
+  "classes": [
+    {
+      "name": "LazyProperty",
+      "line": 89,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "CachedDecorator",
+      "line": 126,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    },
+    {
+      "name": "ComplexClass",
+      "line": 157,
+      "docstring": null,
+      "decorators": [],
+      "inherits_from": []
+    }
+  ],
+  "functions": [
+    {
+      "name": "timing_decorator",
+      "line": 16,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "func"
+      ]
+    },
+    {
+      "name": "retry",
+      "line": 36,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "attempts",
+        "delay"
+      ]
+    },
+    {
+      "name": "validate_types",
+      "line": 62,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "func"
+      ]
+    },
+    {
+      "name": "wrapper",
+      "line": 27,
+      "docstring": null,
+      "decorators": [],
+      "parameters": []
+    },
+    {
+      "name": "decorator",
+      "line": 47,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "func"
+      ]
+    },
+    {
+      "name": "wrapper",
+      "line": 75,
+      "docstring": null,
+      "decorators": [],
+      "parameters": []
+    },
+    {
+      "name": "__init__",
+      "line": 96,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "func"
+      ]
+    },
+    {
+      "name": "__get__",
+      "line": 107,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "instance",
+        "owner"
+      ]
+    },
+    {
+      "name": "__init__",
+      "line": 129,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ]
+    },
+    {
+      "name": "__call__",
+      "line": 133,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "func"
+      ]
+    },
+    {
+      "name": "__init__",
+      "line": 160,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "name"
+      ]
+    },
+    {
+      "name": "process_data",
+      "line": 166,
+      "docstring": null,
+      "decorators": [
+        "timing_decorator"
+      ],
+      "parameters": [
+        "self",
+        "input_data"
+      ]
+    },
+    {
+      "name": "external_api_call",
+      "line": 173,
+      "docstring": null,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "endpoint"
+      ]
+    },
+    {
+      "name": "typed_method",
+      "line": 182,
+      "docstring": null,
+      "decorators": [
+        "validate_types"
+      ],
+      "parameters": [
+        "self",
+        "value",
+        "name"
+      ]
+    },
+    {
+      "name": "expensive_computation",
+      "line": 187,
+      "docstring": null,
+      "decorators": [
+        "LazyProperty"
+      ],
+      "parameters": [
+        "self"
+      ]
+    },
+    {
+      "name": "cached_method",
+      "line": 196,
+      "docstring": null,
+      "decorators": [
+        "cached"
+      ],
+      "parameters": [
+        "self",
+        "param"
+      ]
+    },
+    {
+      "name": "wrapper",
+      "line": 49,
+      "docstring": null,
+      "decorators": [],
+      "parameters": []
+    },
+    {
+      "name": "wrapper",
+      "line": 144,
+      "docstring": null,
+      "decorators": [],
+      "parameters": []
+    }
+  ],
+  "imports": []
+}

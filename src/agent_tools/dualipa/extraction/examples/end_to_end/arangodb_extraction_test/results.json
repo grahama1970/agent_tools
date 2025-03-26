@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-03-25T13:30:21.697457",
+  "source_url": "https://www.arangodb.com/docs/stable/aql/",
+  "success": true,
+  "steps": [],
+  "output_files": {
+    "html": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_extraction_test/arangodb_aql.html",
+    "blocks": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_extraction_test/arangodb_blocks.json",
+    "summary": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_extraction_test/extraction_summary.html"
+  },
+  "output_directory": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_extraction_test",
+  "statistics": {
+    "total_blocks": 3,
+    "doc_blocks": 1,
+    "page_blocks": 1,
+    "section_blocks": 1,
+    "code_blocks": 0,
+    "table_blocks": 0,
+    "image_blocks": 0
+  }
+}

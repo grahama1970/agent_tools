@@ -19,14 +19,19 @@ The reorganization of the DuaLipa extraction module involved moving files to mor
 - `/tests/dualipa/extraction/test_minimal.py`: Added as a sanity check for imports.
 - `/tests/dualipa/extraction/integration/test_fetch_docs_integration.py::TestFetchDocsIntegration::test_validate_against_expected_format`: Fixed validation function used in fetch_docs integration.
 - `/tests/dualipa/extraction/integration/test_validate_extraction_output.py`: Tests for the validation of extraction output format.
+- `/tests/dualipa/extraction/test_github_utils.py`: GitHub utility tests for URL parsing and repository operations.
+- `/tests/dualipa/extraction/renamed/test_1_github_utils.py`: Same GitHub utility tests in renamed structure.
+- `/tests/dualipa/extraction/new_order/test_10_github_utils.py`: Same GitHub utility tests in new order structure.
 
 ### Tests Requiring Further Fixes
 
 Tests in the following categories need additional fixes:
 
 1. **GitHub Integration Tests**
-   - Missing functionality in `repo_utils.py` needs to be implemented.
-   - GitHub API mock tests need to be updated.
+   - ✅ Implemented missing functions in `repo_utils.py` for GitHub operations.
+   - ✅ Fixed GitHub URL parsing to handle both HTTPS and SSH formats.
+   - ✅ Added mock implementations for testing without actual git operations.
+   - ✅ Updated tests to work with backward compatibility layers.
 
 2. **Code Extraction Tests**
    - Function name changes for private extraction functions.
@@ -89,6 +94,9 @@ Tests in the following categories need additional fixes:
 4. **GitHub Repository Utils**
    - Added missing `clone_github_repo` and `extract_from_repo` functions to repo_utils.py
    - Added missing import to repo_utils.py __all__ list for backward compatibility
+   - Enhanced `parse_github_url` to handle both HTTPS and SSH URLs
+   - Updated `clone_github_repo` to use GitPython when available for better test integration
+   - Added backward compatibility exports for GitHub API utilities
 
 5. **Code Extractor**
    - Added missing `_extract_with_tree_sitter` function to code_extractor.py
@@ -101,3 +109,8 @@ Tests in the following categories need additional fixes:
 7. **Markdown Parser**
    - Created markdown_it_parser.py module for backward compatibility
    - Implemented fallback versions of markdown parsing functions
+
+8. **Test Integration**
+   - Updated test imports to use compatibility modules
+   - Fixed mock patching to work with updated function paths
+   - Ensured backward compatibility with both return types and function signatures

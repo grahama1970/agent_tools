@@ -37,14 +37,20 @@ This document summarizes the fixes made to address issues that arose during the 
    - Added missing `initialize_stats_dict` function
 
 4. `/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py`
-   - Added missing `parse_github_url` function
-   - Added missing `clone_github_repo` and `extract_from_repo` functions
-   - Added missing `is_github_url` and `fetch_repo_contents_async` functions
-   - Added `GIT_AVAILABLE` constant for git availability checking
+   - Enhanced `parse_github_url` function to handle both HTTPS and SSH URL formats
+   - Updated `clone_github_repo` to use GitPython when available for better test integration
+   - Added `extract_from_repo` function for repository content extraction
+   - Added `is_github_url` function with support for both GitHub URL formats
+   - Added `fetch_repo_contents_async` function for GitHub API integration
+   - Added `GIT_AVAILABLE` and `REQUESTS_AVAILABLE` constants for dependency checking
+   - Added comprehensive error handling and fallback mechanisms
 
 5. `/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/github_utils.py`
-   - Created new compatibility module
-   - Added stub for `discover_files` function
+   - Created new compatibility module for GitHub utilities
+   - Updated GitHub function re-exports to use the new implementations directly
+   - Added stub implementations for backward compatibility (like `discover_files`)
+   - Added mocking support for git and requests modules when not available
+   - Improved test compatibility with proper return types and patching support
 
 6. `/home/grahama/workspace/experiments/agent_tools/tests/dualipa/extraction/conftest.py`
    - Fixed nested triple quotes in docstrings

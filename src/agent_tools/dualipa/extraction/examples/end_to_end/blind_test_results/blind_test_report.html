@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ArangoDB Blind Test Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #444;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .success {
+            color: #2ecc71;
+        }
+        .warning {
+            color: #f39c12;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ArangoDB Blind Test Report</h1>
+            <p>Test run: 2025-03-25 14:09:53</p>
+        </div>
+
+        <div class="section">
+            <h2>Test Configuration</h2>
+            <h3>Code Files</h3>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>File Path</th>
+                </tr>
+                <tr><td>1</td><td>src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py</td></tr><tr><td>2</td><td>src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/821e2c45_buildUnittestBashCompletion.bash</td></tr><tr><td>3</td><td>src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/1887a680_ArangoQuery.types.ts</td></tr><tr><td>4</td><td>src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/673ddd83_ViewsList.tsx</td></tr><tr><td>5</td><td>src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/9323100b_Pipeline.py</td></tr>
+            </table>
+            
+            <h3>Documentation URLs</h3>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>URL</th>
+                </tr>
+                <tr><td>1</td><td><a href='https://docs.arangodb.com/stable/aql/data-queries/'>https://docs.arangodb.com/stable/aql/data-queries/</a></td></tr><tr><td>2</td><td><a href='https://docs.arangodb.com/stable/aql/functions/arangosearch/'>https://docs.arangodb.com/stable/aql/functions/arangosearch/</a></td></tr><tr><td>3</td><td><a href='https://docs.arangodb.com/stable/aql/operators/'>https://docs.arangodb.com/stable/aql/operators/</a></td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Extraction Results</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Blocks</h3>
+                    <p>152</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Code Blocks</h3>
+                    <p>8</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Documentation Blocks</h3>
+                    <p>68</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Status</h3>
+                    <p class="success">
+                        ✅ VALID
+                    </p>
+                </div>
+            </div>
+
+            <h3>Block Types</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                </tr>
+                <tr><td>function</td><td>6</td></tr><tr><td>block</td><td>1</td></tr><tr><td>interface</td><td>2</td></tr><tr><td>class</td><td>2</td></tr><tr><td>documentation</td><td>3</td></tr><tr><td>doc_page</td><td>3</td></tr><tr><td>doc_section</td><td>62</td></tr><tr><td>code_block</td><td>70</td></tr><tr><td>table</td><td>3</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            
+            <h3 class="success">No validation errors</h3>
+            
+            <h3 class="success">No warnings</h3>
+        </div>
+
+        <div class="section">
+            <h2>Sample Blocks</h2>
+            <h3>Code Sample</h3>
+            <pre>{
+  "type": "function",
+  "name": "update_line_chart",
+  "start_line": 98,
+  "end_line": 153,
+  "children": [],
+  "uuid": "00f2f326-4dd0-4262-9add-a624618e48c0",
+  "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+  "content": "def update_line_chart(gauge_select):\n    # Create figure with secondary y-axis\n    fig = make_subplots(specs=[[{\"secondary_y\": True}]])\n    # Add traces\n    fig.add_trace(\n        go.Scatter(x=df_load['Date'], y=df_load['load'], # replace with your own data source\n        name=\"Load\"), secondary_y=False,\n    )\n    if 'netio' in gauge_select:\n        fig.add_trace(\n            go.Scatter(x=df_load['Date'], y=df_load['netio'], # replace with your own data source\n                       name=\"NetIO\"), secondary_y=True\n        )\n    # Add figure title\n    fig.update_layout(title_text=\"Load graph\")\n    # Set x-axis title\n    fig.update_xaxes(title_text=\"Date\")\n    # Set y-axes titles\n    fig.update_yaxes(\n        title_text=\"<b>Load</b>\",\n        secondary_y=False)\n    fig.update_yaxes(\n        title_text=\"<b>Net IO LO</b>\",\n        secondary_y=True)\n\n    fig.update_layout(\n        xaxis=dict(\n            rangeselector=dict(\n                buttons=list([\n                    dict(count=1,\n                         label=\"1m\",\n                         step=\"month\",\n                         stepmode=\"backward\"),\n                    dict(count=6,\n                         label=\"6m\",\n                         step=\"month\",\n                         stepmode=\"backward\"),\n                    dict(count=1,\n                         label=\"YTD\",\n                         step=\"year\",\n                         stepmode=\"todate\"),\n                    dict(count=1,\n                         label=\"1y\",\n                         step=\"year\",\n                         stepmode=\"backward\"),\n                    dict(step=\"all\")\n                ])\n            ),\n            rangeslider=dict(\n                visible=True\n            ),\n            type=\"date\"\n        )\n    )\n\n    return fig"
+}</pre>
+            
+            <h3>Documentation Sample</h3>
+            <pre>{
+  "uuid": "1f1d8838-6b68-4c9d-a0b3-6cee34a38b6a",
+  "id": "docs_arangodb_data-queries_index.html_section_0",
+  "name": "AQL Data Queries",
+  "type": "doc_section",
+  "language": "html",
+  "content": "\nWith AQL queries, you can read and write data in the form of documents\nThere are two fundamental types of AQL queries:",
+  "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/docs/0d9e8aa7/docs.arangodb.com/stable/aql/data-queries/index.html",
+  "parent_uuid": "19d425ec-f9bc-4635-aa15-cbce8e5ab36c",
+  "child_uuids": [
+    "3a37624d-b645-4622-a74a-8f9a57d4ad8d",
+    "fd422471-a940-40a4-a35e-c923efe82bbb"
+  ],
+  "metadata": {
+    "language": "html",
+    "source_url": "https://docs.arangodb.com/data-queries/",
+    "position": 0,
+    "doc_type": "arangodb",
+    "header_level": 1,
+    "token_count": 26,
+    "section_hierarchy": [
+      "AQL Data Queries"
+    ],
+    "has_code": false,
+    "has_tables": false,
+    "has_images": false
+  }
+}</pre>
+        </div>
+    </div>
+</body>
+</html>

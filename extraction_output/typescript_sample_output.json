@@ -1,0 +1,161 @@
+{
+  "version": "1.0",
+  "timestamp": 1742940085.9566116,
+  "extraction_type": "code_structures",
+  "structures": [
+    {
+      "type": "function",
+      "name": "",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/moving.js",
+      "line": 6
+    },
+    {
+      "type": "function",
+      "name": "__",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/moving.js",
+      "line": 11
+    },
+    {
+      "type": "function",
+      "name": "playerr",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/moving.js",
+      "line": 30
+    },
+    {
+      "type": "function",
+      "name": "",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/GamePlay.js",
+      "line": 6
+    },
+    {
+      "type": "function",
+      "name": "__",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/GamePlay.js",
+      "line": 11
+    },
+    {
+      "type": "function",
+      "name": "GamePlay",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/GamePlay.js",
+      "line": 21
+    },
+    {
+      "type": "function",
+      "name": "",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/levelManBall.js",
+      "line": 6
+    },
+    {
+      "type": "function",
+      "name": "__",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/levelManBall.js",
+      "line": 11
+    },
+    {
+      "type": "function",
+      "name": "levelManBall",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/levelManBall.js",
+      "line": 21
+    },
+    {
+      "type": "function",
+      "name": "",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 6
+    },
+    {
+      "type": "function",
+      "name": "__",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 11
+    },
+    {
+      "type": "function",
+      "name": "adopt",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 16
+    },
+    {
+      "type": "function",
+      "name": "fulfilled",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 18
+    },
+    {
+      "type": "function",
+      "name": "rejected",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 19
+    },
+    {
+      "type": "function",
+      "name": "step",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 20
+    },
+    {
+      "type": "function",
+      "name": "verb",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 27
+    },
+    {
+      "type": "function",
+      "name": "step",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 28
+    },
+    {
+      "type": "function",
+      "name": "setupCamera",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 61
+    },
+    {
+      "type": "function",
+      "name": "startFaceMesh",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 77
+    },
+    {
+      "type": "function",
+      "name": "onFaceDetected",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 116
+    },
+    {
+      "type": "function",
+      "name": "Boot",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/dist/Boot.js",
+      "line": 148
+    },
+    {
+      "type": "function",
+      "name": "onFaceDetected",
+      "language": "javascript",
+      "file_path": "test_repos/typescript-sample/src/scenes/Boot.ts",
+      "line": 57
+    }
+  ]
+}

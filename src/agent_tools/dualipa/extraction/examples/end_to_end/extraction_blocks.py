@@ -767,6 +767,149 @@ def extract_all_blocks(source_dir: Path) -> List[Dict[str, Any]]:
                     # Update file stats
                     file_stats["block_types"]["function"] = file_stats["block_types"].get("function", 0) + 1
                 
+                # Find TypeScript interfaces
+                if language == "typescript" or file_path.suffix.lower() in [".ts", ".d.ts", ".tsx"]:
+                    # Interface pattern
+                    interface_pattern = re.compile(r'(?:export\s+)?interface\s+(\w+)(?:\s*<[^>]*>)?(?:\s+extends\s+([^{]+))?\s*{', re.MULTILINE)
+                    
+                    for match in interface_pattern.finditer(content):
+                        interface_name = match.group(1)
+                        extends_clause = match.group(2)
+                        start_pos = match.start()
+                        
+                        # Find the end of the interface by matching braces
+                        open_braces = 0
+                        end_pos = start_pos
+                        found_opening = False
+                        
+                        for i in range(start_pos, len(content)):
+                            if content[i] == '{':
+                                open_braces += 1
+                                found_opening = True
+                            elif content[i] == '}':
+                                open_braces -= 1
+                                if found_opening and open_braces == 0:
+                                    end_pos = i + 1
+                                    break
+                        
+                        if end_pos > start_pos:
+                            interface_content = content[start_pos:end_pos].strip()
+                            
+                            # Create block for the interface
+                            interface_uuid = str(uuid.uuid4())
+                            interface_block = {
+                                "uuid": interface_uuid,
+                                "id": f"{Path(file_path).stem}_{interface_name}",
+                                "name": interface_name,
+                                "type": "interface",
+                                "language": "typescript",
+                                "content": interface_content,
+                                "file_path": str(file_path),
+                                "parent_uuid": file_block["uuid"],
+                                "child_uuids": [],
+                                "metadata": {
+                                    "language": "typescript",
+                                    "source_file": str(file_path),
+                                    "is_declaration_file": file_path.suffix.lower() == ".d.ts"
+                                }
+                            }
+                            
+                            # Add inheritance information if available
+                            if extends_clause and extends_clause.strip():
+                                interface_block["metadata"]["extends"] = [
+                                    ext.strip() for ext in extends_clause.split(',')
+                                ]
+                            
+                            # Extract properties from the interface
+                            # Parse the interface content to extract properties
+                            # This regex captures property definitions including optional properties
+                            # and finds documentation comments above properties
+                            property_start = interface_content.find('{') + 1
+                            if property_start > 0:
+                                properties_text = interface_content[property_start:].strip()
+                                if properties_text and properties_text != '}':
+                                    # Extract properties using regex that handles various property types
+                                    property_pattern = re.compile(
+                                        r'(?:\/\*\*\s*(.*?)\s*\*\/\s*)?'  # Optional JSDoc comment
+                                        r'(?:\/\/\s*(.*?)\s*\n\s*)?'      # Optional single-line comment
+                                        r'(?:readonly\s+)?'                # Optional readonly modifier
+                                        r'([\w]+)'                         # Property name
+                                        r'(\?)?'                           # Optional ? for optional properties
+                                        r'\s*:'                            # Type separator
+                                        r'\s*(.+?)'                        # Type
+                                        r'(?:;|,|$)',                       # End of property
+                                        re.DOTALL
+                                    )
+                                    
+                                    properties = []
+                                    for prop_match in property_pattern.finditer(properties_text):
+                                        jsdoc = prop_match.group(1)
+                                        inline_comment = prop_match.group(2)
+                                        prop_name = prop_match.group(3)
+                                        optional = bool(prop_match.group(4))
+                                        prop_type = prop_match.group(5).strip().rstrip(';,')
+                                        
+                                        # Clean up the type (remove trailing ; or ,)
+                                        if prop_type.endswith(';') or prop_type.endswith(','):
+                                            prop_type = prop_type[:-1].strip()
+                                        
+                                        properties.append({
+                                            "name": prop_name,
+                                            "type": prop_type,
+                                            "optional": optional,
+                                            "description": jsdoc if jsdoc else (inline_comment if inline_comment else "")
+                                        })
+                                    
+                                    # Add properties to metadata
+                                    if properties:
+                                        interface_block["metadata"]["properties"] = properties
+                            
+                            all_blocks.append(interface_block)
+                            
+                            # Add interface to file's child UUIDs
+                            file_block["child_uuids"].append(interface_uuid)
+                            
+                            # Update file stats
+                            file_stats["block_types"]["interface"] = file_stats["block_types"].get("interface", 0) + 1
+                    
+                    # Find TypeScript types
+                    type_pattern = re.compile(r'(?:export\s+)?type\s+(\w+)(?:\s*<[^>]*>)?\s*=\s*([^;]+);', re.MULTILINE)
+                    for match in type_pattern.finditer(content):
+                        type_name = match.group(1)
+                        type_value = match.group(2).strip()
+                        start_pos = match.start()
+                        end_pos = match.end()
+                        
+                        type_content = content[start_pos:end_pos].strip()
+                        
+                        # Create block for the type
+                        type_uuid = str(uuid.uuid4())
+                        type_block = {
+                            "uuid": type_uuid,
+                            "id": f"{Path(file_path).stem}_{type_name}",
+                            "name": type_name,
+                            "type": "type",
+                            "language": "typescript",
+                            "content": type_content,
+                            "file_path": str(file_path),
+                            "parent_uuid": file_block["uuid"],
+                            "child_uuids": [],
+                            "metadata": {
+                                "language": "typescript",
+                                "source_file": str(file_path),
+                                "is_declaration_file": file_path.suffix.lower() == ".d.ts",
+                                "type_value": type_value
+                            }
+                        }
+                        
+                        all_blocks.append(type_block)
+                        
+                        # Add type to file's child UUIDs
+                        file_block["child_uuids"].append(type_uuid)
+                        
+                        # Update file stats
+                        file_stats["block_types"]["type"] = file_stats["block_types"].get("type", 0) + 1
+                
                 # Find classes
                 class_pattern = re.compile(r'class\s+(\w+)(?:\s+extends\s+(\w+))?', re.MULTILINE)
                 for match in class_pattern.finditer(content):

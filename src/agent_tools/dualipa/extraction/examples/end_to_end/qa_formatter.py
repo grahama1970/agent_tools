@@ -21,6 +21,7 @@ Dependencies:
 import uuid
 import re
 import logging
+from datetime import datetime
 from typing import Dict, List, Any
 from collections import defaultdict
 
@@ -62,20 +63,58 @@ def create_qa_compatible_blocks(blocks: List[Dict[str, Any]]) -> List[Dict[str, 
     # Create QA-compatible blocks
     qa_blocks = []
     
+    # First, let's create a function to ensure all required fields are present
+    def enhance_block_for_qa(block):
+        enhanced = block.copy()
+        
+        # Add required fields for QA module
+        if "uuid" not in enhanced:
+            enhanced["uuid"] = str(uuid.uuid4())
+        if "extraction_focus" not in enhanced:
+            if enhanced.get("type") in ["section", "text"]:
+                enhanced["extraction_focus"] = ["documentation"]
+            else:
+                enhanced["extraction_focus"] = ["code"]
+        if "summary_instructions" not in enhanced:
+            enhanced["summary_instructions"] = "Extract key points from content"
+        if "breadcrumb" not in enhanced:
+            # Create breadcrumb based on file path and name
+            file_path = enhanced.get("file_path", "")
+            name = enhanced.get("name", "")
+            if file_path:
+                file_name = file_path.split("/")[-1] if "/" in file_path else file_path
+                enhanced["breadcrumb"] = [file_name]
+                if name:
+                    enhanced["breadcrumb"].append(name)
+            else:
+                enhanced["breadcrumb"] = [name or "Unnamed Block"]
+        if "parent_uuid" not in enhanced:
+            enhanced["parent_uuid"] = None
+        if "child_uuids" not in enhanced:
+            enhanced["child_uuids"] = []
+        
+        return enhanced
+    
+    # Process all blocks - we want to include everything for our QA module
+    # First, add all function, class, and method blocks with required fields
+    code_element_blocks = [enhance_block_for_qa(b) for b in blocks if b.get("type") in ["function", "class", "method"]]
+    qa_blocks.extend(code_element_blocks)
+    
     # Process each file separately
     for file_block in file_blocks:
+        # Include the file block itself with required fields
+        qa_blocks.append(enhance_block_for_qa(file_block))
+        
         file_path = file_block.get("file_path", "unknown")
         file_name = file_path.split("/")[-1] if "/" in file_path else file_path
         
-        # Skip if not a markdown file
-        if not file_name.lower().endswith(".md"):
-            continue
-            
-        # Process markdown files with special formatting
+        # Process markdown files with special formatting for DeepSeek format
         if file_name.lower().endswith(".md") and "deepseek.md" in file_path:
             # Special handling for deepseek.md
             md_blocks = convert_to_deepseek_format(file_block, block_map)
-            qa_blocks.extend(md_blocks)
+            # Add required fields to each md block
+            enhanced_md_blocks = [enhance_block_for_qa(b) for b in md_blocks]
+            qa_blocks.extend(enhanced_md_blocks)
         else:
             # Get top-level sections for this file
             file_sections = [b for b in section_blocks if b.get("parent_uuid") == file_block["uuid"]]
@@ -83,6 +122,10 @@ def create_qa_compatible_blocks(blocks: List[Dict[str, Any]]) -> List[Dict[str, 
             # Process each section and its sub-sections
             for section in file_sections:
                 process_section_and_children(section, block_map, qa_blocks)
+                
+    # Add other blocks that weren't included above (code_blocks, tables, images, texts)
+    other_blocks = [enhance_block_for_qa(b) for b in blocks if b.get("type") in ["code_block", "table", "image", "text"]]
+    qa_blocks.extend(other_blocks)
     
     return qa_blocks
 
@@ -237,7 +280,7 @@ def build_section_hierarchy(section: Dict[str, Any], block_map: Dict[str, Dict[s
 
 def process_section_and_children(section: Dict[str, Any], block_map: Dict[str, Dict[str, Any]], qa_blocks: List[Dict[str, Any]]):
     """Process a section and all its child sections recursively."""
-    # Create QA block for this section
+    # Create initial QA block for this section
     qa_block = {
         "uuid": section["uuid"],
         "id": section.get("id", f"section_{len(qa_blocks)}"),
@@ -256,6 +299,17 @@ def process_section_and_children(section: Dict[str, Any], block_map: Dict[str, D
     # Add hierarchy information if available
     if "metadata" in section and "section_hierarchy" in section["metadata"]:
         qa_block["hierarchy"] = section["metadata"]["section_hierarchy"]
+        qa_block["breadcrumb"] = section["metadata"]["section_hierarchy"]
+    elif "breadcrumb" not in qa_block:
+        qa_block["breadcrumb"] = [qa_block.get("name", "Untitled Section")]
+    
+    # Add required fields for QA module
+    qa_block["extraction_focus"] = ["documentation"]
+    qa_block["summary_instructions"] = "Extract key points from section content"
+    if "parent_uuid" not in qa_block:
+        qa_block["parent_uuid"] = section.get("parent_uuid")
+    if "child_uuids" not in qa_block:
+        qa_block["child_uuids"] = section.get("child_uuids", [])
     
     # Find all child elements of this section
     for block_uuid, block in block_map.items():
@@ -485,8 +539,78 @@ def create_qa_compatible_output(blocks: List[Dict[str, Any]]) -> Dict[str, Any]:
         # Return just the deepseek blocks in their special format
         return deepseek_blocks
     
-    # Return standard format with all blocks and metadata
+    # Add required fields to each block for QA module compatibility
+    enhanced_blocks = []
+    for block in blocks:
+        # Create a copy to avoid modifying the original
+        enhanced_block = block.copy()
+        
+        # Ensure all blocks have required fields
+        if "uuid" not in enhanced_block:
+            enhanced_block["uuid"] = str(uuid.uuid4())
+        if "extraction_focus" not in enhanced_block:
+            enhanced_block["extraction_focus"] = ["documentation" if enhanced_block.get("type") in ["section", "text"] else "code"]
+        if "summary_instructions" not in enhanced_block:
+            enhanced_block["summary_instructions"] = "Extract key points from content"
+        if "breadcrumb" not in enhanced_block:
+            enhanced_block["breadcrumb"] = [enhanced_block.get("name", "Unnamed Block")]
+        if "parent_uuid" not in enhanced_block:
+            enhanced_block["parent_uuid"] = None
+        if "child_uuids" not in enhanced_block:
+            enhanced_block["child_uuids"] = []
+            
+        # Ensure language field is present (this is required by QA module)
+        if "language" not in enhanced_block:
+            # Try to determine language from metadata or file extension
+            if "metadata" in enhanced_block and "language" in enhanced_block["metadata"]:
+                enhanced_block["language"] = enhanced_block["metadata"]["language"]
+            elif enhanced_block.get("type") in ["section", "text"]:
+                enhanced_block["language"] = "markdown"
+            elif enhanced_block.get("type") == "file":
+                file_path = enhanced_block.get("file_path", "")
+                if file_path.endswith(".md"):
+                    enhanced_block["language"] = "markdown"
+                elif file_path.endswith((".py", ".pyx", ".pyw")):
+                    enhanced_block["language"] = "python"
+                elif file_path.endswith((".js", ".jsx")):
+                    enhanced_block["language"] = "javascript"
+                elif file_path.endswith((".ts", ".tsx")):
+                    enhanced_block["language"] = "typescript"
+                else:
+                    enhanced_block["language"] = "text"
+            else:
+                enhanced_block["language"] = "text"
+            
+        enhanced_blocks.append(enhanced_block)
+    
+    # Build section relationships
+    section_relationships = {
+        "parent_child": {},
+        "imports": {},
+        "inheritance": {}
+    }
+    
+    # Create relationship structures
+    for block in enhanced_blocks:
+        block_uuid = block.get("uuid")
+        parent_uuid = block.get("parent_uuid")
+        child_uuids = block.get("child_uuids", [])
+        
+        # Add to parent-child relationships
+        if block_uuid:
+            section_relationships["parent_child"][block_uuid] = {
+                "parent": parent_uuid,
+                "children": child_uuids
+            }
+    
+    # Add model information to metadata
+    metadata["model_used"] = "dualipa-extraction"
+    metadata["timestamp"] = str(datetime.now().isoformat())
+    metadata["version"] = "1.0"
+    
+    # Return standard format with all blocks as sections and metadata
     return {
-        "blocks": blocks,
+        "sections": enhanced_blocks,
+        "section_relationships": section_relationships,
         "extraction_metadata": metadata
     }

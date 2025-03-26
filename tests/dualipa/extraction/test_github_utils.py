@@ -24,9 +24,9 @@ from pathlib import Path
 # if str(parent_dir) not in sys.path:
 #     sys.path.append(str(parent_dir))
 
-# Import directly from the package
+# Import directly from the compatibility layer to match test expectations
 try:
-    from agent_tools.dualipa.extraction.extractors.github.repo_utils import (
+    from agent_tools.dualipa.github_utils import (
         parse_github_url,
         clone_github_repo,
         fetch_repo_contents_async,

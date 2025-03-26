@@ -1,0 +1,19 @@
+2025-03-25 20:30:37,832 - agent_memory - INFO - Memory store initialized with database at ast_agent_memory.db
+2025-03-25 20:30:37,833 - agent_memory - INFO - Memory not found: ast_extraction:initialized
+2025-03-25 20:30:37,848 - agent_memory - INFO - Stored memory: ast_extraction:initialized
+2025-03-25 20:30:37,868 - agent_memory - INFO - Stored memory: ast_extraction:file_count
+2025-03-25 20:30:37,881 - agent_memory - INFO - Stored memory: ast_extraction:extraction_count
+2025-03-25 20:30:37,893 - agent_memory - INFO - Stored memory: ast_extraction:error_count
+2025-03-25 20:30:37,905 - agent_memory - INFO - Stored memory: ast_extraction:files_processed
+2025-03-25 20:30:37,919 - agent_memory - INFO - Stored memory: ast_extraction:patterns
+2025-03-25 20:30:37,931 - agent_memory - INFO - Stored memory: ast_extraction:errors
+2025-03-25 20:30:37,945 - agent_memory - INFO - Stored memory: ast_extraction:file_count
+2025-03-25 20:30:37,963 - agent_memory - INFO - Stored memory: ast_extraction:files_processed
+2025-03-25 20:30:37,975 - agent_memory - INFO - Stored memory: ast_extraction:file:unknown
+2025-03-25 20:30:37,988 - agent_memory - INFO - Stored memory: ast_extraction:patterns
+2025-03-25 20:30:44,255 - agent_memory - INFO - Memory store initialized with database at ast_agent_memory.db
+2025-03-25 20:30:51,316 - agent_memory - INFO - Memory store initialized with database at agent_memory.db
+2025-03-25 20:30:51,328 - agent_memory - INFO - Stored memory: ast_test
+2025-03-25 20:30:56,454 - agent_memory - INFO - Memory store initialized with database at agent_memory.db
+2025-03-25 20:31:46,637 - agent_memory - INFO - Memory store initialized with database at ast_agent_memory.db
+2025-03-25 20:31:53,547 - agent_memory - INFO - Memory store initialized with database at ast_agent_memory.db

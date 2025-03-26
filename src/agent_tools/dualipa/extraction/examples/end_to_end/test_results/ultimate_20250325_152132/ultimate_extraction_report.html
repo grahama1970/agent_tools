@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ultimate Extraction Test Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #444;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .success {
+            color: #2ecc71;
+        }
+        .warning {
+            color: #f39c12;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ultimate Extraction Test Report</h1>
+            <p>Test run: 2025-03-25 15:21:39</p>
+        </div>
+
+        <div class="section">
+            <h2>Test Configuration</h2>
+            <table>
+                <tr>
+                    <th>Source</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Code Source</td>
+                    <td>/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py</td>
+                </tr>
+                <tr>
+                    <td>Markdown Source</td>
+                    <td>/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md</td>
+                </tr>
+                <tr>
+                    <td>Documentation Source</td>
+                    <td><a href="https://www.arangodb.com/docs/stable/aql/" target="_blank">https://www.arangodb.com/docs/stable/aql/</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Extraction Results</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Blocks</h3>
+                    <p>39</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Code Blocks</h3>
+                    <p>14</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Markdown Blocks</h3>
+                    <p>22</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Doc Blocks</h3>
+                    <p>3</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Status</h3>
+                    <p class="success">
+                        ✅ VALID
+                    </p>
+                </div>
+            </div>
+
+            <h3>Block Types</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                </tr>
+                <tr><td>class</td><td>5</td></tr><tr><td>method</td><td>8</td></tr><tr><td>function</td><td>1</td></tr><tr><td>file</td><td>1</td></tr><tr><td>section</td><td>8</td></tr><tr><td>text</td><td>9</td></tr><tr><td>code_block</td><td>1</td></tr><tr><td>table</td><td>1</td></tr><tr><td>image</td><td>2</td></tr><tr><td>documentation</td><td>1</td></tr><tr><td>doc_page</td><td>1</td></tr><tr><td>doc_section</td><td>1</td></tr>
+            </table>
+            
+            <h3>Language Types</h3>
+            <table>
+                <tr>
+                    <th>Language</th>
+                    <th>Count</th>
+                </tr>
+                <tr><td>python</td><td>15</td></tr><tr><td>markdown</td><td>21</td></tr><tr><td>html</td><td>3</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Validation</h2>
+            
+            <h3 class="success">No validation errors</h3>
+            
+            <h3 class="success">No warnings</h3>
+        </div>
+
+        <div class="section">
+            <h2>Sample Blocks</h2>
+            <h3>Code Sample</h3>
+            <pre>{
+  "type": "class",
+  "name": "OuterClass",
+  "start_line": 8,
+  "end_line": 42,
+  "children": [
+    {
+      "type": "method",
+      "name": "__init__",
+      "start_line": 13,
+      "end_line": 14,
+      "children": [],
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+      "uuid": "42ce6cb8-112a-40c2-a9d3-e32f16521bb2",
+      "language": "python",
+      "metadata": {
+        "language": "python",
+        "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+      },
+      "content": "    def __init__(self, name):\n        self.name = name",
+      "child_uuids": []
+    },
+    {
+      "type": "method",
+      "name": "outer_method",
+      "start_line": 16,
+      "end_line": 18,
+      "children": [],
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+      "uuid": "7be7abfc-64eb-479f-b967-5f717cf0f8ba",
+      "language": "python",
+      "metadata": {
+        "language": "python",
+        "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+      },
+      "content": "    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"",
+      "child_uuids": []
+    },
+    {
+      "type": "class",
+      "name": "InnerClass",
+      "start_line": 21,
+      "end_line": 32,
+      "children": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "start_line": 26,
+          "end_line": 27,
+          "children": [],
+          "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+          "uuid": "e70a009c-bce5-4334-a65c-2b1002fde5f5",
+          "language": "python",
+          "metadata": {
+            "language": "python",
+            "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+          },
+          "content": "        def __init__(self, value):\n            self.value = value",
+          "child_uuids": []
+        },
+        {
+          "type": "method",
+          "name": "inner_method",
+          "start_line": 29,
+          "end_line": 31,
+          "children": [],
+          "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+          "uuid": "a4c102f8-4c89-4956-8633-8b5167247599",
+          "language": "python",
+          "metadata": {
+            "language": "python",
+            "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+          },
+          "content": "        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"",
+          "child_uuids": []
+        }
+      ],
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+      "uuid": "e3d22873-9c43-4d7a-a12a-12df17b72961",
+      "language": "python",
+      "metadata": {
+        "language": "python",
+        "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+      },
+      "content": "    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        ",
+      "child_uuids": []
+    },
+    {
+      "type": "method",
+      "name": "__init__",
+      "start_line": 37,
+      "end_line": 38,
+      "children": [],
+      "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+      "uuid": "84200a19-1c32-489c-a934-36656b6beef5",
+      "language": "python",
+      "metadata": {
+        "language": "python",
+        "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+      },
+      "content": "            def __init__(self, id):\n                self.id = id",
+      "child_uuids": []
+    }
+  ],
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py",
+  "uuid": "198bb208-7496-4da5-88f9-7aa518be1a99",
+  "language": "python",
+  "metadata": {
+    "language": "python",
+    "source_file": "/home/grahama/workspace/experiments/agent_tools/test_repos/samples/nested_classes.py"
+  },
+  "content": "class OuterClass:\n    \"\"\"Example of a class containing nested classes.\"\"\"\n    \n    class_var = \"outer class variable\"\n    \n    def __init__(self, name):\n        self.name = name\n    \n    def outer_method(self):\n        \"\"\"Method in the outer class.\"\"\"\n        return f\"Outer method from {self.name}\"\n    \n    # Nested class example\n    class InnerClass:\n        \"\"\"First level nested class.\"\"\"\n        \n        inner_var = \"inner class variable\"\n        \n        def __init__(self, value):\n            self.value = value\n        \n        def inner_method(self):\n            \"\"\"Method in the inner class.\"\"\"\n            return f\"Inner method with {self.value}\"\n        \n        # Double-nested class example\n        class DeepNestedClass:\n            \"\"\"Second level nested class (very uncommon in Python).\"\"\"\n            \n            def __init__(self, id):\n                self.id = id\n            \n            def deep_method(self):\n                \"\"\"Method in the deeply nested class.\"\"\"\n                return f\"Deep method with ID {self.id}\"",
+  "child_uuids": []
+}</pre>
+            
+            <h3>Markdown Sample</h3>
+            <pre>{
+  "uuid": "362fbcb7-9355-4bf2-a660-4d9d72be6be7",
+  "id": "MARKDOWN_EXTRACTION_markdown_extraction",
+  "name": "Markdown Extraction",
+  "type": "section",
+  "language": "markdown",
+  "content": "# Markdown Extraction\n\nThis document describes the markdown extraction functionality in the DuaLipa extraction module.",
+  "pure_content": "This document describes the markdown extraction functionality in the DuaLipa extraction module.",
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+  "parent_uuid": "fc29b7f8-4511-41b3-8911-e456c69861a8",
+  "child_uuids": [
+    "1f8ffeb3-e087-4f57-b285-62de0a8ed8ae"
+  ],
+  "metadata": {
+    "language": "markdown",
+    "source_file": "/home/grahama/workspace/experiments/agent_tools/src/agent_tools/dualipa/extraction/examples/end_to_end/MARKDOWN_EXTRACTION.md",
+    "level": 1,
+    "has_code": false,
+    "has_tables": false,
+    "has_images": false,
+    "position": 0,
+    "section_hierarchy": [
+      "Markdown Extraction"
+    ],
+    "section_start": 0,
+    "section_end": 120
+  }
+}</pre>
+            
+            <h3>Documentation Sample</h3>
+            <pre>{
+  "uuid": "32439341-00e7-4eef-b142-853d459077fd",
+  "id": "docs_arangodb_aql_index.html_section_0",
+  "name": "AQL Documentation",
+  "type": "doc_section",
+  "language": "html",
+  "content": "\nThe ArangoDB Query Language (AQL) lets you store, retrieve, and modify data in various ways in ArangoDB\nAQL is mainly a declarative language, meaning that a query expresses what result\nshould be achieved but not how it should be achieved. AQL aims to be\nhuman-readable and therefore uses keywords from the English language. Another\ndesign goal of AQL was client independence, meaning that the language and syntax\nare the same for all clients, no matter what programming language the clients\nmay use. Further design goals of AQL were the support of complex query patterns\nand the different data models ArangoDB offers.\nIn its purpose, AQL is similar to the Structured Query Language (SQL). AQL supports\nreading and modifying collection data, but it doesn\u2019t support data-definition\noperations such as creating and dropping databases, collections and indexes.\nIt is a pure data manipulation language (DML), not a data definition language\n(DDL) or a data control language (DCL).\nThe syntax of AQL queries is different to SQL, even if some keywords overlap.\nNevertheless, AQL should be easy to understand for anyone with an SQL background.\nThe general workflow when executing a query is as follows:\nFor example queries, see theData QueriesandExamples & Query Patternschapters.",
+  "file_path": "/tmp/tmpa5pyhqy7/docs.arangodb.com/stable/aql/index.html",
+  "parent_uuid": "2ca48fa4-716a-404e-bc63-88af559fddcb",
+  "child_uuids": [],
+  "metadata": {
+    "language": "html",
+    "source_url": "https://www.arangodb.com/docs/stable/aql/",
+    "position": 0,
+    "doc_type": "arangodb",
+    "header_level": 1,
+    "token_count": 256,
+    "section_hierarchy": [
+      "AQL Documentation"
+    ],
+    "has_code": false,
+    "has_tables": false,
+    "has_images": false
+  }
+}</pre>
+        </div>
+    </div>
+</body>
+</html>

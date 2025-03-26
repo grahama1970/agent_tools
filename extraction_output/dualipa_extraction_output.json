@@ -1,0 +1,5850 @@
+{
+  "version": "1.0",
+  "timestamp": 1742940132.4560692,
+  "extraction_type": "code_structures",
+  "structures": [
+    {
+      "type": "function",
+      "name": "validate_input_json",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/validation_check.py",
+      "line": 10
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/validation_check.py",
+      "line": 46
+    },
+    {
+      "type": "class",
+      "name": "SemanticIndex",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/enhanced_memory.py",
+      "line": 69,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 72
+        },
+        {
+          "type": "method",
+          "name": "build_index",
+          "line": 81
+        },
+        {
+          "type": "method",
+          "name": "search",
+          "line": 118
+        },
+        {
+          "type": "method",
+          "name": "set_up_automatic_loading",
+          "line": 154
+        },
+        {
+          "type": "method",
+          "name": "remember",
+          "line": 188
+        },
+        {
+          "type": "method",
+          "name": "recall",
+          "line": 248
+        },
+        {
+          "type": "method",
+          "name": "save_docs",
+          "line": 385
+        },
+        {
+          "type": "method",
+          "name": "find_docs",
+          "line": 475
+        },
+        {
+          "type": "method",
+          "name": "find_all_docs",
+          "line": 583
+        },
+        {
+          "type": "method",
+          "name": "load_project_docs",
+          "line": 606
+        },
+        {
+          "type": "method",
+          "name": "get_verification_summary",
+          "line": 804
+        },
+        {
+          "type": "method",
+          "name": "log_error",
+          "line": 863
+        },
+        {
+          "type": "method",
+          "name": "suggest_recovery",
+          "line": 930
+        },
+        {
+          "type": "method",
+          "name": "detect_context_staleness",
+          "line": 1049
+        },
+        {
+          "type": "method",
+          "name": "track_work_session",
+          "line": 1100
+        },
+        {
+          "type": "method",
+          "name": "calculate_duration_minutes",
+          "line": 1169
+        },
+        {
+          "type": "method",
+          "name": "batch_operation",
+          "line": 1179
+        },
+        {
+          "type": "method",
+          "name": "get_system_status",
+          "line": 1257
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 1332
+        },
+        {
+          "type": "method",
+          "name": "think",
+          "line": 1614
+        },
+        {
+          "type": "method",
+          "name": "remind_me",
+          "line": 1626
+        },
+        {
+          "type": "method",
+          "name": "note",
+          "line": 1646
+        },
+        {
+          "type": "method",
+          "name": "recall_thought",
+          "line": 1657
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_directory_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 63
+    },
+    {
+      "type": "function",
+      "name": "copy_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 93
+    },
+    {
+      "type": "function",
+      "name": "update_references",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 108
+    },
+    {
+      "type": "function",
+      "name": "update_file_references",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 127
+    },
+    {
+      "type": "function",
+      "name": "copy_examples",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 147
+    },
+    {
+      "type": "function",
+      "name": "create_index_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 163
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_docs.py",
+      "line": 195
+    },
+    {
+      "type": "function",
+      "name": "initialize_memory_system",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "remember",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 49
+    },
+    {
+      "type": "function",
+      "name": "recall",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 53
+    },
+    {
+      "type": "function",
+      "name": "save_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 57
+    },
+    {
+      "type": "function",
+      "name": "find_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 61
+    },
+    {
+      "type": "function",
+      "name": "log_error",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 65
+    },
+    {
+      "type": "function",
+      "name": "suggest_recovery",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 69
+    },
+    {
+      "type": "function",
+      "name": "batch_operation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 73
+    },
+    {
+      "type": "function",
+      "name": "get_system_status",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 77
+    },
+    {
+      "type": "function",
+      "name": "init_extraction_memory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 86
+    },
+    {
+      "type": "function",
+      "name": "track_extraction_start",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 113
+    },
+    {
+      "type": "function",
+      "name": "track_extraction_progress",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 138
+    },
+    {
+      "type": "function",
+      "name": "track_extraction_completion",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 166
+    },
+    {
+      "type": "function",
+      "name": "record_extraction_error",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 191
+    },
+    {
+      "type": "function",
+      "name": "find_similar_errors",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 227
+    },
+    {
+      "type": "function",
+      "name": "save_extraction_knowledge",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 246
+    },
+    {
+      "type": "function",
+      "name": "find_extraction_knowledge",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 274
+    },
+    {
+      "type": "function",
+      "name": "get_extraction_context",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extraction_memory.py",
+      "line": 294
+    },
+    {
+      "type": "function",
+      "name": "create_directory_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 68
+    },
+    {
+      "type": "function",
+      "name": "copy_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 128
+    },
+    {
+      "type": "function",
+      "name": "copy_json_examples",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 146
+    },
+    {
+      "type": "function",
+      "name": "update_imports",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 168
+    },
+    {
+      "type": "function",
+      "name": "update_imports_in_dir",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 181
+    },
+    {
+      "type": "function",
+      "name": "create_index_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 207
+    },
+    {
+      "type": "function",
+      "name": "create_index_for_dir",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 220
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_examples.py",
+      "line": 268
+    },
+    {
+      "type": "function",
+      "name": "run_script",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 51
+    },
+    {
+      "type": "function",
+      "name": "verify_directories",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 69
+    },
+    {
+      "type": "function",
+      "name": "run_tests",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 107
+    },
+    {
+      "type": "function",
+      "name": "create_backup",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 134
+    },
+    {
+      "type": "function",
+      "name": "create_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 158
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize.py",
+      "line": 259
+    },
+    {
+      "type": "function",
+      "name": "format_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 22
+    },
+    {
+      "type": "function",
+      "name": "initialize_database",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 34
+    },
+    {
+      "type": "function",
+      "name": "set_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 50
+    },
+    {
+      "type": "function",
+      "name": "get_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 69
+    },
+    {
+      "type": "function",
+      "name": "list_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 80
+    },
+    {
+      "type": "function",
+      "name": "delete_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 99
+    },
+    {
+      "type": "function",
+      "name": "checkpoint_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 110
+    },
+    {
+      "type": "function",
+      "name": "list_checkpoints_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 118
+    },
+    {
+      "type": "function",
+      "name": "context_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 134
+    },
+    {
+      "type": "function",
+      "name": "show_context_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 160
+    },
+    {
+      "type": "function",
+      "name": "list_contexts_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 192
+    },
+    {
+      "type": "function",
+      "name": "add_doc_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 213
+    },
+    {
+      "type": "function",
+      "name": "update_doc_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 237
+    },
+    {
+      "type": "function",
+      "name": "show_doc_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 273
+    },
+    {
+      "type": "function",
+      "name": "delete_doc_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 323
+    },
+    {
+      "type": "function",
+      "name": "load_project_docs_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 334
+    },
+    {
+      "type": "function",
+      "name": "report_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 380
+    },
+    {
+      "type": "function",
+      "name": "export_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 391
+    },
+    {
+      "type": "function",
+      "name": "import_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 433
+    },
+    {
+      "type": "function",
+      "name": "reminder_command",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 470
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/cli.py",
+      "line": 476
+    },
+    {
+      "type": "class",
+      "name": "DocumentationDownloader",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 104,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 112
+        },
+        {
+          "type": "method",
+          "name": "download",
+          "line": 126
+        },
+        {
+          "type": "method",
+          "name": "download_with_playwright",
+          "line": 139
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "HTMLProcessor",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 156,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 163
+        },
+        {
+          "type": "method",
+          "name": "extract_sections",
+          "line": 175
+        },
+        {
+          "type": "method",
+          "name": "process_directory",
+          "line": 190
+        },
+        {
+          "type": "method",
+          "name": "_detect_doc_type",
+          "line": 236
+        },
+        {
+          "type": "method",
+          "name": "create_qa_adapter",
+          "line": 298
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "QAIntegration",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 313,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 321
+        },
+        {
+          "type": "method",
+          "name": "format_for_qa",
+          "line": 325
+        },
+        {
+          "type": "method",
+          "name": "_process_block_hierarchy",
+          "line": 359
+        },
+        {
+          "type": "method",
+          "name": "save_qa_format",
+          "line": 398
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "QuestionGenerator",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 412,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 420
+        },
+        {
+          "type": "method",
+          "name": "generate_questions",
+          "line": 424
+        },
+        {
+          "type": "method",
+          "name": "create_validation_adapter",
+          "line": 503
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "ExtractionValidator",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 518,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 526
+        },
+        {
+          "type": "method",
+          "name": "validate_extraction",
+          "line": 538
+        },
+        {
+          "type": "method",
+          "name": "save_validation_results",
+          "line": 595
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "QualityChecker",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 606,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 614
+        },
+        {
+          "type": "method",
+          "name": "check_quality",
+          "line": 618
+        },
+        {
+          "type": "method",
+          "name": "create_integration_documentation",
+          "line": 749
+        },
+        {
+          "type": "method",
+          "name": "create_integration_examples",
+          "line": 928
+        },
+        {
+          "type": "method",
+          "name": "download_and_extract_docs",
+          "line": 950
+        },
+        {
+          "type": "method",
+          "name": "format_for_qa_system",
+          "line": 1025
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 1134
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_integration_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "create_fetch_docs_adapter",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_integration.py",
+      "line": 79
+    },
+    {
+      "type": "class",
+      "name": "ExampleClass",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 222,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 225
+        },
+        {
+          "type": "method",
+          "name": "get_value",
+          "line": 228
+        },
+        {
+          "type": "method",
+          "name": "sample_markdown_file",
+          "line": 235
+        },
+        {
+          "type": "method",
+          "name": "example",
+          "line": 248
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 265
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_test_directory_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 56
+    },
+    {
+      "type": "function",
+      "name": "copy_test_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 113
+    },
+    {
+      "type": "function",
+      "name": "create_init_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 131
+    },
+    {
+      "type": "function",
+      "name": "update_imports",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 157
+    },
+    {
+      "type": "function",
+      "name": "update_imports_in_dir",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 170
+    },
+    {
+      "type": "function",
+      "name": "create_conftest_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 190
+    },
+    {
+      "type": "function",
+      "name": "sample_code_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 213
+    },
+    {
+      "type": "function",
+      "name": "example_function",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/reorganize_tests.py",
+      "line": 218
+    },
+    {
+      "type": "class",
+      "name": "TestStateManager",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/test_state_manager.py",
+      "line": 22,
+      "components": [
+        {
+          "type": "method",
+          "name": "get_instance",
+          "line": 35
+        },
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 42
+        },
+        {
+          "type": "method",
+          "name": "_setup_database",
+          "line": 81
+        },
+        {
+          "type": "method",
+          "name": "transaction",
+          "line": 182
+        },
+        {
+          "type": "method",
+          "name": "_backup_to_disk",
+          "line": 199
+        },
+        {
+          "type": "method",
+          "name": "set",
+          "line": 216
+        },
+        {
+          "type": "method",
+          "name": "get",
+          "line": 236
+        },
+        {
+          "type": "method",
+          "name": "set_checkpoint",
+          "line": 260
+        },
+        {
+          "type": "method",
+          "name": "log_verification",
+          "line": 276
+        },
+        {
+          "type": "method",
+          "name": "verify",
+          "line": 296
+        },
+        {
+          "type": "method",
+          "name": "assert_verify",
+          "line": 327
+        },
+        {
+          "type": "method",
+          "name": "track_file",
+          "line": 346
+        },
+        {
+          "type": "method",
+          "name": "mark_file_extracted",
+          "line": 361
+        },
+        {
+          "type": "method",
+          "name": "mark_file_included_in_output",
+          "line": 375
+        },
+        {
+          "type": "method",
+          "name": "get_extraction_stats",
+          "line": 388
+        },
+        {
+          "type": "method",
+          "name": "set_repo_stats",
+          "line": 435
+        },
+        {
+          "type": "method",
+          "name": "update_extracted_count",
+          "line": 450
+        },
+        {
+          "type": "method",
+          "name": "get_repo_stats",
+          "line": 464
+        },
+        {
+          "type": "method",
+          "name": "get_verification_history",
+          "line": 484
+        },
+        {
+          "type": "method",
+          "name": "get_checkpoint_history",
+          "line": 510
+        },
+        {
+          "type": "method",
+          "name": "set_metadata",
+          "line": 529
+        },
+        {
+          "type": "method",
+          "name": "get_metadata",
+          "line": 546
+        },
+        {
+          "type": "method",
+          "name": "generate_report",
+          "line": 566
+        },
+        {
+          "type": "method",
+          "name": "close",
+          "line": 598
+        },
+        {
+          "type": "method",
+          "name": "update_context",
+          "line": 603
+        },
+        {
+          "type": "method",
+          "name": "get_context",
+          "line": 656
+        },
+        {
+          "type": "method",
+          "name": "add_documentation",
+          "line": 705
+        },
+        {
+          "type": "method",
+          "name": "get_documentation",
+          "line": 731
+        },
+        {
+          "type": "method",
+          "name": "remember_my_place",
+          "line": 798
+        },
+        {
+          "type": "method",
+          "name": "remind_me",
+          "line": 816
+        },
+        {
+          "type": "method",
+          "name": "__del__",
+          "line": 830
+        },
+        {
+          "type": "method",
+          "name": "get_state_manager",
+          "line": 836
+        },
+        {
+          "type": "method",
+          "name": "what_am_i_doing",
+          "line": 842
+        },
+        {
+          "type": "method",
+          "name": "remember_context",
+          "line": 848
+        },
+        {
+          "type": "method",
+          "name": "add_docs",
+          "line": 854
+        },
+        {
+          "type": "method",
+          "name": "get_docs",
+          "line": 860
+        },
+        {
+          "type": "method",
+          "name": "verify_extraction_completeness",
+          "line": 891
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "extract_all_blocks_with_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs_integration.py",
+      "line": 48
+    },
+    {
+      "type": "function",
+      "name": "extract_all_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs_integration.py",
+      "line": 67
+    },
+    {
+      "type": "function",
+      "name": "integrate_docs_with_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs_integration.py",
+      "line": 110
+    },
+    {
+      "type": "function",
+      "name": "remember",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 26
+    },
+    {
+      "type": "function",
+      "name": "recall",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "save_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 93
+    },
+    {
+      "type": "function",
+      "name": "find_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 99
+    },
+    {
+      "type": "function",
+      "name": "load_project_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 122
+    },
+    {
+      "type": "function",
+      "name": "get_verification_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 163
+    },
+    {
+      "type": "function",
+      "name": "log_error",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 181
+    },
+    {
+      "type": "function",
+      "name": "suggest_recovery",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 198
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 217
+    },
+    {
+      "type": "function",
+      "name": "think",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 310
+    },
+    {
+      "type": "function",
+      "name": "remind_me",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 315
+    },
+    {
+      "type": "function",
+      "name": "note",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 320
+    },
+    {
+      "type": "function",
+      "name": "recall_thought",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/memory.py",
+      "line": 325
+    },
+    {
+      "type": "class",
+      "name": "VectorStore",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/ai_memory_system.py",
+      "line": 90,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 93
+        },
+        {
+          "type": "method",
+          "name": "add_document",
+          "line": 103
+        },
+        {
+          "type": "method",
+          "name": "add_documents",
+          "line": 175
+        },
+        {
+          "type": "method",
+          "name": "search",
+          "line": 204
+        },
+        {
+          "type": "method",
+          "name": "find_related_documents",
+          "line": 266
+        },
+        {
+          "type": "method",
+          "name": "initialize_memory_system",
+          "line": 324
+        },
+        {
+          "type": "method",
+          "name": "set_up_automatic_loading",
+          "line": 345
+        },
+        {
+          "type": "method",
+          "name": "remember",
+          "line": 423
+        },
+        {
+          "type": "method",
+          "name": "recall",
+          "line": 501
+        },
+        {
+          "type": "method",
+          "name": "save_docs",
+          "line": 690
+        },
+        {
+          "type": "method",
+          "name": "find_docs",
+          "line": 840
+        },
+        {
+          "type": "method",
+          "name": "find_all_docs",
+          "line": 987
+        },
+        {
+          "type": "method",
+          "name": "log_error",
+          "line": 1010
+        },
+        {
+          "type": "method",
+          "name": "suggest_recovery",
+          "line": 1098
+        },
+        {
+          "type": "method",
+          "name": "batch_operation",
+          "line": 1198
+        },
+        {
+          "type": "method",
+          "name": "get_system_status",
+          "line": 1277
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 1354
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 52
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 59
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 66
+    },
+    {
+      "type": "function",
+      "name": "download_site",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 73
+    },
+    {
+      "type": "function",
+      "name": "create_basic_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 78
+    },
+    {
+      "type": "function",
+      "name": "extract_from_code",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 109
+    },
+    {
+      "type": "function",
+      "name": "extract_from_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 144
+    },
+    {
+      "type": "function",
+      "name": "extract_from_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 171
+    },
+    {
+      "type": "function",
+      "name": "extract_from_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 203
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/quick_extract.py",
+      "line": 229
+    },
+    {
+      "type": "function",
+      "name": "extract_python_function",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/example_extract.py",
+      "line": 12
+    },
+    {
+      "type": "function",
+      "name": "extract_docstring",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/example_extract.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_section",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/docs/examples/validation/example_extract.py",
+      "line": 72
+    },
+    {
+      "type": "function",
+      "name": "fix_imports_in_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/fix_test_imports.py",
+      "line": 43
+    },
+    {
+      "type": "function",
+      "name": "fix_imports_in_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/fix_test_imports.py",
+      "line": 80
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/fix_test_imports.py",
+      "line": 107
+    },
+    {
+      "type": "class",
+      "name": "QAIntegration",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/qa_adapter.py",
+      "line": 12,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 20
+        },
+        {
+          "type": "method",
+          "name": "format_for_qa",
+          "line": 24
+        },
+        {
+          "type": "method",
+          "name": "_process_block_hierarchy",
+          "line": 58
+        },
+        {
+          "type": "method",
+          "name": "save_qa_format",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "QuestionGenerator",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/qa_adapter.py",
+      "line": 111,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 119
+        },
+        {
+          "type": "method",
+          "name": "generate_questions",
+          "line": 123
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "ExtractionValidator",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/validation_adapter.py",
+      "line": 12,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 20
+        },
+        {
+          "type": "method",
+          "name": "validate_extraction",
+          "line": 32
+        },
+        {
+          "type": "method",
+          "name": "save_validation_results",
+          "line": 89
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "QualityChecker",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/validation_adapter.py",
+      "line": 100,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 108
+        },
+        {
+          "type": "method",
+          "name": "check_quality",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "DocumentationDownloader",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/fetch_docs_adapter.py",
+      "line": 22,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "type": "method",
+          "name": "download",
+          "line": 44
+        },
+        {
+          "type": "method",
+          "name": "download_with_playwright",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "HTMLProcessor",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/integration/fetch_docs_adapter.py",
+      "line": 74,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 81
+        },
+        {
+          "type": "method",
+          "name": "extract_sections",
+          "line": 93
+        },
+        {
+          "type": "method",
+          "name": "process_directory",
+          "line": 108
+        },
+        {
+          "type": "method",
+          "name": "_detect_doc_type",
+          "line": 154
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "download_and_extract_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/integration/fetch_docs_example.py",
+      "line": 15
+    },
+    {
+      "type": "class",
+      "name": "FetchDocsIntegrationTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/integration/fetch_docs_integration.py",
+      "line": 35,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 38
+        },
+        {
+          "type": "method",
+          "name": "tearDown",
+          "line": 47
+        },
+        {
+          "type": "method",
+          "name": "create_test_repository",
+          "line": 53
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 104
+        },
+        {
+          "type": "method",
+          "name": "example_function",
+          "line": 132
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "ExampleClass",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/integration/fetch_docs_integration.py",
+      "line": 136,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 139
+        },
+        {
+          "type": "method",
+          "name": "get_value",
+          "line": 143
+        },
+        {
+          "type": "method",
+          "name": "run_extraction",
+          "line": 151
+        },
+        {
+          "type": "method",
+          "name": "test_extraction_with_docs",
+          "line": 227
+        },
+        {
+          "type": "method",
+          "name": "test_arangodb_docs_extraction",
+          "line": 270
+        },
+        {
+          "type": "method",
+          "name": "test_fetch_docs_extraction",
+          "line": 361
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "format_for_qa_system",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/integration/qa_system_example.py",
+      "line": 14
+    },
+    {
+      "type": "class",
+      "name": "TestExtractionQAIntegration",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/integration/qa_integration.py",
+      "line": 33,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 36
+        },
+        {
+          "type": "method",
+          "name": "tearDown",
+          "line": 62
+        },
+        {
+          "type": "method",
+          "name": "run_extraction_pipeline",
+          "line": 68
+        },
+        {
+          "type": "method",
+          "name": "test_extraction_output_format",
+          "line": 99
+        },
+        {
+          "type": "method",
+          "name": "prepare_qa_input_format",
+          "line": 141
+        },
+        {
+          "type": "method",
+          "name": "test_qa_module_compatibility",
+          "line": 213
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 265
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 32
+    },
+    {
+      "type": "function",
+      "name": "enhance_block_for_qa",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 67
+    },
+    {
+      "type": "function",
+      "name": "convert_to_deepseek_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 133
+    },
+    {
+      "type": "function",
+      "name": "is_descendant_of",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 244
+    },
+    {
+      "type": "function",
+      "name": "build_section_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 257
+    },
+    {
+      "type": "function",
+      "name": "process_section_and_children",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 281
+    },
+    {
+      "type": "function",
+      "name": "generate_section_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 359
+    },
+    {
+      "type": "function",
+      "name": "validate_and_fix_parent_references",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 400
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/qa_formatter.py",
+      "line": 499
+    },
+    {
+      "type": "function",
+      "name": "clone_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_e2e.py",
+      "line": 34
+    },
+    {
+      "type": "function",
+      "name": "run_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_e2e.py",
+      "line": 60
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_e2e.py",
+      "line": 98
+    },
+    {
+      "type": "function",
+      "name": "find_markdown_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_e2e.py",
+      "line": 132
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_e2e.py",
+      "line": 145
+    },
+    {
+      "type": "class",
+      "name": "BlindTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test.py",
+      "line": 36,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 39
+        },
+        {
+          "type": "method",
+          "name": "run_tests",
+          "line": 51
+        },
+        {
+          "type": "method",
+          "name": "test_arangodb_docs_extraction",
+          "line": 94
+        },
+        {
+          "type": "method",
+          "name": "run_blind_test",
+          "line": 110
+        },
+        {
+          "type": "method",
+          "name": "run_arangodb_doc_test_only",
+          "line": 120
+        },
+        {
+          "type": "method",
+          "name": "run_aql_doc_test_only",
+          "line": 135
+        },
+        {
+          "type": "method",
+          "name": "run_array_intersection_test_only",
+          "line": 145
+        },
+        {
+          "type": "method",
+          "name": "run_length_function_test_only",
+          "line": 160
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "analyze_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_test_with_state.py",
+      "line": 50
+    },
+    {
+      "type": "function",
+      "name": "extract_python_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_test_with_state.py",
+      "line": 191
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_test_with_state.py",
+      "line": 339
+    },
+    {
+      "type": "function",
+      "name": "validate_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_test_with_state.py",
+      "line": 426
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_test_with_state.py",
+      "line": 516
+    },
+    {
+      "type": "function",
+      "name": "extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 52
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 59
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 66
+    },
+    {
+      "type": "function",
+      "name": "download_site",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 73
+    },
+    {
+      "type": "function",
+      "name": "create_basic_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 78
+    },
+    {
+      "type": "function",
+      "name": "extract_from_code",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 109
+    },
+    {
+      "type": "function",
+      "name": "extract_from_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 144
+    },
+    {
+      "type": "function",
+      "name": "extract_from_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 171
+    },
+    {
+      "type": "function",
+      "name": "extract_from_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 203
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/quick_extract.py",
+      "line": 229
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 25
+    },
+    {
+      "type": "function",
+      "name": "save_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 35
+    },
+    {
+      "type": "function",
+      "name": "convert_to_validation_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "process_section",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 170
+    },
+    {
+      "type": "function",
+      "name": "extract_embedded_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 229
+    },
+    {
+      "type": "function",
+      "name": "parse_table_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 295
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/convert_for_validation.py",
+      "line": 324
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_sections",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_blocks.py",
+      "line": 48
+    },
+    {
+      "type": "function",
+      "name": "extract_ordered_elements_from_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_blocks.py",
+      "line": 233
+    },
+    {
+      "type": "function",
+      "name": "find_source_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_blocks.py",
+      "line": 469
+    },
+    {
+      "type": "function",
+      "name": "extract_all_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/extraction_blocks.py",
+      "line": 495
+    },
+    {
+      "type": "class",
+      "name": "QuietHTTPRequestHandler",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 772,
+      "components": [
+        {
+          "type": "method",
+          "name": "log_message",
+          "line": 773
+        },
+        {
+          "type": "method",
+          "name": "serve_with_docker",
+          "line": 828
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 893
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_results_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 42
+    },
+    {
+      "type": "function",
+      "name": "run_test_modules",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 64
+    },
+    {
+      "type": "function",
+      "name": "create_summary_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 153
+    },
+    {
+      "type": "function",
+      "name": "get_ip_address",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 478
+    },
+    {
+      "type": "function",
+      "name": "get_wsl_ip",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 500
+    },
+    {
+      "type": "function",
+      "name": "get_wsl_windows_ip",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 538
+    },
+    {
+      "type": "function",
+      "name": "get_tailscale_ip",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 573
+    },
+    {
+      "type": "function",
+      "name": "is_running_in_wsl",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 593
+    },
+    {
+      "type": "function",
+      "name": "create_terminal_link",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 601
+    },
+    {
+      "type": "function",
+      "name": "wait_for_server_startup",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 623
+    },
+    {
+      "type": "function",
+      "name": "print_server_urls",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 648
+    },
+    {
+      "type": "function",
+      "name": "start_http_server",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_transparent_tests.py",
+      "line": 741
+    },
+    {
+      "type": "function",
+      "name": "cli",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 52
+    },
+    {
+      "type": "function",
+      "name": "extract",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 80
+    },
+    {
+      "type": "function",
+      "name": "qa",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 213
+    },
+    {
+      "type": "function",
+      "name": "pipeline",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 330
+    },
+    {
+      "type": "function",
+      "name": "info",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 429
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/dualipa_cli.py",
+      "line": 488
+    },
+    {
+      "type": "function",
+      "name": "extract_and_validate",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/__init__.py",
+      "line": 27
+    },
+    {
+      "type": "function",
+      "name": "generate_validation_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/__init__.py",
+      "line": 31
+    },
+    {
+      "type": "function",
+      "name": "format_for_qa_system",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/__init__.py",
+      "line": 35
+    },
+    {
+      "type": "function",
+      "name": "create_results_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "download_readthedocs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 68
+    },
+    {
+      "type": "function",
+      "name": "hello",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 138
+    },
+    {
+      "type": "function",
+      "name": "process_readthedocs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 164
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 214
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 218
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 222
+    },
+    {
+      "type": "function",
+      "name": "process_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 309
+    },
+    {
+      "type": "function",
+      "name": "create_html_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 396
+    },
+    {
+      "type": "function",
+      "name": "run_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 658
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_readthedocs_extraction_transparent.py",
+      "line": 770
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/detect_doc_type.py",
+      "line": 23
+    },
+    {
+      "type": "function",
+      "name": "detect_doc_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/detect_doc_type.py",
+      "line": 33
+    },
+    {
+      "type": "function",
+      "name": "get_template_path",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/detect_doc_type.py",
+      "line": 118
+    },
+    {
+      "type": "function",
+      "name": "detect_and_load_template",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/detect_doc_type.py",
+      "line": 142
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/detect_doc_type.py",
+      "line": 175
+    },
+    {
+      "type": "function",
+      "name": "mock_extract_code",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 58
+    },
+    {
+      "type": "function",
+      "name": "mock_extract_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 81
+    },
+    {
+      "type": "function",
+      "name": "mock_extract_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 136
+    },
+    {
+      "type": "function",
+      "name": "detect_language_from_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 177
+    },
+    {
+      "type": "function",
+      "name": "detect_content_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 220
+    },
+    {
+      "type": "function",
+      "name": "download_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 240
+    },
+    {
+      "type": "function",
+      "name": "download_github_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 270
+    },
+    {
+      "type": "function",
+      "name": "extract_from_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 317
+    },
+    {
+      "type": "function",
+      "name": "extract_from_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 376
+    },
+    {
+      "type": "function",
+      "name": "extract_from_github",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 472
+    },
+    {
+      "type": "function",
+      "name": "highlight_docstrings",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 550
+    },
+    {
+      "type": "function",
+      "name": "generate_html_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 563
+    },
+    {
+      "type": "function",
+      "name": "build_tree_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 793
+    },
+    {
+      "type": "function",
+      "name": "create_json_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 930
+    },
+    {
+      "type": "function",
+      "name": "create_html_docstring_section",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 953
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/spot_check_extractor.py",
+      "line": 974
+    },
+    {
+      "type": "function",
+      "name": "find_extraction_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_hierarchies.py",
+      "line": 32
+    },
+    {
+      "type": "function",
+      "name": "get_extraction_name",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_hierarchies.py",
+      "line": 51
+    },
+    {
+      "type": "function",
+      "name": "create_index_page",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_hierarchies.py",
+      "line": 83
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_hierarchies.py",
+      "line": 234
+    },
+    {
+      "type": "function",
+      "name": "create_documentation_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_expected_formats.py",
+      "line": 30
+    },
+    {
+      "type": "function",
+      "name": "create_function_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_expected_formats.py",
+      "line": 208
+    },
+    {
+      "type": "function",
+      "name": "generate_expected_formats",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_expected_formats.py",
+      "line": 420
+    },
+    {
+      "type": "function",
+      "name": "update_test_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_expected_formats.py",
+      "line": 471
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_expected_formats.py",
+      "line": 554
+    },
+    {
+      "type": "function",
+      "name": "run_real_world_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/real_world_test.py",
+      "line": 51
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/real_world_test.py",
+      "line": 355
+    },
+    {
+      "type": "function",
+      "name": "find_files_by_extensions",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 87
+    },
+    {
+      "type": "function",
+      "name": "find_interesting_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 143
+    },
+    {
+      "type": "function",
+      "name": "extract_code_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 190
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 268
+    },
+    {
+      "type": "function",
+      "name": "combine_and_validate_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 334
+    },
+    {
+      "type": "function",
+      "name": "ensure_required_fields",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 419
+    },
+    {
+      "type": "function",
+      "name": "create_section_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 515
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 575
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/full_repository_extraction.py",
+      "line": 628
+    },
+    {
+      "type": "function",
+      "name": "extract_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 60
+    },
+    {
+      "type": "function",
+      "name": "extract_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 124
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 201
+    },
+    {
+      "type": "function",
+      "name": "extract_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 271
+    },
+    {
+      "type": "function",
+      "name": "analyze_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 337
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/main.py",
+      "line": 371
+    },
+    {
+      "type": "class",
+      "name": "FetchDocsIntegrationTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_fetch_docs_integration.py",
+      "line": 35,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 38
+        },
+        {
+          "type": "method",
+          "name": "tearDown",
+          "line": 47
+        },
+        {
+          "type": "method",
+          "name": "create_test_repository",
+          "line": 53
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 104
+        },
+        {
+          "type": "method",
+          "name": "example_function",
+          "line": 132
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "ExampleClass",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_fetch_docs_integration.py",
+      "line": 136,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 139
+        },
+        {
+          "type": "method",
+          "name": "get_value",
+          "line": 143
+        },
+        {
+          "type": "method",
+          "name": "run_extraction",
+          "line": 151
+        },
+        {
+          "type": "method",
+          "name": "test_extraction_with_docs",
+          "line": 227
+        },
+        {
+          "type": "method",
+          "name": "test_arangodb_docs_extraction",
+          "line": 270
+        },
+        {
+          "type": "method",
+          "name": "test_fetch_docs_extraction",
+          "line": 361
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "analyze_deepseek_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/analyze_deepseek.py",
+      "line": 6
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_demo.py",
+      "line": 31
+    },
+    {
+      "type": "class",
+      "name": "AQLTestUtils",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_aql_test.py",
+      "line": 40,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 43
+        },
+        {
+          "type": "method",
+          "name": "get_expected_format",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "ArangoDBAQLTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_aql_test.py",
+      "line": 142,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 145
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 149
+        },
+        {
+          "type": "method",
+          "name": "validate_blocks",
+          "line": 320
+        },
+        {
+          "type": "method",
+          "name": "run_aql_test",
+          "line": 602
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_hierarchy.py",
+      "line": 36
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_validation_report.py",
+      "line": 26
+    },
+    {
+      "type": "function",
+      "name": "escape_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_validation_report.py",
+      "line": 36
+    },
+    {
+      "type": "function",
+      "name": "generate_html_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_validation_report.py",
+      "line": 48
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/generate_validation_report.py",
+      "line": 601
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_qa_compatibility.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "convert_deepseek_to_qa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_qa_compatibility.py",
+      "line": 55
+    },
+    {
+      "type": "function",
+      "name": "adapt_standard_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_qa_compatibility.py",
+      "line": 85
+    },
+    {
+      "type": "function",
+      "name": "validate_qa_compatibility",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_qa_compatibility.py",
+      "line": 124
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_qa_compatibility.py",
+      "line": 206
+    },
+    {
+      "type": "function",
+      "name": "test_single_js_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_js_extraction.py",
+      "line": 27
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 41
+    },
+    {
+      "type": "function",
+      "name": "save_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 51
+    },
+    {
+      "type": "function",
+      "name": "detect_doc_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 66
+    },
+    {
+      "type": "function",
+      "name": "get_template_path",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 117
+    },
+    {
+      "type": "function",
+      "name": "run_test_for_source",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 158
+    },
+    {
+      "type": "function",
+      "name": "generate_simple_html_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 332
+    },
+    {
+      "type": "function",
+      "name": "generate_summary_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 487
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_validation_suite.py",
+      "line": 638
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 27
+    },
+    {
+      "type": "function",
+      "name": "save_html_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 37
+    },
+    {
+      "type": "function",
+      "name": "validate_parent_child_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 49
+    },
+    {
+      "type": "function",
+      "name": "find_circular_references",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 160
+    },
+    {
+      "type": "function",
+      "name": "dfs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 164
+    },
+    {
+      "type": "function",
+      "name": "visualize_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 189
+    },
+    {
+      "type": "function",
+      "name": "render_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 246
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_validator.py",
+      "line": 361
+    },
+    {
+      "type": "class",
+      "name": "RepositoryTester",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/repository_test.py",
+      "line": 36,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 39
+        },
+        {
+          "type": "method",
+          "name": "test_repository",
+          "line": 81
+        },
+        {
+          "type": "method",
+          "name": "verify_file_extraction",
+          "line": 99
+        },
+        {
+          "type": "method",
+          "name": "test_arangodb_js",
+          "line": 160
+        },
+        {
+          "type": "method",
+          "name": "test_sglang_py",
+          "line": 166
+        },
+        {
+          "type": "method",
+          "name": "test_arangodb_md",
+          "line": 172
+        },
+        {
+          "type": "method",
+          "name": "run_repository_tests",
+          "line": 179
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "MarkdownExtractionTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_markdown_extraction.py",
+      "line": 28,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 31
+        },
+        {
+          "type": "method",
+          "name": "test_section_extraction",
+          "line": 35
+        },
+        {
+          "type": "method",
+          "name": "test_full_extraction",
+          "line": 101
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 181
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 194
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "test_playwright_fetch",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_playwright_fetch.py",
+      "line": 24
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_playwright_fetch.py",
+      "line": 91
+    },
+    {
+      "type": "function",
+      "name": "validate_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_extraction_format.py",
+      "line": 24
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_extraction_format.py",
+      "line": 103
+    },
+    {
+      "type": "function",
+      "name": "detect_language",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_code_extraction.py",
+      "line": 33
+    },
+    {
+      "type": "function",
+      "name": "extract_single_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_code_extraction.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "test_javascript_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_code_extraction.py",
+      "line": 63
+    },
+    {
+      "type": "function",
+      "name": "test_python_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_code_extraction.py",
+      "line": 103
+    },
+    {
+      "type": "function",
+      "name": "run_tests",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_code_extraction.py",
+      "line": 143
+    },
+    {
+      "type": "class",
+      "name": "LengthFunctionTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/length_function_test.py",
+      "line": 41,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 51
+        },
+        {
+          "type": "method",
+          "name": "validate_blocks",
+          "line": 211
+        },
+        {
+          "type": "method",
+          "name": "validate_content_against_expected",
+          "line": 547
+        },
+        {
+          "type": "method",
+          "name": "validate_markdown_and_html_structure",
+          "line": 770
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 952
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "analyze_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 103
+    },
+    {
+      "type": "function",
+      "name": "sample_files_by_extension",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 261
+    },
+    {
+      "type": "function",
+      "name": "extract_files",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 307
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 417
+    },
+    {
+      "type": "function",
+      "name": "extract_code_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 471
+    },
+    {
+      "type": "function",
+      "name": "extract_basic_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 555
+    },
+    {
+      "type": "function",
+      "name": "combine_extracted_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 650
+    },
+    {
+      "type": "function",
+      "name": "ensure_block_requirements",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 669
+    },
+    {
+      "type": "function",
+      "name": "create_section_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 767
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 828
+    },
+    {
+      "type": "function",
+      "name": "validate_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 926
+    },
+    {
+      "type": "function",
+      "name": "generate_table_rows",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1012
+    },
+    {
+      "type": "function",
+      "name": "generate_block_type_rows",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1020
+    },
+    {
+      "type": "function",
+      "name": "generate_language_rows",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1028
+    },
+    {
+      "type": "function",
+      "name": "generate_verification_rows",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1036
+    },
+    {
+      "type": "function",
+      "name": "generate_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1046
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_comprehensive_extraction.py",
+      "line": 1248
+    },
+    {
+      "type": "function",
+      "name": "download_site",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/download_site_patch.py",
+      "line": 10
+    },
+    {
+      "type": "function",
+      "name": "example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/download_site_patch.py",
+      "line": 94
+    },
+    {
+      "type": "function",
+      "name": "adapt_extraction_to_validation_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/format_adapter.py",
+      "line": 20
+    },
+    {
+      "type": "function",
+      "name": "extract_table_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/format_adapter.py",
+      "line": 208
+    },
+    {
+      "type": "function",
+      "name": "extract_code_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/format_adapter.py",
+      "line": 228
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/format_adapter.py",
+      "line": 250
+    },
+    {
+      "type": "function",
+      "name": "load_extraction_result",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_validation_framework.py",
+      "line": 34
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_validation_framework.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "extract_code_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 41
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_sections",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 139
+    },
+    {
+      "type": "function",
+      "name": "download_and_extract_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 209
+    },
+    {
+      "type": "function",
+      "name": "download_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 233
+    },
+    {
+      "type": "function",
+      "name": "process_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 252
+    },
+    {
+      "type": "function",
+      "name": "combine_and_validate_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 346
+    },
+    {
+      "type": "function",
+      "name": "has_cycle",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 405
+    },
+    {
+      "type": "function",
+      "name": "create_summary_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 460
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_ultimate_extraction.py",
+      "line": 696
+    },
+    {
+      "type": "function",
+      "name": "create_results_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "download_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 69
+    },
+    {
+      "type": "function",
+      "name": "download_site_with_playwright",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 105
+    },
+    {
+      "type": "function",
+      "name": "process_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 185
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 235
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 239
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 243
+    },
+    {
+      "type": "function",
+      "name": "process_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 330
+    },
+    {
+      "type": "function",
+      "name": "create_html_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 417
+    },
+    {
+      "type": "function",
+      "name": "run_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 679
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_arangodb_extraction_transparent.py",
+      "line": 791
+    },
+    {
+      "type": "function",
+      "name": "test_imports",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_modular.py",
+      "line": 21
+    },
+    {
+      "type": "function",
+      "name": "validate_qa_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "validate_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 198
+    },
+    {
+      "type": "function",
+      "name": "validate_content_against_expected",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 397
+    },
+    {
+      "type": "function",
+      "name": "validate_markdown_and_html_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 567
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction_result",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 706
+    },
+    {
+      "type": "function",
+      "name": "load_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 798
+    },
+    {
+      "type": "function",
+      "name": "save_validation_results",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 816
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validation.py",
+      "line": 832
+    },
+    {
+      "type": "class",
+      "name": "ArangoDBDocTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_validator.py",
+      "line": 186,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 189
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 199
+        },
+        {
+          "type": "method",
+          "name": "validate_arangodb_blocks",
+          "line": 483
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "get_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/arangodb_validator.py",
+      "line": 43
+    },
+    {
+      "type": "function",
+      "name": "fetch_github_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 54
+    },
+    {
+      "type": "function",
+      "name": "download_docs_page",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 111
+    },
+    {
+      "type": "function",
+      "name": "extract_code_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 169
+    },
+    {
+      "type": "function",
+      "name": "extract_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 237
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 258
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 266
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 286
+    },
+    {
+      "type": "function",
+      "name": "combine_extractions",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 442
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 461
+    },
+    {
+      "type": "function",
+      "name": "create_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 528
+    },
+    {
+      "type": "function",
+      "name": "run_blind_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 733
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_arango.py",
+      "line": 877
+    },
+    {
+      "type": "class",
+      "name": "TestExtractionQAIntegration",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_extraction_qa_integration.py",
+      "line": 33,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 36
+        },
+        {
+          "type": "method",
+          "name": "tearDown",
+          "line": 62
+        },
+        {
+          "type": "method",
+          "name": "run_extraction_pipeline",
+          "line": 68
+        },
+        {
+          "type": "method",
+          "name": "test_extraction_output_format",
+          "line": 99
+        },
+        {
+          "type": "method",
+          "name": "prepare_qa_input_format",
+          "line": 141
+        },
+        {
+          "type": "method",
+          "name": "test_qa_module_compatibility",
+          "line": 213
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 265
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "validate_input_json",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 33
+    },
+    {
+      "type": "function",
+      "name": "ensure_required_fields",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "create_section_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 140
+    },
+    {
+      "type": "function",
+      "name": "create_qa_compatible_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 200
+    },
+    {
+      "type": "function",
+      "name": "load_combined_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 253
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/create_final_qa_json.py",
+      "line": 281
+    },
+    {
+      "type": "function",
+      "name": "extract_python_function",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/example_extract.py",
+      "line": 12
+    },
+    {
+      "type": "function",
+      "name": "extract_docstring",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/example_extract.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_section",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/example_extract.py",
+      "line": 72
+    },
+    {
+      "type": "function",
+      "name": "find_test_pairs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 36
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 70
+    },
+    {
+      "type": "function",
+      "name": "validate_test_pair",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 80
+    },
+    {
+      "type": "function",
+      "name": "print_validation_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 158
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 281
+    },
+    {
+      "type": "function",
+      "name": "import_datetime",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/validate_all_tests.py",
+      "line": 432
+    },
+    {
+      "type": "class",
+      "name": "TestDeepseekExtraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/test_deepseek_extraction.py",
+      "line": 33,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 36
+        },
+        {
+          "type": "method",
+          "name": "test_file_extraction",
+          "line": 55
+        },
+        {
+          "type": "method",
+          "name": "test_section_hierarchy",
+          "line": 86
+        },
+        {
+          "type": "method",
+          "name": "test_tables_extraction",
+          "line": 116
+        },
+        {
+          "type": "method",
+          "name": "test_code_blocks_extraction",
+          "line": 147
+        },
+        {
+          "type": "method",
+          "name": "test_images_extraction",
+          "line": 178
+        },
+        {
+          "type": "method",
+          "name": "test_content_completeness",
+          "line": 210
+        },
+        {
+          "type": "method",
+          "name": "test_format_matches_expected",
+          "line": 225
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "CustomHandler",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/simple_server.py",
+      "line": 27,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "type": "method",
+          "name": "log_message",
+          "line": 33
+        },
+        {
+          "type": "method",
+          "name": "do_GET",
+          "line": 37
+        },
+        {
+          "type": "method",
+          "name": "open_browser",
+          "line": 139
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 145
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "create_simple_validation_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/simple_adapter.py",
+      "line": 21
+    },
+    {
+      "type": "function",
+      "name": "extract_code",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/simple_adapter.py",
+      "line": 235
+    },
+    {
+      "type": "function",
+      "name": "extract_table",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/simple_adapter.py",
+      "line": 248
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/simple_adapter.py",
+      "line": 271
+    },
+    {
+      "type": "function",
+      "name": "run_array_intersection_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_specific_tests.py",
+      "line": 35
+    },
+    {
+      "type": "function",
+      "name": "run_aql_main_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_specific_tests.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "run_length_function_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_specific_tests.py",
+      "line": 57
+    },
+    {
+      "type": "function",
+      "name": "run_arangodb_docs_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_specific_tests.py",
+      "line": 68
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/run_specific_tests.py",
+      "line": 80
+    },
+    {
+      "type": "function",
+      "name": "analyze_hierarchies",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_analyzer.py",
+      "line": 34
+    },
+    {
+      "type": "function",
+      "name": "enrich_blocks_with_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/hierarchy_analyzer.py",
+      "line": 117
+    },
+    {
+      "type": "class",
+      "name": "ArrayIntersectionTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/array_intersection_test.py",
+      "line": 41,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 50
+        },
+        {
+          "type": "method",
+          "name": "validate_blocks",
+          "line": 206
+        },
+        {
+          "type": "method",
+          "name": "validate_structure",
+          "line": 566
+        },
+        {
+          "type": "method",
+          "name": "validate_content_against_expected",
+          "line": 720
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 1002
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "executePipeline",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/9323100b_Pipeline.py",
+      "line": 9
+    },
+    {
+      "type": "function",
+      "name": "update_line_chart",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+      "line": 98
+    },
+    {
+      "type": "function",
+      "name": "update_line_chart",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+      "line": 158
+    },
+    {
+      "type": "function",
+      "name": "update_stacked_alltests_chart",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+      "line": 195
+    },
+    {
+      "type": "function",
+      "name": "update_stacked_onetest_chart",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/blind_test_results/2d235a50_gantt.py",
+      "line": 237
+    },
+    {
+      "type": "class",
+      "name": "TestDeepseekExtraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/markdown/deepseek_extraction.py",
+      "line": 33,
+      "components": [
+        {
+          "type": "method",
+          "name": "setUp",
+          "line": 36
+        },
+        {
+          "type": "method",
+          "name": "test_file_extraction",
+          "line": 55
+        },
+        {
+          "type": "method",
+          "name": "test_section_hierarchy",
+          "line": 86
+        },
+        {
+          "type": "method",
+          "name": "test_tables_extraction",
+          "line": 116
+        },
+        {
+          "type": "method",
+          "name": "test_code_blocks_extraction",
+          "line": 147
+        },
+        {
+          "type": "method",
+          "name": "test_images_extraction",
+          "line": 178
+        },
+        {
+          "type": "method",
+          "name": "test_content_completeness",
+          "line": 210
+        },
+        {
+          "type": "method",
+          "name": "test_format_matches_expected",
+          "line": 225
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "download_site",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/playwright/download_site_patch.py",
+      "line": 10
+    },
+    {
+      "type": "function",
+      "name": "example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/playwright/download_site_patch.py",
+      "line": 94
+    },
+    {
+      "type": "function",
+      "name": "test_playwright_fetch",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/playwright/playwright_fetch.py",
+      "line": 24
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/playwright/playwright_fetch.py",
+      "line": 91
+    },
+    {
+      "type": "class",
+      "name": "LengthFunctionTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/length_function_test.py",
+      "line": 41,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 44
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 51
+        },
+        {
+          "type": "method",
+          "name": "validate_blocks",
+          "line": 211
+        },
+        {
+          "type": "method",
+          "name": "validate_content_against_expected",
+          "line": 547
+        },
+        {
+          "type": "method",
+          "name": "validate_markdown_and_html_structure",
+          "line": 770
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 952
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "detect_language",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/code_extraction.py",
+      "line": 33
+    },
+    {
+      "type": "function",
+      "name": "extract_single_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/code_extraction.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "test_javascript_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/code_extraction.py",
+      "line": 63
+    },
+    {
+      "type": "function",
+      "name": "test_python_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/code_extraction.py",
+      "line": 103
+    },
+    {
+      "type": "function",
+      "name": "run_tests",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/code_extraction.py",
+      "line": 143
+    },
+    {
+      "type": "function",
+      "name": "test_single_js_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/code/js_extraction.py",
+      "line": 27
+    },
+    {
+      "type": "function",
+      "name": "create_results_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "download_readthedocs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 68
+    },
+    {
+      "type": "function",
+      "name": "hello",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 138
+    },
+    {
+      "type": "function",
+      "name": "process_readthedocs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 164
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 214
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 218
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 222
+    },
+    {
+      "type": "function",
+      "name": "process_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 309
+    },
+    {
+      "type": "function",
+      "name": "create_html_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 396
+    },
+    {
+      "type": "function",
+      "name": "run_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 658
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/readthedocs_extraction.py",
+      "line": 770
+    },
+    {
+      "type": "function",
+      "name": "create_results_directory",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "download_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 69
+    },
+    {
+      "type": "function",
+      "name": "download_site_with_playwright",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 105
+    },
+    {
+      "type": "function",
+      "name": "process_arangodb_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 185
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 235
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 239
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 243
+    },
+    {
+      "type": "function",
+      "name": "process_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 330
+    },
+    {
+      "type": "function",
+      "name": "create_html_summary",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 417
+    },
+    {
+      "type": "function",
+      "name": "run_test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 679
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_extraction.py",
+      "line": 791
+    },
+    {
+      "type": "class",
+      "name": "ArangoDBDocTest",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_validator.py",
+      "line": 186,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 189
+        },
+        {
+          "type": "method",
+          "name": "run_test",
+          "line": 199
+        },
+        {
+          "type": "method",
+          "name": "validate_arangodb_blocks",
+          "line": 483
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "get_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/end_to_end/html/arangodb_validator.py",
+      "line": 43
+    },
+    {
+      "type": "function",
+      "name": "extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 52
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 59
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 66
+    },
+    {
+      "type": "function",
+      "name": "download_site",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 73
+    },
+    {
+      "type": "function",
+      "name": "create_basic_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 78
+    },
+    {
+      "type": "function",
+      "name": "extract_from_code",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 109
+    },
+    {
+      "type": "function",
+      "name": "extract_from_markdown",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 144
+    },
+    {
+      "type": "function",
+      "name": "extract_from_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 171
+    },
+    {
+      "type": "function",
+      "name": "extract_from_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 203
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/quick_extract.py",
+      "line": 229
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_hierarchy.py",
+      "line": 36
+    },
+    {
+      "type": "function",
+      "name": "load_json_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_qa_compatibility.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "convert_deepseek_to_qa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_qa_compatibility.py",
+      "line": 55
+    },
+    {
+      "type": "function",
+      "name": "adapt_standard_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_qa_compatibility.py",
+      "line": 85
+    },
+    {
+      "type": "function",
+      "name": "validate_qa_compatibility",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_qa_compatibility.py",
+      "line": 124
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_qa_compatibility.py",
+      "line": 206
+    },
+    {
+      "type": "function",
+      "name": "validate_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 24
+    },
+    {
+      "type": "function",
+      "name": "validate_block_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 74
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 119
+    },
+    {
+      "type": "function",
+      "name": "calculate_hierarchical_depth",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 183
+    },
+    {
+      "type": "function",
+      "name": "get_depth",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 197
+    },
+    {
+      "type": "function",
+      "name": "generate_html_report",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 224
+    },
+    {
+      "type": "function",
+      "name": "create_extraction_dashboard",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 502
+    },
+    {
+      "type": "function",
+      "name": "main",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validate_extraction_format.py",
+      "line": 634
+    },
+    {
+      "type": "function",
+      "name": "validate_qa_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "validate_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 198
+    },
+    {
+      "type": "function",
+      "name": "validate_content_against_expected",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 397
+    },
+    {
+      "type": "function",
+      "name": "validate_markdown_and_html_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 567
+    },
+    {
+      "type": "function",
+      "name": "validate_extraction_result",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 706
+    },
+    {
+      "type": "function",
+      "name": "load_expected_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 798
+    },
+    {
+      "type": "function",
+      "name": "save_validation_results",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/validation.py",
+      "line": 816
+    },
+    {
+      "type": "function",
+      "name": "extract_python_function",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/example_extract.py",
+      "line": 12
+    },
+    {
+      "type": "function",
+      "name": "extract_docstring",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/example_extract.py",
+      "line": 46
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_section",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/examples/validation/example_extract.py",
+      "line": 72
+    },
+    {
+      "type": "class",
+      "name": "TestClass",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/test_extractors.py",
+      "line": 21,
+      "components": [
+        {
+          "type": "method",
+          "name": "test_method",
+          "line": 22
+        },
+        {
+          "type": "method",
+          "name": "test_js_extractor",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "Person {",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/test_extractors.py",
+      "line": 53,
+      "components": [
+        {
+          "type": "method",
+          "name": "test_generic_extractor",
+          "line": 83
+        },
+        {
+          "type": "method",
+          "name": "main",
+          "line": 117
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "test_python_extractor",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/test_extractors.py",
+      "line": 13
+    },
+    {
+      "type": "function",
+      "name": "hello_world",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/test_extractors.py",
+      "line": 17
+    },
+    {
+      "type": "function",
+      "name": "extract_documentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "detect_doc_links",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 81
+    },
+    {
+      "type": "function",
+      "name": "download_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 112
+    },
+    {
+      "type": "function",
+      "name": "process_docs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 222
+    },
+    {
+      "type": "function",
+      "name": "clean_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 240
+    },
+    {
+      "type": "function",
+      "name": "extract_sections_from_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 248
+    },
+    {
+      "type": "function",
+      "name": "detect_special_elements",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 378
+    },
+    {
+      "type": "function",
+      "name": "convert_to_dualipa_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 464
+    },
+    {
+      "type": "function",
+      "name": "integrate_docs_with_extraction",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/docs/docs_extractor.py",
+      "line": 703
+    },
+    {
+      "type": "class",
+      "name": "Example {",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 369,
+      "components": []
+    },
+    {
+      "type": "function",
+      "name": "extract_markdown_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 40
+    },
+    {
+      "type": "function",
+      "name": "_extract_with_markdown_it",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 88
+    },
+    {
+      "type": "function",
+      "name": "_extract_with_regex",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 157
+    },
+    {
+      "type": "function",
+      "name": "_extract_markdown_with_regex",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 275
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 343
+    },
+    {
+      "type": "function",
+      "name": "example_function",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/markdown_extractor.py",
+      "line": 356
+    },
+    {
+      "type": "function",
+      "name": "extract_hierarchical_sections",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/hierarchy.py",
+      "line": 31
+    },
+    {
+      "type": "function",
+      "name": "build_section_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/hierarchy.py",
+      "line": 94
+    },
+    {
+      "type": "function",
+      "name": "add_breadcrumbs",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/hierarchy.py",
+      "line": 115
+    },
+    {
+      "type": "function",
+      "name": "get_section_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/markdown/hierarchy.py",
+      "line": 130
+    },
+    {
+      "type": "class",
+      "name": "Employee extends BaseEmployee implements Person {",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 303,
+      "components": []
+    },
+    {
+      "type": "function",
+      "name": "get_node_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 31
+    },
+    {
+      "type": "function",
+      "name": "get_block_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 56
+    },
+    {
+      "type": "function",
+      "name": "is_async_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 93
+    },
+    {
+      "type": "function",
+      "name": "is_static_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 118
+    },
+    {
+      "type": "function",
+      "name": "get_ts_return_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 143
+    },
+    {
+      "type": "function",
+      "name": "get_extends_class",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 169
+    },
+    {
+      "type": "function",
+      "name": "get_implements_interfaces",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 197
+    },
+    {
+      "type": "function",
+      "name": "get_extends_interfaces",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 226
+    },
+    {
+      "type": "function",
+      "name": "get_interface_properties",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 255
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_helpers.py",
+      "line": 291
+    },
+    {
+      "type": "function",
+      "name": "format_output_as_json",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/output_formatter.py",
+      "line": 15
+    },
+    {
+      "type": "function",
+      "name": "format_output_as_md",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/output_formatter.py",
+      "line": 102
+    },
+    {
+      "type": "function",
+      "name": "format_output_as_html",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/output_formatter.py",
+      "line": 207
+    },
+    {
+      "type": "function",
+      "name": "_validate_extraction_data",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/output_formatter.py",
+      "line": 380
+    },
+    {
+      "type": "function",
+      "name": "format_output",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/output_formatter.py",
+      "line": 401
+    },
+    {
+      "type": "function",
+      "name": "get_parser",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 116
+    },
+    {
+      "type": "function",
+      "name": "get_supported_languages",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 140
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_imports_exports",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 144
+    },
+    {
+      "type": "function",
+      "name": "get_node_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 165
+    },
+    {
+      "type": "function",
+      "name": "visit_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 169
+    },
+    {
+      "type": "function",
+      "name": "_extract_js_ts_imports_exports_regex",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 200
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/tree_sitter_utils.py",
+      "line": 242
+    },
+    {
+      "type": "function",
+      "name": "normalize_language",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 110
+    },
+    {
+      "type": "function",
+      "name": "detect_language",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 138
+    },
+    {
+      "type": "function",
+      "name": "get_language_info",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 163
+    },
+    {
+      "type": "function",
+      "name": "is_supported_language",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 179
+    },
+    {
+      "type": "function",
+      "name": "get_comment_pattern",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 196
+    },
+    {
+      "type": "function",
+      "name": "get_block_comment_patterns",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 215
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/language_utils.py",
+      "line": 239
+    },
+    {
+      "type": "function",
+      "name": "validate_block_format",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/validation_utils.py",
+      "line": 54
+    },
+    {
+      "type": "function",
+      "name": "validate_metadata",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/validation_utils.py",
+      "line": 95
+    },
+    {
+      "type": "function",
+      "name": "validate_block_consistency",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/validation_utils.py",
+      "line": 127
+    },
+    {
+      "type": "function",
+      "name": "validate_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/validation_utils.py",
+      "line": 154
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/validation_utils.py",
+      "line": 300
+    },
+    {
+      "type": "function",
+      "name": "is_react_component",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/react_extractor.py",
+      "line": 36
+    },
+    {
+      "type": "function",
+      "name": "extract_react_component",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/react_extractor.py",
+      "line": 61
+    },
+    {
+      "type": "function",
+      "name": "extract_react_props",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/react_extractor.py",
+      "line": 135
+    },
+    {
+      "type": "function",
+      "name": "is_jsx_tsx_file",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/react_extractor.py",
+      "line": 194
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/react_extractor.py",
+      "line": 212
+    },
+    {
+      "type": "function",
+      "name": "init_stats",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 26
+    },
+    {
+      "type": "function",
+      "name": "initialize_stats_dict",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 45
+    },
+    {
+      "type": "function",
+      "name": "update_stats",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 72
+    },
+    {
+      "type": "function",
+      "name": "merge_stats",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 124
+    },
+    {
+      "type": "function",
+      "name": "format_stats",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 204
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/stats_utils.py",
+      "line": 247
+    },
+    {
+      "type": "function",
+      "name": "create_code_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 48
+    },
+    {
+      "type": "function",
+      "name": "initialize_stats_dict",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 136
+    },
+    {
+      "type": "function",
+      "name": "verify_block_metadata",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 182
+    },
+    {
+      "type": "function",
+      "name": "standardize_block_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 204
+    },
+    {
+      "type": "function",
+      "name": "create_block_metadata",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 225
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/block_metadata.py",
+      "line": 273
+    },
+    {
+      "type": "function",
+      "name": "verify_code_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 62
+    },
+    {
+      "type": "function",
+      "name": "verify_python_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 93
+    },
+    {
+      "type": "function",
+      "name": "verify_js_ts_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 121
+    },
+    {
+      "type": "function",
+      "name": "verify_block_syntax",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 157
+    },
+    {
+      "type": "function",
+      "name": "verify_balanced_braces",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 188
+    },
+    {
+      "type": "function",
+      "name": "verify_indentation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 208
+    },
+    {
+      "type": "function",
+      "name": "verify_block",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 231
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 301
+    },
+    {
+      "type": "function",
+      "name": "factorial",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 308
+    },
+    {
+      "type": "function",
+      "name": "test",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/utils/verification_utils.py",
+      "line": 365
+    },
+    {
+      "type": "class",
+      "name": "Calculator",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/__init__.py",
+      "line": 153,
+      "components": [
+        {
+          "type": "method",
+          "name": "add",
+          "line": 154
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "extract_code_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/__init__.py",
+      "line": 74
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/__init__.py",
+      "line": 144
+    },
+    {
+      "type": "function",
+      "name": "factorial",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/__init__.py",
+      "line": 148
+    },
+    {
+      "type": "class",
+      "name": "ExampleClass",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/usage_examples.py",
+      "line": 37,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 40
+        },
+        {
+          "type": "method",
+          "name": "greet",
+          "line": 43
+        },
+        {
+          "type": "method",
+          "name": "example_function",
+          "line": 46
+        },
+        {
+          "type": "method",
+          "name": "js_ts_extractor_example",
+          "line": 83
+        },
+        {
+          "type": "method",
+          "name": "react_component_example",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "code_extractor_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/usage_examples.py",
+      "line": 33
+    },
+    {
+      "type": "function",
+      "name": "_extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 102
+    },
+    {
+      "type": "function",
+      "name": "_extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 249
+    },
+    {
+      "type": "function",
+      "name": "visit_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 286
+    },
+    {
+      "type": "function",
+      "name": "_extract_generic_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 428
+    },
+    {
+      "type": "function",
+      "name": "_get_language_for_file_ext",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 509
+    },
+    {
+      "type": "function",
+      "name": "_extract_with_tree_sitter",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 555
+    },
+    {
+      "type": "function",
+      "name": "extract_code_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 577
+    },
+    {
+      "type": "function",
+      "name": "extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 772
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 825
+    },
+    {
+      "type": "function",
+      "name": "visit_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 843
+    },
+    {
+      "type": "function",
+      "name": "extract_generic_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 924
+    },
+    {
+      "type": "function",
+      "name": "extract_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/code_extractor.py",
+      "line": 1002
+    },
+    {
+      "type": "class",
+      "name": "Person {",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 388,
+      "components": []
+    },
+    {
+      "type": "function",
+      "name": "extract_generic_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 106
+    },
+    {
+      "type": "function",
+      "name": "_extract_generic_docstring",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 210
+    },
+    {
+      "type": "function",
+      "name": "_extract_block_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 286
+    },
+    {
+      "type": "function",
+      "name": "_extract_imports",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 347
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/generic_extractor.py",
+      "line": 381
+    },
+    {
+      "type": "function",
+      "name": "parse_tree_sitter",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/js_ts_extractor.py",
+      "line": 255
+    },
+    {
+      "type": "function",
+      "name": "_fallback_to_generic_extractor",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/js_ts_extractor.py",
+      "line": 267
+    },
+    {
+      "type": "function",
+      "name": "extract_js_ts_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/js_ts_extractor.py",
+      "line": 319
+    },
+    {
+      "type": "function",
+      "name": "_extract_docstring_from_js",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/js_ts_extractor.py",
+      "line": 464
+    },
+    {
+      "type": "class",
+      "name": "Person",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 294,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 297
+        },
+        {
+          "type": "method",
+          "name": "greet",
+          "line": 301
+        },
+        {
+          "type": "method",
+          "name": "process_people",
+          "line": 304
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "parse_python_ast",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 92
+    },
+    {
+      "type": "function",
+      "name": "extract_python_blocks",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 111
+    },
+    {
+      "type": "function",
+      "name": "_get_node_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 231
+    },
+    {
+      "type": "function",
+      "name": "_extract_docstring",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 250
+    },
+    {
+      "type": "function",
+      "name": "_get_import_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 265
+    },
+    {
+      "type": "function",
+      "name": "_get_return_annotation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 279
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/python_extractor.py",
+      "line": 288
+    },
+    {
+      "type": "function",
+      "name": "extract_code_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 20
+    },
+    {
+      "type": "function",
+      "name": "_extract_python_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 76
+    },
+    {
+      "type": "function",
+      "name": "_extract_js_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 284
+    },
+    {
+      "type": "function",
+      "name": "_extract_ts_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 322
+    },
+    {
+      "type": "function",
+      "name": "_extract_java_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 364
+    },
+    {
+      "type": "function",
+      "name": "_extract_generic_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 398
+    },
+    {
+      "type": "function",
+      "name": "_populate_hierarchical_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 411
+    },
+    {
+      "type": "function",
+      "name": "get_children",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 455
+    },
+    {
+      "type": "function",
+      "name": "get_parent",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 471
+    },
+    {
+      "type": "function",
+      "name": "build_code_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/code/hierarchy.py",
+      "line": 490
+    },
+    {
+      "type": "function",
+      "name": "is_github_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 62
+    },
+    {
+      "type": "function",
+      "name": "parse_github_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 100
+    },
+    {
+      "type": "function",
+      "name": "clone_github_repo",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 206
+    },
+    {
+      "type": "function",
+      "name": "clone_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 308
+    },
+    {
+      "type": "function",
+      "name": "analyze_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 336
+    },
+    {
+      "type": "function",
+      "name": "verify_repo_structure",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 344
+    },
+    {
+      "type": "function",
+      "name": "extract_from_repo",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 369
+    },
+    {
+      "type": "function",
+      "name": "extract_repository",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 443
+    },
+    {
+      "type": "function",
+      "name": "fetch_repo_contents",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 635
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/repo_utils.py",
+      "line": 666
+    },
+    {
+      "type": "function",
+      "name": "_get_auth_headers",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/api_utils.py",
+      "line": 34
+    },
+    {
+      "type": "function",
+      "name": "_parse_github_url",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/api_utils.py",
+      "line": 44
+    },
+    {
+      "type": "function",
+      "name": "fetch_repo_metadata",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/api_utils.py",
+      "line": 68
+    },
+    {
+      "type": "function",
+      "name": "get_file_content",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/api_utils.py",
+      "line": 117
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/github/api_utils.py",
+      "line": 161
+    },
+    {
+      "type": "class",
+      "name": "Animal",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/utils.py",
+      "line": 32,
+      "components": [
+        {
+          "type": "method",
+          "name": "__init__",
+          "line": 33
+        },
+        {
+          "type": "method",
+          "name": "make_sound",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "Dog",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/utils.py",
+      "line": 40,
+      "components": [
+        {
+          "type": "method",
+          "name": "make_sound",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "type": "class",
+      "name": "Cat",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/utils.py",
+      "line": 44,
+      "components": [
+        {
+          "type": "method",
+          "name": "make_sound",
+          "line": 45
+        },
+        {
+          "type": "method",
+          "name": "format_hierarchy_summary",
+          "line": 76
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "usage_example",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/utils.py",
+      "line": 23
+    },
+    {
+      "type": "function",
+      "name": "analyze_code_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/core.py",
+      "line": 64
+    },
+    {
+      "type": "function",
+      "name": "build_code_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/core.py",
+      "line": 107
+    },
+    {
+      "type": "function",
+      "name": "_build_relationships",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/core.py",
+      "line": 159
+    },
+    {
+      "type": "function",
+      "name": "analyze_generic_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/generic/parser.py",
+      "line": 47
+    },
+    {
+      "type": "function",
+      "name": "_get_language_patterns",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/generic/parser.py",
+      "line": 147
+    },
+    {
+      "type": "function",
+      "name": "_find_block_end",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/generic/parser.py",
+      "line": 171
+    },
+    {
+      "type": "function",
+      "name": "analyze_js_ts_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 56
+    },
+    {
+      "type": "function",
+      "name": "visit_node",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 84
+    },
+    {
+      "type": "function",
+      "name": "_get_node_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 158
+    },
+    {
+      "type": "function",
+      "name": "_get_class_name",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 168
+    },
+    {
+      "type": "function",
+      "name": "_get_extends_class",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 179
+    },
+    {
+      "type": "function",
+      "name": "_get_implements_interfaces",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 192
+    },
+    {
+      "type": "function",
+      "name": "_get_method_name",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 206
+    },
+    {
+      "type": "function",
+      "name": "_is_static_method",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 217
+    },
+    {
+      "type": "function",
+      "name": "_is_async_method",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 235
+    },
+    {
+      "type": "function",
+      "name": "_get_ts_return_type",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 246
+    },
+    {
+      "type": "function",
+      "name": "_get_interface_name",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 257
+    },
+    {
+      "type": "function",
+      "name": "_get_extends_interfaces",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 268
+    },
+    {
+      "type": "function",
+      "name": "_get_interface_properties",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 282
+    },
+    {
+      "type": "function",
+      "name": "_get_parent_class_ts",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/js_ts/parser.py",
+      "line": 300
+    },
+    {
+      "type": "function",
+      "name": "analyze_python_hierarchy",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 52
+    },
+    {
+      "type": "function",
+      "name": "_get_import_text",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 129
+    },
+    {
+      "type": "function",
+      "name": "_get_decorator_name",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 139
+    },
+    {
+      "type": "function",
+      "name": "_get_parent_class",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 149
+    },
+    {
+      "type": "function",
+      "name": "_get_return_annotation",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 173
+    },
+    {
+      "type": "function",
+      "name": "_get_function_args",
+      "language": "python",
+      "file_path": "src/agent_tools/dualipa/extraction/extractors/hierarchy/python/parser.py",
+      "line": 180
+    }
+  ]
+}

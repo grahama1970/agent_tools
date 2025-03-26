@@ -1,0 +1,33 @@
+{
+  "valid": false,
+  "errors": [
+    "Block 0 (type: class) is missing required fields: ['content']",
+    "Block 1 (type: method) is missing required fields: ['content']",
+    "Block 2 (type: method) is missing required fields: ['content']",
+    "Block 3 (type: class) is missing required fields: ['content']",
+    "Block 4 (type: method) is missing required fields: ['content']",
+    "Block 5 (type: method) is missing required fields: ['content']",
+    "Block 6 (type: class) is missing required fields: ['content']",
+    "Block 7 (type: method) is missing required fields: ['content']",
+    "Block 8 (type: method) is missing required fields: ['content']",
+    "Block 9 (type: class) is missing required fields: ['content']",
+    "Block 10 (type: method) is missing required fields: ['content']",
+    "Block 11 (type: class) is missing required fields: ['content']",
+    "Block 12 (type: method) is missing required fields: ['content']",
+    "Block 13 (type: function) is missing required fields: ['content']"
+  ],
+  "warnings": [],
+  "stats": {
+    "block_types": {
+      "class": 5,
+      "method": 8,
+      "function": 1,
+      "documentation": 1,
+      "doc_page": 1,
+      "doc_section": 1
+    },
+    "total_blocks": 17,
+    "code_blocks": 14,
+    "doc_blocks": 3
+  }
+}

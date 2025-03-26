@@ -1,0 +1,3125 @@
+[
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 56,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/ActionFeature.cpp",
+    "uuid": "ea828bf4-c932-4041-a8b8-de327be149f1",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 112,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/RestActionHandler.cpp",
+    "uuid": "f9f41be1-67f1-4a35-9786-49748aca5083",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 160,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/actions.cpp",
+    "uuid": "741811b4-3837-4479-a4ec-2e7043576c30",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 408,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Agency/AddFollower.cpp",
+    "uuid": "4b954634-c261-4fef-9b9c-c426495b92f2",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 1488,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Agency/AgencyComm.cpp",
+    "uuid": "e12332bf-9d99-4b45-b11b-f289774b15cd",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 112,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RocksDBEngine/RocksDBTtlIndex.cpp",
+    "uuid": "e098a362-d221-441d-82a6-7e757d585749",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 366,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RocksDBEngine/RocksDBTypes.cpp",
+    "uuid": "8313cbf4-8525-4035-adda-5cdcd1e6d365",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 259,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RocksDBEngine/RocksDBUpgrade.cpp",
+    "uuid": "886972b9-9975-4ca7-b938-5897d705e333",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 468,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RocksDBEngine/RocksDBV8Functions.cpp",
+    "uuid": "0ba18c79-4825-44c0-83ff-89401736c669",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 3316,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RocksDBEngine/RocksDBVPackIndex.cpp",
+    "uuid": "28739a79-1a34-407b-b534-0f4760d66d07",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 175,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/InsertDocuments.cpp",
+    "uuid": "2280e0c8-3458-40c4-91ff-bd281fc7b074",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 136,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/IterateDocuments.cpp",
+    "uuid": "16593f92-92dd-4e1b-bf34-af5caaaa3baa",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 163,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/WriteWriteConflict.cpp",
+    "uuid": "16ccb9db-9cff-483a-b1e7-208ee96a21fb",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 167,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/main.cpp",
+    "uuid": "9e3c6a2d-5323-433c-90c4-cc6f01bdf08a",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 145,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/gdb-pretty-printers/immer/test/flex_vector_test.cpp",
+    "uuid": "0af510d9-5b63-4b51-b5fd-f839c477aab6",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 49,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/ActionFeature.h",
+    "uuid": "3e4357d0-7e33-4abe-8594-b294f563fffb",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 59,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/RestActionHandler.h",
+    "uuid": "2f81c25e-0a51-4de3-aae5-cdce9f34557c",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 112,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Actions/actions.h",
+    "uuid": "f7677f68-b8a4-419d-ac53-334ad34fb0e3",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 59,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Agency/AddFollower.h",
+    "uuid": "b201bc27-2be1-4c56-8b77-299f7702b426",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 677,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Agency/AgencyComm.h",
+    "uuid": "7f7fa639-7bb1-4364-b9df-af973f4d7e6f",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 68,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RestHandler/RestQueryCacheHandler.h",
+    "uuid": "bf443e66-0dff-44ac-b9b5-64bd8870af62",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 78,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RestHandler/RestQueryHandler.h",
+    "uuid": "4261dacd-0a8a-4967-bfc9-cf034d97560d",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 43,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RestHandler/RestQueryPlanCacheHandler.h",
+    "uuid": "ecbeffa5-729b-46ce-a03b-bf10e150071c",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 570,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RestHandler/RestReplicationHandler.h",
+    "uuid": "852e528c-ea3a-401a-aa85-8d0f81dc9f61",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 40,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/RestHandler/RestShutdownHandler.h",
+    "uuid": "a6244c19-3228-4b1c-9d57-6b6ec10211de",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 114,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/EdgeCache.h",
+    "uuid": "1b659730-03cf-4465-ac9c-eb44d4ce1c21",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 113,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/GetByPrimaryKey.h",
+    "uuid": "1565cad5-d921-4507-9777-af7708fedc8c",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 153,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/InsertDocuments.h",
+    "uuid": "e4bdafa2-b65c-43c1-850d-12f2ba9a00e1",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 100,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/IterateDocuments.h",
+    "uuid": "1618c562-17a5-46a6-893b-4b1f2827424d",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 118,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/Workloads/WriteWriteConflict.h",
+    "uuid": "a3cde03b-64c7-4a4b-bb72-bfe1c0835011",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "function",
+    "name": "print_help_flags",
+    "start_line": 50,
+    "end_line": 58,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "a1479b9b-4da8-40eb-976e-22f75227060e",
+    "language": "python",
+    "content": "[function] print_help_flags"
+  },
+  {
+    "type": "function",
+    "name": "parse_arguments",
+    "start_line": 61,
+    "end_line": 126,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "53ecc62a-79d8-45ff-86cd-9912665575b3",
+    "language": "python",
+    "content": "[function] parse_arguments"
+  },
+  {
+    "type": "function",
+    "name": "validate_params",
+    "start_line": 129,
+    "end_line": 151,
+    "children": [
+      {
+        "type": "function",
+        "name": "parse_number",
+        "start_line": 132,
+        "end_line": 137,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+        "uuid": "b4f9462a-3fed-465e-93ad-b8b50984341f",
+        "language": "python",
+        "content": "[function] parse_number"
+      },
+      {
+        "type": "function",
+        "name": "parse_number_or_default",
+        "start_line": 139,
+        "end_line": 147,
+        "children": [],
+        "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+        "uuid": "d3c0f137-116d-45d2-b428-1c29b7f66d8f",
+        "language": "python",
+        "content": "[function] parse_number_or_default"
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "ad6964c6-87ae-42b1-9bdb-5c8155cf0f9d",
+    "language": "python",
+    "content": "[function] validate_params"
+  },
+  {
+    "type": "function",
+    "name": "parse_number",
+    "start_line": 132,
+    "end_line": 137,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "b4f9462a-3fed-465e-93ad-b8b50984341f",
+    "language": "python",
+    "content": "[function] parse_number"
+  },
+  {
+    "type": "function",
+    "name": "parse_number_or_default",
+    "start_line": 139,
+    "end_line": 147,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "d3c0f137-116d-45d2-b428-1c29b7f66d8f",
+    "language": "python",
+    "content": "[function] parse_number_or_default"
+  },
+  {
+    "type": "function",
+    "name": "validate_flags",
+    "start_line": 154,
+    "end_line": 159,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "2eda2676-90b6-4f65-ab6a-44e055d31d82",
+    "language": "python",
+    "content": "[function] validate_flags"
+  },
+  {
+    "type": "function",
+    "name": "read_definition_line",
+    "start_line": 162,
+    "end_line": 210,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "a78aa75b-bcc6-42ba-9a88-fa717066437a",
+    "language": "python",
+    "content": "[function] read_definition_line"
+  },
+  {
+    "type": "function",
+    "name": "read_definitions",
+    "start_line": 213,
+    "end_line": 231,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "1192904a-25e2-4095-b849-bb3cf94976a2",
+    "language": "python",
+    "content": "[function] read_definitions"
+  },
+  {
+    "type": "function",
+    "name": "filter_tests",
+    "start_line": 234,
+    "end_line": 267,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "1ecda3ff-f82a-451c-af27-defdd0899965",
+    "language": "python",
+    "content": "[function] filter_tests"
+  },
+  {
+    "type": "function",
+    "name": "get_size",
+    "start_line": 270,
+    "end_line": 287,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "4732e994-a19a-402a-a5c3-bceec20cd5e2",
+    "language": "python",
+    "content": "[function] get_size"
+  },
+  {
+    "type": "function",
+    "name": "get_test_size",
+    "start_line": 290,
+    "end_line": 297,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "5984508d-2823-4faf-a0bc-d10f706b2d39",
+    "language": "python",
+    "content": "[function] get_test_size"
+  },
+  {
+    "type": "function",
+    "name": "create_test_job",
+    "start_line": 300,
+    "end_line": 356,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "db95497c-2067-47f9-a53b-81ba9af360cd",
+    "language": "python",
+    "content": "[function] create_test_job"
+  },
+  {
+    "type": "function",
+    "name": "create_rta_test_job",
+    "start_line": 359,
+    "end_line": 372,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "28815d46-e9c9-40de-958d-2e351000add6",
+    "language": "python",
+    "content": "[function] create_rta_test_job"
+  },
+  {
+    "type": "function",
+    "name": "add_test_definition_jobs_to_workflow",
+    "start_line": 375,
+    "end_line": 390,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "46b97c08-b619-46e3-bbfe-b234c3e67478",
+    "language": "python",
+    "content": "[function] add_test_definition_jobs_to_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_rta_ui_test_jobs_to_workflow",
+    "start_line": 393,
+    "end_line": 421,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "0c283974-bb93-486f-921b-6161a8f68caf",
+    "language": "python",
+    "content": "[function] add_rta_ui_test_jobs_to_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_test_jobs_to_workflow",
+    "start_line": 424,
+    "end_line": 441,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "53b36b7d-986e-4aa3-907e-734a7ae8f7fc",
+    "language": "python",
+    "content": "[function] add_test_jobs_to_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_cppcheck_job",
+    "start_line": 444,
+    "end_line": 452,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "2b26690e-20fd-4778-86b4-4cdb75f8a2ca",
+    "language": "python",
+    "content": "[function] add_cppcheck_job"
+  },
+  {
+    "type": "function",
+    "name": "add_create_docker_image_job",
+    "start_line": 455,
+    "end_line": 486,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "8dafc89b-03ed-442e-ab0f-152ec8216bcb",
+    "language": "python",
+    "content": "[function] add_create_docker_image_job"
+  },
+  {
+    "type": "function",
+    "name": "add_build_job",
+    "start_line": 489,
+    "end_line": 510,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "62c7b5e7-a108-4201-bdef-e2d9d38d8e6c",
+    "language": "python",
+    "content": "[function] add_build_job"
+  },
+  {
+    "type": "function",
+    "name": "add_frontend_build_job",
+    "start_line": 513,
+    "end_line": 521,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "ebd9a625-6a4c-4e22-8404-15908c73b39b",
+    "language": "python",
+    "content": "[function] add_frontend_build_job"
+  },
+  {
+    "type": "function",
+    "name": "add_workflow",
+    "start_line": 524,
+    "end_line": 553,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "23cdc919-f17b-4a2f-9a95-eb5438b1f6a2",
+    "language": "python",
+    "content": "[function] add_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_x64_community_workflow",
+    "start_line": 556,
+    "end_line": 565,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "c8085607-f07a-4f08-b6ac-d27084709c10",
+    "language": "python",
+    "content": "[function] add_x64_community_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_x64_enterprise_workflow",
+    "start_line": 568,
+    "end_line": 581,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "3d8d0548-404a-467c-808c-5a1cb55e2c84",
+    "language": "python",
+    "content": "[function] add_x64_enterprise_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_aarch64_community_workflow",
+    "start_line": 584,
+    "end_line": 591,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "da4b5f80-dcfa-4f27-91a8-8e7c66dab6ee",
+    "language": "python",
+    "content": "[function] add_aarch64_community_workflow"
+  },
+  {
+    "type": "function",
+    "name": "add_aarch64_enterprise_workflow",
+    "start_line": 594,
+    "end_line": 601,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "00a8ca4d-8ae5-4680-b636-aafb78be3ab3",
+    "language": "python",
+    "content": "[function] add_aarch64_enterprise_workflow"
+  },
+  {
+    "type": "function",
+    "name": "generate_jobs",
+    "start_line": 604,
+    "end_line": 612,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "386520a1-a0cd-4e86-884d-6a7a65c8265a",
+    "language": "python",
+    "content": "[function] generate_jobs"
+  },
+  {
+    "type": "function",
+    "name": "main",
+    "start_line": 615,
+    "end_line": 637,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.circleci/generate_config.py",
+    "uuid": "84b2b55b-21db-4e4a-9608-6dc1c2fc42db",
+    "language": "python",
+    "content": "[function] main"
+  },
+  {
+    "type": "file",
+    "name": "__init__.py",
+    "content": "",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/__init__.py",
+    "language": "python",
+    "uuid": "3d9ffd72-53dd-4aae-bce6-5c3173413c02",
+    "start_line": 1,
+    "end_line": 1,
+    "child_uuids": []
+  },
+  {
+    "type": "file",
+    "name": "__init__.py",
+    "content": "",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/__init__.py",
+    "language": "python",
+    "uuid": "2b1209e2-f850-4c3a-8c67-598ce5630c6e",
+    "start_line": 1,
+    "end_line": 1,
+    "child_uuids": []
+  },
+  {
+    "type": "class",
+    "name": "State",
+    "start_line": 6,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 10,
+        "end_line": 11,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "is_deleted",
+        "start_line": 13,
+        "end_line": 14,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 16,
+        "end_line": 20,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "1c3cfc25-2563-4b8c-ac84-bf79639cbde4",
+    "language": "python",
+    "content": "[class] State"
+  },
+  {
+    "type": "class",
+    "name": "Thread",
+    "start_line": 23,
+    "end_line": 33,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 29,
+        "end_line": 30,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 32,
+        "end_line": 33,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "085d90d7-71c0-43c2-aeb1-9e856cba36ea",
+    "language": "python",
+    "content": "[class] Thread"
+  },
+  {
+    "type": "class",
+    "name": "SourceLocation",
+    "start_line": 36,
+    "end_line": 46,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 42,
+        "end_line": 43,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 45,
+        "end_line": 46,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "92d7abd8-064c-4d30-922c-a658c8ed6d3f",
+    "language": "python",
+    "content": "[class] SourceLocation"
+  },
+  {
+    "type": "class",
+    "name": "Requester",
+    "start_line": 49,
+    "end_line": 64,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 53,
+        "end_line": 61,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 63,
+        "end_line": 64,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "ee16dee1-e689-4f69-adb1-7bf612a24389",
+    "language": "python",
+    "content": "[class] Requester"
+  },
+  {
+    "type": "class",
+    "name": "PromiseId",
+    "start_line": 67,
+    "end_line": 77,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 70,
+        "end_line": 71,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__equ__",
+        "start_line": 73,
+        "end_line": 74,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 76,
+        "end_line": 77,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "e316dd34-05ac-471a-b6ef-63f707cd1730",
+    "language": "python",
+    "content": "[class] PromiseId"
+  },
+  {
+    "type": "class",
+    "name": "Promise",
+    "start_line": 80,
+    "end_line": 102,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 88,
+        "end_line": 96,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "is_valid",
+        "start_line": 98,
+        "end_line": 99,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__str__",
+        "start_line": 101,
+        "end_line": 102,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "b65aa8ef-93cb-4987-89f8-78aab7cbe0cc",
+    "language": "python",
+    "content": "[class] Promise"
+  },
+  {
+    "type": "class",
+    "name": "GdbAtomicList",
+    "start_line": 105,
+    "end_line": 114,
+    "children": [
+      {
+        "type": "method",
+        "name": "__iter__",
+        "start_line": 108,
+        "end_line": 114,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "df4e45b5-62d8-427b-96b5-6d1b2cf279ba",
+    "language": "python",
+    "content": "[class] GdbAtomicList"
+  },
+  {
+    "type": "class",
+    "name": "ThreadRegistry",
+    "start_line": 117,
+    "end_line": 122,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 121,
+        "end_line": 122,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "3481dd33-09ec-4d16-81b2-e2bc15fd32e9",
+    "language": "python",
+    "content": "[class] ThreadRegistry"
+  },
+  {
+    "type": "class",
+    "name": "GdbVector",
+    "start_line": 124,
+    "end_line": 134,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 125,
+        "end_line": 127,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__iter__",
+        "start_line": 129,
+        "end_line": 134,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "b9d87f44-afe3-4f1f-951e-db30363cf734",
+    "language": "python",
+    "content": "[class] GdbVector"
+  },
+  {
+    "type": "class",
+    "name": "AsyncRegistry",
+    "start_line": 137,
+    "end_line": 147,
+    "children": [
+      {
+        "type": "method",
+        "name": "from_gdb",
+        "start_line": 141,
+        "end_line": 142,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "promises",
+        "start_line": 144,
+        "end_line": 147,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_data.py",
+    "uuid": "0f00ee86-40eb-4307-9de8-00fed0e5b684",
+    "language": "python",
+    "content": "[class] AsyncRegistry"
+  },
+  {
+    "type": "class",
+    "name": "Forest",
+    "start_line": 5,
+    "end_line": 72,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 6,
+        "end_line": 11,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "data",
+        "start_line": 13,
+        "end_line": 14,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "index",
+        "start_line": 16,
+        "end_line": 23,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "children",
+        "start_line": 25,
+        "end_line": 31,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "from_promises",
+        "start_line": 34,
+        "end_line": 55,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "dfs",
+        "start_line": 58,
+        "end_line": 66,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "__iter__",
+        "start_line": 68,
+        "end_line": 72,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/AsyncRegistryServer/PrettyPrinter/src/asyncregistry/gdb_forest.py",
+    "uuid": "7a3aec82-8198-4ffb-8f18-188d0ad21372",
+    "language": "python",
+    "content": "[class] Forest"
+  },
+  {
+    "type": "class",
+    "name": "DBServer",
+    "start_line": 3,
+    "end_line": 16,
+    "children": [
+      {
+        "type": "method",
+        "name": "__init__",
+        "start_line": 4,
+        "end_line": 6,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "collect_parameters",
+        "start_line": 8,
+        "end_line": 16,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/ArangodEnvironment/DBServer.py",
+    "uuid": "245a1fc7-ae51-4cef-9333-84d71f7f87ae",
+    "language": "python",
+    "content": "[class] DBServer"
+  },
+  {
+    "type": "file",
+    "name": "__init__.py",
+    "content": "",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/ArangodEnvironment/__init__.py",
+    "language": "python",
+    "uuid": "fe9911ac-6c9e-4813-9b5f-717d9806ef1c",
+    "start_line": 1,
+    "end_line": 1,
+    "child_uuids": []
+  },
+  {
+    "type": "function",
+    "name": "arguments",
+    "start_line": 4,
+    "end_line": 17,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/ArgumentParser.py",
+    "uuid": "13569dca-41de-4ab4-8adc-9d8f5604a9d7",
+    "language": "python",
+    "content": "[function] arguments"
+  },
+  {
+    "type": "function",
+    "name": "start",
+    "start_line": 6,
+    "end_line": 17,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/Feed.py",
+    "uuid": "2d5640da-add2-4fa8-9745-9cc78bcce30d",
+    "language": "python",
+    "content": "[function] start"
+  },
+  {
+    "type": "function",
+    "name": "startFromFile",
+    "start_line": 20,
+    "end_line": 27,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/Feed.py",
+    "uuid": "248f133d-4fd7-4b5e-82f3-c112832461a8",
+    "language": "python",
+    "content": "[function] startFromFile"
+  },
+  {
+    "type": "function",
+    "name": "cwd",
+    "start_line": 9,
+    "end_line": 15,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "863468a6-c8da-43c6-a5a7-96caa2b2b18d",
+    "language": "python",
+    "content": "[function] cwd"
+  },
+  {
+    "type": "function",
+    "name": "checkBinary",
+    "start_line": 18,
+    "end_line": 22,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "f18733ff-7cb6-4737-b08b-e9b539d47292",
+    "language": "python",
+    "content": "[function] checkBinary"
+  },
+  {
+    "type": "function",
+    "name": "parseEndpoint",
+    "start_line": 25,
+    "end_line": 28,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "4e5d328b-5d9d-47a0-aae3-839f9259fe9f",
+    "language": "python",
+    "content": "[function] parseEndpoint"
+  },
+  {
+    "type": "function",
+    "name": "getHotBackupID",
+    "start_line": 31,
+    "end_line": 48,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "c63d48b0-72fd-4e7d-8920-cad376bd6362",
+    "language": "python",
+    "content": "[function] getHotBackupID"
+  },
+  {
+    "type": "function",
+    "name": "createHotBackup",
+    "start_line": 51,
+    "end_line": 62,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "9d76ba9b-a1e4-4d63-a36b-f1313eb76a5e",
+    "language": "python",
+    "content": "[function] createHotBackup"
+  },
+  {
+    "type": "function",
+    "name": "restoreHotBackup",
+    "start_line": 65,
+    "end_line": 74,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/toolbox/modules/HotBackup.py",
+    "uuid": "b3f59bfa-cb2b-44b2-8ad8-590c0e8a0570",
+    "language": "python",
+    "content": "[function] restoreHotBackup"
+  },
+  {
+    "type": "class",
+    "name": "Server",
+    "start_line": 25,
+    "end_line": 35,
+    "children": [
+      {
+        "type": "method",
+        "name": "do_POST",
+        "start_line": 26,
+        "end_line": 35,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/llvm-symbolizer-server.py",
+    "uuid": "b159baca-ba8d-40f0-8936-0c54bc19b73d",
+    "language": "python",
+    "content": "[class] Server"
+  },
+  {
+    "type": "function",
+    "name": "symbolize",
+    "start_line": 13,
+    "end_line": 22,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/llvm-symbolizer-server.py",
+    "uuid": "6a66a2e8-c70c-4363-b95e-f04f464260e2",
+    "language": "python",
+    "content": "[function] symbolize"
+  },
+  {
+    "type": "function",
+    "name": "run",
+    "start_line": 38,
+    "end_line": 46,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/llvm-symbolizer-server.py",
+    "uuid": "7c164311-1ec0-4a1c-94fe-f9fdd31e7077",
+    "language": "python",
+    "content": "[function] run"
+  },
+  {
+    "type": "function",
+    "name": "print_usage",
+    "start_line": 17,
+    "end_line": 32,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/makeDashboards.py",
+    "uuid": "4d1f2315-2e2b-44b3-9080-4e77d21bb16f",
+    "language": "python",
+    "content": "[function] print_usage"
+  },
+  {
+    "type": "function",
+    "name": "incxy",
+    "start_line": 294,
+    "end_line": 300,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/makeDashboards.py",
+    "uuid": "5d18ddbe-aaa4-4cc4-8384-4f67998dc573",
+    "language": "python",
+    "content": "[function] incxy"
+  },
+  {
+    "type": "function",
+    "name": "make_panel",
+    "start_line": 302,
+    "end_line": 309,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/makeDashboards.py",
+    "uuid": "f5eca916-186b-4ba1-ad27-a7726b8f8341",
+    "language": "python",
+    "content": "[function] make_panel"
+  },
+  {
+    "type": "file",
+    "name": "node-module-licenses.py",
+    "content": "#!/usr/bin/env python3\nimport csv, json, sys, os.path, re, io\n\nos.system(\"cd js/node && npx license-checker --relativeLicensePath --json > OUT\")\n\nnv_re = re.compile(r'(@?[^@]*)@([^@]*)')\ngit = \"https://raw.githubusercontent.com/arangodb/arangodb/devel\"\n\nwith io.open('js/node/OUT') as f:\n    licenses = json.load(f)\n\nfor name_version, value in licenses.items():\n    nv = nv_re.match(name_version)\n\n    if nv:\n        name = nv.group(1)\n        version = nv.group(2)\n        licenseId = value['licenses']\n        license = \"######################################## ERROR: %s\" % (licenseId)\n        licenseFile = \"%s/js/node/%s\" % (git, value['licenseFile'])\n\n        if 'url' in value:\n            home = value['url']\n        elif 'repository' in value:\n            home = value['repository']\n        else:\n            home = \"(none)\"\n\n        if name == \"xmldom\":\n            license = \"MIT (dual license)\"\n            licenseId = \"MIT\"\n        elif licenseId == \"MIT\" or licenseId == \"MIT*\" or licenseId == \"(WTFPL OR MIT)\":\n            license = \"MIT License\"\n            licenseId = \"MIT\"\n        elif licenseId == \"BSD\" or licenseId == \"BSD*\":\n            license = 'BSD License'\n            licenseId = \"BSD\"\n        elif licenseId == \"BSD-2-Clause\":\n            license = 'BSD 2-clause \"Simplified\" License'\n        elif licenseId == \"BSD-3-Clause\":\n            license = 'BSD 3-clause \"New\" or \"Revised\" License'\n        elif licenseId == \"Apache*\":\n            license = \"Apache License 2.0\"\n            licenseId = \"Apache-2.0\"\n        elif licenseId == \"Apache-2.0\":\n            license = \"Apache License 2.0\"\n        elif licenseId == \"ISC\":\n            license = \"ISC License\"\n\n        print(\"#### %s\" % (name))\n        print()\n        print(\"Name: %s\" % (name))\n        print(\"Version: %s\" % (version))\n        print(\"Project Home: %s\" % (home))\n        print(\"License: %s\" % (licenseFile))\n        print(\"License Name: %s\" % (license))\n        print(\"License Id: %s\" % (licenseId))\n        print()\n    else:\n        print(\"#################### ERROR: %s\" % name_version)\n",
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/node-module-licenses.py",
+    "language": "python",
+    "uuid": "328ebca7-9711-410a-b273-408280a4d4ec",
+    "start_line": 1,
+    "end_line": 61,
+    "child_uuids": []
+  },
+  {
+    "type": "function",
+    "name": "update",
+    "start_line": 61,
+    "end_line": 64,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/process.py",
+    "uuid": "07fc148c-990d-4a63-954a-94d889d9bf62",
+    "language": "python",
+    "content": "[function] update"
+  },
+  {
+    "type": "function",
+    "name": "updateRegion",
+    "start_line": 68,
+    "end_line": 70,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/process.py",
+    "uuid": "ef4f041a-683f-444b-8105-35f0aca4d061",
+    "language": "python",
+    "content": "[function] updateRegion"
+  },
+  {
+    "type": "function",
+    "name": "mouseMoved",
+    "start_line": 85,
+    "end_line": 93,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/process.py",
+    "uuid": "39e8b8e5-7882-43ed-898f-9118a684a85c",
+    "language": "python",
+    "content": "[function] mouseMoved"
+  },
+  {
+    "type": "function",
+    "name": "get_parent_name",
+    "start_line": 28,
+    "end_line": 33,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "cb350067-26a1-4da0-b739-4247e14cd569",
+    "language": "python",
+    "content": "[function] get_parent_name"
+  },
+  {
+    "type": "function",
+    "name": "get_process_tree_recursive",
+    "start_line": 35,
+    "end_line": 50,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "e88da1ab-8508-4969-b735-f9a095614389",
+    "language": "python",
+    "content": "[function] get_process_tree_recursive"
+  },
+  {
+    "type": "function",
+    "name": "build_process_tree",
+    "start_line": 52,
+    "end_line": 62,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "f3fae707-3723-4082-9e9a-7f6435e87971",
+    "language": "python",
+    "content": "[function] build_process_tree"
+  },
+  {
+    "type": "function",
+    "name": "load_testing_js_mappings",
+    "start_line": 64,
+    "end_line": 75,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "0fb1a704-a858-4332-b685-b4658ab5df6f",
+    "language": "python",
+    "content": "[function] load_testing_js_mappings"
+  },
+  {
+    "type": "function",
+    "name": "aggregate_sub_metrics",
+    "start_line": 77,
+    "end_line": 129,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "74c2acf0-764b-43c3-a48b-242d86a3842f",
+    "language": "python",
+    "content": "[function] aggregate_sub_metrics"
+  },
+  {
+    "type": "function",
+    "name": "jobs_db_overview",
+    "start_line": 131,
+    "end_line": 142,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "59cd715c-0d2d-479a-a53b-cab3bcd9c27c",
+    "language": "python",
+    "content": "[function] jobs_db_overview"
+  },
+  {
+    "type": "function",
+    "name": "load_db_overview",
+    "start_line": 144,
+    "end_line": 154,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "6fc9c82c-d7ae-440c-9b42-5d5181d21c43",
+    "language": "python",
+    "content": "[function] load_db_overview"
+  },
+  {
+    "type": "function",
+    "name": "get_chosen_value",
+    "start_line": 164,
+    "end_line": 177,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "0540df33-64b3-4da7-a770-05e7580610b4",
+    "language": "python",
+    "content": "[function] get_chosen_value"
+  },
+  {
+    "type": "function",
+    "name": "load_db_stacked_jobs",
+    "start_line": 178,
+    "end_line": 224,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "eb12f374-970d-45f5-b86b-08fd7390af7d",
+    "language": "python",
+    "content": "[function] load_db_stacked_jobs"
+  },
+  {
+    "type": "function",
+    "name": "get_process_chosen_value",
+    "start_line": 226,
+    "end_line": 239,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "c0fe535c-c154-4cef-8bbf-87cb5400fcda",
+    "language": "python",
+    "content": "[function] get_process_chosen_value"
+  },
+  {
+    "type": "function",
+    "name": "load_db_stacked_test",
+    "start_line": 241,
+    "end_line": 289,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "99686951-8219-4d4d-9847-3678c84c6b2a",
+    "language": "python",
+    "content": "[function] load_db_stacked_test"
+  },
+  {
+    "type": "function",
+    "name": "load_file",
+    "start_line": 291,
+    "end_line": 389,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "75aac68f-e06b-45dc-825d-fd67791e9e00",
+    "language": "python",
+    "content": "[function] load_file"
+  },
+  {
+    "type": "function",
+    "name": "convert_pids_to_gantt",
+    "start_line": 393,
+    "end_line": 407,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "5d225c6e-efc0-4eef-a640-0b7c1f49a92a",
+    "language": "python",
+    "content": "[function] convert_pids_to_gantt"
+  },
+  {
+    "type": "function",
+    "name": "get_load",
+    "start_line": 409,
+    "end_line": 410,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "f43bc0ff-19e8-4770-869e-9b7702a1a4a6",
+    "language": "python",
+    "content": "[function] get_load"
+  },
+  {
+    "type": "function",
+    "name": "append_dict_to_df",
+    "start_line": 412,
+    "end_line": 414,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/tools/process_examine.py",
+    "uuid": "1ea35cf2-eaf1-4bf8-bcd1-e1121320cba2",
+    "language": "python",
+    "content": "[function] append_dict_to_df"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/_admin/app.js",
+    "uuid": "ca488c1c-d1c7-479e-843c-ba346627367c",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/_admin/app.js",
+    "uuid": "c65c919a-8b26-40ea-9d71-94a1cba433ed",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/_admin/foxx/app.js",
+    "uuid": "c2b33d23-8120-4cc6-8c8b-4e322b64b031",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/_admin/foxx/app.js",
+    "uuid": "7497f99b-ad96-4cc7-9574-7d9740a79f43",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/api-simple.js",
+    "uuid": "bf6b4bbf-3707-490a-8325-3b726cb82f7d",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/api-simple.js",
+    "uuid": "b08f8385-3da1-4768-865a-b2f832941327",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/api-system.js",
+    "uuid": "9634b115-ec67-4288-b08d-60b6c71b43eb",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/actions/api-system.js",
+    "uuid": "c5499f56-7fa2-41d7-a4e9-604bae48e9d2",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/aardvark.js",
+    "uuid": "2e6aefdc-2318-4ecc-9c4d-a30443a7744c",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/aardvark.js",
+    "uuid": "70cd4d71-03ee-4316-b701-4ab0a4e4cd6c",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/test_case.js",
+    "uuid": "c01ec954-9481-4372-b891-d5f44c65d9a9",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/test_case.js",
+    "uuid": "e17bbba2-a414-4b7f-92b0-4f53f4f18b53",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/times_in_words.js",
+    "uuid": "c22c9836-d392-4e09-a993-ac4014678ea8",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/times_in_words.js",
+    "uuid": "5bfa53e7-a449-4757-8c43-ef82fdcf12d7",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/typeOf.js",
+    "uuid": "1e6e6169-a8c1-4b8e-bc55-0b858a783f85",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/typeOf.js",
+    "uuid": "1f373884-41be-4010-8251-b9549c5ac869",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/util/core.js",
+    "uuid": "9d35b9ef-7b98-48cc-8d56-e2308158369e",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/util/core.js",
+    "uuid": "ed02bb88-f0ff-40ad-8b91-b864842020e5",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/util/event.js",
+    "uuid": "00199772-ac2d-4754-bb5b-cfdb5f5c40ed",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/lib/sinon/util/event.js",
+    "uuid": "216feef4-e247-4de7-946a-3a4fb90138d9",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-foxx-swagger-spec.js",
+    "uuid": "8c6b9a77-5c17-4f01-aef2-f336ff4bbd7e",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-foxx-swagger-spec.js",
+    "uuid": "80ede86c-ee5d-4259-8195-2be5dc8c1fb3",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-foxx.js",
+    "uuid": "37c987e2-9e22-45a1-8d6a-51c706cbe0a9",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-foxx.js",
+    "uuid": "0b90e9f8-24cd-4620-9fb6-3384edd036ea",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-routing.js",
+    "uuid": "38656152-df82-4d4f-b96e-664b34095e4c",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-routing.js",
+    "uuid": "69bf2f0f-2600-4e8b-ad35-75e049017e9f",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-statistics-helper.js",
+    "uuid": "cafa8a29-af30-4427-8db8-eab967e98161",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/server/shell/shell-statistics-helper.js",
+    "uuid": "c85d1828-cc5f-49e7-a7b8-09bac6aa70e3",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "class",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 20,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 2,
+        "end_line": 5,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getName",
+        "start_line": 6,
+        "end_line": 10,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/transform/poc/tests/test.js",
+    "uuid": "36a1e679-79c2-437a-b7de-b29ec516cfb6",
+    "language": "javascript",
+    "content": "[class] Person"
+  },
+  {
+    "type": "function",
+    "name": "sayHello",
+    "start_line": 21,
+    "end_line": 30,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/transform/poc/tests/test.js",
+    "uuid": "0e97dffa-7568-4108-8ff2-fa2b96eb7604",
+    "language": "javascript",
+    "content": "[function] sayHello"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/jsoneditor-react.d.ts",
+    "uuid": "d3726235-aab1-41fb-a0a9-7080eae068d8",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/jsoneditor-react.d.ts",
+    "uuid": "b328f66c-95be-4f49-8195-41300dec5b66",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/jsoneditor-react.d.ts",
+    "uuid": "888cb53b-6ed9-485c-9e60-79d3afbcd916",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/non_ts_libs.d.ts",
+    "uuid": "6b7af781-f2fa-4cf0-ae80-53c4c8fa4a56",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/non_ts_libs.d.ts",
+    "uuid": "ce1e256a-5774-4af0-9ffd-e8a38f286b6d",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/non_ts_libs.d.ts",
+    "uuid": "f9782d58-51df-4a90-ba0e-f6d67b5fa989",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/react-split-grid.d.ts",
+    "uuid": "4110cfd9-bf6f-4c85-8be0-87ac2d77c71b",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/react-split-grid.d.ts",
+    "uuid": "1bb43421-7775-4cfa-b873-d4bb00972d5f",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/react-split-grid.d.ts",
+    "uuid": "d777c619-5037-4d7e-a369-cfa0efe678ca",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useElementPosition.ts",
+    "uuid": "807218b0-c98d-409d-bc2f-5294bcdeb0c0",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useElementPosition.ts",
+    "uuid": "9a821770-6fe1-4f93-bcc0-8369530c9d8f",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useElementPosition.ts",
+    "uuid": "7bfab3ad-b218-4ba9-8acb-6576ea9fee55",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useJobSync.ts",
+    "uuid": "2b2ef444-3cd8-4290-8e6e-cc2b1c1b9b97",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useJobSync.ts",
+    "uuid": "7489b209-4186-4865-a71d-38b14d10cb2d",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/components/hooks/useJobSync.ts",
+    "uuid": "62174a07-5439-401d-bf4b-ed835df9cbc2",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateMDIIndex.ts",
+    "uuid": "e9d5f0b4-6eac-4c30-bdf8-b8ea839d1718",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateMDIIndex.ts",
+    "uuid": "c9528dad-f56d-411b-94fa-87c3a34d36c9",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateMDIIndex.ts",
+    "uuid": "7de556b0-0983-43ce-9df4-35ff4497cf61",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePersistentIndex.ts",
+    "uuid": "c4882ff7-da6d-4f5a-ae13-a3ff7c2d0b41",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePersistentIndex.ts",
+    "uuid": "7578c198-ca65-4a77-920d-0c42ef1d67b5",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePersistentIndex.ts",
+    "uuid": "b8610961-129a-40c6-95ea-82456df4df41",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePrefixedMDIIndex.ts",
+    "uuid": "fd0b58d5-e471-435e-bc3f-8d064c98abc4",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePrefixedMDIIndex.ts",
+    "uuid": "6224877e-81e1-4a15-8995-86d162cf33d8",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreatePrefixedMDIIndex.ts",
+    "uuid": "5b982206-ebbf-4cac-adba-cc87abcab82a",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateTTLIndex.ts",
+    "uuid": "7e5d332a-a9d4-4c0a-9325-3385c2da9587",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateTTLIndex.ts",
+    "uuid": "659fc388-2711-4119-9d99-bbff47b8296a",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/addIndex/useCreateTTLIndex.ts",
+    "uuid": "886e39af-e1dc-45eb-b5fd-064d7b2edcb7",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/useDeleteIndex.ts",
+    "uuid": "58af8cfe-98f2-4614-8dcd-eaf1c026b0b7",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/useDeleteIndex.ts",
+    "uuid": "c5684615-2e30-4a53-8c8c-8a7c9f63b9b3",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/collections/indices/useDeleteIndex.ts",
+    "uuid": "b0ac1b63-855f-449d-b949-bd42dbe410bd",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/SearchAliasJsonHelper.ts",
+    "uuid": "dd55a53e-2bc9-457b-8806-3138dc86ac46",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/SearchAliasJsonHelper.ts",
+    "uuid": "1ef7eb47-a901-4d83-a1c1-1f76f5e335f7",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/SearchAliasJsonHelper.ts",
+    "uuid": "0e0f1348-3b43-444d-982a-1bb21065e999",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/useUpdateAliasViewProperties.ts",
+    "uuid": "65393c11-1be0-49c3-b511-fef1a79fbef7",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/useUpdateAliasViewProperties.ts",
+    "uuid": "15a4ee95-ad88-4b6a-9513-1bc0a5aec768",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/searchAliasView/useUpdateAliasViewProperties.ts",
+    "uuid": "acc2e7f0-d7e9-48a9-89cd-dc3652a38df7",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/useFetchViews.ts",
+    "uuid": "4e12fb8d-9775-4f4e-b8cd-8cd7bb1a3841",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/useFetchViews.ts",
+    "uuid": "42d7e4e2-46bb-4876-9022-4f3312fa6c10",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/useFetchViews.ts",
+    "uuid": "651ba403-ee24-4041-a78a-a4f088f97807",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/AddNewViewForm.types.ts",
+    "uuid": "5ef17602-8294-434c-ab2e-272a026e4bf2",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/AddNewViewForm.types.ts",
+    "uuid": "678d7ad3-8daf-40f1-8954-477da0e7bdfa",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/AddNewViewForm.types.ts",
+    "uuid": "e6c8abdc-4466-4059-a324-bb2ce1eed6ec",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "interface",
+    "name": "Person",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/useAddView.ts",
+    "uuid": "7e298e0a-e2f0-4818-a97e-ab28c0345ed4",
+    "language": "typescript",
+    "content": "[interface] Person"
+  },
+  {
+    "type": "class",
+    "name": "Employee",
+    "start_line": 11,
+    "end_line": 30,
+    "children": [
+      {
+        "type": "method",
+        "name": "constructor",
+        "start_line": 15,
+        "end_line": 20,
+        "children": []
+      },
+      {
+        "type": "method",
+        "name": "getInfo",
+        "start_line": 21,
+        "end_line": 25,
+        "children": []
+      }
+    ],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/useAddView.ts",
+    "uuid": "17d7060a-7acb-404c-b2c6-7dd71a7d9723",
+    "language": "typescript",
+    "content": "[class] Employee"
+  },
+  {
+    "type": "function",
+    "name": "processEmployee",
+    "start_line": 31,
+    "end_line": 35,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/react/src/views/views/viewsList/addNewViewForm/useAddView.ts",
+    "uuid": "29e0bda6-a054-459e-a0ed-0d61d309c63c",
+    "language": "typescript",
+    "content": "[function] processEmployee"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 11,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.dualipa_docs/9a35cc43/download_stats.json",
+    "uuid": "383976e4-1dfe-4805-ace6-50c21957e96a",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 11,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/.dualipa_docs/cf2db235/download_stats.json",
+    "uuid": "432b7ee9-a665-4516-837e-7bbd07003bc1",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 402,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/CMakePresets.json",
+    "uuid": "458e2ccf-fbea-46eb-a3a6-51028a84a989",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 22358,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/api-docs.json",
+    "uuid": "de287652-3b1b-4eb2-866b-e5e0ee6f78d2",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 50,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/apps/system/_admin/aardvark/APP/manifest.json",
+    "uuid": "c247c736-e800-4dbb-9c0b-490928fa10fa",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 33,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/node_modules/samsam/package.json",
+    "uuid": "b0b91963-90f5-4787-b059-e89f3678a9ab",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 51,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/node_modules/util/package.json",
+    "uuid": "9357fd48-81fb-4c05-ac73-ff1b09e6d426",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 116,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/node_modules/which-typed-array/package.json",
+    "uuid": "f980645c-a9cd-4bd2-917f-7e64a3ecda4c",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 60,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/package.json",
+    "uuid": "1b9d8224-fdc4-4c13-bc6d-4feae3a4e99f",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 67,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/statuses/codes.json",
+    "uuid": "2e4eb56d-10eb-42ac-9daa-a5c784fbea89",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 11,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/common/test-data/modules/test-data.json",
+    "uuid": "00eeed14-9893-41de-817f-8fc5f8fb732f",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 1,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/common/test-data/search/docs/ii_sa_dataset.json",
+    "uuid": "ed5f20ad-5828-467e-bc64-a2fc422feb2a",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 1,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/common/test-data/search/docs/lsh_dataset.json",
+    "uuid": "64e158aa-2cbf-41af-a0b5-c48c01031a0f",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 1,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/js/common/test-data/sorting/data.json",
+    "uuid": "33fdf482-acce-4a2b-a978-902a425607a8",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 56,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/tests/sepp/sample-config.json",
+    "uuid": "5a3b8112-dac3-417f-941d-e17334e56568",
+    "language": "json",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 24,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/Installation/CI/linux/nightly-docker.sh",
+    "uuid": "ab7dbbc1-5227-4399-a637-6f675952c74f",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 13,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/Installation/archive-de-thinner.sh",
+    "uuid": "6860d626-30dc-41e7-a719-d8511b9a1a37",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 33,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/Installation/delistClienNodePackage.sh",
+    "uuid": "2cf261a9-5012-40fa-9f78-44f3482e3054",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 17,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/Installation/fetch_tz_database.sh",
+    "uuid": "2c25f99d-7bd0-4211-baad-24e456e6b9ec",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 5,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/js/node/node_modules/sinon/node_modules/lolex/script/ci-test.sh",
+    "uuid": "c2ac667b-4d5a-460d-9a85-e299cd491c94",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 22,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/docker/build/linux/tools/install_v8_arm64.sh",
+    "uuid": "547addf4-0fc8-4518-b1ab-0c15cf48eba2",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 185,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/docker/deploy/entrypoint.sh",
+    "uuid": "7dab916e-c1c5-4330-9fc5-2cd4e3aa0ea1",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 29,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/docker/deploy/setup.sh",
+    "uuid": "e2178e72-b56f-48c1-a097-ef0b9e222dfd",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/docker/test/build-image.sh",
+    "uuid": "0029fffe-8766-4241-9a1f-824c4408d2d5",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 14,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/scripts/docker/test/build-manifest.sh",
+    "uuid": "4e56567d-1dd7-460f-9c92-eb075404f736",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 48,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/eslint.sh",
+    "uuid": "7dc3572b-bf48-4769-9c51-d34e7a1b7fc2",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 9,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/gdb-pretty-printers/build_and_run_tests.sh",
+    "uuid": "fca14a23-8d94-4cd0-a500-fff77734f0c6",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 13,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/generateREADME.sh",
+    "uuid": "4470d3f4-cb5a-4e65-a9a5-1b0c6dc268e3",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 10,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/giteslint.sh",
+    "uuid": "d2e22250-ce4d-4c80-acff-9b5292dfef1f",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 22,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/manPages.sh",
+    "uuid": "e22a0a42-fb3b-4836-9cbc-e891ca725f07",
+    "language": "bash",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 4561,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Ast.cpp",
+    "uuid": "3a9c7ae0-b8ea-4d6f-ad4b-da2bfcae72d8",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 801,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Ast.h",
+    "uuid": "ec7d3398-f1e1-45f2-bd3d-90c5f2491a53",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 2725,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Query.cpp",
+    "uuid": "ff2a2fd8-7b14-4809-a4a9-2383fcc671ee",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 513,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Query.h",
+    "uuid": "5cc6f31b-2142-42a6-bdad-c32e321bb8ba",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 242,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Functions.cpp",
+    "uuid": "837187b1-4cee-4800-bdde-fdedf91902d8",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "block",
+    "name": "root",
+    "start_line": 1,
+    "end_line": 627,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/arangod/Aql/Functions.h",
+    "uuid": "3fec1091-5bc1-4103-b995-3e732ed060fe",
+    "language": "cpp",
+    "content": "[block] root"
+  },
+  {
+    "type": "function",
+    "name": "update_line_chart",
+    "start_line": 98,
+    "end_line": 153,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/gantt.py",
+    "uuid": "07188837-4e13-4b59-b3cb-89942a5f326b",
+    "language": "python",
+    "content": "[function] update_line_chart"
+  },
+  {
+    "type": "function",
+    "name": "update_stacked_alltests_chart",
+    "start_line": 195,
+    "end_line": 229,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/gantt.py",
+    "uuid": "0c83be01-bc11-42c7-9afb-7eb7ccda8e08",
+    "language": "python",
+    "content": "[function] update_stacked_alltests_chart"
+  },
+  {
+    "type": "function",
+    "name": "update_stacked_onetest_chart",
+    "start_line": 237,
+    "end_line": 277,
+    "children": [],
+    "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/arangodb/utils/gantt.py",
+    "uuid": "05938ff9-2f53-483c-97b6-e403a27e24b9",
+    "language": "python",
+    "content": "[function] update_stacked_onetest_chart"
+  }
+]

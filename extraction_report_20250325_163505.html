@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comprehensive Extraction Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #444;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .success {
+            color: #2ecc71;
+        }
+        .warning {
+            color: #f39c12;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Comprehensive Extraction Report</h1>
+            <p>Generated: 2025-03-25 16:35:05</p>
+            <p>Repository: /home/grahama/workspace/experiments/agent_tools/test_repos/arangodb</p>
+            <p>Output: test_results/comprehensive_20250325_163330/qa_compatible_output.json</p>
+        </div>
+
+        <div class="section">
+            <h2>Extraction Summary</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Files</h3>
+                    <p>5324</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Extracted Files</h3>
+                    <p>45 (0.8%)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Included in Output</h3>
+                    <p>0 (0.0%)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Validation</h3>
+                    <p class="success">
+                        ✅ PASSED
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Repository Statistics</h2>
+            <h3>File Types</h3>
+            <table>
+                <tr>
+                    <th>Extension</th>
+                    <th>Count</th>
+                    <th>Extracted</th>
+                    <th>Extraction Rate</th>
+                </tr>
+                <tr><td>.json</td><td>164</td><td>15</td><td>9.1%</td></tr>
+<tr><td>.md</td><td>24</td><td>15</td><td>62.5%</td></tr>
+<tr><td>.txt</td><td>129</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.h</td><td>1554</td><td>15</td><td>1.0%</td></tr>
+<tr><td>.cpp</td><td>1603</td><td>15</td><td>0.9%</td></tr>
+<tr><td>.ld</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.c</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.tpp</td><td>16</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.in</td><td>26</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.dat</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ps1</td><td>5</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.js</td><td>1794</td><td>15</td><td>0.8%</td></tr>
+<tr><td>.html</td><td>7</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.css</td><td>22</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.png</td><td>64</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.map</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ejs</td><td>60</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.otf</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.woff2</td><td>9</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.eot</td><td>6</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.svg</td><td>14</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.woff</td><td>12</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ttf</td><td>8</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.gif</td><td>14</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.scss</td><td>92</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.yml</td><td>4</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.development</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ts</td><td>70</td><td>15</td><td>21.4%</td></tr>
+<tr><td>.production</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.lock</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ico</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.gz</td><td>7</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.tsx</td><td>286</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.jsx</td><td>11</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.patch</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.tmpl</td><td>9</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.json-no-eslint</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.cmake</td><td>40</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.py</td><td>70</td><td>15</td><td>21.4%</td></tr>
+<tr><td>.sh</td><td>45</td><td>15</td><td>33.3%</td></tr>
+<tr><td>.gdbscript</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.OpenSuSE_13</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.Centos</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.OpenSuSE</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.install</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.dirs</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.init</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.sysv</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.systemd</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.arangodb</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.feed</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.inc</td><td>22</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.csv</td><td>16</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.tsv</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.markdown</td><td>20</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.jpg</td><td>8</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.bin</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.js_DISABLED</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.DISABLED</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.testcases</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.rc</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.conf</td><td>28</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.crt</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.key</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.pem</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.keyfile</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.yaml</td><td>389</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.1</td><td>6</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.8</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.sed</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.y</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.ll</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.hpp</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.bt</td><td>3</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.bash</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.sources</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.Dockerfile</td><td>2</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.bat</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.x86-64</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.arm64</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.pat</td><td>1</td><td>0</td><td>0.0%</td></tr>
+<tr><td>.dockerfile</td><td>1</td><td>0</td><td>0.0%</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Output Statistics</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Sections</h3>
+                    <p>1072</p>
+                </div>
+            </div>
+
+            <h3>Block Types</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                </tr>
+                <tr><td>block</td><td>30</td></tr>
+<tr><td>class</td><td>35</td></tr>
+<tr><td>function</td><td>125</td></tr>
+<tr><td>interface</td><td>15</td></tr>
+<tr><td>file</td><td>45</td></tr>
+<tr><td>section</td><td>392</td></tr>
+<tr><td>text</td><td>398</td></tr>
+<tr><td>code_block</td><td>28</td></tr>
+<tr><td>table</td><td>4</td></tr>
+            </table>
+
+            <h3>Languages</h3>
+            <table>
+                <tr>
+                    <th>Language</th>
+                    <th>Count</th>
+                </tr>
+                <tr><td>cpp</td><td>33</td></tr>
+<tr><td>javascript</td><td>30</td></tr>
+<tr><td>typescript</td><td>45</td></tr>
+<tr><td>python</td><td>97</td></tr>
+<tr><td>markdown</td><td>809</td></tr>
+<tr><td>text</td><td>17</td></tr>
+<tr><td>bash</td><td>23</td></tr>
+<tr><td>js</td><td>1</td></tr>
+<tr><td>sh</td><td>2</td></tr>
+<tr><td>json</td><td>15</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Verification History</h2>
+            <table>
+                <tr>
+                    <th>Checkpoint</th>
+                    <th>Step</th>
+                    <th>Result</th>
+                    <th>Expected</th>
+                    <th>Actual</th>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+</body>
+</html>

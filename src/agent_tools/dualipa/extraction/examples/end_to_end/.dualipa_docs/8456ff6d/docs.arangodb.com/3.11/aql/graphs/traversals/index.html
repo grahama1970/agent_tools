@@ -1,0 +1,1046 @@
+<!doctype html><html lang=en><head><link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel=stylesheet><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel=stylesheet><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fontawesome-all.min.css" rel=stylesheet></noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/featherlight.min.css" rel=stylesheet></noscript><link href="../../../../css/nucleus.css" rel=stylesheet><link href="../../../../css/fonts.css" rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href="../../../../css/fonts.css" rel=stylesheet></noscript><link href="../../../../css/theme.css" rel=stylesheet><link href="../../../../css/theme-relearn-light.css" rel=stylesheet id=variant-style><link href="../../../../css/print.css" rel=stylesheet media=print><script src="../../../../js/variant.js@1741627052"></script>
+<script>var root_url="/",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="",window.T_Copied_to_clipboard="",window.T_Copy_link_to_clipboard="",window.T_Link_copied_to_clipboard="",baseUriFull="https://docs.arangodb.com/",window.variants&&variants.init(["relearn-light"])</script><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.119.0"><meta itemprop=description property="description" content="You can traverse named graphs and anonymous graphs with a native AQL language construct"><meta property="og:url" content="https://docs.arangodb.com/3.11/aql/graphs/traversals/"><meta property="og:title" content="Graph traversals in AQL"><meta property="og:type" content="website"><meta property="og:description" content="You can traverse named graphs and anonymous graphs with a native AQL language construct"><meta name=docsearch:version content="3.11"><title>Graph traversals in AQL | ArangoDB Documentation</title><link href="../../../../images/favicon.png" rel=icon type=image/png><script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/clipboard.min.js@1741627052" defer></script>
+<script src="../../../../js/featherlight.min.js@1741627052" defer></script>
+<script>var versions=[{alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"},{alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"},{alias:"3.11",deprecated:!1,name:"3.11",version:"3.11.13"},{alias:"3.10",deprecated:!0,name:"3.10",version:"3.10.14"}]</script><script>var develVersion={alias:"devel",deprecated:!1,name:"3.13",version:"3.13.0"}</script><script>var stableVersion={alias:"stable",deprecated:!1,name:"3.12",version:"3.12.4"}</script><script src="../../../../js/codeblocks.js@1741627052" defer></script>
+<script src="../../../../js/theme.js@1741627052" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PSX8LKTTJ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-6PSX8LKTTJ")</script><script>!function(e,t,n,s,o,i){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],o=t.createElement(n),o.async=!0,o.src="//static.ads-twitter.com/uwt.js",i=t.getElementsByTagName(n)[0],i.parentNode.insertBefore(o,i))}(window,document,"script"),twq("init","nz793"),twq("track","PageView")</script><script>_linkedin_partner_id="499017",window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[],window._linkedin_data_partner_ids.push(_linkedin_partner_id)</script><script>(function(){var t=document.getElementsByTagName("script")[0],e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://snap.licdn.com/li.lms-analytics/insight.min.js",t.parentNode.insertBefore(e,t)})()</script></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-6PSX8LKTTJ" height=0 width=0 style=display:none;visibility:hidden></iframe></noscript><noscript><img height=1 width=1 style=display:none alt src="https://dc.ads.linkedin.com/collect/?pid=499017&fmt=gif"></noscript><noscript>You need to enable JavaScript to use the ArangoDB documentation.</noscript><div id=page-wrapper class=page_content_splash style=height:auto;opacity:0><section id=page-main><section class=page-container id=page-container><header id=header style="transition:.5s padding ease-out,.15s" class="zn_header_white header-splash-new nav-down header-splash-wrap header1"><div class=header-block-left><div class=mobile-menu-toggle><button id=sidebar-toggle-navigation onclick=showSidebarHandler()><svg width="1.33em" height="1.33em" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div><div class=version-logo-container><div class="logo-container hasinfocard_img arangodb-logo-large"><div class=logo><a href=https://www.arangodb.com/><img src="../../../../images/logo_main.png" alt=ArangoDB title></a></div></div><div class=arangodb-logo-small><a href=https://arangodb.com/><img alt="ArangoDB Logo" src="../../../../images/ArangoDB_Logo_White_small.png"></a></div></div></div><div class=container-right style=display:hidden></div><div class=search-and-version-container><a href="index.html#" class="home-link is-current" aria-label="Go to home page" onclick=goToHomepage(event)></a><div id=searchbox></div><script type=text/javascript>const SCRIPT_SRC="https://unpkg.com/@inkeep/widgets-embed@0.2.290/dist/embed.js";function loadAndInitializeInkeep(){if(document.querySelector(`script[src="${SCRIPT_SRC}]"`))return;const e=document.createElement("script");e.type="module",e.src=SCRIPT_SRC,e.onload=initializeInkeep,document.head.appendChild(e)}function initializeInkeep(){const e=Inkeep({integrationId:"clo4lx6jk0000s601cp21x2ok",apiKey:"13b4e56966a76e86c6ff359cd795ee6a0412f751d75d6383",organizationId:"org_HGBkkzGAa4KeGJGh",organizationDisplayName:"ArangoDB",primaryBrandColor:"#80a54d",stringReplacementRules:[{matchingRule:{ruleType:"Substring",string:"Arangograph"},replaceWith:"ArangoGraph"},{matchingRule:{ruleType:"Substring",string:"Aql"},replaceWith:"AQL"},{matchingRule:{ruleType:"Substring",string:"Arangodb"},replaceWith:"ArangoDB"}],customCardSettings:[{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"docs.arangodb.com"}},searchTabLabel:"Official Docs"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"developer.arangodb.com"}},searchTabLabel:"Developer Hub"},{filters:{UrlMatch:{ruleType:"PartialUrl",partialUrl:"arangodb.com"}},searchTabLabel:"Home"}]}),t=e.embed({componentType:"ChatButton",properties:{stylesheetUrls:["/css/fonts.css"],fixedPositionXOffset:"52px",baseSettings:{theme:{primaryColors:{textColorOnPrimary:"white"},tokens:{fonts:{body:"'Inter'",heading:"'Inter'"},zIndex:{overlay:1e4,modal:11e3,popover:12e3,skipLink:13e3,toast:14e3,tooltip:15e3}}}},aiChatSettings:{botAvatarSrcUrl:"/images/ArangoDB_Logo_White_small.png",quickQuestions:["What can you do with AQL that is not feasible with SQL?","How do I search for objects within arrays?","Where can I deploy my ArangoDB instance?"],getHelpCallToActions:[{icon:{builtIn:"FaSlack"},name:"Slack",url:"https://arangodb-community.slack.com/"}]},searchSettings:{tabSettings:{isAllTabEnabled:!1,alwaysDisplayedTabs:["Official Docs","Developer Hub","Home"]}}}})}loadAndInitializeInkeep()</script><div class=version-selector><select id=arangodb-version onchange=changeVersion()><option value=3.13>3.13</option><option value=3.12>3.12</option><option value=3.11>3.11</option><option value=3.10>3.10</option><option value=3.9>3.9</option><option value=3.8>3.8</option></select></div></div></header><iframe src="https://docs.arangodb.com/nav.html" title=description id=menu-iframe class="menu-iframe active" style=opacity:0></iframe><div class=container-main><div class=row-main><nav id=breadcrumbs><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><meta itemprop=itemListOrder content="Descending"><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="3.11"><a itemprop=item class=link href="https://docs.arangodb.com/3.11/"><span itemprop=name class=breadcrumb-entry>3.11.13</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="AQL"><a itemprop=item class=link href="../../index.html"><span itemprop=name class=breadcrumb-entry>AQL</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Graphs"><a itemprop=item class=link href="../index.html"><span itemprop=name class=breadcrumb-entry>Graphs</span></a>
+<i class="fas fa-chevron-right fa-fw"></i></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><meta itemprop=position content="Traversals"><a itemprop=item class=link href="index.html"><span itemprop=name class=breadcrumb-entry>Traversals</span></a></li></ol></nav><article class=default><hgroup><h1>Graph traversals in AQL</h1><p class=lead>You can traverse named graphs and anonymous graphs with a native AQL language construct</p></hgroup><h2 id=syntax>Syntax <a href="index.html#syntax" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>There are two slightly different syntaxes for traversals in AQL, one for</p><ul><li><a href="https://docs.arangodb.com/3.11/graphs/#named-graphs" class=link>named graphs</a> and another to</li><li>specify a <a href="index.html#working-with-collection-sets" class=link>set of edge collections</a>
+(<a href="https://docs.arangodb.com/3.11/graphs/#anonymous-graphs" class=link>anonymous graph</a>).</li></ul><h3 id=working-with-named-graphs>Working with named graphs <a href="index.html#working-with-named-graphs" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>The syntax for AQL graph traversals using named graphs is as follows
+(square brackets denote optional parts and <code>|</code> denotes alternatives):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span><span class=p>[,</span> <span class=n>edge</span><span class=p>[,</span> <span class=n>path</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=p>[</span><span class=n>min</span><span class=p>[</span><span class=o>..</span><span class=n>max</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=n>startVertex</span>
+</span></span><span class=line><span class=cl>  <span class=kr>GRAPH</span> <span class=n>graphName</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=kp>PRUNE</span> <span class=p>[</span><span class=n>pruneVariable</span> <span class=o>=</span> <span class=p>]</span><span class=n>pruneCondition</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=n>OPTIONS</span> <span class=n>options</span><span class=p>]</span></span></span></code></pre></div><ul><li><p><code>FOR</code>: emits up to three variables:</p><ul><li><strong>vertex</strong> (object): the current vertex in a traversal</li><li><strong>edge</strong> (object, <em>optional</em>): the current edge in a traversal</li><li><strong>path</strong> (object, <em>optional</em>): representation of the current path with
+two members:<ul><li><code>vertices</code>: an array of all vertices on this path</li><li><code>edges</code>: an array of all edges on this path</li></ul></li></ul></li><li><p><code>IN</code> <code>min..max</code>: the minimal and maximal depth for the traversal:</p><ul><li><strong>min</strong> (number, <em>optional</em>): edges and vertices returned by this query
+start at the traversal depth of <em>min</em> (thus edges and vertices below it are
+not returned). If not specified, it defaults to 1. The minimal
+possible value is 0.</li><li><strong>max</strong> (number, <em>optional</em>): up to <em>max</em> length paths are traversed.
+If omitted, <em>max</em> defaults to <em>min</em>. Thus only the vertices and edges in
+the range of <em>min</em> are returned. <em>max</em> cannot be specified without <em>min</em>.</li></ul></li><li><p><code>OUTBOUND|INBOUND|ANY</code>: follow outgoing, incoming, or edges pointing in either
+direction in the traversal. Note that this can&rsquo;t be replaced by a bind parameter.</p></li><li><p><strong>startVertex</strong> (string|object): a vertex where the traversal originates from.
+This can be specified in the form of an ID string or in the form of a document
+with the <code>_id</code> attribute. All other values lead to a warning and an empty
+result. If the specified document does not exist, the result is empty as well
+and there is no warning.</p></li><li><p><code>GRAPH</code> <strong>graphName</strong> (string): the name identifying the named graph.
+Its vertex and edge collections are looked up. Note that the graph name
+is like a regular string, hence it must be enclosed by quote marks, like
+<code>GRAPH "graphName"</code>.</p></li><li><p><code>PRUNE</code> <strong>expression</strong> (AQL expression, <em>optional</em>):
+An expression, like in a <code>FILTER</code> statement, which is evaluated in every step of
+the traversal, as early as possible. The semantics of this expression are as follows:</p><ul><li>If the expression evaluates to <code>false</code>, the traversal continues on the current path.</li><li>If the expression evaluates to <code>true</code>, the traversal does not continue on the
+current path. However, the paths up to this point are considered as a result
+(they might still be post-filtered or ignored due to depth constraints).
+For example, a traversal over the graph <code>(A) -> (B) -> (C)</code> starting at <code>A</code>
+and pruning on <code>B</code> results in <code>(A)</code> and <code>(A) -> (B)</code> being valid paths,
+whereas <code>(A) -> (B) -> (C)</code> is not returned because it gets pruned on <code>B</code>.</li></ul><p>You can only use a single <code>PRUNE</code> clause per <code>FOR</code> traversal operation, but
+the prune expression can contain an arbitrary number of conditions using <code>AND</code>
+and <code>OR</code> statements for complex expressions. You can use the variables emitted
+by the <code>FOR</code> operation in the prune expression, as well as all variables
+defined before the traversal.</p><p>You can optionally assign the prune expression to a variable like
+<code>PRUNE var = &lt;expr></code> to use the evaluated result elsewhere in the query,
+typically in a <code>FILTER</code> expression.</p><p>See <a href="index.html#pruning" class=link>Pruning</a> for details.</p></li><li><p><code>OPTIONS</code> <strong>options</strong> (object, <em>optional</em>): See the <a href="index.html#traversal-options" class=link>traversal options</a>.</p></li></ul><h3 id=working-with-collection-sets>Working with collection sets <a href="index.html#working-with-collection-sets" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>The syntax for AQL graph traversals using collection sets is as follows
+(square brackets denote optional parts and <code>|</code> denotes alternatives):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span><span class=kr>WITH</span> <span class=n>vertexCollection1</span><span class=p>[,</span> <span class=n>vertexCollection2</span><span class=p>[,</span> <span class=n>vertexCollectionN</span><span class=p>]]]</span>
+</span></span><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span><span class=p>[,</span> <span class=n>edge</span><span class=p>[,</span> <span class=n>path</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>IN</span> <span class=p>[</span><span class=n>min</span><span class=p>[</span><span class=o>..</span><span class=n>max</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=kr>OUTBOUND</span><span class=err>|</span><span class=kr>INBOUND</span><span class=err>|</span><span class=kr>ANY</span> <span class=n>startVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edgeCollection1</span><span class=p>[,</span> <span class=n>edgeCollection2</span><span class=p>[,</span> <span class=n>edgeCollectionN</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=kp>PRUNE</span> <span class=p>[</span><span class=n>pruneVariable</span> <span class=o>=</span> <span class=p>]</span><span class=n>pruneCondition</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=n>OPTIONS</span> <span class=n>options</span><span class=p>]</span></span></span></code></pre></div><ul><li><p><code>WITH</code>: Declaration of collections. Optional for single server instances, but
+required for <a href="index.html#graph-traversals-in-a-cluster" class=link>graph traversals in a cluster</a>.
+Needs to be placed at the very beginning of the query.</p><ul><li><strong>collections</strong> (collection, <em>repeatable</em>): list of vertex collections that
+are involved in the traversal</li></ul></li><li><p><strong>edgeCollections</strong> (collection, <em>repeatable</em>): One or more edge collections
+to use for the traversal (instead of using a named graph with <code>GRAPH graphName</code>).
+Vertex collections are determined by the edges in the edge collections.</p><p>You can override the default traversal direction by setting <code>OUTBOUND</code>,
+<code>INBOUND</code>, or <code>ANY</code> before any of the edge collections.</p><p>If the same edge collection is specified multiple times, it behaves as if it
+were specified only once. Specifying the same edge collection is only allowed
+when the collections do not have conflicting traversal directions.</p><p>Views cannot be used as edge collections.</p></li><li><p>See the <a href="index.html#working-with-named-graphs" class=link>named graph variant</a> for the remaining
+traversal parameters as well as the <a href="index.html#traversal-options" class=link>traversal options</a>.
+The <code>edgeCollections</code> restriction option is redundant in this case.</p></li></ul><h3 id=traversal-options>Traversal options <a href="index.html#traversal-options" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>You can optionally specify the following options to modify the execution of a
+graph traversal. If you specify unknown options, query warnings are raised.</p><h4 id=order><code>order</code> <a href="index.html#order" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Specify which traversal algorithm to use (string):</p><ul><li><code>"bfs"</code> – the traversal is executed breadth-first. The results
+first contain all vertices at depth 1, then all vertices at depth 2 and so on.</li><li><code>"dfs"</code> (default) – the traversal is executed depth-first. It
+first returns all paths from <em>min</em> depth to <em>max</em> depth for one vertex at
+depth 1, then for the next vertex at depth 1 and so on.</li><li><code>"weighted"</code> - the traversal is a weighted traversal
+(introduced in v3.8.0). Paths are enumerated with increasing cost.
+Also see <code>weightAttribute</code> and <code>defaultWeight</code>. A returned path has an
+additional attribute <code>weight</code> containing the cost of the path after every
+step. The order of paths having the same cost is non-deterministic.
+Negative weights are not supported and abort the query with an error.</li></ul><h4 id=bfs><code>bfs</code> <a href="index.html#bfs" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Deprecated, use <code>order: "bfs"</code> instead.</p><h4 id=uniquevertices><code>uniqueVertices</code> <a href="index.html#uniquevertices" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Ensure vertex uniqueness (string):</p><ul><li><code>"path"</code> – it is guaranteed that there is no path returned with a duplicate vertex</li><li><code>"global"</code> – it is guaranteed that each vertex is visited at most once during
+the traversal, no matter how many paths lead from the start vertex to this one.
+If you start with a <code>min depth > 1</code> a vertex that was found before <em>min</em> depth
+might not be returned at all (it still might be part of a path).
+It is required to set <code>order: "bfs"</code> or <code>order: "weighted"</code> because with
+depth-first search the results would be unpredictable. <strong>Note:</strong>
+Using this configuration the result is not deterministic any more. If there
+are multiple paths from <em>startVertex</em> to <em>vertex</em>, one of those is picked.
+In case of a <code>weighted</code> traversal, the path with the lowest weight is
+picked, but in case of equal weights it is undefined which one is chosen.</li><li><code>"none"</code> (default) – no uniqueness check is applied on vertices</li></ul><h4 id=uniqueedges><code>uniqueEdges</code> <a href="index.html#uniqueedges" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Ensure edge uniqueness (string):</p><ul><li><code>"path"</code> (default) – it is guaranteed that there is no path returned with a
+duplicate edge</li><li><code>"none"</code> – no uniqueness check is applied on edges. <strong>Note:</strong>
+Using this configuration, the traversal follows edges in cycles.</li></ul><h4 id=edgecollections><code>edgeCollections</code> <a href="index.html#edgecollections" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Restrict edge collections the traversal may visit (string|array).</p><p>If omitted or an empty array is specified, then there are no restrictions.</p><ul><li>A string parameter is treated as the equivalent of an array with a single
+element.</li><li>Each element of the array should be a string containing the name of an
+edge collection.</li></ul><h4 id=vertexcollections><code>vertexCollections</code> <a href="index.html#vertexcollections" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Restrict vertex collections the traversal may visit (string|array).</p><p>If omitted or an empty array is specified, then there are no restrictions.</p><ul><li>A string parameter is treated as the equivalent of an array with a single
+element.</li><li>Each element of the array should be a string containing the name of a
+vertex collection.</li><li>The starting vertex is always allowed, even if it does not belong to one
+of the collections specified by a restriction.</li></ul><h4 id=parallelism><code>parallelism</code> <a href="index.html#parallelism" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p class=labels><span class=label>ArangoDB Enterprise Edition</span>
+<span class=label>ArangoGraph</span></p><p>Parallelize traversal execution (number).</p><p>If omitted or set to a value of <code>1</code>, the traversal execution is not parallelized.
+If set to a value greater than <code>1</code>, then up to that many worker threads can be
+used for concurrently executing the traversal. The value is capped by the number
+of available cores on the target machine.</p><p>Parallelizing a traversal is normally useful when there are many inputs (start
+vertices) that the nested traversal can work on concurrently. This is often the
+case when a nested traversal is fed with several tens of thousands of start
+vertices, which can then be distributed randomly to worker threads for parallel
+execution.</p><h4 id=maxprojections><code>maxProjections</code> <a href="index.html#maxprojections" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p class=labels><span class=label>ArangoDB Enterprise Edition</span>
+<span class=label>ArangoGraph</span></p><p>Specifies the number of document attributes per <code>FOR</code> loop to be used as
+projections (number). The default value is <code>5</code>.</p><h4 id=weightattribute><code>weightAttribute</code> <a href="index.html#weightattribute" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Specifies the name of an attribute that is used to look up the weight of an edge
+(string).</p><p>If no attribute is specified or if it is not present in the edge document then
+the <code>defaultWeight</code> is used.</p><p>The attribute value must not be negative.</p><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text>Weighted traversals do not support negative weights. If a document
+attribute (as specified by <code>weightAttribute</code>) with a negative value is
+encountered during traversal, the query is aborted with an error.</div></div></div></div><h4 id=defaultweight><code>defaultWeight</code> <a href="index.html#defaultweight" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Specifies the default weight of an edge (number). The default value is <code>1</code>.</p><p>The value must not be negative.</p><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text>Weighted traversals do not support negative weights. If <code>defaultWeight</code> is set
+to a negative number, then the query is aborted with an error.</div></div></div></div><h3 id=traversing-in-mixed-directions>Traversing in mixed directions <a href="index.html#traversing-in-mixed-directions" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>For traversals with a list of edge collections you can optionally specify the
+direction for some of the edge collections. Say for example you have three edge
+collections <em>edges1</em>, <em>edges2</em> and <em>edges3</em>, where in <em>edges2</em> the direction has
+no relevance but in <em>edges1</em> and <em>edges3</em> the direction should be taken into account.
+In this case you can use <code>OUTBOUND</code> as general traversal direction and <code>ANY</code>
+specifically for <em>edges2</em> as follows:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>vertex</span> <span class=kr>IN</span> <span class=kr>OUTBOUND</span>
+</span></span><span class=line><span class=cl>  <span class=n>startVertex</span>
+</span></span><span class=line><span class=cl>  <span class=n>edges1</span><span class=p>,</span> <span class=kr>ANY</span> <span class=n>edges2</span><span class=p>,</span> <span class=n>edges3</span></span></span></code></pre></div><p>All collections in the list that do not specify their own direction use the
+direction defined after <code>IN</code>. This allows to use a different direction for each
+collection in your traversal.</p><h3 id=graph-traversals-in-a-cluster>Graph traversals in a cluster <a href="index.html#graph-traversals-in-a-cluster" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Due to the nature of graphs, edges may reference vertices from arbitrary
+collections. Following the paths can thus involve documents from various
+collections and it is not possible to predict which are visited in a
+traversal. Which collections need to be loaded by the graph engine can only be
+determined at run time.</p><p>Use the <a href="../../high-level-operations/with/index.html" class=link><code>WITH</code> statement</a> to specify the collections you
+expect to be involved. This is required for traversals using collection sets
+in cluster deployments.</p><h2 id=pruning>Pruning <a href="index.html#pruning" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>You can define stop conditions for graph traversals to return specific data and
+to improve the query performance. This is called <em>pruning</em> and works by checking
+conditions during the traversal as opposed to filtering the results afterwards
+(post-filtering). This reduces the amount of data to be checked by stopping the
+traversal down specific paths early.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe src=https://www.youtube.com/embed/4LVeeC0ciCQ style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe></div><p>You can specify one <code>PRUNE</code> expression per graph traversal, but it can contain
+an arbitrary number of conditions. You can use the vertex, edge, and path
+variables emitted by the traversal in a prune expression, as well as all other
+variables defined before the <code>FOR</code> operation. Note that <code>PRUNE</code> is an optional
+clause of the <code>FOR</code> operation and that the <code>OPTIONS</code> clause needs to be placed
+after <code>PRUNE</code>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>0</span><span class=o>..</span><span class=mi>10</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/Toronto&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Edmonton&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>)</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Toronto&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Toronto -- Winnipeg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Toronto -- Winnipeg -- Saskatoon&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Toronto -- Winnipeg -- Saskatoon -- Edmonton&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>The above example shows a graph traversal using a
+<a href="https://docs.arangodb.com/3.11/graphs/example-graphs/#k-shortest-paths-graph" class=link>train station and connections dataset</a>:</p><p><figure class=image-caption><img alt="Train Connection Map" src="../../../../images/train_map.png"><figcaption></figcaption></figure></p><p>The traversal starts at <strong>Toronto</strong> (bottom left), the traversal depth is
+limited to 10, and every station is only visited once. The traversal could
+continue up to <strong>Vancouver</strong> (bottom right) at depth 5, but it is stopped early
+on this path (the only path in this example) at <strong>Edmonton</strong> because of the
+prune expression.</p><p>The traversal along paths is stopped as soon as the prune expression evaluates
+to <code>true</code> for a given path. The current depth is still included in the result,
+however. This can be seen in the query result of the example which includes the
+Edmonton vertex at which it stopped.</p><p>The following example starts a traversal at <strong>London</strong> (middle right), with a
+depth between 2 and 3, and every station is only visited once. The station names
+as well as the travel times are returned:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Brussels -- 2 -- Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle -- 2 -- Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle -- 1 -- Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh -- 1 -- Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh -- 3 -- Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle -- 2.5 -- York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle -- 1 -- Glasgow&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>The same example with an added prune expression, with vertex and edge conditions:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Carlisle&#34;</span> <span class=kr>OR</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&gt;</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Brussels -- 2 -- Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>If either the <strong>Carlisle</strong> vertex or an edge with a travel time of over three
+hours is encountered, the subsequent paths are pruned. In the example, this
+removes the train connections to <strong>Birmingham</strong>, <strong>Glasgow</strong>, and <strong>York</strong>,
+which come after <strong>Carlisle</strong>, as well as the connections to and via
+<strong>Edinburgh</strong> because of the four hour duration for the section from <strong>York</strong>
+to <strong>Edinburgh</strong>.</p><p>If your graph is comprised of multiple vertex or edge collections, you can
+also prune as soon as you reach a certain collection, using a condition like
+<code>PRUNE IS_SAME_COLLECTION("stopCollection", v)</code>.</p><p>If you want to only return the results of the depth at which the traversal
+stopped due to the prune expression, you can use a <code>FILTER</code> in addition. You can
+assign the evaluated result of a prune expression to a variable
+(<code>PRUNE var = &lt;expr></code>) and use it for filtering:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>cond</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Carlisle&#34;</span> <span class=kr>OR</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&gt;</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=n>cond</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Only paths that end at <strong>Carlisle</strong> or with the last edge having a travel time
+of over three hours are returned. This excludes the connection to <strong>Cologne</strong>
+from the results compared to the previous query.</p><p>If you want to exclude the depth at which the prune expression stopped the
+traversal, you can assign the expression to a variable and use its negated value
+in a <code>FILTER</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>cond</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Carlisle&#34;</span> <span class=kr>OR</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&gt;</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=kr>NOT</span> <span class=n>cond</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Brussels -- 2 -- Cologne&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>This only returns the connection to <strong>Cologne</strong>, which is the opposite of the
+previous example.</p><p>You may combine the prune variable with arbitrary other conditions in a <code>FILTER</code>
+operation. For example, you can remove results where the last edge has as lower
+travel time than the second to last edge of the path:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>cond</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Carlisle&#34;</span> <span class=kr>OR</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&gt;</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>FILTER</span> <span class=n>cond</span> <span class=kr>AND</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=p>].</span><span class=n>travelTime</span> <span class=o>&gt;=</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>-</span><span class=mi>2</span><span class=p>].</span><span class=n>travelTime</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class="box notices cstyle info"><div class=box-content-container><div class=box-content><i class="fas fa-info-circle"></i><div class=box-text><p>The prune expression is <strong>evaluated at every step of the traversal</strong>. This
+includes any traversal depths below the specified minimum depth, despite not
+becoming part of the result. It also includes depth 0, which is the start vertex
+and a <code>null</code> edge.</p><p>If you add prune conditions using the edge variable, make sure to account for
+the edge at depth 0 being <code>null</code>, as it may accidentally stop the traversal
+immediately. This may not be apparent due to the depth constraints.</p></div></div></div></div><p>The following examples shows a graph traversal starting at <strong>London</strong>, with a
+traversal depth between 2 and 3, and every station is only visited once:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Brussels -- 2 -- Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle -- 2 -- Birmingham&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 3.5 -- Carlisle -- 1 -- Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh -- 1 -- Glasgow&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2 -- York -- 4 -- Edinburgh -- 3 -- Leuchars&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle -- 2.5 -- York&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle -- 1 -- Glasgow&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>If you add prune conditions to stop the traversal if the station is <strong>Glasgow</strong>
+or the travel time less than some number, no results are turned. This is even the
+case for a value of <code>2.5</code>, for which two paths exist that fulfill the criterion
+– to <strong>Cologne</strong> and <strong>Carlisle</strong>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Glasgow&#34;</span> <span class=kr>OR</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&lt;</span> <span class=mf>2.5</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> <span class=p>]</span></span></span></code></pre></div></div></div><br><p>The problem is that <code>null</code>, <code>false</code>, and <code>true</code> are all less than any number (<code>&lt; 2.5</code>)
+because of AQL&rsquo;s <a href="../../fundamentals/type-and-value-order/index.html" class=link>Type and value order</a>, and
+because the edge at depth 0 is always <code>null</code>. The prune condition is accidentally
+fulfilled at the start vertex, stopping the traversal too early. This similarly
+happens if you check an edge attribute for inequality (<code>!=</code>) and compare it to
+string, for instance, which evaluates to <code>true</code> for the <code>null</code> value.</p><p>The depth at which a traversal is stopped by pruning is considered as a result,
+but in the above example, the minimum depth of <code>2</code> filters the start vertex out.
+If you lower the minimum depth to <code>0</code>, you get <strong>London</strong> as the sole result.
+This confirms that the traversal stopped at the start vertex.</p><p>To avoid this problem, exclude the <code>null</code> value. For example, you can use
+<code>e.travelTime > 0 AND e.travelTime &lt; 2.5</code>, but more generic solutions are to
+exclude depth 0 from the check (<code>LENGTH(p.edges) > 0</code>) or to simply ignore the
+<code>null</code> edge (<code>e != null</code>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s2>&#34;places/London&#34;</span> <span class=kr>GRAPH</span> <span class=s2>&#34;kShortestPathsGraph&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=kp>PRUNE</span> <span class=n>v</span><span class=p>.</span><span class=n>label</span> <span class=o>==</span> <span class=s2>&#34;Glasgow&#34;</span> <span class=kr>OR</span> <span class=p>(</span><span class=n>e</span> <span class=o>!=</span> <span class=kc>null</span> <span class=kr>AND</span> <span class=n>e</span><span class=p>.</span><span class=n>travelTime</span> <span class=o>&lt;</span> <span class=mf>2.5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=kp>OPTIONS</span> <span class=p>{</span> <span class=n>uniqueVertices</span><span class=o>:</span> <span class=s2>&#34;path&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=nf>CONCAT_SEPARATOR</span><span class=p>(</span><span class=s2>&#34; -- &#34;</span><span class=p>,</span> <span class=nf>INTERLEAVE</span><span class=p>(</span><span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span><span class=p>,</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>travelTime</span><span class=p>))</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Brussels -- 2 -- Cologne&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;London -- 2.5 -- Birmingham -- 1 -- Carlisle&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class="box notices cstyle warning"><div class=box-content-container><div class=box-content><i class="fas fa-exclamation-triangle"></i><div class=box-text><p>You can use AQL functions in prune expressions but only those that can be
+executed on DB-Servers, regardless of your deployment mode. The following
+functions cannot be used in the expression:</p><ul><li><code>CALL()</code></li><li><code>APPLY()</code></li><li><code>DOCUMENT()</code></li><li><code>V8()</code></li><li><code>SCHEMA_GET()</code></li><li><code>SCHEMA_VALIDATE()</code></li><li><code>VERSION()</code></li><li><code>COLLECTIONS()</code></li><li><code>CURRENT_USER()</code></li><li><code>CURRENT_DATABASE()</code></li><li><code>COLLECTION_COUNT()</code></li><li><code>NEAR()</code></li><li><code>WITHIN()</code></li><li><code>WITHIN_RECTANGLE()</code></li><li><code>FULLTEXT()</code></li><li><a href="https://docs.arangodb.com/3.11/aql/user-defined-functions/" class=link>User-defined functions (UDFs)</a></li></ul></div></div></div></div><h2 id=using-filters>Using filters <a href="index.html#using-filters" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>All three variables emitted by the traversals might as well be used in filter
+statements. For some of these filter statements the optimizer can detect that it
+is possible to prune paths of traversals earlier, hence filtered results are
+not emitted to the variables in the first place. This may significantly
+improve the performance of your query. Whenever a filter is not fulfilled,
+the complete set of <code>vertex</code>, <code>edge</code> and <code>path</code> is skipped. All paths
+with a length greater than the <code>max</code> depth are never computed.</p><p>Filter conditions that are <code>AND</code>-combined can be optimized, but <code>OR</code>-combined
+conditions cannot.</p><h3 id=filtering-on-paths>Filtering on paths <a href="index.html#filtering-on-paths" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Filtering on paths allows for the second most powerful filtering and may have the
+second highest impact on performance. Using the path variable you can filter on
+specific iteration depths. You can filter for absolute positions in the path
+by specifying a positive number (which then qualifies for the optimizations),
+or relative positions to the end of the path by specifying a negative number.</p><h4 id=filtering-edges-on-the-path>Filtering edges on the path <a href="index.html#filtering-edges-on-the-path" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>This example traversal filters all paths where the start edge (index 0) has the
+attribute <code>theTruth</code> equal to <code>true</code>. The resulting paths are up to 5 items long:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>theTruth</span> <span class=o>==</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;K&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;F&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_schubi&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blorg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h4 id=filtering-vertices-on-the-path>Filtering vertices on the path <a href="index.html#filtering-vertices-on-the-path" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>Similar to filtering the edges on the path, you can also filter the vertices:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>_key</span> <span class=o>==</span> <span class=s2>&#34;G&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;K&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><h4 id=combining-several-filters>Combining several filters <a href="index.html#combining-several-filters" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>You can combine filters in any way you like:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>theTruth</span> <span class=o>==</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>       <span class=kr>AND</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>theFalse</span> <span class=o>==</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>_key</span> <span class=o>==</span> <span class=s2>&#34;G&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;K&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>The query filters all paths where the first edge has the attribute
+<code>theTruth</code> equal to <code>true</code>, the first vertex is <code>"G"</code> and the second edge has
+the attribute <code>theFalse</code> equal to <code>false</code>. The resulting paths are up to
+5 items long.</p><p><strong>Note</strong>: Despite the <code>min</code> depth of 1, this only returns results of
+depth 2. This is because for all results in depth 1, the second edge does not
+exist and hence cannot fulfill the condition here.</p><h4 id=filter-on-the-entire-path>Filter on the entire path <a href="index.html#filter-on-the-entire-path" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h4><p>With the help of array comparison operators filters can also be defined
+on the entire path, like <code>ALL</code> edges should have <code>theTruth == true</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>theTruth</span> <span class=kr>ALL</span> <span class=o>==</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;K&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;F&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_schubi&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blorg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>Or <code>NONE</code> of the edges should have <code>theTruth == true</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>theTruth</span> <span class=kr>NONE</span> <span class=o>==</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> <span class=p>]</span></span></span></code></pre></div></div></div><br><p>Both examples above are recognized by the optimizer and can potentially use other indexes
+than the edge index.</p><p>It is also possible to define that at least one edge on the path has to fulfill the condition:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>5</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>theTruth</span> <span class=kr>ANY</span> <span class=o>==</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=p>{</span> <span class=n>vertices</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>_key</span><span class=p>,</span> <span class=n>edges</span><span class=o>:</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=o>*</span><span class=p>].</span><span class=n>label</span> <span class=p>}</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;K&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zip&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_foo&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blob&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;F&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blub&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_schubi&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;vertices&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>],</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;edges&#34;</span> <span class=o>:</span> <span class=p>[</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_bar&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blarg&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;left_blorg&#34;</span> 
+</span></span><span class=line><span class=cl>    <span class=p>]</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>It is guaranteed that at least one, but potentially more edges fulfill the condition.
+All of the above filters can be defined on vertices in the exact same way.</p><h3 id=filtering-on-the-path-vs-filtering-on-vertices-or-edges>Filtering on the path vs. filtering on vertices or edges <a href="index.html#filtering-on-the-path-vs-filtering-on-vertices-or-edges" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Filtering on the path influences the Iteration on your graph. If certain conditions
+aren&rsquo;t met, the traversal may stop continuing along this path.</p><p>In contrast filters on vertex or edge only express whether you&rsquo;re interested in the actual value of these
+documents. Thus, it influences the list of returned documents (if you return v or e) similar
+as specifying a non-null <code>min</code> value. If you specify a min value of 2, the traversal over the first
+two nodes of these paths has to be executed - you just won&rsquo;t see them in your result array.</p><p>Similar are filters on vertices or edges - the traverser has to walk along these nodes, since
+you may be interested in documents further down the path.</p><h3 id=examples>Examples <a href="index.html#examples" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Create a simple symmetric traversal demonstration graph:</p><p><figure class=image-caption><img alt="traversal graph" src="../../../../images/traversal_graph.png"><figcaption></figcaption></figure></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>graph</span> <span class=o>=</span> <span class=nx>examples</span><span class=p>.</span><span class=nx>loadGraph</span><span class=p>(</span><span class=s2>&#34;traversalGraph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>circles</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>db</span><span class=p>.</span><span class=nx>edges</span><span class=p>.</span><span class=nx>toArray</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>print</span><span class=p>(</span><span class=s2>&#34;once you don&#39;t need them anymore, clean them up:&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>examples</span><span class=p>.</span><span class=nx>dropGraph</span><span class=p>(</span><span class=s2>&#34;traversalGraph&#34;</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8----&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;1&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8---_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;2&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8---A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;3&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;4&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;5&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;6&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;7&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;8&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;9&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;10&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;11&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66210&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66210&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8C--G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_bar&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66212&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66212&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blarg&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66214&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66214&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blorg&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66216&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66216&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_blub&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66218&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66218&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;left_schubi&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66220&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66220&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_foo&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66222&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66222&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_blob&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66224&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66224&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8G--E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_blub&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66226&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66226&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8K---&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_zip&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>},</span> 
+</span></span><span class=line><span class=cl>  <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_key&#34;</span> <span class=o>:</span> <span class=s2>&#34;66228&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;edges/66228&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_from&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_to&#34;</span> <span class=o>:</span> <span class=s2>&#34;circles/K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;_rev&#34;</span> <span class=o>:</span> <span class=s2>&#34;_jOk2X8K--_&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theFalse&#34;</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;theTruth&#34;</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;label&#34;</span> <span class=o>:</span> <span class=s2>&#34;right_zup&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>once</span> <span class=nx>you</span> <span class=nx>don</span><span class=err>&#39;</span><span class=nx>t</span> <span class=nx>need</span> <span class=nx>them</span> <span class=nx>anymore</span><span class=p>,</span> <span class=nx>clean</span> <span class=nx>them</span> <span class=nx>up</span><span class=o>:</span></span></span></code></pre></div></div></div><br><p>To get started we select the full graph. For better overview we only return
+the vertex IDs:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=n>edges</span> <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>We can nicely see that it is heading for the first outer vertex, then goes back to
+the branch to descend into the next tree. After that it returns to our start node,
+to descend again. As we can see both queries return the same result, the first one
+uses the named graph, the second uses the edge collections directly.</p><p>Now we only want the elements of a specific depth (min = max = 2), the ones that
+are right behind the fork:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>2</span><span class=o>..</span><span class=mi>2</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mi>2</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>As you can see, we can express this in two ways: with or without the <code>max</code> depth
+parameter.</p><h3 id=filter-examples>Filter examples <a href="index.html#filter-examples" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h3><p>Now let&rsquo;s start to add some filters. We want to cut of the branch on the right
+side of the graph, we may filter in two ways:</p><ul><li>we know the vertex at depth 1 has <code>_key</code> == <code>G</code></li><li>we know the <code>label</code> attribute of the edge connecting <strong>A</strong> to <strong>G</strong> is <code>right_foo</code></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>_key</span> <span class=o>!=</span> <span class=s1>&#39;G&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>label</span> <span class=o>!=</span> <span class=s1>&#39;right_foo&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>As we can see, all vertices behind <strong>G</strong> are skipped in both queries.
+The first filters on the vertex <code>_key</code>, the second on an edge label.
+Note again, as soon as a filter is not fulfilled for any of the three elements
+<code>v</code>, <code>e</code> or <code>p</code>, the complete set of these is excluded from the result.</p><p>We also may combine several filters, for instance to filter out the right branch
+(<strong>G</strong>), and the <strong>E</strong> branch:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>_key</span> <span class=o>!=</span> <span class=s1>&#39;G&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>label</span> <span class=o>!=</span> <span class=s1>&#39;left_blub&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>vertices</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>_key</span> <span class=o>!=</span> <span class=s1>&#39;G&#39;</span> <span class=kr>AND</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=n>label</span> <span class=o>!=</span> <span class=s1>&#39;left_blub&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>As you can see, combining two <code>FILTER</code> statements with an <code>AND</code> has the same result.</p><h2 id=comparing-outbound--inbound--any>Comparing OUTBOUND / INBOUND / ANY <a href="index.html#comparing-outbound--inbound--any" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>All our previous examples traversed the graph in <code>OUTBOUND</code> edge direction.
+You may however want to also traverse in reverse direction (<code>INBOUND</code>) or
+both (<code>ANY</code>). Since <code>circles/A</code> only has outbound edges, we start our queries
+from <code>circles/E</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/E&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>INBOUND</span> <span class=s1>&#39;circles/E&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;A&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>ANY</span> <span class=s1>&#39;circles/E&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;A&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;C&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>The first traversal only walks in the forward (<code>OUTBOUND</code>) direction.
+Therefore from <strong>E</strong> we only can see <strong>F</strong>. Walking in reverse direction
+(<code>INBOUND</code>), we see the path to <strong>A</strong>: <strong>B</strong> → <strong>A</strong>.</p><p>Walking in forward and reverse direction (<code>ANY</code>) we can see a more diverse result.
+First of all, we see the simple paths to <strong>F</strong> and <strong>A</strong>. However, these vertices
+have edges in other directions and they are traversed.</p><p><strong>Note</strong>: The traverser may use identical edges multiple times. For instance,
+if it walks from <strong>E</strong> to <strong>F</strong>, it continues to walk from <strong>F</strong> to <strong>E</strong>
+using the same edge once again. Due to this, we see duplicate nodes in the result.</p><p>Please note that the direction can&rsquo;t be passed in by a bind parameter.</p><h2 id=use-the-aql-explainer-for-optimizations>Use the AQL explainer for optimizations <a href="index.html#use-the-aql-explainer-for-optimizations" class=header-link onclick=copyURI(event)><span></span><i class="fa fa-link"></i></a></h2><p>Now let&rsquo;s have a look what the optimizer does behind the curtain and inspect
+traversal queries using <a href="https://docs.arangodb.com/3.11/aql/execution-and-performance/query-optimization/" class=link>the explainer</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>LET</span> <span class=n>localScopeVar</span> <span class=o>=</span> <span class=nf>RAND</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mf>0.5</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>theTruth</span> <span class=o>!=</span> <span class=n>localScopeVar</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;I&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;B&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;E&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;F&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;D&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=kr>FOR</span> <span class=n>v</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>p</span> <span class=kr>IN</span> <span class=mf>1</span><span class=o>..</span><span class=mi>3</span> <span class=kr>OUTBOUND</span> <span class=s1>&#39;circles/A&#39;</span> <span class=kr>GRAPH</span> <span class=s1>&#39;traversalGraph&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>FILTER</span> <span class=n>p</span><span class=p>.</span><span class=n>edges</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>label</span> <span class=o>==</span> <span class=s1>&#39;right_foo&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>RETURN</span> <span class=n>v</span><span class=p>.</span><span class=n>_key</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-aql data-lang=aql><span class=line><span class=cl><span class=p>[</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;G&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;J&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;K&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;H&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;I&#34;</span> 
+</span></span><span class=line><span class=cl><span class=p>]</span></span></span></code></pre></div></div></div><br><p>We now see two queries: In one we add a <code>localScopeVar</code> variable, which is outside
+the scope of the traversal itself - it is not known inside of the traverser.
+Therefore, this filter can only be executed after the traversal, which may be
+undesired in large graphs. The second query on the other hand only operates on the
+path, and therefore this condition can be used during the execution of the traversal.
+Paths that are filtered out by this condition won&rsquo;t be processed at all.</p><p>And finally clean it up again:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>var</span> <span class=nx>examples</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;@arangodb/graph-examples/example-graph&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>examples</span><span class=p>.</span><span class=nx>dropGraph</span><span class=p>(</span><span class=s2>&#34;traversalGraph&#34;</span><span class=p>);</span></span></span></code></pre></div><div class=expand><a class=expand-label onclick=toggleExpandShortcode(event)>Show output</a><div class=expand-content style=display:none><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>Empty</span> <span class=nx>Output</span></span></span></code></pre></div></div></div><br><p>If this traversal is not powerful enough for your needs, like you cannot describe
+your conditions as AQL filter statements, then you might want to have a look at
+the <a href="https://docs.arangodb.com/3.11/develop/javascript-api/@arangodb/collection-object/#edge-documents" class=link>edge collection methods</a>
+in the JavaScript API.</p><p>Also see how to <a href="https://docs.arangodb.com/3.11/aql/examples-and-query-patterns/traversals/" class=link>combine graph traversals</a>.</p><nav class=pagination><span class=prev><a class="nav nav-prev link" href="../traversals-explained/index.html"><i class="fas fa-chevron-left fa-fw"></i><p>Traversals explained</p></a></span><span class=next><a class="nav nav-next link" href="../shortest-path/index.html"><p>Shortest Path</p><i class="fas fa-chevron-right fa-fw"></i></a></span></nav></article><div class=toc-container><a class=edit-page aria-label href=https://github.com/arangodb/docs-hugo/edit/main/site/content/3.11/aql/graphs/traversals.md target=_blank><i class="fab fa-fw fa-github edit-page-icon"></i></a><div class=toc><div class=toc-content><div class=toc-header><p>On this page</p></div><nav id=TableOfContents><div class=level-2><a href="index.html#syntax">Syntax</a></div><div class=level-3><a href="index.html#working-with-named-graphs">Working with named graphs</a></div><div class=level-3><a href="index.html#working-with-collection-sets">Working with collection sets</a></div><div class=level-3><a href="index.html#traversal-options">Traversal options</a></div><div class=level-4><a href="index.html#order"><code>order</code></a></div><div class=level-4><a href="index.html#bfs"><code>bfs</code></a></div><div class=level-4><a href="index.html#uniquevertices"><code>uniqueVertices</code></a></div><div class=level-4><a href="index.html#uniqueedges"><code>uniqueEdges</code></a></div><div class=level-4><a href="index.html#edgecollections"><code>edgeCollections</code></a></div><div class=level-4><a href="index.html#vertexcollections"><code>vertexCollections</code></a></div><div class=level-4><a href="index.html#parallelism"><code>parallelism</code></a></div><div class=level-4><a href="index.html#maxprojections"><code>maxProjections</code></a></div><div class=level-4><a href="index.html#weightattribute"><code>weightAttribute</code></a></div><div class=level-4><a href="index.html#defaultweight"><code>defaultWeight</code></a></div><div class=level-3><a href="index.html#traversing-in-mixed-directions">Traversing in mixed directions</a></div><div class=level-3><a href="index.html#graph-traversals-in-a-cluster">Graph traversals in a cluster</a></div><div class=level-2><a href="index.html#pruning">Pruning</a></div><div class=level-2><a href="index.html#using-filters">Using filters</a></div><div class=level-3><a href="index.html#filtering-on-paths">Filtering on paths</a></div><div class=level-4><a href="index.html#filtering-edges-on-the-path">Filtering edges on the path</a></div><div class=level-4><a href="index.html#filtering-vertices-on-the-path">Filtering vertices on the path</a></div><div class=level-4><a href="index.html#combining-several-filters">Combining several filters</a></div><div class=level-4><a href="index.html#filter-on-the-entire-path">Filter on the entire path</a></div><div class=level-3><a href="index.html#filtering-on-the-path-vs-filtering-on-vertices-or-edges">Filtering on the path vs. filtering on vertices or edges</a></div><div class=level-3><a href="index.html#examples">Examples</a></div><div class=level-3><a href="index.html#filter-examples">Filter examples</a></div><div class=level-2><a href="index.html#comparing-outbound--inbound--any">Comparing OUTBOUND / INBOUND / ANY</a></div><div class=level-2><a href="index.html#use-the-aql-explainer-for-optimizations">Use the AQL explainer for optimizations</a></div></nav></div></div></div></div></div></section></section></div><button class="back-to-top hidden" onclick=goToTop(event) href=#><i class="fa fa-arrow-up"></i></button><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@docsearch/css@3>
+<script src=https://cdn.jsdelivr.net/npm/@docsearch/js@3></script>
+<script type=text/javascript>window.setupDocSearch=function(e){if(!window.docsearch)return;docsearch({appId:"OK3ZBQ5982",apiKey:"500c85ccecb335d507fe4449aed12e1d",indexName:"arangodbdocs",insights:!0,container:"#searchbox",debug:!1,maxResultsPerGroup:10,searchParameters:{facetFilters:[`version:${e}`]}})}</script></body></html>

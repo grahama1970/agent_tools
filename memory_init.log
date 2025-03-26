@@ -1,0 +1,70 @@
+2025-03-25 17:36:44,016 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:36:44,498 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:36:44,499 - memory_init - INFO - Initializing memory system with database: test_memory.db
+2025-03-25 17:36:48,923 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:36:50,837 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:37:01,111 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:37:01,422 - ai_memory - ERROR - Error finding related documents: name 'np' is not defined
+2025-03-25 17:37:01,707 - ai_memory - ERROR - Error finding related documents: name 'np' is not defined
+2025-03-25 17:37:01,938 - ai_memory - ERROR - Error finding related documents: name 'np' is not defined
+2025-03-25 17:37:21,120 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:37:21,637 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:37:21,640 - memory_init - INFO - Initializing memory system with database: test_memory.db
+2025-03-25 17:37:24,585 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:37:26,200 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:37:39,609 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:37:39,870 - ai_memory - ERROR - Error finding related documents: name 'cosine_similarity' is not defined
+2025-03-25 17:37:40,135 - ai_memory - ERROR - Error finding related documents: name 'cosine_similarity' is not defined
+2025-03-25 17:37:40,400 - ai_memory - ERROR - Error finding related documents: name 'cosine_similarity' is not defined
+2025-03-25 17:37:58,592 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:37:59,034 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:37:59,035 - memory_init - INFO - Initializing memory system with database: test_memory.db
+2025-03-25 17:38:03,682 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:38:05,278 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:38:17,815 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:39:12,330 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:39:12,845 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:41:14,203 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:41:14,540 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:41:29,365 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:41:29,824 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:42:08,502 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:42:09,017 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:42:24,197 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:42:24,642 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:42:24,644 - memory_init - INFO - Initializing memory system with database: memory.db
+2025-03-25 17:42:29,037 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:42:31,081 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:42:42,509 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:42:58,766 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:42:59,277 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:43:12,695 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:43:13,049 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:45:12,849 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:45:13,309 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:48:46,731 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:48:47,233 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:48:47,235 - memory_init - INFO - Initializing memory system with database: memory.db
+2025-03-25 17:48:49,827 - memory_system - INFO - Built semantic index with 38 documents
+2025-03-25 17:48:51,485 - transformers_modules.nomic-ai.nomic-bert-2048.e5042dce39060cc34bc223455f25cf1d26db4655.modeling_hf_nomic_bert - WARNING - !!!!!!!!!!!!megablocks not available, using torch.matmul instead
+2025-03-25 17:49:02,542 - ai_memory - INFO - Built vector store with 38 documents
+2025-03-25 17:49:16,692 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:49:17,228 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:49:32,904 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:49:33,461 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:49:47,242 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:49:47,708 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:51:59,384 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:51:59,706 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:52:08,711 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:52:09,106 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:52:23,494 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:52:24,042 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:53:04,788 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:53:05,354 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:53:20,110 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:53:20,615 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:53:35,371 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:53:35,930 - ai_memory - INFO - Using proper embedding utilities for semantic search
+2025-03-25 17:53:50,974 - datasets - INFO - PyTorch version 2.5.1 available.
+2025-03-25 17:53:51,439 - ai_memory - INFO - Using proper embedding utilities for semantic search

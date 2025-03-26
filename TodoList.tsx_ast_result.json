@@ -1,0 +1,26 @@
+{
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/react/fixtures/flight-parcel/src/TodoList.tsx",
+  "language": "typescript",
+  "classes": [],
+  "functions": [],
+  "interfaces": [],
+  "imports": [
+    {
+      "text": "import {TodoItem} from './TodoItem';",
+      "line": 0,
+      "column": 0
+    },
+    {
+      "text": "import {getTodos} from './actions';",
+      "line": 0,
+      "column": 0
+    }
+  ],
+  "exports": [
+    {
+      "text": "export async function TodoList({id}: {id: number | undefined}) {\n  let todos = await getTodos();\n  return (\n    <ul className=\"todo-list\">\n      {todos.map(todo => (\n        <TodoItem key={todo.id} todo={todo} isSelected={todo.id === id} />\n      ))}\n    </ul>\n  );\n}",
+      "line": 0,
+      "column": 0
+    }
+  ]
+}

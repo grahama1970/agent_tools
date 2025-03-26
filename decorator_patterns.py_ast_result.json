@@ -1,0 +1,144 @@
+{
+  "file_path": "/home/grahama/workspace/experiments/agent_tools/test_repos/complex_python_sample/decorator_patterns.py",
+  "language": "python",
+  "classes": [
+    {
+      "name": "LazyProperty",
+      "line": 89,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 96,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "__get__",
+          "line": 107,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "CachedDecorator",
+      "line": 126,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 129,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        },
+        {
+          "name": "__call__",
+          "line": 133,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [],
+      "inner_classes": [],
+      "inherits_from": []
+    },
+    {
+      "name": "ComplexClass",
+      "line": 157,
+      "column": 0,
+      "docstring": null,
+      "methods": [
+        {
+          "name": "__init__",
+          "line": 160,
+          "column": 4,
+          "decorators": [],
+          "parameters": [
+            "self"
+          ],
+          "docstring": null
+        }
+      ],
+      "attributes": [
+        {
+          "name": "cached",
+          "line": 193,
+          "column": 4
+        }
+      ],
+      "inner_classes": [],
+      "inherits_from": []
+    }
+  ],
+  "functions": [
+    {
+      "name": "timing_decorator",
+      "line": 16,
+      "column": 0,
+      "decorators": [],
+      "parameters": [],
+      "docstring": null
+    },
+    {
+      "name": "retry",
+      "line": 36,
+      "column": 0,
+      "decorators": [],
+      "parameters": [],
+      "docstring": null
+    },
+    {
+      "name": "validate_types",
+      "line": 62,
+      "column": 0,
+      "decorators": [],
+      "parameters": [],
+      "docstring": null
+    }
+  ],
+  "imports": [
+    {
+      "text": "import functools",
+      "line": 7,
+      "column": 0
+    },
+    {
+      "text": "import time",
+      "line": 8,
+      "column": 0
+    },
+    {
+      "text": "import inspect",
+      "line": 9,
+      "column": 0
+    },
+    {
+      "text": "from typing import Any, Callable, Dict, Optional, Type, TypeVar, cast",
+      "line": 10,
+      "column": 0
+    }
+  ],
+  "docstring": "\nExample of advanced decorator patterns and descriptor usage.\nThis tests the AST extractor's ability to handle complex decorators.\n"
+}
